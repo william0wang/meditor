@@ -1,0 +1,787 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\MEditor2.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MEditor2.ico"
+IDI_ICON_SWF            ICON                    "res\\flash.ico"
+IDI_ICON_DS             ICON                    "res\\dshow.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 MPlayer 首选项"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,18,18
+    LTEXT           "MPlayer 首选项 v2.01 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) william0wang 2008",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_MEDITOR2_DIALOG DIALOGEX 0, 0, 365, 239
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "MPlayer 首选项"
+MENU IDR_MAINFRAME
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "应用",IDC_APPLY,322,217,36,15
+    PUSHBUTTON      "确定",IDOK,236,217,36,15
+    PUSHBUTTON      "取消",IDCANCEL,279,217,36,15
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,7,0,351,214
+    CONTROL         "Progress1",IDC_PROGRESS_APPLEY,"msctls_progress32",PBS_SMOOTH | NOT WS_VISIBLE,7,220,171,9
+    PUSHBUTTON      "帮助",IDC_SHOWHELP,193,217,36,15
+END
+
+IDD_PLAYER_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    COMBOBOX        IDC_COMBO_MONITOR,262,37,77,56,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "播放优先级",IDC_STATIC,212,25,46,8
+    GROUPBOX        "OSD设置",IDC_STATIC,211,127,132,66
+    LTEXT           "MPlayer语言",IDC_STATIC,212,10,46,8
+    COMBOBOX        IDC_COMBO_AUTOSYNC,262,52,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_LANGUAGE,262,7,77,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "前端显示",IDC_STATIC,212,85,46,8
+    CONTROL         "URL使用GBK编码",IDC_CHECK_URL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,75,77,10
+    CONTROL         "只打开一个播放器",IDC_CHECK_ONLYONE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,75,80,10
+    CONTROL         "全屏方式打开文件",IDC_CHECK_FULLSCREEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,59,80,10
+    COMBOBOX        IDC_COMBO_LOG,262,112,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "显示器长宽比",IDC_STATIC,212,40,46,8
+    COMBOBOX        IDC_COMBO_PRIORITY,262,22,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "日志文件",IDC_STATIC,212,113,46,8
+    COMBOBOX        IDC_COMBO_LOOP,262,67,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "循环播放",IDC_STATIC,212,70,46,8
+    COMBOBOX        IDC_COMBO_ONTOP,262,82,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "音视频同步",IDC_STATIC,212,55,46,8
+    CONTROL         "显示播放器窗口",IDC_CHECK_SHOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,11,72,10
+    CONTROL         "播放结束后退出",IDC_CHECK_QUIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,91,72,10
+    LTEXT           "截图保存文件夹",IDC_STATIC,9,161,57,8
+    CONTROL         "使用窗口独立线程",IDC_CHECK_GUITHREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,43,80,10
+    EDITTEXT        IDC_EDIT_PNG,76,158,103,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_BUTTON_PNG,181,158,26,13
+    LTEXT           "DVD盘符或文件夹",IDC_STATIC,9,178,64,8
+    EDITTEXT        IDC_EDIT_DVD,76,176,102,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_START,45,140,41,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_BUTTON_DVD,181,176,26,13
+    LTEXT           "跳过片头",IDC_STATIC,9,142,33,8
+    LTEXT           "跳过片尾",IDC_STATIC,99,142,33,8
+    EDITTEXT        IDC_EDIT_END,133,140,41,12,ES_AUTOHSCROLL
+    CONTROL         "显示菜单栏",IDC_CHECK_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,27,56,10
+    LTEXT           "时:分:秒",IDC_STATIC,178,142,32,8
+    CONTROL         "显示控制条",IDC_CHECK_CTRL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,11,52,10
+    LTEXT           "OSD字体",IDC_STATIC,216,139,34,8
+    LTEXT           "OSD字体尺寸",IDC_STATIC,216,152,50,8
+    COMBOBOX        IDC_COMBO_OSDSIZE,266,150,74,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "OSD时间显示",IDC_STATIC,216,166,50,8
+    COMBOBOX        IDC_COMBO_OSDTIME,266,164,74,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "OSD显示模式",IDC_STATIC,216,180,50,8
+    COMBOBOX        IDC_COMBO_OSDMODE,266,178,74,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_OSDF,256,136,84,54,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "减少控制台信息(推荐)",IDC_CHECK_QUIET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,43,92,10
+    CONTROL         "双缓冲(推荐)",IDC_CHECK_DOUBLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,59,60,10
+    COMBOBOX        IDC_COMBO_COLORKEY,262,97,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "ColorKey",IDC_STATIC,212,99,46,8
+    COMBOBOX        IDC_COMBO_CACHE,44,123,47,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "缓存容量",IDC_STATIC,9,125,32,8
+    CONTROL         "支持特定文件单独配置",IDC_CHECK_CONF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,91,96,10
+    LTEXT           "隐藏边框",IDC_STATIC,99,125,32,8
+    COMBOBOX        IDC_COMBO_VIEW,133,123,43,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "显示控制按钮",IDC_CHECK_BOTTOM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,27,69,10
+    COMBOBOX        IDC_COMBO_SYSTRAY,44,107,47,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "最小化到",IDC_STATIC,9,109,32,8
+    LTEXT           "连续播放",IDC_STATIC,99,109,32,8
+    COMBOBOX        IDC_COMBO_AUTOPLAY,133,107,43,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_FUZZINESS,179,107,18,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+END
+
+IDD_INPUT_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_INPUT,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,7,336,174
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,7,183,34,14
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,46,183,34,14
+END
+
+IDD_ASSOS_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_ASSOS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,20,336,162
+    PUSHBUTTON      "添加",IDC_ADD,7,183,34,14
+    PUSHBUTTON      "全选",IDC_ALL,129,183,34,14
+    PUSHBUTTON      "不选",IDC_NONE,169,183,34,14
+    PUSHBUTTON      "视频",IDC_RECOMMAND,209,183,34,14
+    PUSHBUTTON      "删除",IDC_DEL,46,183,34,14
+    DEFPUSHBUTTON   "应用关联",IDC_ASSOS,300,183,43,14
+    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,7,68,10
+    LTEXT           "关联格式右键菜单:",IDC_STATIC,136,8,61,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,272,7,72,10
+    CONTROL         "DirectShow媒体文件关联到MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,8,7,114,10
+END
+
+IDD_VIDEO_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "OpenGL 驱动设置",IDC_STATIC,117,7,101,68
+    LTEXT           "驱动",IDC_STATIC,10,12,21,8
+    COMBOBOX        IDC_COMBO_VO,28,10,83,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "使用软件颜色转换(不推荐)",IDC_CHECK_SOFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,45,94,10
+    CONTROL         "动态改变OSD大小(不推荐)",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,32,95,10
+    CONTROL         "全屏进度条不闪屏(推荐)",IDC_CHECK_FLASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,19,91,10
+    LTEXT           "OSD颜色",IDC_STATIC,120,61,32,8
+    EDITTEXT        IDC_EDIT_COLOR,149,59,38,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "COLOR",IDC_BUTTON_COLOR,190,58,26,13
+    CONTROL         "",IDC_LIST_VF,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,87,336,106
+    GROUPBOX        "视频滤镜",IDC_STATIC,7,76,336,117
+    CONTROL         "Slider1",IDC_SLIDER_BRINGHTNESS,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,13,78,6
+    LTEXT           "亮度",IDC_STATIC,222,11,17,8
+    EDITTEXT        IDC_EDIT_BRINGHTNESS,323,9,20,12,ES_AUTOHSCROLL
+    LTEXT           "对比度",IDC_STATIC,222,25,25,8
+    CONTROL         "Slider1",IDC_SLIDER_CONTRAST,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,27,78,6
+    EDITTEXT        IDC_EDIT_CONTRAST,323,23,20,12,ES_AUTOHSCROLL
+    LTEXT           "饱和度",IDC_STATIC,222,39,25,8
+    CONTROL         "Slider1",IDC_SLIDER_SATURATIONS,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,41,78,6
+    EDITTEXT        IDC_EDIT_SATURATIONS,323,37,20,12,ES_AUTOHSCROLL
+    LTEXT           "色度",IDC_STATIC,222,53,17,8
+    CONTROL         "Slider1",IDC_SLIDER_HUE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,55,78,6
+    EDITTEXT        IDC_EDIT_HUE,323,51,20,12,ES_AUTOHSCROLL
+    CONTROL         "保持影片高宽比",IDC_CHECK_KEEPAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,42,61,10
+    CONTROL         "允许丢帧",IDC_CHECK_FRAMEDROP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,70,42,41,10
+    COMBOBOX        IDC_COMBO_MXCOLOR,58,25,51,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "矩阵特效颜色",IDC_STATIC,10,27,43,8
+    CONTROL         "重建文件索引",IDC_CHECK_REINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,53,10
+    LTEXT           "伽玛值",IDC_STATIC,222,67,25,8
+    CONTROL         "",IDC_SLIDER_GAMMA,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,69,78,6
+    EDITTEXT        IDC_EDIT_GAMMA,323,65,20,12,ES_AUTOHSCROLL
+    CONTROL         "直接渲染",IDC_CHECK_DR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,70,59,40,10
+END
+
+IDD_AUDIO_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER_VOLUME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,28,36,103,6
+    LTEXT           "音量",IDC_STATIC,10,33,17,8
+    EDITTEXT        IDC_EDIT_VOLUME,134,32,24,12,ES_AUTOHSCROLL
+    LTEXT           "增益",IDC_STATIC,178,33,17,8
+    LTEXT           "音频延迟",IDC_STATIC,244,18,33,8
+    EDITTEXT        IDC_EDIT_AUDIODELAY,280,16,40,12,ES_RIGHT | ES_AUTOHSCROLL
+    LTEXT           "秒",IDC_STATIC,326,18,9,8
+    CONTROL         "Slider1",IDC_SLIDER_VOLNORM,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,195,36,103,6
+    EDITTEXT        IDC_EDIT_VOLNORM,300,32,24,12,ES_AUTOHSCROLL
+    LTEXT           "%",IDC_STATIC,327,34,12,8
+    LTEXT           "音频驱动",IDC_STATIC,9,19,30,8
+    COMBOBOX        IDC_COMBO_AUDIO,43,16,93,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "音频设置",IDC_STATIC,7,7,336,96
+    CONTROL         "",IDC_LIST_AUDIO,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,48,336,54
+    LTEXT           "声道",IDC_STATIC,153,19,17,8
+    COMBOBOX        IDC_COMBO_CHANNELS,173,16,56,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字体1",IDC_STATIC,15,147,30,8
+    CONTROL         "使用SSA/ASS字幕效果",IDC_CHECK_ASS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,243,131,95,10
+    LTEXT           "尺寸",IDC_STATIC,15,178,30,8
+    COMBOBOX        IDC_COMBO_SIZE,51,175,34,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "忽略错误",IDC_STATIC,142,132,33,8
+    EDITTEXT        IDC_EDIT_ERROR,179,130,16,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "行",IDC_STATIC,199,132,9,8
+    GROUPBOX        "字幕设置",IDC_STATIC,7,105,336,88
+    CONTROL         "优化DVD字幕效果",IDC_COMBO_OSDTIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,243,117,79,10
+    LTEXT           "字幕延迟",IDC_STATIC,141,147,33,8
+    EDITTEXT        IDC_EDIT_SUBDELAY,175,145,31,12,ES_RIGHT | ES_AUTOHSCROLL
+    LTEXT           "0~100",IDC_STATIC,199,118,22,8
+    LTEXT           "字体2",IDC_STATIC,15,161,30,8
+    COMBOBOX        IDC_COMBO_F1,51,145,86,48,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_F2,51,160,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字幕颜色",IDC_STATIC,242,145,33,8
+    LTEXT           "边框颜色",IDC_STATIC,242,160,33,8
+    COMBOBOX        IDC_COMBO_COLOR,275,142,65,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_BCOLOR,275,158,65,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "匹配度",IDC_STATIC,15,119,25,8
+    COMBOBOX        IDC_COMBO_FUZZINESS,51,115,86,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字幕位置",IDC_STATIC,142,118,33,8
+    COMBOBOX        IDC_COMBO_ALIGN,51,130,86,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_SUBPOS,179,116,16,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "秒",IDC_STATIC,209,148,9,8
+    LTEXT           "对齐方式",IDC_STATIC,15,133,33,8
+    LTEXT           "字幕语言",IDC_STATIC,141,162,33,8
+    EDITTEXT        IDC_EDIT_SLANG,175,160,62,12,ES_AUTOHSCROLL
+    LTEXT           "字幕编码",IDC_STATIC,93,177,33,8
+    EDITTEXT        IDC_EDIT_SUBCP,128,175,109,12,ES_AUTOHSCROLL
+    LTEXT           "缩放模式",IDC_STATIC,242,176,33,8
+    COMBOBOX        IDC_COMBO_AUTOSCALE,275,174,65,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DECODE_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_VC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,34,164,60
+    GROUPBOX        "视频解码器优先级",IDC_STATIC,7,24,166,90
+    CONTROL         "",IDC_LIST_AC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,178,34,164,60
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,7,98,29,13
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,42,98,29,13
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,137,98,29,13
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,104,98,29,13
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD2,181,98,29,13
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL2,216,98,29,13
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN2,311,98,29,13
+    PUSHBUTTON      "上移",IDC_BUTTON_UP2,278,98,29,13
+    GROUPBOX        "解码设置",IDC_STATIC,7,118,336,75
+    CONTROL         "",IDC_LIST_AVCODEC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,129,336,64
+    GROUPBOX        "音频解码器优先级",IDC_STATIC,177,24,166,90
+    LTEXT           "解码器配置文件 (codecs.ini)",IDC_STATIC,7,9,91,8
+    COMBOBOX        IDC_COMBO_CODECS,102,7,100,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_OTHER_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "编辑器",IDC_STATIC,178,8,165,54
+    CONTROL         "记住最后设置的页面",IDC_CHECK_PAGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,18,83,10
+    GROUPBOX        "自定义 MPlayer 参数",IDC_STATIC,7,8,165,121
+    EDITTEXT        IDC_EDIT_OTHER,7,18,164,110,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    GROUPBOX        "播放外置音频的视频",IDC_STATIC,7,131,336,62
+    EDITTEXT        IDC_EDIT_VIDEO,37,142,266,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_AUDIO,37,160,266,14,ES_AUTOHSCROLL
+    LTEXT           "视频",IDC_STATIC,16,144,17,8
+    LTEXT           "音频",IDC_STATIC,16,163,17,9
+    PUSHBUTTON      "浏览",IDC_BUTTON_VIDEO,308,141,31,14
+    PUSHBUTTON      "浏览",IDC_BUTTON_AUDIO,308,160,31,14
+    PUSHBUTTON      "播放",IDC_BUTTON_PLAY,72,177,36,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLEAN,240,177,36,14
+    PUSHBUTTON      "Flash 播放器",IDC_BUTTON_FLASH,191,44,60,16
+    PUSHBUTTON      "媒体播放器",IDC_BUTTON_MEDIA,273,44,60,16
+    PUSHBUTTON      "注册 Real 在线",IDC_BUTTON_ONLINE,183,111,73,16
+    GROUPBOX        "Real 在线支持",IDC_STATIC,178,71,165,59
+    PUSHBUTTON      "反注册 Real 在线",IDC_BUTTON_DONLINE,264,111,73,16
+    CONTROL         "Real在线关联到 MPlayer 主程序",IDC_RADIO_MPLAYER,"Button",BS_AUTORADIOBUTTON | WS_GROUP,183,83,110,10
+    CONTROL         "Real在线关联到DirectShow播放器",IDC_RADIO_MEDITOR,"Button",BS_AUTORADIOBUTTON | WS_GROUP,183,97,115,10
+    CONTROL         "仅打开一个编辑器",IDC_CHECK_ONE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,30,77,10
+    PUSHBUTTON      "创建快捷方式",IDC_BUTTON_LINK,273,18,60,16
+    CONTROL         "使用MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,300,97,37,10
+END
+
+IDD_DIALOG_FLASH DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
+CAPTION "MFlashPlayer"
+MENU IDR_MENU_FLASH
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SHOCKWAVEFLASH,
+                    "{D27CDB6E-AE6D-11CF-96B8-444553540000}",WS_TABSTOP,0,0,320,240
+    CONTROL         "Slider1",IDC_SLIDER_CONTROL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
+IDD_DIALOG_LIST DIALOGEX 0, 0, 246, 78
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_TOOLWINDOW
+CAPTION "播放列表"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_PLAYLIST,3,1,240,57,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,3,60,28,14
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,56,60,28,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLEAN,109,60,28,14
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,162,60,28,14
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,215,60,28,14
+END
+
+IDD_DIALOG_MEDIA DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "MMediaPlayer"
+MENU IDR_MENU_WMP
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_OCX_MEDIA,"{6BF52A52-394A-11D3-B153-00C04F79FAA6}",WS_TABSTOP,0,0,320,240
+    CONTROL         "Slider1",IDC_SLIDER_CTRL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
+IDD_DIALOG_MLIST DIALOGEX 0, 0, 246, 78
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_TOOLWINDOW
+CAPTION "播放列表"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_PLAYLIST,3,1,240,57,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,3,60,28,14
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,56,60,28,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLEAN,109,60,28,14
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,162,60,28,14
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,215,60,28,14
+END
+
+IDD_RESUME_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_LIST_RESUME,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,35,336,109
+    GROUPBOX        "收藏的媒体文件",IDC_STATIC,7,23,336,121
+    CONTROL         "记住文件播放状态",IDC_CHECK_RESUME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,67,8,77,10
+    PUSHBUTTON      "播放",IDC_BUTTON_PLAY,23,147,39,14
+    PUSHBUTTON      "向下",IDC_BUTTON_DOWN,155,146,39,14
+    PUSHBUTTON      "向上",IDC_BUTTON_UP,89,147,39,14
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,221,146,39,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLA,287,146,39,14
+    LTEXT           "最大收藏媒体个数",IDC_STATIC,166,9,66,8
+    EDITTEXT        IDC_EDIT_NUM,236,7,23,12,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_DSHOW DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "MDSPlayer"
+MENU IDR_MENU_DSHOW
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER_CTRL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
+IDD_DIALOG_LINK DIALOGEX 0, 0, 209, 124
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "快捷方式"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,32,103,50,14
+    PUSHBUTTON      "取消",IDCANCEL,128,103,50,14
+    GROUPBOX        "桌面快捷方式",IDC_STATIC,7,7,195,31
+    CONTROL         "MPlayer",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,21,41,10
+    CONTROL         "MPlayer 首选项",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,21,67,10
+    GROUPBOX        "开始菜单快捷方式",IDC_STATIC,7,42,195,58
+    CONTROL         "MPlayer",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,55,41,10
+    CONTROL         "MPlayer 首选项",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,55,67,10
+    CONTROL         "常用工具 (自动检测)",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,85,87,10
+    CONTROL         "Flash 播放器",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,70,59,10
+    CONTROL         "DirectShow 播放器",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,70,78,10
+    CONTROL         "MPC (自动检测)",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,85,69,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x21L
+#else
+ FILEFLAGS 0x20L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "FileDescription", "MPlayer 首选项"
+            VALUE "FileVersion", "2.0.1"
+            VALUE "InternalName", "MEditor2.exe"
+            VALUE "LegalCopyright", "(C) william0wang 保留所有权利。"
+            VALUE "OriginalFilename", "MEditor2.exe"
+            VALUE "ProductName", "MPlayer 首选项"
+            VALUE "ProductVersion", "2.0.1.0"
+            VALUE "SpecialBuild", "2008.05.10"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_MEDITOR2_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 358
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_PLAYER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_INPUT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_ASSOS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_VIDEO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_AUDIO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DECODE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_OTHER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DIALOG_LIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 243
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 74
+    END
+
+    IDD_DIALOG_MLIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 243
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 74
+    END
+
+    IDD_RESUME_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DIALOG_LINK, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 202
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 117
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "保存",                          IDC_APPLY
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "预置"
+    BEGIN
+        MENUITEM "普通设置",                        32797
+        MENUITEM "高性能设置",                       32798
+        MENUITEM "低配置设置",                       IDM_LOWER
+    END
+    POPUP "查看"
+    BEGIN
+        MENUITEM "mplayer.ini",                 ID_MPLAYER_INI
+        MENUITEM "input.ini",                   ID_INPUT_INI
+        MENUITEM "kk.ini",                      ID_KK_INI
+        MENUITEM "日志文件",                        ID_LOG_TXT
+    END
+    POPUP "帮助"
+    BEGIN
+        MENUITEM "帮助主题",                        IDC_SHOWHELP
+        MENUITEM SEPARATOR
+        MENUITEM "关于",                          IDM_ABOUT
+    END
+END
+
+IDR_MENU_FLASH MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "打开文件",                        ID_FLASH_OPEN
+        MENUITEM "播放列表",                        ID_MPLAYLIST
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "播放"
+    BEGIN
+        MENUITEM "播放",                          ID_MPLAY
+        MENUITEM "停止",                          ID_MSTOP
+        MENUITEM SEPARATOR
+        MENUITEM "上一个",                         ID_MPRE
+        MENUITEM "下一个",                         ID_MNEXT
+    END
+    POPUP "视图"
+    BEGIN
+        MENUITEM "使用Flash右键菜单",                 IDM_RMENU
+    END
+END
+
+IDR_MENU_WMP MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "打开文件",                        ID_MEDIA_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "播放列表",                        IDM_PLAYLIST
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "播放"
+    BEGIN
+        MENUITEM "播放/暂停",                       IDM_PLAY
+        MENUITEM "停止",                          IDM_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "上一个",                         IDM_PREV
+        MENUITEM "下一个",                         IDM_NEXT
+    END
+    POPUP "视图"
+    BEGIN
+        MENUITEM "全屏幕",                         IDM_FULLSCREEN
+        MENUITEM "右键菜单",                        IDM_RIGHTMENU
+    END
+END
+
+IDR_MENU_DSHOW MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "打开文件",                        ID_DS_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "播放"
+    BEGIN
+        MENUITEM "播放/暂停",                       IDM_DSPLAY
+        MENUITEM "停止",                          IDM_DSSTOP
+    END
+    POPUP "视图"
+    BEGIN
+        MENUITEM "全屏幕",                         IDM_DSFULLSCREEN
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+IDR_MANIFEST            RT_MANIFEST             "res\\stlye.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG_FLASH DLGINIT
+BEGIN
+    IDC_SHOCKWAVEFLASH, 0x376, 232, 0
+0x0000, 0x0000, 0x5567, 0x5566, 0x0710, 0x0000, 0x39e1, 0x0000, 0x2b69, 
+0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 
+0x0000, 0x0000, 0x0008, 0x000e, 0x0000, 0x0057, 0x0069, 0x006e, 0x0064, 
+0x006f, 0x0077, 0x0000, 0x000b, 0x0000, 0x000b, 0x0000, 0x0008, 0x000a, 
+0x0000, 0x0048, 0x0069, 0x0067, 0x0068, 0x0000, 0x0008, 0x0002, 0x0000, 
+0x0000, 0x000b, 0xffff, 0x0008, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 
+0x0000, 0x0008, 0x0010, 0x0000, 0x0053, 0x0068, 0x006f, 0x0077, 0x0041, 
+0x006c, 0x006c, 0x0000, 0x000b, 0x0000, 0x000b, 0x0000, 0x0008, 0x0002, 
+0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 
+0x000d, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x000b, 0x0001, 0x000b, 0x0000, 0x0008, 0x0000, 0x0000, 0x0003, 0x0000, 
+0x0000, 0x0008, 0x0008, 0x0000, 0x0061, 0x006c, 0x006c, 0x0000, 0x0008, 
+0x000c, 0x0000, 0x0066, 0x0061, 0x006c, 0x0073, 0x0065, 0x0000, 
+    0
+END
+
+IDD_DIALOG_MEDIA DLGINIT
+BEGIN
+    IDC_OCX_MEDIA, 0x376, 168, 0
+0x0000, 0x0000, 0x0300, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0005, 
+0x0000, 0x0000, 0x0000, 0x3ff0, 0x0003, 0x0000, 0x0000, 0x0005, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0003, 0x0001, 
+0x0000, 0x000b, 0x0000, 0x0003, 0x0000, 0x0000, 0x000b, 0x0000, 0x0008, 
+0x0002, 0x0000, 0x0000, 0x0003, 0x0064, 0x0000, 0x000b, 0x0000, 0x0008, 
+0x000a, 0x0000, 0x006e, 0x006f, 0x006e, 0x0065, 0x0000, 0x000b, 0xffff, 
+0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0x0000, 0x0008, 
+0x0002, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0008, 0x0002, 
+0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x000b, 0xffff, 0x39e1, 
+0x0000, 0x2e82, 0x0000, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// CODECS_INI
+//
+
+IDZ_CODECS              CODECS_INI              "res\\codecs_ini.7z"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// INPUT_INI
+//
+
+IDZ_INPUT               INPUT_INI               "res\\input.7z"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 MEditor2(&A)..."
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\MEditor2.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
