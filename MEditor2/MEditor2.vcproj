@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="XListCtrlSSDU8.lib 7zDecD.lib  Strmiids.lib Quartz.lib"
+				AdditionalDependencies="7zDecD.lib  Strmiids.lib Quartz.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -154,7 +154,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="XListCtrlSSRU8.lib 7zdecR.lib Strmiids.lib Quartz.lib"
+				AdditionalDependencies="7zdecR.lib Strmiids.lib Quartz.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="false"
