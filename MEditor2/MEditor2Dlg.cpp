@@ -78,6 +78,7 @@ BEGIN_MESSAGE_MAP(CMEditor2Dlg, CDialog)
 	ON_COMMAND(ID_KK_INI, &CMEditor2Dlg::OnKkIni)
 	ON_COMMAND(ID_LOG_TXT, &CMEditor2Dlg::OnLogTxt)
 	ON_COMMAND(IDM_ABOUT, &CMEditor2Dlg::OnAbout)
+	ON_COMMAND(IDC_GOTOHOME, &CMEditor2Dlg::OnGotohome)
 END_MESSAGE_MAP()
 
 
@@ -295,7 +296,7 @@ void CMEditor2Dlg::OnBnClickedHelp()
 		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
 	}
 	else
-		ShellExecute(0, _T("open"),_T("http://hi.baidu.com/jackiey0lee") , _T(""), NULL, SW_SHOW);
+		ShellExecute(0, _T("open"),_T("http://mplayer-ww.sourceforge.net/") , _T(""), NULL, SW_SHOW);
 }
 
 void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
@@ -394,4 +395,9 @@ void CMEditor2Dlg::OnAbout()
 {
 	CAboutDlg dlg;
 	dlg.DoModal();
+}
+
+void CMEditor2Dlg::OnGotohome()
+{
+	ShellExecute(0, _T("open"),_T("http://mplayer-ww.sourceforge.net/") , _T(""), NULL, SW_SHOW);
 }

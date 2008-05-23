@@ -129,6 +129,8 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+	CString m_alang;
 };
 
 //{{AFX_INSERT_LOCATION}}

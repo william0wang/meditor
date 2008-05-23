@@ -182,6 +182,8 @@ protected:
 	afx_msg void OnSelchangeAutoplay();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+	BOOL m_htimer;
 };
 
 //{{AFX_INSERT_LOCATION}}

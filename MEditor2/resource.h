@@ -118,9 +118,12 @@
 #define IDC_COMBO_AUTOPLAY              1051
 #define IDC_EDIT_HUE                    1052
 #define IDC_EDIT_SLANG                  1052
+#define IDC_CHECK_CONF2                 1052
+#define IDC_CHECK_HTIMER                1052
 #define IDC_EDIT_SUBCP                  1053
 #define IDC_SLIDER_GAMMA                1053
 #define IDC_EDIT_GAMMA                  1054
+#define IDC_EDIT_ALANG                  1054
 #define IDC_COMBO_OSDF                  1056
 #define IDC_COMBO_F1                    1057
 #define IDC_COMBO_F2                    1058
@@ -228,13 +231,14 @@
 #define IDM_DSPLAY                      32813
 #define IDM_DSSTOP                      32814
 #define IDM_DSFULLSCREEN                32815
+#define IDC_GOTOHOME                    32817
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        172
-#define _APS_NEXT_COMMAND_VALUE         32816
+#define _APS_NEXT_COMMAND_VALUE         32818
 #define _APS_NEXT_CONTROL_VALUE         1127
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

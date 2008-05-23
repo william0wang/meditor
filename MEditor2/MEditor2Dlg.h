@@ -83,4 +83,5 @@ protected:
 //	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 public:
 	afx_msg void OnAbout();
+	afx_msg void OnGotohome();
 };

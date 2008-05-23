@@ -18,6 +18,7 @@ static char THIS_FILE[] = __FILE__;
 
 CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMAudioPage::IDD, pParent)
+	, m_alang(_T(""))
 {
 	//{{AFX_DATA_INIT(CMAudioPage)
 	m_dvdsub = FALSE;
@@ -35,7 +36,7 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_color = _T("");
 	m_bcolor = _T("");
 	m_subpos = _T("90");
-	m_slang = _T("zh,ch,tw");
+	m_slang = _T("zh,ch,chi,tw");
 	m_subcp = _T("GBK,BIG5,UTF-8,UTF-16");
 	//}}AFX_DATA_INIT
 }
@@ -82,6 +83,7 @@ void CMAudioPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_SUBCP, m_subcp);
 	//}}AFX_DATA_MAP
 	DDX_Control(pDX, IDC_LIST_AUDIO, m_List);
+	DDX_Text(pDX, IDC_EDIT_ALANG, m_alang);
 }
 
 
@@ -432,7 +434,8 @@ void CMAudioPage::SetNormal()
 	m_volume = _T("60");
 	m_volume_s = 60;
 	m_subpos = _T("90");
-	m_slang = _T("zh,ch,tw");
+	m_slang = _T("zh,ch,chi,tw");
+	m_alang = _T("");
 	m_subcp = _T("GBK,BIG-5,CP932,CP949,UTF-8,UTF-16");
 	m_audio.SetCurSel(dsound);
 	m_fuzziness.SetCurSel(name);
@@ -575,6 +578,8 @@ void CMAudioPage::InitFromConfig()
 		m_bcolor = value_s;
 	if(m_cfg->GetValue_String(_T("slang"),value_s))
 		m_slang = value_s;
+	if(m_cfg->GetValue_String(_T("alang"),value_s))
+		m_alang = value_s;
 	if(m_cfg->GetValue_String(_T("subcp"),value_s))
 		m_subcp = value_s;
 	if(m_cfg->GetValue_String(_T("ao"),value_s))
@@ -775,6 +780,11 @@ void CMAudioPage::SaveConfig()
 		m_cfg->SetValue(_T("slang"),  m_slang );
 	else
 		m_cfg->RemoveValue(_T("slang"));
+
+	if(m_alang != _T(""))
+		m_cfg->SetValue(_T("alang"),  m_alang );
+	else
+		m_cfg->RemoveValue(_T("alang"));
 	
 	if(m_subcp != _T(""))
 		m_cfg->SetValue(_T("subcp"),  m_subcp );

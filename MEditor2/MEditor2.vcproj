@@ -648,18 +648,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\7zDec\7z_C.sln"
-			>
-		</File>
-		<File
-			RelativePath="..\7zDec\Archive\7z\7z_C.vcproj"
-			>
-		</File>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 		<Global

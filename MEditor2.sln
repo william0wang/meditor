@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meditor2", "MEditor2\MEditor2.vcproj", "{ADB8641F-CDA8-470D-B8CC-5CE1168465AA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7zDec", "7zDec\Archive\7z\7z_C.vcproj", "{900F86AC-C8E2-4861-95AF-E171DB4909FA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Unicode|Win32 = Debug Unicode|Win32
@@ -21,10 +19,6 @@ Global
 		{ADB8641F-CDA8-470D-B8CC-5CE1168465AA}.Release Unicode|Win32.Build.0 = Release Unicode|Win32
 		{ADB8641F-CDA8-470D-B8CC-5CE1168465AA}.Release|Win32.ActiveCfg = Release|Win32
 		{ADB8641F-CDA8-470D-B8CC-5CE1168465AA}.Release|Win32.Build.0 = Release|Win32
-		{900F86AC-C8E2-4861-95AF-E171DB4909FA}.Debug Unicode|Win32.ActiveCfg = Debug|Win32
-		{900F86AC-C8E2-4861-95AF-E171DB4909FA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{900F86AC-C8E2-4861-95AF-E171DB4909FA}.Release Unicode|Win32.ActiveCfg = Release|Win32
-		{900F86AC-C8E2-4861-95AF-E171DB4909FA}.Release|Win32.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

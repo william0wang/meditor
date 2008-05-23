@@ -19,7 +19,7 @@ static char THIS_FILE[] = __FILE__;
 CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMVideoPage::IDD, pParent)
 	, m_gamma(_T("1.0"))
-	, m_gamma_s(0)
+	, m_gamma_s(10)
 	, m_dr(FALSE)
 {
 	//{{AFX_DATA_INIT(CMVideoPage)
@@ -876,6 +876,7 @@ void CMVideoPage::SaveConfig()
 	m_cfg->RemoveValue(_T("cofing_contrast"), true);
 	m_cfg->RemoveValue(_T("cofing_saturation"), true);
 	m_cfg->RemoveValue(_T("cofing_hue"), true);
+	m_cfg->RemoveValue(_T("cofing_gamma"), true);
 	m_cfg->RemoveValue(_T("brightness"));
 	m_cfg->RemoveValue(_T("contrast"));
 	m_cfg->RemoveValue(_T("saturation"));
