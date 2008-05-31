@@ -135,6 +135,71 @@ BOOL CMEditor2App::InitInstance()
 	}
 	else
 	{
+		int langfile_tc = 0;
+		int langfile_en = 0;
+		TCHAR szFilePath[MAX_PATH + 1];
+		GetModuleFileName(NULL, szFilePath, MAX_PATH);
+		(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+		CString program_dir;
+		program_dir.Format(_T("%s"),szFilePath);
+		if(IsFileExist(program_dir + _T("meditor2_tc.dll")))
+			langfile_tc = 1;
+		if(IsFileExist(program_dir + _T("codecs\\meditor2_tc.dll")))
+			langfile_tc = 2;
+		if(IsFileExist(program_dir + _T("meditor2_en.dll")))
+			langfile_en = 1;
+		if(IsFileExist(program_dir + _T("codecs\\meditor2_en.dll")))
+			langfile_en = 2;
+
+		if(langfile_tc || langfile_en)
+		{
+			int lang = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
+			if(lang == 0)
+			{
+				LANGID   _SysLangId   =   GetSystemDefaultLangID();
+				if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
+				{
+					if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
+						lang = 1;		//Simplified Chinese GBK
+					else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
+						lang = 4;		//Traditional Chinese Big5
+					else
+						lang = 2;		//ANSI
+				}
+				else
+					lang = 2;			//ANSI
+			}
+
+			if(lang == 2 && langfile_en)
+			{
+				LPCTSTR  strSatellite;
+				if(langfile_en == 1)
+					strSatellite = _T("meditor2_en.dll");
+				else
+					strSatellite = _T("codecs\\meditor2_en.dll");
+				if (strSatellite)
+				{
+					HMODULE		hMod = LoadLibrary (strSatellite);
+					if (hMod)
+						AfxSetResourceHandle(hMod);
+				}
+			}
+			else if(langfile_tc && (lang == 3 || lang == 4))
+			{
+				LPCTSTR  strSatellite;
+				if(langfile_tc == 1)
+					strSatellite = _T("meditor2_tc.dll");
+				else
+					strSatellite = _T("codecs\\meditor2_tc.dll");
+				if (strSatellite)
+				{
+					HMODULE		hMod = LoadLibrary (strSatellite);
+					if (hMod)
+						AfxSetResourceHandle(hMod);
+				}
+			}
+	
+		}
 		CMEditor2Dlg dlg;
 		m_pMainWnd = &dlg;
 		dlg.m_OpenType = OpenType;

@@ -110,6 +110,12 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
 	m_last_extract = inner;
+    	
+    	m_str_skip1 = ResStr(IDS_DECODE_SKIP1);
+    	m_str_skip2 = ResStr(IDS_DECODE_SKIP2);
+    	m_str_skip3 = ResStr(IDS_DECODE_SKIP3);
+    	m_str_skip4 = ResStr(IDS_DECODE_SKIP4);
+    	m_str_skip5 = ResStr(IDS_DECODE_SKIP5);
 }
 
 
@@ -151,7 +157,11 @@ void CMDecodePage::InitListCtrl(CXListCtrl * pList)
 	CRect rect;
 	pList->GetWindowRect(&rect);
 	int w = rect.Width() - 2;
-	TCHAR *	lpszHeaders[] = { _T("使用"),_T("解码器顺序"), NULL };
+	CString use = ResStr(IDS_PLAYER_USE);
+	CString pr = ResStr(IDS_DECODE_PR);
+	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(pr.GetBuffer()), NULL };
+	use.ReleaseBuffer();
+	pr.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -217,7 +227,16 @@ void CMDecodePage::InitListCtrlAV(CXListCtrl * pList)
 	CRect rect;
 	pList->GetWindowRect(&rect);
 	int w = rect.Width() - 2;
-	TCHAR *	lpszHeaders[] = { _T("使用"), _T("名称"),_T("选项"), _T("说明"),NULL };
+	CString use = ResStr(IDS_PLAYER_USE);
+	CString name = ResStr(IDS_DECODE_NAME);
+	CString op = ResStr(IDS_PLAYER_OPTION);
+	CString inf = ResStr(IDS_DECODE_INF);
+	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(name.GetBuffer())
+         ,_tcsdup(op.GetBuffer()) ,  _tcsdup(inf.GetBuffer()), NULL };
+	use.ReleaseBuffer();
+	name.ReleaseBuffer();
+	op.ReleaseBuffer();
+	inf.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -264,23 +283,23 @@ void CMDecodePage::FillListCtrlAV(CXListCtrl * pList)
 	pList->DeleteAllItems();
 	
 	m_skip.RemoveAll();
-	m_skip.Add(_T("跳过无用的步骤"));
-	m_skip.Add(_T("跳过没被引用的帧"));
-	m_skip.Add(_T("跳过 B-帧"));
-	m_skip.Add(_T("跳过除了关键帧的所有帧"));
-	m_skip.Add(_T("跳过所有的帧"));
+	m_skip.Add(m_str_skip1);
+	m_skip.Add(m_str_skip2);
+	m_skip.Add(m_str_skip3);
+	m_skip.Add(m_str_skip4);
+	m_skip.Add(m_str_skip5);
 	
 	pList->InsertItem(skiploopfilter, _T(""));
 	pList->SetCheckbox(skiploopfilter, 0, 0);
-	pList->SetItemText(skiploopfilter, 1, _T("跳过循环过滤器"));
+	pList->SetItemText(skiploopfilter, 1, ResStr(IDS_DECODE_SKIPLOOP));
 	pList->SetComboBox(skiploopfilter, 2, TRUE,  &m_skip,  5,  4,  FALSE);
-	pList->SetItemText(skiploopfilter, 3, _T("(仅用于H.264)提供大的提速且不损失品质"));
+	pList->SetItemText(skiploopfilter, 3, ResStr(IDS_DECODE_SKIPLOOP_INFO));
 	
 	pList->InsertItem(skipframe, _T(""));
 	pList->SetCheckbox(skipframe, 0, 0);
-	pList->SetItemText(skipframe, 1, _T("跳过解码帧"));
+	pList->SetItemText(skipframe, 1, ResStr(IDS_DECODE_SKIPFRAME));
 	pList->SetComboBox(skipframe, 2, TRUE,  &m_skip,  5,  0,  FALSE);
-	pList->SetItemText(skipframe, 3, _T("大的提速, 但是有时有痉挛或糟糕的图像"));
+	pList->SetItemText(skipframe, 3, ResStr(IDS_DECODE_SKIPFRAME_INFO));
 
 //	pList->InsertItem(fast, _T(""));
 //	pList->SetCheckbox(fast, 0, 0);
@@ -315,17 +334,17 @@ void CMDecodePage::FillListCtrlAV(CXListCtrl * pList)
 
 	pList->InsertItem(xy, _T(""));
 	pList->SetCheckbox(xy, 0, 0);
-	pList->SetItemText(xy, 1, _T("缩放图像"));
+	pList->SetItemText(xy, 1, ResStr(IDS_DECODE_XY));
 	pList->SetItemText(xy, 2, _T("720"));
 	pList->SetEdit(xy, 2);
-	pList->SetItemText(xy, 3, _T("设置图像宽度,并保持高宽比(硬件缩放)"));
+	pList->SetItemText(xy, 3,ResStr(IDS_DECODE_XY_INFO));
 	
 	pList->InsertItem(lowres, _T(""));
 	pList->SetCheckbox(lowres, 0, 0);
-	pList->SetItemText(lowres, 1, _T("以较低的分辨率解码"));
+	pList->SetItemText(lowres, 1, ResStr(IDS_DECODE_LOW));
 	pList->SetItemText(lowres, 2, _T("1,1281"));
 	pList->SetEdit(lowres, 2);
-	pList->SetItemText(lowres, 3, _T("MPEG-2大幅提速，但常常导致难看的图像"));
+	pList->SetItemText(lowres, 3, ResStr(IDS_DECODE_LOW_INFO));
 
 	pList->UnlockWindowUpdate();
 }
@@ -349,9 +368,9 @@ BOOL CMDecodePage::OnInitDialog()
 	InitListCtrlAV(&m_avlist);
 	FillListCtrlAV(&m_avlist);
 
-	m_codecs.AddString(_T("MPlayer 内置的解码器配置"));
-	m_codecs.AddString(_T("外置默认的解码器配置文件"));
-	m_codecs.AddString(_T("CoreAVC 优先的解码器配置"));
+	m_codecs.AddString(ResStr(IDS_DECODE_CODEFILE1));
+	m_codecs.AddString(ResStr(IDS_DECODE_CODEFILE2));
+	m_codecs.AddString(ResStr(IDS_DECODE_CODEFILE3));
 	m_codecs.SetCurSel(inner);
 	
 	InitFromConfig();
@@ -680,13 +699,13 @@ void CMDecodePage::SaveConfig()
 		CString str = m_avlist.GetItemText(skiploopfilter, 2);
 		str.TrimLeft(_T(" "));
 		str.TrimRight(_T(" "));
-		if(str == _T("跳过无用的步骤"))
+		if(str == m_str_skip1)
 			av_str += _T("skiploopfilter=default:") ;
-		else if(str == _T("跳过没被引用的帧"))
+		else if(str == m_str_skip2)
 			av_str += _T("skiploopfilter=nonref:");
-		else if(str == _T("跳过 B-帧"))
+		else if(str == m_str_skip3)
 			av_str += _T("skiploopfilter=bidir:");
-		else if(str == _T("跳过除了关键帧的所有帧"))
+		else if(str == m_str_skip4)
 			av_str += _T("skiploopfilter=nonkey:");
 		else
 			av_str += _T("skiploopfilter=all:");
@@ -696,13 +715,13 @@ void CMDecodePage::SaveConfig()
 		CString str = m_avlist.GetItemText(skipframe, 2);
 		str.TrimLeft(_T(" "));
 		str.TrimRight(_T(" "));
-		if(str == _T("跳过无用的步骤"))
+		if(str == m_str_skip1)
 			av_str += _T("skipframe=default:") ;
-		else if(str == _T("跳过没被引用的帧"))
+		else if(str == m_str_skip2)
 			av_str += _T("skipframe=nonref:");
-		else if(str == _T("跳过 B-帧"))
+		else if(str == m_str_skip3)
 			av_str += _T("skipframe=bidir:");
-		else if(str == _T("跳过除了关键帧的所有帧"))
+		else if(str == m_str_skip4)
 			av_str += _T("skipframe=nonkey:");
 		else
 			av_str += _T("skipframe=all:");		

@@ -1,0 +1,1058 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\MEditor2.rc2""  // 非 Microsoft Visual C++ 編輯的資源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 標準組件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MEditor2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "關于 MPlayer 首選項"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,18,18
+    LTEXT           "MPlayer 首選項 v2.01 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) william0wang 2008",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "確定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_MEDITOR2_DIALOG DIALOGEX 0, 0, 365, 239
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "MPlayer 首選項"
+MENU IDR_MAINFRAME
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "應用",IDC_APPLY,322,217,36,15
+    PUSHBUTTON      "確定",IDOK,236,217,36,15
+    PUSHBUTTON      "取消",IDCANCEL,279,217,36,15
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,7,0,351,214
+    CONTROL         "Progress1",IDC_PROGRESS_APPLEY,"msctls_progress32",PBS_SMOOTH | NOT WS_VISIBLE,7,220,171,9
+    PUSHBUTTON      "幫助",IDC_SHOWHELP,193,217,36,15
+END
+
+IDD_PLAYER_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    COMBOBOX        IDC_COMBO_MONITOR,262,37,77,56,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "播放優先級",IDC_STATIC,212,25,46,8
+    GROUPBOX        "OSD設置",IDC_STATIC,211,127,132,66
+    LTEXT           "MPlayer語言",IDC_STATIC,212,10,46,8
+    COMBOBOX        IDC_COMBO_AUTOSYNC,262,52,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_LANGUAGE,262,7,77,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "前端顯示",IDC_STATIC,212,85,46,8
+    CONTROL         "URL使用GBK編碼",IDC_CHECK_URL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,71,77,10
+    CONTROL         "只打開一個播放器",IDC_CHECK_ONLYONE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,71,80,10
+    CONTROL         "全屏方式打開文件",IDC_CHECK_FULLSCREEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,56,80,10
+    COMBOBOX        IDC_COMBO_LOG,262,112,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "顯示器長寬比",IDC_STATIC,212,40,46,8
+    COMBOBOX        IDC_COMBO_PRIORITY,262,22,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "日志文件",IDC_STATIC,212,113,46,8
+    COMBOBOX        IDC_COMBO_LOOP,262,67,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "循環播放",IDC_STATIC,212,70,46,8
+    COMBOBOX        IDC_COMBO_ONTOP,262,82,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "音視頻同步",IDC_STATIC,212,55,46,8
+    CONTROL         "顯示播放器窗口",IDC_CHECK_SHOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,11,72,10
+    CONTROL         "播放結束后退出",IDC_CHECK_QUIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,86,72,10
+    LTEXT           "截圖保存文件夾",IDC_STATIC,9,165,57,8
+    CONTROL         "使用窗口獨立線程",IDC_CHECK_GUITHREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,41,80,10
+    EDITTEXT        IDC_EDIT_PNG,76,163,103,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "瀏覽",IDC_BUTTON_PNG,181,163,26,13
+    LTEXT           "DVD盤符或文件夾",IDC_STATIC,9,182,64,8
+    EDITTEXT        IDC_EDIT_DVD,76,180,102,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_START,45,146,41,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "瀏覽",IDC_BUTTON_DVD,181,180,26,13
+    LTEXT           "跳過片頭",IDC_STATIC,9,148,33,8
+    LTEXT           "跳過片尾",IDC_STATIC,99,148,33,8
+    EDITTEXT        IDC_EDIT_END,133,146,41,12,ES_AUTOHSCROLL
+    CONTROL         "顯示菜單欄",IDC_CHECK_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,26,56,10
+    LTEXT           "時:分:秒",IDC_STATIC,178,148,32,8
+    CONTROL         "顯示控制條",IDC_CHECK_CTRL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,11,52,10
+    LTEXT           "OSD字體",IDC_STATIC,216,139,34,8
+    LTEXT           "OSD字體尺寸",IDC_STATIC,216,152,50,8
+    COMBOBOX        IDC_COMBO_OSDSIZE,266,150,74,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "OSD時間顯示",IDC_STATIC,216,166,50,8
+    COMBOBOX        IDC_COMBO_OSDTIME,266,164,74,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "OSD顯示模式",IDC_STATIC,216,180,50,8
+    COMBOBOX        IDC_COMBO_OSDMODE,266,178,74,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_OSDF,256,136,84,54,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "減少控制臺信息(推薦)",IDC_CHECK_QUIET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,41,92,10
+    CONTROL         "雙緩沖(推薦)",IDC_CHECK_DOUBLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,56,60,10
+    COMBOBOX        IDC_COMBO_COLORKEY,262,97,77,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "ColorKey",IDC_STATIC,212,99,46,8
+    COMBOBOX        IDC_COMBO_CACHE,44,130,47,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "緩存容量",IDC_STATIC,9,132,32,8
+    CONTROL         "支持特定文件單獨配置",IDC_CHECK_CONF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,104,86,96,10
+    LTEXT           "隱藏邊框",IDC_STATIC,99,132,32,8
+    COMBOBOX        IDC_COMBO_VIEW,133,130,43,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "顯示控制按鈕",IDC_CHECK_BOTTOM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,26,69,10
+    COMBOBOX        IDC_COMBO_SYSTRAY,44,115,47,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "最小化到",IDC_STATIC,9,117,32,8
+    LTEXT           "連續播放",IDC_STATIC,99,117,32,8
+    COMBOBOX        IDC_COMBO_AUTOPLAY,133,115,43,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_FUZZINESS,179,115,18,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    CONTROL         "使用高精度計時器(會占用更多的CPU)",IDC_CHECK_HTIMER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,101,131,10
+END
+
+IDD_INPUT_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_INPUT,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,7,336,174
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,7,183,34,14
+    PUSHBUTTON      "刪除",IDC_BUTTON_DEL,46,183,34,14
+END
+
+IDD_ASSOS_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_ASSOS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,20,336,162
+    PUSHBUTTON      "添加",IDC_ADD,7,183,34,14
+    PUSHBUTTON      "全選",IDC_ALL,129,183,34,14
+    PUSHBUTTON      "不選",IDC_NONE,169,183,34,14
+    PUSHBUTTON      "視頻",IDC_RECOMMAND,209,183,34,14
+    PUSHBUTTON      "刪除",IDC_DEL,46,183,34,14
+    DEFPUSHBUTTON   "應用關聯",IDC_ASSOS,300,183,43,14
+    CONTROL         "使用 MPlayer 打開",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,7,68,10
+    LTEXT           "關聯格式右鍵菜單:",IDC_STATIC,136,8,61,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,272,7,72,10
+    CONTROL         "DirectShow媒體文件關聯到MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,8,7,114,10
+END
+
+IDD_VIDEO_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "OpenGL 驅動設置",IDC_STATIC,117,7,101,68
+    LTEXT           "驅動",IDC_STATIC,10,12,21,8
+    COMBOBOX        IDC_COMBO_VO,28,10,83,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "使用軟件顏色轉換(不推薦)",IDC_CHECK_SOFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,45,94,10
+    CONTROL         "動態改變OSD大小(不推薦)",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,32,95,10
+    CONTROL         "全屏進度條不閃屏(推薦)",IDC_CHECK_FLASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,19,91,10
+    LTEXT           "OSD顏色",IDC_STATIC,120,61,32,8
+    EDITTEXT        IDC_EDIT_COLOR,149,59,38,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "COLOR",IDC_BUTTON_COLOR,190,58,26,13
+    CONTROL         "",IDC_LIST_VF,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,87,336,106
+    GROUPBOX        "視頻濾鏡",IDC_STATIC,7,76,336,117
+    CONTROL         "Slider1",IDC_SLIDER_BRINGHTNESS,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,13,78,6
+    LTEXT           "亮度",IDC_STATIC,222,11,17,8
+    EDITTEXT        IDC_EDIT_BRINGHTNESS,323,9,20,12,ES_AUTOHSCROLL
+    LTEXT           "對比度",IDC_STATIC,222,25,25,8
+    CONTROL         "Slider1",IDC_SLIDER_CONTRAST,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,27,78,6
+    EDITTEXT        IDC_EDIT_CONTRAST,323,23,20,12,ES_AUTOHSCROLL
+    LTEXT           "飽和度",IDC_STATIC,222,39,25,8
+    CONTROL         "Slider1",IDC_SLIDER_SATURATIONS,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,41,78,6
+    EDITTEXT        IDC_EDIT_SATURATIONS,323,37,20,12,ES_AUTOHSCROLL
+    LTEXT           "色度",IDC_STATIC,222,53,17,8
+    CONTROL         "Slider1",IDC_SLIDER_HUE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,55,78,6
+    EDITTEXT        IDC_EDIT_HUE,323,51,20,12,ES_AUTOHSCROLL
+    CONTROL         "保持影片高寬比",IDC_CHECK_KEEPAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,42,61,10
+    CONTROL         "允許丟幀",IDC_CHECK_FRAMEDROP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,70,42,41,10
+    COMBOBOX        IDC_COMBO_MXCOLOR,58,25,51,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "矩陣特效顏色",IDC_STATIC,10,27,43,8
+    CONTROL         "重建文件索引",IDC_CHECK_REINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,53,10
+    LTEXT           "伽瑪值",IDC_STATIC,222,67,25,8
+    CONTROL         "",IDC_SLIDER_GAMMA,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,69,78,6
+    EDITTEXT        IDC_EDIT_GAMMA,323,65,20,12,ES_AUTOHSCROLL
+    CONTROL         "直接渲染",IDC_CHECK_DR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,70,59,40,10
+END
+
+IDD_AUDIO_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER_VOLUME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,28,36,103,6
+    LTEXT           "音量",IDC_STATIC,10,33,17,8
+    EDITTEXT        IDC_EDIT_VOLUME,134,32,24,12,ES_AUTOHSCROLL
+    LTEXT           "增益",IDC_STATIC,178,33,17,8
+    LTEXT           "音頻延遲",IDC_STATIC,273,18,30,8
+    EDITTEXT        IDC_EDIT_AUDIODELAY,302,16,24,12,ES_RIGHT | ES_AUTOHSCROLL
+    LTEXT           "秒",IDC_STATIC,330,18,9,8
+    CONTROL         "Slider1",IDC_SLIDER_VOLNORM,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,195,36,103,6
+    EDITTEXT        IDC_EDIT_VOLNORM,302,32,24,12,ES_AUTOHSCROLL
+    LTEXT           "%",IDC_STATIC,329,34,13,8
+    LTEXT           "音頻驅動",IDC_STATIC,9,19,30,8
+    COMBOBOX        IDC_COMBO_AUDIO,43,16,73,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "音頻設置",IDC_STATIC,7,7,336,96
+    CONTROL         "",IDC_LIST_AUDIO,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,48,336,54
+    LTEXT           "聲道",IDC_STATIC,123,18,17,8
+    COMBOBOX        IDC_COMBO_CHANNELS,140,16,38,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字體1",IDC_STATIC,15,147,30,8
+    CONTROL         "使用SSA/ASS字幕效果",IDC_CHECK_ASS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,243,131,95,10
+    LTEXT           "尺寸",IDC_STATIC,15,178,30,8
+    COMBOBOX        IDC_COMBO_SIZE,51,175,34,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "忽略錯誤",IDC_STATIC,142,132,33,8
+    EDITTEXT        IDC_EDIT_ERROR,179,130,16,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "行",IDC_STATIC,199,132,9,8
+    GROUPBOX        "字幕設置",IDC_STATIC,7,105,336,88
+    CONTROL         "優化DVD字幕效果",IDC_COMBO_OSDTIME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,243,117,79,10
+    LTEXT           "字幕延遲",IDC_STATIC,141,147,33,8
+    EDITTEXT        IDC_EDIT_SUBDELAY,175,145,31,12,ES_RIGHT | ES_AUTOHSCROLL
+    LTEXT           "0~100",IDC_STATIC,199,118,22,8
+    LTEXT           "字體2",IDC_STATIC,15,161,30,8
+    COMBOBOX        IDC_COMBO_F1,51,145,86,48,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_F2,51,160,86,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字幕顏色",IDC_STATIC,292,144,33,8,NOT WS_VISIBLE | WS_DISABLED
+    LTEXT           "邊框顏色",IDC_STATIC,293,145,33,8,NOT WS_VISIBLE | WS_DISABLED
+    COMBOBOX        IDC_COMBO_COLOR,275,142,65,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | NOT WS_VISIBLE | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_BCOLOR,275,142,65,56,CBS_DROPDOWN | CBS_AUTOHSCROLL | NOT WS_VISIBLE | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "匹配度",IDC_STATIC,15,119,25,8
+    COMBOBOX        IDC_COMBO_FUZZINESS,51,115,86,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "字幕位置",IDC_STATIC,142,118,33,8
+    COMBOBOX        IDC_COMBO_ALIGN,51,130,86,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_SUBPOS,179,116,16,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "秒",IDC_STATIC,209,148,9,8
+    LTEXT           "對齊方式",IDC_STATIC,15,133,33,8
+    LTEXT           "字幕語言",IDC_STATIC,141,162,33,8
+    EDITTEXT        IDC_EDIT_SLANG,175,160,62,12,ES_AUTOHSCROLL
+    LTEXT           "字幕編碼",IDC_STATIC,93,177,33,8
+    EDITTEXT        IDC_EDIT_SUBCP,128,175,109,12,ES_AUTOHSCROLL
+    LTEXT           "縮放模式",IDC_STATIC,242,176,33,8
+    COMBOBOX        IDC_COMBO_AUTOSCALE,275,174,65,56,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "音軌語言",IDC_STATIC,185,18,28,8
+    EDITTEXT        IDC_EDIT_ALANG,218,16,48,12,ES_AUTOHSCROLL
+    CONTROL         "允許SSA/ASS字幕黑邊顯示",IDC_CHECK_ASS_MARGINS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,243,145,95,10
+    CONTROL         "禁止自動載入外部字幕文件",IDC_CHECK_ASS_MARGINS2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,243,159,93,10
+END
+
+IDD_DECODE_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_VC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,34,164,60
+    GROUPBOX        "視頻解碼器優先級",IDC_STATIC,7,24,166,90
+    CONTROL         "",IDC_LIST_AC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,178,34,164,60
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,7,98,29,13
+    PUSHBUTTON      "刪除",IDC_BUTTON_DEL,42,98,29,13
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,137,98,29,13
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,104,98,29,13
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD2,181,98,29,13
+    PUSHBUTTON      "刪除",IDC_BUTTON_DEL2,216,98,29,13
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN2,311,98,29,13
+    PUSHBUTTON      "上移",IDC_BUTTON_UP2,278,98,29,13
+    GROUPBOX        "解碼設置",IDC_STATIC,7,118,336,75
+    CONTROL         "",IDC_LIST_AVCODEC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,129,336,64
+    GROUPBOX        "音頻解碼器優先級",IDC_STATIC,177,24,166,90
+    LTEXT           "解碼器配置文件 (codecs.ini)",IDC_STATIC,7,9,91,8
+    COMBOBOX        IDC_COMBO_CODECS,102,7,100,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_OTHER_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "編輯器",IDC_STATIC,178,8,165,54
+    CONTROL         "記住最后設置的頁面",IDC_CHECK_PAGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,18,83,10
+    GROUPBOX        "自定義 MPlayer 參數",IDC_STATIC,7,8,165,92
+    EDITTEXT        IDC_EDIT_OTHER,7,18,164,81,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    GROUPBOX        "播放外置音頻的視頻",IDC_STATIC,7,131,336,62
+    EDITTEXT        IDC_EDIT_VIDEO,37,142,266,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_AUDIO,37,160,266,14,ES_AUTOHSCROLL
+    LTEXT           "視頻",IDC_STATIC,16,144,17,8
+    LTEXT           "音頻",IDC_STATIC,16,163,17,9
+    PUSHBUTTON      "瀏覽",IDC_BUTTON_VIDEO,308,141,31,14
+    PUSHBUTTON      "瀏覽",IDC_BUTTON_AUDIO,308,160,31,14
+    PUSHBUTTON      "播放",IDC_BUTTON_PLAY,72,177,36,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLEAN,240,177,36,14
+    PUSHBUTTON      "Flash 播放器",IDC_BUTTON_FLASH,191,44,60,16
+    PUSHBUTTON      "媒體播放器",IDC_BUTTON_MEDIA,273,44,60,16
+    PUSHBUTTON      "注冊 Real 在線",IDC_BUTTON_ONLINE,183,111,73,16
+    GROUPBOX        "Real 在線支持",IDC_STATIC,178,71,165,59
+    PUSHBUTTON      "反注冊 Real 在線",IDC_BUTTON_DONLINE,264,111,73,16
+    CONTROL         "Real在線關聯到 MPlayer 主程序",IDC_RADIO_MPLAYER,"Button",BS_AUTORADIOBUTTON | WS_GROUP,183,83,110,10
+    CONTROL         "Real在線關聯到DirectShow播放器",IDC_RADIO_MEDITOR,"Button",BS_AUTORADIOBUTTON | WS_GROUP,183,97,115,10
+    CONTROL         "僅打開一個編輯器",IDC_CHECK_ONE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,30,77,10
+    PUSHBUTTON      "創建快捷方式",IDC_BUTTON_LINK,273,18,60,16
+    CONTROL         "使用MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,300,97,37,10
+    GROUPBOX        "MPlayer 禁用XP/Vista主題色(提高速度)",IDC_STATIC,7,103,165,26
+    CONTROL         "控制欄禁用主題",IDC_CHECK_XPTOOLBARS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,115,75,10
+    CONTROL         "播放器窗口禁用主題",IDC_CHECK_XPWINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,86,115,80,10
+END
+
+IDD_DIALOG_FLASH DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
+CAPTION "MFlashPlayer"
+MENU IDR_MENU_FLASH
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SHOCKWAVEFLASH,
+                    "{D27CDB6E-AE6D-11CF-96B8-444553540000}",WS_TABSTOP,0,0,320,240
+    CONTROL         "Slider1",IDC_SLIDER_CONTROL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
+IDD_DIALOG_LIST DIALOGEX 0, 0, 246, 78
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_TOOLWINDOW
+CAPTION "播放列表"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_PLAYLIST,3,1,240,57,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,3,60,28,14
+    PUSHBUTTON      "刪除",IDC_BUTTON_DEL,56,60,28,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLEAN,109,60,28,14
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,162,60,28,14
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,215,60,28,14
+END
+
+IDD_DIALOG_MEDIA DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "MMediaPlayer"
+MENU IDR_MENU_WMP
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_OCX_MEDIA,"{6BF52A52-394A-11D3-B153-00C04F79FAA6}",WS_TABSTOP,0,0,320,240
+    CONTROL         "Slider1",IDC_SLIDER_CTRL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
+IDD_DIALOG_MLIST DIALOGEX 0, 0, 246, 78
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_TOOLWINDOW
+CAPTION "播放列表"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_PLAYLIST,3,1,240,57,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "添加",IDC_BUTTON_ADD,3,60,28,14
+    PUSHBUTTON      "刪除",IDC_BUTTON_DEL,56,60,28,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLEAN,109,60,28,14
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,162,60,28,14
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,215,60,28,14
+END
+
+IDD_RESUME_DIALOG DIALOGEX 0, 0, 350, 200
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_LIST_RESUME,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,35,336,109
+    GROUPBOX        "收藏的媒體文件",IDC_STATIC,7,23,336,121
+    CONTROL         "記住文件播放狀態",IDC_CHECK_RESUME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,67,8,77,10
+    PUSHBUTTON      "播放",IDC_BUTTON_PLAY,23,147,39,14
+    PUSHBUTTON      "向下",IDC_BUTTON_DOWN,155,146,39,14
+    PUSHBUTTON      "向上",IDC_BUTTON_UP,89,147,39,14
+    PUSHBUTTON      "刪除",IDC_BUTTON_DEL,221,146,39,14
+    PUSHBUTTON      "清空",IDC_BUTTON_CLA,287,146,39,14
+    LTEXT           "最大收藏媒體個數",IDC_STATIC,166,9,66,8
+    EDITTEXT        IDC_EDIT_NUM,236,7,23,12,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_DSHOW DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "MDSPlayer"
+MENU IDR_MENU_DSHOW
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER_CTRL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
+IDD_DIALOG_LINK DIALOGEX 0, 0, 209, 124
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "快捷方式"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,32,103,50,14
+    PUSHBUTTON      "取消",IDCANCEL,128,103,50,14
+    GROUPBOX        "桌面快捷方式",IDC_STATIC,7,7,195,31
+    CONTROL         "MPlayer",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,21,41,10
+    CONTROL         "MPlayer 首選項",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,21,67,10
+    GROUPBOX        "開始菜單快捷方式",IDC_STATIC,7,42,195,58
+    CONTROL         "MPlayer",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,55,41,10
+    CONTROL         "MPlayer 首選項",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,55,67,10
+    CONTROL         "常用工具 (自動檢測)",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,85,87,10
+    CONTROL         "Flash 播放器",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,70,59,10
+    CONTROL         "DirectShow 播放器",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,110,70,78,10
+    CONTROL         "MPC (自動檢測)",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,85,69,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x21L
+#else
+ FILEFLAGS 0x20L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "FileDescription", "MPlayer 首選項"
+            VALUE "FileVersion", "2.0.1"
+            VALUE "InternalName", "MEditor2.exe"
+            VALUE "LegalCopyright", "(C) william0wang 保留所有權利。"
+            VALUE "OriginalFilename", "MEditor2.exe"
+            VALUE "ProductName", "MPlayer 首選項"
+            VALUE "ProductVersion", "2.0.1.0"
+            VALUE "SpecialBuild", "2008.05.10"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_MEDITOR2_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 358
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_PLAYER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_INPUT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_ASSOS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_VIDEO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_AUDIO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DECODE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_OTHER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DIALOG_LIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 243
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 74
+    END
+
+    IDD_DIALOG_MLIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 243
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 74
+    END
+
+    IDD_RESUME_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_DIALOG_LINK, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 202
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 117
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "保存",                          IDC_APPLY
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "預置"
+    BEGIN
+        MENUITEM "普通設置",                        32797
+        MENUITEM "高性能設置",                       32798
+        MENUITEM "低配置設置",                       IDM_LOWER
+    END
+    POPUP "查看"
+    BEGIN
+        MENUITEM "mplayer.ini",                 ID_MPLAYER_INI
+        MENUITEM "input.ini",                   ID_INPUT_INI
+        MENUITEM "kk.ini",                      ID_KK_INI
+        MENUITEM "日志文件",                        ID_LOG_TXT
+    END
+    POPUP "幫助"
+    BEGIN
+        MENUITEM "主頁",                          IDC_GOTOHOME
+        MENUITEM "幫助主題",                        IDC_SHOWHELP
+        MENUITEM SEPARATOR
+        MENUITEM "關于",                          IDM_ABOUT
+    END
+END
+
+IDR_MENU_FLASH MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "打開文件",                        ID_FLASH_OPEN
+        MENUITEM "播放列表",                        ID_MPLAYLIST
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "播放"
+    BEGIN
+        MENUITEM "播放",                          ID_MPLAY
+        MENUITEM "停止",                          ID_MSTOP
+        MENUITEM SEPARATOR
+        MENUITEM "上一個",                         ID_MPRE
+        MENUITEM "下一個",                         ID_MNEXT
+    END
+    POPUP "視圖"
+    BEGIN
+        MENUITEM "使用Flash右鍵菜單",                 IDM_RMENU
+    END
+END
+
+IDR_MENU_WMP MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "打開文件",                        ID_MEDIA_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "播放列表",                        IDM_PLAYLIST
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "播放"
+    BEGIN
+        MENUITEM "播放/暫停",                       IDM_PLAY
+        MENUITEM "停止",                          IDM_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "上一個",                         IDM_PREV
+        MENUITEM "下一個",                         IDM_NEXT
+    END
+    POPUP "視圖"
+    BEGIN
+        MENUITEM "全屏幕",                         IDM_FULLSCREEN
+        MENUITEM "右鍵菜單",                        IDM_RIGHTMENU
+    END
+END
+
+IDR_MENU_DSHOW MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "打開文件",                        ID_DS_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "播放"
+    BEGIN
+        MENUITEM "播放/暫停",                       IDM_DSPLAY
+        MENUITEM "停止",                          IDM_DSSTOP
+    END
+    POPUP "視圖"
+    BEGIN
+        MENUITEM "全屏幕",                         IDM_DSFULLSCREEN
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG_FLASH DLGINIT
+BEGIN
+    IDC_SHOCKWAVEFLASH, 0x376, 232, 0
+0x0000, 0x0000, 0x5567, 0x5566, 0x0710, 0x0000, 0x39e1, 0x0000, 0x2b69, 
+0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 
+0x0000, 0x0000, 0x0008, 0x000e, 0x0000, 0x0057, 0x0069, 0x006e, 0x0064, 
+0x006f, 0x0077, 0x0000, 0x000b, 0x0000, 0x000b, 0x0000, 0x0008, 0x000a, 
+0x0000, 0x0048, 0x0069, 0x0067, 0x0068, 0x0000, 0x0008, 0x0002, 0x0000, 
+0x0000, 0x000b, 0xffff, 0x0008, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 
+0x0000, 0x0008, 0x0010, 0x0000, 0x0053, 0x0068, 0x006f, 0x0077, 0x0041, 
+0x006c, 0x006c, 0x0000, 0x000b, 0x0000, 0x000b, 0x0000, 0x0008, 0x0002, 
+0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 
+0x000d, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
+0x000b, 0x0001, 0x000b, 0x0000, 0x0008, 0x0000, 0x0000, 0x0003, 0x0000, 
+0x0000, 0x0008, 0x0008, 0x0000, 0x0061, 0x006c, 0x006c, 0x0000, 0x0008, 
+0x000c, 0x0000, 0x0066, 0x0061, 0x006c, 0x0073, 0x0065, 0x0000, 
+    0
+END
+
+IDD_DIALOG_MEDIA DLGINIT
+BEGIN
+    IDC_OCX_MEDIA, 0x376, 168, 0
+0x0000, 0x0000, 0x0300, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0005, 
+0x0000, 0x0000, 0x0000, 0x3ff0, 0x0003, 0x0000, 0x0000, 0x0005, 0x0000, 
+0x0000, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0003, 0x0001, 
+0x0000, 0x000b, 0x0000, 0x0003, 0x0000, 0x0000, 0x000b, 0x0000, 0x0008, 
+0x0002, 0x0000, 0x0000, 0x0003, 0x0064, 0x0000, 0x000b, 0x0000, 0x0008, 
+0x000a, 0x0000, 0x006e, 0x006f, 0x006e, 0x0065, 0x0000, 0x000b, 0xffff, 
+0x000b, 0x0000, 0x000b, 0xffff, 0x000b, 0xffff, 0x000b, 0x0000, 0x0008, 
+0x0002, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0008, 0x0002, 
+0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x000b, 0xffff, 0x39e1, 
+0x0000, 0x2e82, 0x0000, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "關于 MEditor2(&A)..."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_NAME         "MPlayer 首選項"
+    IDS_TAB_PLAYER          "播放器"
+    IDS_TAB_VIDEO           "視頻"
+    IDS_TAB_AUDIO           "音頻/字幕"
+    IDS_TAB_DECODE          "解碼器"
+    IDS_TAB_RESUME          "收藏夾"
+    IDS_TAB_OTHER           "其它"
+    IDS_TAB_INPUT           "快捷鍵"
+    IDS_TAB_ASSOS           "文件關聯"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_ALLWAYS      "始終"
+    IDS_RESUME_NORMAL       "默認"
+    IDS_RESUME_NO           "序號"
+    IDS_RESUME_TIME         "時間 /秒"
+    IDS_RESUME_FILE         "文件名"
+    IDS_PLAYER_SAMEDIR      "請與 mplayer.exe 放在相同目錄中使用本程序!"
+    IDS_ASSOS_LIST          "播放列表"
+    IDS_ASSOS_V             "視頻文件"
+    IDS_ASSOS_A             "音頻文件"
+    IDS_ASSOS_FLASH         "Flash動畫"
+    IDS_ASSOS_DS            "DirectShow媒體文件"
+    IDS_ASSOS_MV            "移動視頻文件"
+    IDS_ASSOS_MA            "移動音頻文件"
+    IDS_ASSOS_LA            "無損音頻文件"
+    IDS_ASSOS_LISTFILE      "播放列表文件"
+    IDS_ASSOS_MOV           "影片文件"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_AUTOSEL      "自動選擇"
+    IDS_PLAYER_AUTO         "自動"
+    IDS_PLAYER_NONE         "從不"
+    IDS_PLAYER_PLAYING      "播放時"
+    IDS_PLAYER_NO           "無"
+    IDS_PLAYER_AS_NO        "無同步模式(推薦)"
+    IDS_PLAYER_AS_NORMAL    "普通同步模式"
+    IDS_PLAYER_AS_FAST      "快速同步模式"
+    IDS_PLAYER_AS_FLV       "FLV/RM 模式"
+    IDS_PLAYER_AS_FLVEX     "FLV 強力同步模式"
+    IDS_PLAYER_AS_AVI       "AVI 修正模式"
+    IDS_PLAYER_PREALTIME    "實時(不推薦)"
+    IDS_PLAYER_PHIGH        "高"
+    IDS_PLAYER_PHNORMAL     "高于標準"
+    IDS_PLAYER_PNORMAL      "標準"
+    IDS_PLAYER_PLNORMAL     "低于標準(不推薦)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_PIDLE        "空閑(不推薦)"
+    IDS_PLAYER_FILE         "單文件"
+    IDS_PLAYER_LIST         "播放列表"
+    IDS_PLAYER_LOG_NO       "不記錄日志"
+    IDS_PLAYER_LOG          "簡單日志"
+    IDS_PLAYER_LOG_V1       "詳細日志(v=1)"
+    IDS_PLAYER_LOG_V2       "詳細日志(v=2)"
+    IDS_PLAYER_LOG_V3       "詳細日志(v=3)"
+    IDS_PLAYER_LOG_V4       "詳細日志(v=4)"
+    IDS_PLAYER_LOG_V5       "詳細日志(v=5)"
+    IDS_PLAYER_HIDE_NO      "不隱藏"
+    IDS_PLAYER_HIDE_M       "手動隱藏"
+    IDS_PLAYER_HIDE_A       "自動隱藏"
+    IDS_PLAYER_NOTIME       "不顯示日期時間"
+    IDS_PLAYER_T1           "時:分 (24小時制)"
+    IDS_PLAYER_T2           "時:分 (12小時制)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_T3           "時:分:秒 (24小時制)"
+    IDS_PLAYER_T4           "時:分:秒 (12小時制)"
+    IDS_PLAYER_T5           "年.月.日 時:分 (24)"
+    IDS_PLAYER_T6           "年.月.日 時:分 (12)"
+    IDS_PLAYER_T7           "年.月.日 時:分:秒 (24)"
+    IDS_PLAYER_T8           "年.月.日 時:分:秒 (12)"
+    IDS_PLAYER_T9           "無播放信息 時:分 (24)"
+    IDS_PLAYER_NORMAL_MODE  "默認模式"
+    IDS_PLAYER_SHOWTIME     "顯示播放時間"
+    IDS_PLAYER_SHOWREMAIN   "顯示剩余時間"
+    IDS_PLAYER_NOOSD        "不顯示OSD"
+    IDS_PLAYER_TASK         "任務欄"
+    IDS_PLAYER_TRAY         "系統托盤"
+    IDS_PLAYER_TRAYSTOP     "托盤并暫停"
+    IDS_PLAYER_NOUSE        "不使用"
+    IDS_PLAYER_EX           "增強"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ASSOS_AVI           "視頻剪輯"
+    IDS_ASSOS_CT            "動畫文件"
+    IDS_ASSOS_INPUT         "請輸入擴展名和說明并選擇類型"
+    IDS_ASSOS_AS            "文件關聯"
+    IDS_ASSOS_DEL           "不能刪除默認格式!"
+    IDS_PLAYER_USE          "使用"
+    IDS_ASSOS_OP            "打開"
+    IDS_ASSOS_PL            "播放"
+    IDS_ASSOS_ASSOS         "關聯"
+    IDS_ASSOS_EX            "擴展名"
+    IDS_ASSOS_INF           "文件說明"
+    IDS_ASSOS_TYP           "類型"
+    IDS_OTHER_REALONLINE    "Real 在線支持"
+    IDS_OTHER_REALOK        "Real 在線支持注冊成功 !"
+    IDS_OTHER_REALFAIL      "Real 在線支持注冊失敗，請重試 !"
+    IDS_OTHER_REALAGAIN     "Real 在線支持已注冊，是否重新注冊 ?"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_OTHER_TOOL4         "FLV 分離提取工具"
+    IDS_OTHER_TOOL5         "GSpot 影片信息查看工具"
+    IDS_OTHER_TOOL6         "MediaInfo 影片信息查看工具"
+    IDS_OTHER_TOOL7         "PMP 分離提取工具"
+    IDS_OTHER_TOOL8         "TS 分割工具"
+    IDS_DECODE_PR           "解碼器順序"
+    IDS_DECODE_NAME         "名稱"
+    IDS_PLAYER_OPTION       "選項"
+    IDS_DECODE_INF          "說明"
+    IDS_DECODE_SKIP1        "跳過無用的步驟"
+    IDS_DECODE_SKIP2        "跳過沒被引用的幀"
+    IDS_DECODE_SKIP3        "跳過 B-幀"
+    IDS_DECODE_SKIP4        "跳過除了關鍵幀的所有幀"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_DECODE_SKIP5        "跳過所有的幀"
+    IDS_DECODE_CODEFILE1    "MPlayer 內置的解碼器配置"
+    IDS_DECODE_CODEFILE2    "外置默認的解碼器配置文件"
+    IDS_DECODE_CODEFILE3    "CoreAVC 優先的解碼器配置"
+    IDS_DECODE_SKIPLOOP     "跳過循環過濾器"
+    IDS_DECODE_SKIPLOOP_INFO "(僅用于H.264)提供大的提速且不損失品質"
+    IDS_DECODE_SKIPFRAME    "跳過解碼幀"
+    IDS_DECODE_SKIPFRAME_INFO "大的提速, 但是有時有痙攣或糟糕的圖像"
+    IDS_DECODE_XY           "縮放圖像"
+    IDS_DECODE_XY_INFO      "設置圖像寬度,并保持高寬比(硬件縮放)"
+    IDS_DECODE_LOW          "以較低的分辨率解碼"
+    IDS_DECODE_LOW_INFO     "MPEG-2大幅提速，但常常導致難看的圖像)"
+    IDS_PLAYER_FNAME        "濾鏡名"
+    IDS_PLAYER_FINFO        "濾鏡說明"
+    IDS_AUDIO_RELOW         "線性插值,快速品質低"
+    IDS_AUDIO_REINT         "多相過濾器組整數處理"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_OTHER_REALON        "Real 在線支持尚未注冊 !"
+    IDS_OTHER_REALFAILS     "Real 在線支持注冊失敗，未找到需要的文件 !"
+    IDS_OTHER_UNREALFAIL    "Real 在線支持反注冊失敗，未找到需要的文件 !"
+    IDS_OTHER_UNREALOK      "Real 在線支持反注冊成功 !"
+    IDS_OTHER_UNREALFAILS   "Real 在線支持反注冊失敗，請重試 !"
+    IDS_OTHER_OPENA         "打開音頻文件"
+    IDS_OTHER_OPENV         "打開視頻文件"
+    IDS_OTHER_TYPEA         "常用音頻格式"
+    IDS_OTHER_TYPEV         "常用視頻格式"
+    IDS_OTHER_ALL           "所有文件"
+    IDS_OTHER_EMPTY         "視頻和音頻文件名不能為空 !"
+    IDS_OTHER_LINK_EDITOR   "MPlayer首選項"
+    IDS_OTHER_LINK_PLAYER   "播放器"
+    IDS_OTHER_TOOL1         "MKV 轉換合成工具"
+    IDS_OTHER_TOOL2         "MKV 分離提取工具"
+    IDS_OTHER_TOOL3         "FLV 修復工具"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_AUDIO_REFOA         "多相過濾器組浮點處理"
+    IDS_SUB_NORMAL_COL      "默認顏色"
+    IDS_AUDIO_AFAT          "過濾器自動選擇"
+    IDS_AUDIO_AFH           "精度優化"
+    IDS_AUDIO_AFF           "速度優化"
+    IDS_AUDIO_RS            "單樣本平滑差異"
+    IDS_AUDIO_RM            "多樣本平滑差異"
+    IDS_AUDIO_VNL           "音量正常化"
+    IDS_AUDIO_VNL_INFO      "沒有失真的最大音量"
+    IDS_AUDIO_RE            "音頻重采樣"
+    IDS_AUDIO_RE_INFO       "改變音頻流的采樣(速/頻)率"
+    IDS_AUDIO_EQ            "10波段8度均衡器"
+    IDS_AUDIO_EQ_INFO       "各頻率波段的增益分貝(-12~12)"
+    IDS_AUDIO_CHAN          "聲道"
+    IDS_AUDIO_DS            "DirectSound (推薦)"
+    IDS_AUDIO_WIN           "Win32 WaveOut"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_AUDIO_FILE          "輸出到PCM/Wave文件"
+    IDS_AUDIO_NULL          "無音頻輸出"
+    IDS_AUDIO_ADV           "高級音頻過濾器"
+    IDS_AUDIO_ADV_INFO      "優化音頻回放精度或速度"
+    IDS_SUB_FUZZ1           "精確匹配"
+    IDS_SUB_FUZZ2           "所有包含名稱的字幕"
+    IDS_SUB_FUZZ3           "當前目錄的所有字幕"
+    IDS_SUB_ALIG1           "頂部對齊"
+    IDS_SUB_ALIG2           "中央對齊"
+    IDS_SUB_ALIG3           "底部對齊"
+    IDS_SUB_SCAL1           "不自動縮放"
+    IDS_SUB_SCAL2           "高度成比例"
+    IDS_SUB_SCAL3           "寬度成比例"
+    IDS_SUB_SCAL4           "對角線成比例"
+    IDS_VIDEO_ROTA1         "順時針90度并翻轉"
+    IDS_VIDEO_ROTA2         "順時針90度"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_VIDEO_ROTA3         "逆時針90度"
+    IDS_VIDEO_ROTA4         "逆時針90度并翻轉"
+    IDS_VIDEO_VD1           "線性混合(Linear blend)"
+    IDS_VIDEO_VD2           "立方插值(Cubic interpolating)"
+    IDS_VIDEO_VD3           "中位數(Median)"
+    IDS_VIDEO_DB1           "水平方向"
+    IDS_VIDEO_DB2           "垂直方向"
+    IDS_VIDEO_DB3           "精確的水平方向"
+    IDS_VIDEO_DB4           "精確的垂直方向"
+    IDS_VIDEO_DB5           "水平/垂直方向"
+    IDS_VIDEO_DB6           "精確水平/垂直方向"
+    IDS_VIDEO_VO1           "DirectX(推薦)"
+    IDS_VIDEO_VO2           "OpenGL(高性能顯卡推薦)"
+    IDS_VIDEO_VO3           "OpenGL第2代"
+    IDS_VIDEO_VO4           "矩陣特效(黑客帝國特效)"
+    IDS_VIDEO_VO5           "矩陣特效(低分辨率)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_VIDEO_VO6           "矩陣特效(高分辨率)"
+    IDS_VIDEO_VO7           "輸出每幀到JPG圖片"
+    IDS_VIDEO_VO8           "輸出每幀到PNG圖片"
+    IDS_VIDEO_VO9           "輸出視頻到RAW文件(大)"
+    IDS_VIDEO_VO10          "無視頻輸出"
+    IDS_VIDEO_MX1           "綠色(默認)"
+    IDS_VIDEO_MX2           "藍色"
+    IDS_VIDEO_MX3           "紅色"
+    IDS_VIDEO_MX4           "彩色"
+    IDS_VIDEO_COLMORE       "更多顏色..."
+    IDS_VIDEO_COLAT         "自動"
+    IDS_VIDEO_SST           "截圖濾鏡"
+    IDS_VIDEO_SSTI          "打開該濾鏡后在不用時不占用資源"
+    IDS_VIDEO_ASS           "截屏中渲染字幕"
+    IDS_VIDEO_ASSI          "截屏內容將包含SSA/ASS字幕"
+    IDS_VIDEO_EXP           "分辨率擴展"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_VIDEO_EXPI          "字幕放置在該濾鏡的黑邊中(expand)"
+    IDS_VIDEO_EXPIT         "擴展比例，值為空格時自動擴展"
+    IDS_VIDEO_ASP           "重載高寬比"
+    IDS_VIDEO_ASPI          "播放中的文件的高寬比信息不正確或缺少(aspect)"
+    IDS_VIDEO_EQ2           "亮度/對比度/飽和度/伽瑪"
+    IDS_VIDEO_EQ2I          "提供亮度/對比度/飽和度/伽瑪調節能力"
+    IDS_VIDEO_HUE           "色度調節"
+    IDS_VIDEO_HUEI          "為DirectX等驅動提供色度調節能力"
+    IDS_VIDEO_FLP           "翻轉影片"
+    IDS_VIDEO_FLPI          "翻轉圖像使其上下顛倒"
+    IDS_VIDEO_ROT           "旋轉影片"
+    IDS_VIDEO_ROTI          "以90度為單位旋轉圖像并有選擇地將其翻轉"
+    IDS_VIDEO_CRO           "切邊濾鏡"
+    IDS_VIDEO_CROI          "切割出圖像的指定部分并丟棄其余部分"
+    IDS_VIDEO_CROIT         "寬度:高度:橫坐標:縱坐標(中心坐標為0:0)"
+    IDS_VIDEO_DEI           "反隔行掃描濾鏡"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_VIDEO_DEII          "解除視頻隔行掃描(拉絲/交錯/水波紋)"
+    IDS_VIDEO_DEB           "反塊效應濾鏡"
+    IDS_VIDEO_DEBI          "去除影片塊效應(deblocking)"
+    IDS_VIDEO_DER           "去色斑濾鏡"
+    IDS_VIDEO_DERI          "去除影片色斑(deringing)"
+    IDS_VIDEO_TNO           "瞬時噪聲去除器"
+    IDS_VIDEO_TNOI          "去除影片瞬時噪聲(tmpnoise)"
+    IDS_VIDEO_ATL           "自動更正亮度/對比度"
+    IDS_VIDEO_ATLI          "自動更正影片亮度/對比度(autolevels)"
+    IDS_VIDEO_OTH           "其它視頻濾鏡"
+    IDS_VIDEO_OTHI          "直接輸入視頻濾鏡參數"
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\MEditor2.rc2"  // 非 Microsoft Visual C++ 編輯的資源
+#include "l.CHS\afxres.rc"      // 標準組件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

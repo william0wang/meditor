@@ -145,14 +145,17 @@ BOOL CMPlayerPage::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
-	m_language.AddString(_T("自动选择"));
+	m_auto_s = ResStr(IDS_PLAYER_AUTO);
+	m_no_s = ResStr(IDS_PLAYER_NO);
+    
+	m_language.AddString(ResStr(IDS_PLAYER_AUTOSEL));
 	m_language.AddString(_T("简体中文"));
 	m_language.AddString(_T("English"));
 	m_language.AddString(_T("繁體中文"));
 	m_language.AddString(_T("繁體中文 BIG5"));
 	m_language.SetCurSel(lang_auto);
 
-	m_cache.AddString(_T("自动"));
+	m_cache.AddString(m_auto_s);
 	m_cache.AddString(_T("512 KB"));
 	m_cache.AddString(_T("1 M"));
 	m_cache.AddString(_T("2 M"));
@@ -162,54 +165,54 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_cache.AddString(_T("32 M"));
 	m_cache.SetCurSel(0);
 	
-	m_ontop.AddString(_T("从不"));
-	m_ontop.AddString(_T("始终"));
-	m_ontop.AddString(_T("播放时"));
+	m_ontop.AddString(ResStr(IDS_PLAYER_NONE));
+	m_ontop.AddString(ResStr(IDS_PLAYER_ALLWAYS));
+	m_ontop.AddString(ResStr(IDS_PLAYER_PLAYING));
 	m_ontop.SetCurSel(top_none);
 
-	m_colorkey.AddString(_T("无"));
+	m_colorkey.AddString(m_no_s);
 	m_colorkey.AddString(_T("0x000001"));
 	m_colorkey_s = _T("0x000001");
 
-	m_autosync.AddString(_T("无同步模式(推荐)"));
-	m_autosync.AddString(_T("普通同步模式"));
-	m_autosync.AddString(_T("快速同步模式"));
-	m_autosync.AddString(_T("FLV/RM 模式"));
-	m_autosync.AddString(_T("FLV 强力同步模式"));
-	m_autosync.AddString(_T("AVI 修正模式"));
+	m_autosync.AddString(ResStr(IDS_PLAYER_AS_NO));
+	m_autosync.AddString(ResStr(IDS_PLAYER_AS_NORMAL));
+	m_autosync.AddString(ResStr(IDS_PLAYER_AS_FAST));
+	m_autosync.AddString(ResStr(IDS_PLAYER_AS_FLV));
+	m_autosync.AddString(ResStr(IDS_PLAYER_AS_FLVEX));
+	m_autosync.AddString(ResStr(IDS_PLAYER_AS_AVI));
 	m_autosync.SetCurSel(sync_none);
 
-	m_priority.AddString(_T("自动"));
-	m_priority.AddString(_T("实时(不推荐)"));
-	m_priority.AddString(_T("高"));
-	m_priority.AddString(_T("高于标准"));
-	m_priority.AddString(_T("标准"));
-	m_priority.AddString(_T("低于标准(不推荐)"));
-	m_priority.AddString(_T("空闲(不推荐)"));
+	m_priority.AddString(m_auto_s);
+	m_priority.AddString(ResStr(IDS_PLAYER_PREALTIME));
+	m_priority.AddString(ResStr(IDS_PLAYER_PHIGH));
+	m_priority.AddString(ResStr(IDS_PLAYER_PHNORMAL));
+	m_priority.AddString(ResStr(IDS_PLAYER_PNORMAL));
+	m_priority.AddString(ResStr(IDS_PLAYER_PLNORMAL));
+	m_priority.AddString(ResStr(IDS_PLAYER_PIDLE));
 	m_priority.SetCurSel(prio_auto);
 
-	m_loop.AddString(_T("从不"));
-	m_loop.AddString(_T("单文件"));
-	m_loop.AddString(_T("播放列表"));
+	m_loop.AddString(ResStr(IDS_PLAYER_NONE));
+	m_loop.AddString(ResStr(IDS_PLAYER_FILE));
+	m_loop.AddString(ResStr(IDS_PLAYER_LIST));
 	m_loop.SetCurSel(loop_none);
 
-	m_monitor.AddString(_T("自动"));
+	m_monitor.AddString(m_auto_s);
 	m_monitor.AddString(_T("4:3"));
 	m_monitor.AddString(_T("16:9"));
-	m_monitor_s = _T("自动");
+	m_monitor_s = m_auto_s;
 
-	m_log.AddString(_T("不记录日志"));
-	m_log.AddString(_T("简单日志"));
-	m_log.AddString(_T("详细日志(v=1)"));
-	m_log.AddString(_T("详细日志(v=2)"));
-	m_log.AddString(_T("详细日志(v=3)"));
-	m_log.AddString(_T("详细日志(v=4)"));
-	m_log.AddString(_T("详细日志(v=5)"));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG_NO));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG_V1));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG_V2));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG_V3));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG_V4));
+	m_log.AddString(ResStr(IDS_PLAYER_LOG_V5));
 	m_log.SetCurSel(log_none);
 	
-	m_switchview.AddString(_T("不隐藏"));
-	m_switchview.AddString(_T("手动隐藏"));
-	m_switchview.AddString(_T("自动隐藏"));
+	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_NO));
+	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_M));
+	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_A));
 	m_switchview.SetCurSel(switch_none);
 	
 	m_osdsize.AddString(_T("2"));
@@ -221,32 +224,32 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_osdsize.AddString(_T("5"));
 	m_osdsize_s = _T("3");
 	
-	m_osdtime.AddString(_T("不显示日期时间"));
-	m_osdtime.AddString(_T("时:分 (24小时制)"));
-	m_osdtime.AddString(_T("时:分 (12小时制)"));
-	m_osdtime.AddString(_T("时:分:秒 (24小时制)"));
-	m_osdtime.AddString(_T("时:分:秒 (12小时制)"));
-	m_osdtime.AddString(_T("年.月.日 时:分 (24)"));
-	m_osdtime.AddString(_T("年.月.日 时:分 (12)"));
-	m_osdtime.AddString(_T("年.月.日 时:分:秒 (24)"));
-	m_osdtime.AddString(_T("年.月.日 时:分:秒 (12)"));
-	m_osdtime.AddString(_T("无播放信息 时:分 (24)"));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_NOTIME));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T1));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T2));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T3));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T4));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T5));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T6));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T7));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T8));
+	m_osdtime.AddString(ResStr(IDS_PLAYER_T9));
 	m_osdtime.SetCurSel(time_none);
 	
-	m_osdmode.AddString(_T("默认模式"));
-	m_osdmode.AddString(_T("显示播放时间"));
-	m_osdmode.AddString(_T("显示剩余时间"));
-	m_osdmode.AddString(_T("不显示OSD"));
+	m_osdmode.AddString(ResStr(IDS_PLAYER_NORMAL_MODE));
+	m_osdmode.AddString(ResStr(IDS_PLAYER_SHOWTIME));
+	m_osdmode.AddString(ResStr(IDS_PLAYER_SHOWREMAIN));
+	m_osdmode.AddString(ResStr(IDS_PLAYER_NOOSD));
 	m_osdmode.SetCurSel(osd_normal);
 	
-	m_systray.AddString(_T("任务栏"));
-	m_systray.AddString(_T("系统托盘"));
-	m_systray.AddString(_T("托盘并暂停"));
+	m_systray.AddString(ResStr(IDS_PLAYER_TASK));
+	m_systray.AddString(ResStr(IDS_PLAYER_TRAY));
+	m_systray.AddString(ResStr(IDS_PLAYER_TRAYSTOP));
 	m_systray.SetCurSel(sys_task);
 	
-	m_autoplay.AddString(_T("不使用"));
-	m_autoplay.AddString(_T("自动"));
-	m_autoplay.AddString(_T("增强"));
+	m_autoplay.AddString(ResStr(IDS_PLAYER_NOUSE));
+	m_autoplay.AddString(m_auto_s);
+	m_autoplay.AddString(ResStr(IDS_PLAYER_EX));
 	m_autoplay.SetCurSel(auto_ex);
 
 	TCHAR szCurPath[MAX_PATH + 1];
@@ -302,13 +305,12 @@ void CMPlayerPage::SetNormal()
 	m_double = TRUE;
 	m_conf = FALSE;
 	m_htimer= FALSE;
-	m_dvd = _T("G:");
 	m_end = _T("0:0:0");
 	m_png = _T("");
 	m_start = _T("0:0:0");
 	m_auto_fuzziness = _T("1");
 	m_colorkey_s = _T("0x000001");
-	m_monitor_s = _T("自动");
+	m_monitor_s = m_auto_s;
 	m_osdsize_s = _T("3");
 	m_language.SetCurSel(lang_auto);
 	m_cache.SetCurSel(0);
@@ -363,7 +365,7 @@ void CMPlayerPage::InitFromConfig()
 	}
 	if(m_cfg->GetValue_Boolean(_T("nocolorkey"),value_b))
 	{
-		m_colorkey_s = _T("无");
+		m_colorkey_s = m_no_s;
 	}
 	if(m_cfg->GetValue_Boolean(_T("double"),value_b))
 	{
@@ -722,16 +724,16 @@ void CMPlayerPage::SaveConfig()
 		return;
 	UpdateData(TRUE);
 
-	m_cfg->SetValue(_T("fixed-vo"),_T("yes"));
+	m_cfg->SetValue(_T("fixed-vo"),_T("1"));
 
 	if(m_conf)
-		m_cfg->SetValue(_T("use-filedir-conf"),_T("yes"));
+		m_cfg->SetValue(_T("use-filedir-conf"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("use-filedir-conf"));
 	
-	if(m_colorkey_s == _T("无"))
+	if(m_colorkey_s == m_no_s)
 	{
-		m_cfg->SetValue(_T("nocolorkey"),_T("yes"));
+		m_cfg->SetValue(_T("nocolorkey"),_T("1"));
 		m_cfg->RemoveValue(_T("colorkey"));
 	}
 	else
@@ -741,22 +743,22 @@ void CMPlayerPage::SaveConfig()
 	}
 		
 	if(m_double)
-		m_cfg->SetValue(_T("double"),_T("yes"));
+		m_cfg->SetValue(_T("double"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("double"));
 	
 	if(m_quiet)
-		m_cfg->SetValue(_T("quiet"),_T("yes"));
+		m_cfg->SetValue(_T("quiet"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("quiet"));
 	
 	if(m_fullscreen)
-		m_cfg->SetValue(_T("fs"),_T("yes"));
+		m_cfg->SetValue(_T("fs"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("fs"));
 		
 	if(m_show)
-		m_cfg->SetValue(_T("idle"),_T("yes"));
+		m_cfg->SetValue(_T("idle"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("idle"));
 	
@@ -824,7 +826,7 @@ void CMPlayerPage::SaveConfig()
 	
 	m_cfg->SetValue(_T("font"), _T("\"") + m_osd_font + _T("\""));
 	m_cfg->SetValue(_T("subfont-osd-scale"),m_osdsize_s );
-	if(m_monitor_s != _T("自动"))
+	if(m_monitor_s != m_auto_s)
 		m_cfg->SetValue(_T("monitoraspect"),m_monitor_s );
 	else
 		m_cfg->RemoveValue(_T("monitoraspect"));
@@ -1088,7 +1090,7 @@ void CMPlayerPage::SaveConfig()
 		break;
 	case sync_avi:
 		m_cfg->SetValue(_T("autosync"), _T("0"));
-		m_cfg->SetValue(_T("nobps"), _T("yes"));
+		m_cfg->SetValue(_T("nobps"), _T("1"));
 		m_cfg->RemoveValue(_T("mc"));
 		break;
 	default:

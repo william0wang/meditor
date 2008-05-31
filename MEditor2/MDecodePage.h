@@ -61,6 +61,11 @@ protected:
 	CStringArray m_adecode;
 	CStringArray m_skip;
 	CStringArray m_threads;
+	CString m_str_skip1;
+	CString m_str_skip2;
+	CString m_str_skip3;
+	CString m_str_skip4;
+	CString m_str_skip5;
 	static int m_nColWidths[];
 	static int m_nColWidths_AV[];
 	void FillListCtrl(CXListCtrl * pList);

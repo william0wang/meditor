@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meditor2_en", "meditor2_en\meditor2_en.vcproj", "{A29D484B-0DCE-419C-A9A9-3B1F75C54ECE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meditor2_tc", "meditor2_tc\meditor2_tc.vcproj", "{CE4F59E3-B75A-4DAA-B1F2-C4AD4C9EDEDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Unicode|Win32 = Debug Unicode|Win32
+		Debug|Win32 = Debug|Win32
+		Release Unicode|Win32 = Release Unicode|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A29D484B-0DCE-419C-A9A9-3B1F75C54ECE}.Debug Unicode|Win32.ActiveCfg = Debug Unicode|Win32
+		{A29D484B-0DCE-419C-A9A9-3B1F75C54ECE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A29D484B-0DCE-419C-A9A9-3B1F75C54ECE}.Release Unicode|Win32.ActiveCfg = Release Unicode|Win32
+		{A29D484B-0DCE-419C-A9A9-3B1F75C54ECE}.Release|Win32.ActiveCfg = Release|Win32
+		{CE4F59E3-B75A-4DAA-B1F2-C4AD4C9EDEDD}.Debug Unicode|Win32.ActiveCfg = Debug Unicode|Win32
+		{CE4F59E3-B75A-4DAA-B1F2-C4AD4C9EDEDD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CE4F59E3-B75A-4DAA-B1F2-C4AD4C9EDEDD}.Release Unicode|Win32.ActiveCfg = Release Unicode|Win32
+		{CE4F59E3-B75A-4DAA-B1F2-C4AD4C9EDEDD}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

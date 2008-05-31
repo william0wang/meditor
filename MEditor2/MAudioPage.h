@@ -96,6 +96,11 @@ protected:
 	CString	m_subpos;
 	CString	m_slang;
 	CString	m_subcp;
+	CString	m_str_at;
+	CString	m_str_low;
+	CString	m_str_int;
+	CString	m_str_foa;
+	CString	m_str_nco;
 	//}}AFX_DATA
 	CStringArray m_adv_af;
 	CStringArray m_volnormal;
@@ -131,6 +136,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CString m_alang;
+	BOOL m_ass_use_margins;
+	BOOL m_noautosub;
 };
 
 //{{AFX_INSERT_LOCATION}}

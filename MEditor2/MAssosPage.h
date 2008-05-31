@@ -53,6 +53,11 @@ protected:
 	CString m_mpc_exe;
 	CString m_icons_dll;
 	CString m_program_dir;
+	CString m_str_list;
+	CString m_str_flash;
+	CString m_str_ds;
+	CString m_str_v;
+	CString m_str_a;
 	bool m_have_icons;
 	bool m_special;
 	int m_default_num;

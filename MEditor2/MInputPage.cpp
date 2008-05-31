@@ -244,37 +244,50 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 
 	CString str = _T("");
 
-	m_List.InsertItem(0, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(0, 1, _T("增大字幕尺寸"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(0, 2, _T("增大 0.1"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(0, 3, _T("c 或 C"),RGB(0,0,0),RGB(200,255,200));
+	int index = 0;
+	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("增大字幕尺寸"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T("增大 0.1"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("c 或 C"),RGB(0,0,0),RGB(200,255,200));
+	++index;
 
-	m_List.InsertItem(1, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(1, 1, _T("减小字幕尺寸"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(1, 2, _T("减小 0.1"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(1, 3, _T("v 或 V"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("减小字幕尺寸"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T("减小 0.1"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("v 或 V"),RGB(0,0,0),RGB(200,255,200));
+	++index;
 
-	m_List.InsertItem(2, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(2, 1, _T("全屏时调节画面尺寸"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(2, 2, _T("放大/缩小/变形"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(2, 3, _T("右 Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("调整单文件循环次数"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T("1~10、始终、停止"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("b 或 B"),RGB(0,0,0),RGB(200,255,200));
+	++index;
 
-	m_List.InsertItem(3, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(3, 1, _T("全屏时调节画面位置"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(3, 2, _T("上下左右移动"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(3, 3, _T("左 Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("全屏时调节画面尺寸"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T("放大/缩小/变形"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("右 Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
+	++index;
 
-	m_List.InsertItem(4, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(4, 1, _T("全屏幕"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(4, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(4, 3, _T("Alt + 回车"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("全屏时调节画面位置"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T("上下左右移动"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("左 Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
+	++index;
+
+	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("全屏幕"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Alt + 回车"),RGB(0,0,0),RGB(200,255,200));
+	++index;
 	
-	m_List.InsertItem(5, _T("内置鼠标操作"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(5, 1, _T("全屏幕下右键菜单"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(5, 2, _T("鼠标移动到屏幕最上方"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(5, 3, _T("单击鼠标右键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, _T("内置鼠标操作"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, _T("全屏幕下右键菜单"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T("鼠标移动到屏幕最上方"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("单击鼠标右键"),RGB(0,0,0),RGB(200,255,200));
+	++index;
 
-	m_readonly_number = 6;
+	m_readonly_number = index;
 
 	int nItem, nSubItem;
 	m_def_number = m_inputs.GetSize() + m_readonly_number;

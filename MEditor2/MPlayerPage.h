@@ -151,6 +151,8 @@ public:
 	CString	m_png;
 	CString	m_start;
 	CString	m_monitor_s;
+	CString	m_auto_s;
+	CString	m_no_s;
 	BOOL	m_quiet;
 	BOOL	m_double;
 	CString	m_colorkey_s;

@@ -96,7 +96,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		{
 //			gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("MEditorII - MPlayer 首选项"));
 //			if(GetLastError() == ERROR_ALREADY_EXISTS)
-			CWnd *m_wnd = FindWindow(NULL,_T("MPlayer 首选项    "));
+			CWnd *m_wnd = FindWindow(NULL, ResStr(IDS_PLAYER_NAME) + _T("    "));
 			if(m_wnd != NULL)
 			{
 				CWnd *pWndChild = m_wnd->GetLastActivePopup();
@@ -133,7 +133,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 	// TODO: 在此添加额外的初始化代码
 
-	SetWindowText(_T("MPlayer 首选项    "));
+	SetWindowText(ResStr(IDS_PLAYER_NAME) + _T("    "));
 	m_config.LoadConfig(m_program_dir + _T("mplayer.ini"));
 
 	m_player.m_cfg = &m_config;
@@ -143,15 +143,23 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_resume.m_cfg = &m_config;
 	m_other.m_cfg = &m_config;
 	m_assos.m_cfg = &m_config;
+	CString p_str = ResStr(IDS_TAB_PLAYER);
+	CString v_str = ResStr(IDS_TAB_VIDEO);
+	CString a_str = ResStr(IDS_TAB_AUDIO);
+	CString d_str = ResStr(IDS_TAB_DECODE);
+	CString r_str = ResStr(IDS_TAB_RESUME);
+	CString o_str = ResStr(IDS_TAB_OTHER);
+	CString i_str = ResStr(IDS_TAB_INPUT);
+	CString s_str = ResStr(IDS_TAB_ASSOS);
 
-	m_TabSheet.AddPage(_T("播放器"), &m_player, IDD_PLAYER_DIALOG);
-	m_TabSheet.AddPage(_T("视频"), &m_video, IDD_VIDEO_DIALOG);
-	m_TabSheet.AddPage(_T("音频/字幕"), &m_audio, IDD_AUDIO_DIALOG);
-	m_TabSheet.AddPage(_T("解码器"), &m_decode, IDD_DECODE_DIALOG);
-	m_TabSheet.AddPage(_T("收藏夹"), &m_resume, IDD_RESUME_DIALOG);
-	m_TabSheet.AddPage(_T("其他"), &m_other, IDD_OTHER_DIALOG);
-	m_TabSheet.AddPage(_T("快捷键"), &m_Input, IDD_INPUT_DIALOG);
-	m_TabSheet.AddPage(_T("文件关联"), &m_assos, IDD_ASSOS_DIALOG);
+	m_TabSheet.AddPage(  p_str, &m_player, IDD_PLAYER_DIALOG);
+	m_TabSheet.AddPage(  v_str , &m_video, IDD_VIDEO_DIALOG);
+	m_TabSheet.AddPage(  a_str , &m_audio, IDD_AUDIO_DIALOG);
+	m_TabSheet.AddPage( d_str , &m_decode, IDD_DECODE_DIALOG);
+	m_TabSheet.AddPage( r_str , &m_resume, IDD_RESUME_DIALOG);
+	m_TabSheet.AddPage( o_str , &m_other, IDD_OTHER_DIALOG);
+	m_TabSheet.AddPage( i_str , &m_Input, IDD_INPUT_DIALOG);
+	m_TabSheet.AddPage( s_str , &m_assos, IDD_ASSOS_DIALOG);
 	m_TabSheet.Show();
 	
 	int value_i;

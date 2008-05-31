@@ -19,6 +19,8 @@ static char THIS_FILE[] = __FILE__;
 CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMAudioPage::IDD, pParent)
 	, m_alang(_T(""))
+	, m_ass_use_margins(FALSE)
+	, m_noautosub(FALSE)
 {
 	//{{AFX_DATA_INIT(CMAudioPage)
 	m_dvdsub = FALSE;
@@ -38,6 +40,11 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_subpos = _T("90");
 	m_slang = _T("zh,ch,chi,tw");
 	m_subcp = _T("GBK,BIG5,UTF-8,UTF-16");
+	m_str_at = ResStr(IDS_PLAYER_AUTO);
+	m_str_low = ResStr(IDS_AUDIO_RELOW);
+	m_str_int = ResStr(IDS_AUDIO_REINT);
+	m_str_foa = ResStr(IDS_AUDIO_REFOA);
+	m_str_nco = ResStr(IDS_SUB_NORMAL_COL);
 	//}}AFX_DATA_INIT
 }
 
@@ -84,6 +91,8 @@ void CMAudioPage::DoDataExchange(CDataExchange* pDX)
 	//}}AFX_DATA_MAP
 	DDX_Control(pDX, IDC_LIST_AUDIO, m_List);
 	DDX_Text(pDX, IDC_EDIT_ALANG, m_alang);
+	DDX_Check(pDX, IDC_CHECK_ASS_MARGINS, m_ass_use_margins);
+	DDX_Check(pDX, IDC_CHECK_ASS_MARGINS2, m_noautosub);
 }
 
 
@@ -122,7 +131,16 @@ void CMAudioPage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	TCHAR *	lpszHeaders[] = { _T("使用"),_T("滤镜名"), _T("选项"), _T("滤镜说明"), NULL };
+	CString use = ResStr(IDS_PLAYER_USE);
+	CString nam = ResStr(IDS_PLAYER_FNAME);
+	CString opt = ResStr(IDS_PLAYER_OPTION);
+	CString inf = ResStr(IDS_PLAYER_FINFO);
+	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(nam.GetBuffer())
+		,_tcsdup(opt.GetBuffer()) ,  _tcsdup(inf.GetBuffer()),  NULL };
+	use.ReleaseBuffer();
+	nam.ReleaseBuffer();
+	opt.ReleaseBuffer();
+	inf.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -187,74 +205,73 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	m_equalizer.RemoveAll();
 	m_resample.RemoveAll();
 
-	m_adv_af.Add(_T("过滤器自动选择"));	
-	m_adv_af.Add(_T("精度优化"));
-	m_adv_af.Add(_T("速度优化"));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFAT));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFH));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFF));
 
-	m_volnormal.Add(_T("单样本平滑差异"));
-	m_volnormal.Add(_T("多样本平滑差异"));
+	m_volnormal.Add(ResStr(IDS_AUDIO_RS));
+	m_volnormal.Add(ResStr(IDS_AUDIO_RM));
 
-	m_resample.Add(_T("8kHz 自动"));
-	m_resample.Add(_T("8kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("8kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("8kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("16kHz 自动"));
-	m_resample.Add(_T("16kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("16kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("16kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("22.05kHz 自动"));
-	m_resample.Add(_T("22.05kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("22.05kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("22.05kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("32kHz 自动"));
-	m_resample.Add(_T("32kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("32kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("32kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("44.1kHz 自动"));
-	m_resample.Add(_T("44.1kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("44.1kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("44.1kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("48kHz 自动"));
-	m_resample.Add(_T("48kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("48kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("48kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("64kHz 自动"));
-	m_resample.Add(_T("64kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("64kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("64kHz 多相过滤器组浮点处理"));
-	m_resample.Add(_T("96kHz 自动"));
-	m_resample.Add(_T("96kHz 线性插值,快速品质低"));
-	m_resample.Add(_T("96kHz 多相过滤器组整数处理"));
-	m_resample.Add(_T("96kHz 多相过滤器组浮点处理"));
-
+	m_resample.Add(_T("8kHz ") + m_str_at);
+	m_resample.Add(_T("8kHz ") + m_str_low);
+	m_resample.Add(_T("8kHz ") + m_str_int);
+	m_resample.Add(_T("8kHz ") + m_str_foa);
+	m_resample.Add(_T("16kHz ") + m_str_at);
+	m_resample.Add(_T("16kHz ") + m_str_low);
+	m_resample.Add(_T("16kHz ") + m_str_int);
+	m_resample.Add(_T("16kHz ") + m_str_foa);
+	m_resample.Add(_T("22.05kHz ") + m_str_at);
+	m_resample.Add(_T("22.05kHz ") + m_str_low);
+	m_resample.Add(_T("22.05kHz ") + m_str_int);
+	m_resample.Add(_T("22.05kHz ") + m_str_foa);
+	m_resample.Add(_T("32kHz ") + m_str_at);
+	m_resample.Add(_T("32kHz ") + m_str_low);
+	m_resample.Add(_T("32kHz ") + m_str_int);
+	m_resample.Add(_T("32kHz ") + m_str_foa);
+	m_resample.Add(_T("44.1kHz ") + m_str_at);
+	m_resample.Add(_T("44.1kHz ") + m_str_low);
+	m_resample.Add(_T("44.1kHz ") + m_str_int);
+	m_resample.Add(_T("44.1kHz ") + m_str_foa);
+	m_resample.Add(_T("48kHz ") + m_str_at);
+	m_resample.Add(_T("48kHz ") + m_str_low);
+	m_resample.Add(_T("48kHz ") + m_str_int);
+	m_resample.Add(_T("48kHz ") + m_str_foa);
+	m_resample.Add(_T("64kHz ") + m_str_at);
+	m_resample.Add(_T("64kHz ") + m_str_low);
+	m_resample.Add(_T("64kHz ") + m_str_int);
+	m_resample.Add(_T("64kHz ") + m_str_foa);
+	m_resample.Add(_T("96kHz ") + m_str_at);
+	m_resample.Add(_T("96kHz ") + m_str_low);
+	m_resample.Add(_T("96kHz ") + m_str_int);
+	m_resample.Add(_T("96kHz ") + m_str_foa);
 
 	pList->InsertItem(adv_af, _T(""));
 	pList->SetCheckbox(adv_af, 0, 0);
-	pList->SetItemText(adv_af, 1, _T("高级音频过滤器"));
+	pList->SetItemText(adv_af, 1, ResStr(IDS_AUDIO_ADV));
 	pList->SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  2,  FALSE);
-	pList->SetItemText(adv_af, 3, _T("优化音频回放精度或速度"));
+	pList->SetItemText(adv_af, 3, ResStr(IDS_AUDIO_ADV_INFO));
 
 	pList->InsertItem(volnormal, _T(""));
 	pList->SetCheckbox(volnormal, 0, 0);
-	pList->SetItemText(volnormal, 1, _T("音量正常化"));
+	pList->SetItemText(volnormal, 1, ResStr(IDS_AUDIO_VNL));
 	pList->SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
-	pList->SetItemText(volnormal, 3, _T("没有失真的最大音量"));
+	pList->SetItemText(volnormal, 3, ResStr(IDS_AUDIO_VNL_INFO));
 
 	
 	pList->InsertItem(resample, _T(""));
 	pList->SetCheckbox(resample, 0, 0);
-	pList->SetItemText(resample, 1, _T("音频重采样"));
+	pList->SetItemText(resample, 1, ResStr(IDS_AUDIO_RE));
 	pList->SetComboBox(resample, 2, TRUE,  &m_resample,  5,  16,  FALSE);
-	pList->SetItemText(resample, 3, _T("改变音频流的采样(速/频)率"));
+	pList->SetItemText(resample, 3, ResStr(IDS_AUDIO_RE_INFO));
 
 	
 	pList->InsertItem(equalizer, _T(""));
 	pList->SetCheckbox(equalizer, 0, 0);
-	pList->SetItemText(equalizer, 1, _T("10波段8度均衡器"));
+	pList->SetItemText(equalizer, 1, ResStr(IDS_AUDIO_EQ));
 	pList->SetItemText(equalizer, 2, _T("0:0:0:0:0:0:0:0:0:0"));
 	pList->SetEdit(equalizer, 2);
 	//.SetComboBox(equalizer, 2, TRUE,  &m_equalizer,  5,  0,  FALSE);
-	pList->SetItemText(equalizer, 3, _T("各频率波段的增益分贝(-12~12)"));
+	pList->SetItemText(equalizer, 3, ResStr(IDS_AUDIO_EQ_INFO));
 
 
 	pList->UnlockWindowUpdate();	// ***** unlock window updates *****
@@ -318,26 +335,26 @@ BOOL CMAudioPage::OnInitDialog()
 
 	m_volnorm_c.SetRange(10,100);
 	
-	m_audio.AddString(_T("DirectSound (推荐)"));
-	m_audio.AddString(_T("Win32 WaveOut"));
-	m_audio.AddString(_T("输出音频到PCM/Wave文件"));
-	m_audio.AddString(_T("无音频输出"));
+	m_audio.AddString(ResStr(IDS_AUDIO_DS));
+	m_audio.AddString(ResStr(IDS_AUDIO_WIN));
+	m_audio.AddString(ResStr(IDS_AUDIO_FILE));
+	m_audio.AddString(ResStr(IDS_AUDIO_NULL));
 	m_audio.SetCurSel(dsound);
 
-	m_fuzziness.AddString(_T("精确匹配"));
-	m_fuzziness.AddString(_T("所有包含名称的字幕"));
-	m_fuzziness.AddString(_T("当前目录的所有字幕"));
+	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ1));
+	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ2));
+	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ3));
 	m_fuzziness.SetCurSel(name);
 
-	m_align.AddString(_T("顶部对齐"));
-	m_align.AddString(_T("中央对齐"));
-	m_align.AddString(_T("底部对齐"));
+	m_align.AddString(ResStr(IDS_SUB_ALIG1));
+	m_align.AddString(ResStr(IDS_SUB_ALIG2));
+	m_align.AddString(ResStr(IDS_SUB_ALIG3));
 	m_align.SetCurSel(center);
 
-	m_autoscale.AddString(_T("不自动缩放"));
-	m_autoscale.AddString(_T("高度成比例"));
-	m_autoscale.AddString(_T("宽度成比例"));
-	m_autoscale.AddString(_T("对角线成比例"));
+	m_autoscale.AddString(ResStr(IDS_SUB_SCAL1));
+	m_autoscale.AddString(ResStr(IDS_SUB_SCAL2));
+	m_autoscale.AddString(ResStr(IDS_SUB_SCAL3));
+	m_autoscale.AddString(ResStr(IDS_SUB_SCAL4));
 	m_autoscale.SetCurSel(diagonal);
 
 	m_size.AddString(_T("2"));
@@ -349,27 +366,27 @@ BOOL CMAudioPage::OnInitDialog()
 	m_size.AddString(_T("5"));
 	m_size_s = _T("3");
 	
-	m_color_c.AddString(_T("默认颜色"));
+	m_color_c.AddString(m_str_nco);
 	m_color_c.AddString(_T("ffffff00"));
 	m_color_c.AddString(_T("ff000000"));
 	m_color_c.AddString(_T("00ff0000"));
 	m_color_c.AddString(_T("0000ff00"));
 	m_color_c.AddString(_T("ffffff50"));
 
-	m_bcolor_c.AddString(_T("默认颜色"));
+	m_bcolor_c.AddString(m_str_nco);
 	m_bcolor_c.AddString(_T("ffffff00"));
 	m_bcolor_c.AddString(_T("ff000000"));
 	m_bcolor_c.AddString(_T("00ff0000"));
 	m_bcolor_c.AddString(_T("0000ff00"));
 	m_bcolor_c.AddString(_T("00000050"));
 
-	m_bcolor = _T("默认颜色");
-	m_color = _T("默认颜色");
+	m_bcolor = m_str_nco;
+	m_color = m_str_nco;
 
-	m_channels.AddString(_T("默认"));
-	m_channels.AddString(_T("2.0声道"));
-	m_channels.AddString(_T("4.0声道"));
-	m_channels.AddString(_T("5.1声道"));
+	m_channels.AddString(ResStr(IDS_RESUME_NORMAL));
+	m_channels.AddString(_T("2.0") + ResStr(IDS_AUDIO_CHAN));
+	m_channels.AddString(_T("4.0") + ResStr(IDS_AUDIO_CHAN));
+	m_channels.AddString(_T("5.1") + ResStr(IDS_AUDIO_CHAN));
 	m_channels.SetCurSel(ch_auto);
 
 	TCHAR szCurPath[MAX_PATH + 1];
@@ -423,11 +440,12 @@ void CMAudioPage::SetNormal()
 {
 	m_ass = TRUE;
 	m_dvdsub = TRUE;
+	m_ass_use_margins = TRUE;
 	m_volnorm_s = 150;
 	m_volnorm = _T("150");
 	m_size_s = _T("3");
-	m_bcolor = _T("默认颜色");
-	m_color = _T("默认颜色");
+	m_bcolor = m_str_nco;
+	m_color = m_str_nco;
 	m_audio_delay = _T("0");
 	m_sub_delay = _T("0");
 	m_sub_error = _T("8");
@@ -447,7 +465,7 @@ void CMAudioPage::SetNormal()
 	m_List.SetCheckbox(resample, 0, 0);
 	m_List.SetComboBox(resample, 2, TRUE,  &m_resample,  8,  16,  FALSE);
 	m_List.SetCheckbox(adv_af, 0, 0);
-	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  0,  FALSE);
+	m_List.SetComboBox(adv_af, 1, TRUE,  &m_adv_af,  5,  0,  FALSE);
 	m_List.SetCheckbox(volnormal, 0, 1);
 	m_List.SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
 }
@@ -455,6 +473,8 @@ void CMAudioPage::SetNormal()
 void CMAudioPage::SetHigh()
 {
 	SetNormal();
+	m_List.SetCheckbox(adv_af, 0, 1);
+	m_List.SetComboBox(adv_af, 1, TRUE,  &m_adv_af,  5,  0,  FALSE);
 }
 
 void CMAudioPage::SetLower()
@@ -466,6 +486,7 @@ void CMAudioPage::SetLower()
 	m_volnorm = _T("100");
 	m_List.SetCheckbox(volnormal, 0, 0);
 	m_List.SetCheckbox(adv_af, 0, 1);
+	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  0,  FALSE);
 }
 
 void CMAudioPage::InitFromConfig()
@@ -486,6 +507,20 @@ void CMAudioPage::InitFromConfig()
 			m_ass = TRUE;
 		else
 			m_ass = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("ass-use-margins"),value_b))
+	{
+		if(value_b)
+			m_ass_use_margins = TRUE;
+		else
+			m_ass_use_margins = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("noautosub"),value_b))
+	{
+		if(value_b)
+			m_noautosub = TRUE;
+		else
+			m_noautosub = FALSE;
 	}
 	if(m_cfg->GetValue_Integer(_T("spuaa"),value_i))
 	{
@@ -704,10 +739,20 @@ void CMAudioPage::SaveConfig()
 	}
 	
 	if(m_ass)
-		m_cfg->SetValue(_T("ass"),_T("yes"));
+		m_cfg->SetValue(_T("ass"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("ass"));
-	
+
+	if(m_ass_use_margins)
+		m_cfg->SetValue(_T("ass-use-margins"),_T("1"));
+	else
+		m_cfg->RemoveValue(_T("ass-use-margins"));
+
+	if(m_noautosub)
+		m_cfg->SetValue(_T("noautosub"),_T("1"));
+	else
+		m_cfg->RemoveValue(_T("noautosub"));
+
 	if(m_dvdsub)
 		m_cfg->SetValue(_T("spuaa"),_T("4"));
 	else
@@ -716,7 +761,7 @@ void CMAudioPage::SaveConfig()
 	
 	if(m_volnorm_s > 10 && m_volnorm_s <= 100)
 	{
-		m_cfg->SetValue(_T("softvol"), _T("yes"));
+		m_cfg->SetValue(_T("softvol"), _T("1"));
 		m_volnorm.Format(_T("%d"),m_volnorm_s * 10);
 		m_cfg->SetValue(_T("softvol-max"), m_volnorm);
 	}
@@ -766,14 +811,14 @@ void CMAudioPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("subfont-text-scale"));
 		
-	if(m_color != _T("默认颜色"))
-		m_cfg->SetValue(_T("ass-color"),  m_color );
-	else
+	//if(m_color != m_str_nco)
+	//	m_cfg->SetValue(_T("ass-color"),  m_color );
+	//else
 		m_cfg->RemoveValue(_T("ass-color"));
 	
-	if(m_bcolor != _T("默认颜色"))
-		m_cfg->SetValue(_T("ass-border-color"),  m_bcolor );
-	else
+	//if(m_bcolor != m_str_nco)
+	//	m_cfg->SetValue(_T("ass-border-color"),  m_bcolor );
+	//else
 		m_cfg->RemoveValue(_T("ass-border-color"));
 	
 	if(m_slang != _T(""))
@@ -838,9 +883,9 @@ void CMAudioPage::SaveConfig()
 	if(m_List.GetCheckbox(adv_af, 0))
 	{
 		CString str = m_List.GetItemText(adv_af, 2);
-		if(str == _T("过滤器自动选择"))
+		if(str == ResStr(IDS_AUDIO_AFAT))
 			m_cfg->SetValue(_T("af-adv"), _T("force=0"));
-		else if(str == _T("精度优化"))
+		else if(str == ResStr(IDS_AUDIO_AFH))
 			m_cfg->SetValue(_T("af-adv"), _T("force=1"));
 		else
 			m_cfg->SetValue(_T("af-adv"), _T("force=2"));
@@ -852,7 +897,7 @@ void CMAudioPage::SaveConfig()
 	if(m_List.GetCheckbox(volnormal, 0))
 	{
 		CString str= m_List.GetItemText(volnormal, 2);
-		if(str == _T("多样本平滑差异"))
+		if(str == ResStr(IDS_AUDIO_RM))
 			af_str +=  _T("volnorm=2,");
 		else
 			af_str +=  _T("volnorm,");
@@ -868,67 +913,67 @@ void CMAudioPage::SaveConfig()
 	if(m_List.GetCheckbox(resample, 0))
 	{
 		CString str= m_List.GetItemText(resample, 2);
-		if(str == _T("8kHz 自动"))
+		if(str == _T("8kHz ") + m_str_at)
 			af_str +=  _T("resample=8000,");
-		else if(str == _T("8kHz 线性插值,快速品质低"))
+		else if(str == _T("8kHz ") + m_str_low)
 			af_str +=  _T("resample=8000:1:0,");
-		else if(str == _T("8kHz 多相过滤器组整数处理"))
+		else if(str == _T("8kHz ") + m_str_int)
 			af_str +=  _T("resample=8000:1:1,");
-		else if(str == _T("8kHz 多相过滤器组浮点处理"))
+		else if(str == _T("8kHz ") + m_str_foa)
 			af_str +=  _T("resample=8000:1:2,");
-		else if(str == _T("16kHz 自动"))
+		else if(str == _T("16kHz ") + m_str_at)
 			af_str +=  _T("resample=16000,");
-		else if(str == _T("16kHz 线性插值,快速品质低"))
+		else if(str == _T("16kHz ") + m_str_low)
 			af_str +=  _T("resample=16000:1:0,");
-		else if(str == _T("16kHz 多相过滤器组整数处理"))
+		else if(str == _T("16kHz ") + m_str_int)
 			af_str +=  _T("resample=16000:1:1,");
-		else if(str == _T("16kHz 多相过滤器组浮点处理"))
+		else if(str == _T("16kHz ") + m_str_foa)
 			af_str +=  _T("resample=16000:1:2,");
-		else if(str == _T("22.05kHz 自动"))
+		else if(str == _T("22.05kHz ") + m_str_at)
 			af_str +=  _T("resample=22050,");
-		else if(str == _T("22.05kHz 线性插值,快速品质低"))
+		else if(str == _T("22.05kHz ") + m_str_low)
 			af_str +=  _T("resample=22050:1:0,");
-		else if(str == _T("22.05kHz 多相过滤器组整数处理"))
+		else if(str == _T("22.05kHz ") + m_str_int)
 			af_str +=  _T("resample=22050:1:1,");
-		else if(str == _T("22.05kHz 多相过滤器组浮点处理"))
+		else if(str == _T("22.05kHz ") + m_str_foa)
 			af_str +=  _T("resample=22050:1:2,");
-		else if(str == _T("32kHz 自动"))
+		else if(str == _T("32kHz ") + m_str_at)
 			af_str +=  _T("resample=32000,");
-		else if(str == _T("32kHz 线性插值,快速品质低"))
+		else if(str == _T("32kHz ") + m_str_low)
 			af_str +=  _T("resample=32000:1:0,");
-		else if(str == _T("32kHz 多相过滤器组整数处理"))
+		else if(str == _T("32kHz ") + m_str_int)
 			af_str +=  _T("resample=32000:1:1,");
-		else if(str == _T("32kHz 多相过滤器组浮点处理"))
+		else if(str == _T("32kHz ") + m_str_foa)
 			af_str +=  _T("resample=32000:1:2,");
-		else if(str == _T("44.1kHz 线性插值,快速品质低"))
+		else if(str == _T("44.1kHz ") + m_str_low)
 			af_str +=  _T("resample=44100:1:0,");
-		else if(str == _T("44.1kHz 多相过滤器组整数处理"))
+		else if(str == _T("44.1kHz ") + m_str_int)
 			af_str +=  _T("resample=44100:1:1,");
-		else if(str == _T("44.1kHz 多相过滤器组浮点处理"))
+		else if(str == _T("44.1kHz ") + m_str_foa)
 			af_str +=  _T("resample=44100:1:2,");
-		else if(str == _T("48kHz 自动"))
+		else if(str == _T("48kHz ") + m_str_at)
 			af_str +=  _T("resample=48000,");
-		else if(str == _T("48kHz 线性插值,快速品质低"))
+		else if(str == _T("48kHz ") + m_str_low)
 			af_str +=  _T("resample=48000:1:0,");
-		else if(str == _T("48kHz 多相过滤器组整数处理"))
+		else if(str == _T("48kHz ") + m_str_int)
 			af_str +=  _T("resample=48000:1:1,");
-		else if(str == _T("48kHz 多相过滤器组浮点处理"))
+		else if(str == _T("48kHz ") + m_str_foa)
 			af_str +=  _T("resample=48000:1:2,");
-		else if(str == _T("64kHz 自动"))
+		else if(str == _T("64kHz ") + m_str_at)
 			af_str +=  _T("resample=64000,");
-		else if(str == _T("64kHz 线性插值,快速品质低"))
+		else if(str == _T("64kHz ") + m_str_low)
 			af_str +=  _T("resample=64000:1:0,");
-		else if(str == _T("64kHz 多相过滤器组整数处理"))
+		else if(str == _T("64kHz ") + m_str_int)
 			af_str +=  _T("resample=64000:1:1,");
-		else if(str == _T("64kHz 多相过滤器组浮点处理"))
+		else if(str == _T("64kHz ") + m_str_foa)
 			af_str +=  _T("resample=64000:1:2,");
-		else if(str == _T("96kHz 自动"))
+		else if(str == _T("96kHz ") + m_str_at)
 			af_str +=  _T("resample=96000,");
-		else if(str == _T("96kHz 线性插值,快速品质低"))
+		else if(str == _T("96kHz ") + m_str_low)
 			af_str +=  _T("resample=96000:1:0,");
-		else if(str == _T("96kHz 多相过滤器组整数处理"))
+		else if(str == _T("96kHz ") + m_str_int)
 			af_str +=  _T("resample=96000:1:1,");
-		else if(str == _T("96kHz 多相过滤器组浮点处理"))
+		else if(str == _T("96kHz ") + m_str_foa)
 			af_str +=  _T("resample=96000:1:2,");
 		else
 			af_str +=  _T("resample=44100,");

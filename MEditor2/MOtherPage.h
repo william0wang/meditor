@@ -77,6 +77,8 @@ public:
 	afx_msg void OnBnClickedButtonLink();
 	CButton m_mpc_c;
 	BOOL m_mpc;
+	BOOL m_disable_xptoolbars;
+	BOOL m_disable_xpwindow;
 };
 
 //{{AFX_INSERT_LOCATION}}

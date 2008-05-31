@@ -20,6 +20,8 @@ static char THIS_FILE[] = __FILE__;
 CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMOtherPage::IDD, pParent)
 	, m_mpc(FALSE)
+	, m_disable_xptoolbars(FALSE)
+	, m_disable_xpwindow(FALSE)
 {
 	//{{AFX_DATA_INIT(CMOtherPage)
 	m_other = _T("");
@@ -53,6 +55,8 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_DONLINE, m_unrealreg);
 	DDX_Control(pDX, IDC_CHECK_MPC, m_mpc_c);
 	DDX_Check(pDX, IDC_CHECK_MPC, m_mpc);
+	DDX_Check(pDX, IDC_CHECK_XPTOOLBARS, m_disable_xptoolbars);
+	DDX_Check(pDX, IDC_CHECK_XPWINDOW, m_disable_xpwindow);
 }
 
 
@@ -89,6 +93,8 @@ BOOL CMOtherPage::OnInitDialog()
 		bool value_b;
 		m_cfg->GetValue_Integer(_T("use_windowblinds"),value_i,true);
 		m_cfg->GetValue_Integer(_T("using_aero"),value_i,true);
+		m_cfg->GetValue_Integer(_T("using_theme"),value_i,true);
+		m_cfg->GetValue_Integer(_T("is_vista"),value_i,true);
 		if(m_cfg->GetValue_Integer(_T("meditor_last_page"),value_i,true))
 		{
 			if(value_i > -1 && value_i < 7)
@@ -102,6 +108,20 @@ BOOL CMOtherPage::OnInitDialog()
 				m_one = TRUE;
 			else
 				m_one = FALSE;
+		}
+		if(m_cfg->GetValue_Boolean(_T("disable_xptoolbars"),value_b,true))
+		{
+			if(value_b)
+				m_disable_xptoolbars = TRUE;
+			else
+				m_disable_xptoolbars = FALSE;
+		}
+		if(m_cfg->GetValue_Boolean(_T("disable_xpwindow"),value_b,true))
+		{
+			if(value_b)
+				m_disable_xpwindow = TRUE;
+			else
+				m_disable_xpwindow = FALSE;
 		}
 	}
 	if(IsFileExist(m_program_dir + _T("codecs\\Real\\mloader.ini")))
@@ -124,13 +144,19 @@ BOOL CMOtherPage::OnInitDialog()
 void CMOtherPage::SetNormal()
 {
 	m_other = _T("");
+	m_disable_xptoolbars = FALSE;
+	m_disable_xpwindow = FALSE;
 }
+
 void CMOtherPage::SetHigh()
 {
 	SetNormal();
 }
+
 void CMOtherPage::SetLower()
 {
+	m_disable_xptoolbars = TRUE;
+	m_disable_xpwindow = TRUE;
 	SetNormal();
 }
 
@@ -163,6 +189,16 @@ void CMOtherPage::SaveConfig()
 		m_cfg->SetValue(_T("meditor_one_editor"),_T("1"),true,ex_meditor);
 	else	
 		m_cfg->RemoveValue(_T("meditor_one_editor"),true);
+
+	if(m_disable_xpwindow)
+		m_cfg->SetValue(_T("disable_xpwindow"),_T("1"),true);
+	else	
+		m_cfg->RemoveValue(_T("disable_xpwindow"),true);
+
+	if(m_disable_xptoolbars)
+		m_cfg->SetValue(_T("disable_xptoolbars"),_T("1"),true);
+	else	
+		m_cfg->RemoveValue(_T("disable_xptoolbars"),true);
 	
 	m_other.TrimRight(_T("\r\n"));
 	if(m_other.GetLength() > 1)
@@ -186,10 +222,10 @@ void CMOtherPage::OnButtonAudio()
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT
-		,_T("常用音频格式|*.mp3;*.mp2;*.m4a;*.aac;*.mpc;*.wma;*.ogg;\
-*.arm;*.mka;*.flac;*.ac3;*.dts;*.wav;*.ra;*.aif|所有文件(*.*)|*.*||"));
+		,ResStr(IDS_OTHER_TYPEA) + _T("|*.mp3;*.mp2;*.m4a;*.aac;*.mpc;*.wma;*.ogg;\
+*.arm;*.mka;*.flac;*.ac3;*.dts;*.wav;*.ra;*.aif|") + ResStr(IDS_OTHER_ALL) + _T("(*.*)|*.*||"));
 
-	dlg.m_ofn.lpstrTitle=_T("打开音频文件");
+	dlg.m_ofn.lpstrTitle=ResStr(IDS_OTHER_OPENA);
     if(dlg.DoModal()==IDOK)
 	{
 		m_audio = dlg.GetPathName();
@@ -214,12 +250,12 @@ void CMOtherPage::OnButtonPlay()
 	UpdateData(TRUE);
 	if(m_video == _T("") || m_audio == _T(""))
 	{
-		MessageBox(_T("视频和音频文件名不能为空!"));
+		MessageBox(ResStr(IDS_OTHER_EMPTY));
 		return;
 	}
 	if(!IsFileExist(m_program_dir + _T("mplayer.exe")))
 	{
-		MessageBox(_T("与 mplayer.exe 放在相同目录中才能使用此功能!"));
+		MessageBox(ResStr(IDS_PLAYER_SAMEDIR));
 		return;
 	}
 	CString mpcmd;
@@ -234,14 +270,14 @@ void CMOtherPage::OnButtonVideo()
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT
-		,_T("常用视频格式|*.avi;*.mkv;*.ogm;*.mp4;*.m4v;*.m4p;*.m4b;*.flv;*.vp6;\
+		,ResStr(IDS_OTHER_TYPEV) + _T("|*.avi;*.mkv;*.ogm;*.mp4;*.m4v;*.m4p;*.m4b;*.flv;*.vp6;\
 *.divx;*.vg2;*.dat;*.mpg;*.mpeg;*.tp;*.ts;*.tpr;*.pva;*.pps;*.mpe;*.vob;*.rm;*.rmvb;\
-*.wmv;*.asf;*.wmp;*.wm;*.mov;*.qt;*.3gp;*.3gpp;*.3g2;*.3gp2|所有文件(*.*)|*.*||"));
+*.wmv;*.asf;*.wmp;*.wm;*.mov;*.qt;*.3gp;*.3gpp;*.3g2;*.3gp2|") + ResStr(IDS_OTHER_ALL) + _T("(*.*)|*.*||"));
 
 //	dlg.m_ofn.lpstrFile = new wchar_t[102400];
 //	memset(dlg.m_ofn.lpstrFile,0,sizeof(wchar_t)   *   102400);
 //	dlg.m_ofn.nMaxFile = 102400;
-	dlg.m_ofn.lpstrTitle=_T("打开视频文件");
+	dlg.m_ofn.lpstrTitle=ResStr(IDS_OTHER_OPENV);
     if(dlg.DoModal()==IDOK)
 	{
 		m_video = dlg.GetPathName();
@@ -291,12 +327,12 @@ CheckReal:
 	checktime++;
 	Sleep(300);
 	if(This->CheckRealOnline())
-		MessageBox(This->m_hWnd , _T("Real 在线支持注册成功！"),_T("Real 在线支持"), 0);
+		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), 0);
 	else
 	{
 		if(checktime < 5)
 			goto CheckReal;
-		MessageBox(This->m_hWnd , _T("Real 在线支持注册失败，请重试！"),_T("Real 在线支持"), 0);
+		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), 0);
 	}
 	
 	This->CheckRealThread = NULL;
@@ -308,7 +344,7 @@ void CMOtherPage::OnButtonOnline()
 	// TODO: Add your control notification handler code here
 	if(CheckRealOnline())
 	{
-		if(MessageBox(_T("Real 在线支持已注册，是否重新注册？"),_T("Real 在线支持"),MB_OKCANCEL) != IDOK)
+		if(MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL) != IDOK)
 			return;
 	}
 	
@@ -348,7 +384,7 @@ void CMOtherPage::OnButtonOnline()
 		(!IsFileExist(m_dir + _T("codecs\\Real\\mloader.exe"))) ||
 		(!IsFileExist(m_dir + _T("codecs\\pncrt.dll"))))
 	{
-		MessageBox(_T("Real 在线支持注册失败，未找到需要的文件！"),_T("Real 在线支持"));
+		MessageBox(ResStr(IDS_OTHER_REALFAILS),ResStr(IDS_OTHER_REALONLINE));
 		return;
 	}
 
@@ -358,14 +394,15 @@ void CMOtherPage::OnButtonOnline()
 	TCHAR szSystemPath[MAX_PATH + 1];
 	::GetSystemDirectory(szSystemPath,MAX_PATH);
 	m_sysdir.Format(_T("%s\\"),szSystemPath);
-	ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /s \"")+ m_dir + _T("codecs\\Real\\rmoc3260.dll\"") , NULL, SW_HIDE);
-	ShellExecute(0, _T("open"), _T("regedit") , _T(" /s \"")+ m_dir + _T("codecs\\Real\\aero\"") , NULL, SW_HIDE);
 	CopyFile(m_dir +_T("codecs\\pncrt.dll") , m_sysdir + _T("pncrt.dll") , TRUE);
 	CopyFile(m_dir +_T("codecs\\msvcp71.dll") , m_sysdir + _T("msvcp71.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\msvcr71.dll") , m_sysdir + _T("msvcr71.dll") , FALSE);
+	CopyFile(m_dir +_T("codecs\\Real\\rmoc3260.dll") , m_sysdir + _T("rmoc3260.dll") , TRUE);
 	CopyFile(m_dir +_T("codecs\\Real\\realreg") , m_dir +_T("realreg.inf") , TRUE);
 	WinExec("rundll32.exe setupapi,InstallHinfSection DefaultInstall 128 .\\realreg.inf",SW_HIDE);
 	DeleteFile(m_dir +_T("realreg.inf"));
+	ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /s \"")+ m_sysdir + _T("rmoc3260.dll\"") , NULL, SW_HIDE);
+	ShellExecute(0, _T("open"), _T("regedit") , _T(" /s \"")+ m_dir + _T("codecs\\Real\\aero\"") , NULL, SW_HIDE);
 	::SetCurrentDirectory(szCurPath);
 
 	if(CheckRealThread == NULL)
@@ -379,7 +416,7 @@ void CMOtherPage::OnButtonDonline()
 	// TODO: Add your control notification handler code here
 	if(!CheckRealOnline())
 	{
-		MessageBox(_T("Real 在线支持尚未注册！"),_T("Real 在线支持"));
+		MessageBox(ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE));
 		return;
 	}
 	UpdateData(TRUE);
@@ -389,26 +426,34 @@ void CMOtherPage::OnButtonDonline()
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_dir.Format(_T("%s"),szFilePath);
 
-	if((!IsFileExist(m_dir + _T("codecs\\Real\\unrealreg"))) ||
-		(!IsFileExist(m_dir + _T("codecs\\Real\\rmoc3260.dll"))))
-	{
-		MessageBox(_T("Real 在线支持反注册失败，未找到需要的文件！"),_T("Real 在线支持"));
-		return;
-	}
 	TCHAR szCurPath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szCurPath);
 	::SetCurrentDirectory(szFilePath);
+	CString m_sysdir;
+	TCHAR szSystemPath[MAX_PATH + 1];
+	::GetSystemDirectory(szSystemPath,MAX_PATH);
+	m_sysdir.Format(_T("%s\\"),szSystemPath);
 	
-	ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_dir + _T("codecs\\Real\\rmoc3260.dll\"") , NULL, SW_HIDE);
+	if( !IsFileExist(m_dir + _T("codecs\\Real\\unrealreg")) ||
+		( !IsFileExist(m_sysdir + _T("rmoc3260.dll")) &&
+		!IsFileExist(m_dir + _T("codecs\\Real\\rmoc3260.dll")) ) )
+	{
+		MessageBox(ResStr(IDS_OTHER_UNREALFAIL),ResStr(IDS_OTHER_REALONLINE));
+		return;
+	}
+	if(IsFileExist(m_sysdir + _T("rmoc3260.dll")))
+		ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_sysdir + _T("rmoc3260.dll\"") , NULL, SW_HIDE);
+	else
+		ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_dir + _T("codecs\\Real\\rmoc3260.dll\"") , NULL, SW_HIDE);
+	DeleteFile(m_sysdir +_T("rmoc3260.dll"));
 	CopyFile(m_dir +_T("codecs\\Real\\unrealreg") , m_dir +_T("unrealreg.inf") , TRUE);
 	WinExec("rundll32.exe setupapi,InstallHinfSection DefaultInstall 128 .\\unrealreg.inf",SW_HIDE);
 	DeleteFile(m_dir +_T("unrealreg.inf"));
 	::SetCurrentDirectory(szCurPath);
 	if(!CheckRealOnline())
-		MessageBox(_T("Real 在线支持反注册成功！"),_T("Real 在线支持"));
+		MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE));
 	else
-		MessageBox(_T("Real 在线支持反注册成功，请重试！"),_T("Real 在线支持"));
-	
+		MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE));
 }
 
 void CMOtherPage::OnRadioMplayer() 
@@ -452,7 +497,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 				{
 					CreateDirectory(dir,NULL);
 					StartMenu_dir.Format(_T("%s\\") , dir);
-					dir.Format(_T("%s\\MPlayer\\常用工具") , szPath);
+					dir.Format(_T("%s\\MPlayer\\Tools") , szPath);
 					if(dlg.m_tools_start && IsFileExist(m_program_dir + _T("tools")))
 						CreateDirectory(dir,NULL);
 					else
@@ -470,7 +515,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 				{
 					if(DeskTop_dir.GetLength() > 3)
 					{
-						LinkPath.Format(_T("%sMPlayer首选项.lnk") , DeskTop_dir);
+						LinkPath.Format(_T("%s%s.lnk") , DeskTop_dir, ResStr(IDS_OTHER_LINK_EDITOR));
 						if(dlg.m_meditor_desk)
 							ppf->Save(LinkPath, STGM_READWRITE);
 						else
@@ -478,13 +523,13 @@ void CMOtherPage::OnBnClickedButtonLink()
 					}
 					if(StartMenu_dir.GetLength() > 3)
 					{
-						LinkPath.Format(_T("%sMPlayer首选项.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%s%s.lnk") , StartMenu_dir, ResStr(IDS_OTHER_LINK_EDITOR));
 						if(dlg.m_meditor_start)
 							ppf->Save(LinkPath, STGM_READWRITE);
 						else
 							DeleteFile(LinkPath);
 
-						LinkPath.Format(_T("%sFlash 播放器.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sFlash %s.lnk") , StartMenu_dir, ResStr(IDS_OTHER_LINK_PLAYER));
 						if(dlg.m_flash_start)
 						{
 							psl->SetArguments(_T("--Open FlashPlayer"));
@@ -494,7 +539,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 						else
 							DeleteFile(LinkPath);
 
-						LinkPath.Format(_T("%sDirectShow 播放器.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sDirectShow %s.lnk") , StartMenu_dir, ResStr(IDS_OTHER_LINK_PLAYER));
 						if(dlg.m_dshow_start)
 						{
 							psl->SetArguments(_T("--Open MediaPlayer"));
@@ -559,37 +604,41 @@ void CMOtherPage::OnBnClickedButtonLink()
 
 			if(dlg.m_tools_start && IsFileExist(m_program_dir + _T("tools")) && StartMenu_dir.GetLength() > 3)
 			{
-				for(int tools_i = 1 ; tools_i <= 7 ; tools_i++)
+				for(int tools_i = 1 ; tools_i <= 8 ; tools_i++)
 				{
 					switch(tools_i)
 					{
 					case 1:
 						tools_name.Format(_T("%stools\\mmg.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\MKV 转换合成工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL1));
 						break;
 					case 2:
 						tools_name.Format(_T("%stools\\MKVextractGUI.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\MKV 分离提取工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL2));
 						break;
 					case 3:
 						tools_name.Format(_T("%stools\\flvmdigui.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\FLV 修复工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL3));
 						break;
 					case 4:
 						tools_name.Format(_T("%stools\\FLVExtract.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\FLV 分离提取工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL4));
 						break;
 					case 5:
 						tools_name.Format(_T("%stools\\GSpot.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\GSpot 影片信息查看工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL5));
 						break;
 					case 6:
 						tools_name.Format(_T("%stools\\MediaInfo.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\MediaInfo 影片信息查看工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL6));
 						break;
 					case 7:
 						tools_name.Format(_T("%stools\\pmp_demuxer_gui.exe") , m_program_dir);
-						LinkPath.Format(_T("%s常用工具\\PMP 分离提取工具.lnk") , StartMenu_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL7));
+						break;
+					case 8:
+						tools_name.Format(_T("%stools\\TSSplitter.exe") , m_program_dir);
+						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL8));
 						break;
 					default:
 						tools_name = _T("");

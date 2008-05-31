@@ -4,6 +4,7 @@
 #define INVALID_FILE_ATTRIBUTES -1
 #endif
 #define IsFileExist(lpszFileName) (::GetFileAttributes((lpszFileName))   !=   INVALID_FILE_ATTRIBUTES)
+#define ResStr(id) CString(MAKEINTRESOURCE(id))
 void GetLanguageID();
 char* UnicodeToLocal(CString instr,int &outlen);
 CString LocalToUnicode(CString instr);

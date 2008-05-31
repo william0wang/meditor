@@ -63,7 +63,13 @@ void CMResumePage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	TCHAR *	lpszHeaders[] = { _T("序号"),_T("时间 /秒"), _T("文件名"), NULL };
+	CString no = ResStr(IDS_RESUME_NO);
+	CString time = ResStr(IDS_RESUME_TIME);
+	CString file = ResStr(IDS_RESUME_FILE);
+	TCHAR *	lpszHeaders[] = { _tcsdup(no.GetBuffer()) , _tcsdup(time.GetBuffer()) , _tcsdup(file.GetBuffer()) , NULL };
+	no.ReleaseBuffer();
+	time.ReleaseBuffer();
+	file.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -149,7 +155,7 @@ BOOL CMResumePage::OnInitDialog()
 			m_cfg->GetValue_String(_T("TXTSub"),reinfo[0].TXTSub,true);
 			m_cfg->GetValue_String(_T("SubPos"),reinfo[0].SubPos,true);
 			m_cfg->GetValue_String(_T("Filename"),reinfo[0].Filename,true);
-			m_list.InsertItem(0, _T("默认"));
+			m_list.InsertItem(0, ResStr(IDS_RESUME_NORMAL));
 			m_list.SetItemText(0, 1, reinfo[0].Time);
 			m_list.SetItemText(0, 2,reinfo[0].Filename);
 			m_number = 0;
@@ -221,7 +227,7 @@ void CMResumePage::OnBnClickedButtonPlay()
 	WritePrivateProfileInt(_T("Option"), _T("auto_resume") , 1, m_configs_ex);
 	if(!IsFileExist(m_program_dir + _T("mplayer.exe")))
 	{
-		MessageBox(_T("与 mplayer.exe 放在相同目录中才能使用此功能!"));
+		MessageBox(ResStr(IDS_PLAYER_SAMEDIR));
 		return;
 	}
 	ShellExecute(0, _T("open"), m_program_dir +_T("mplayer.exe"), _T(""), NULL, SW_SHOW);

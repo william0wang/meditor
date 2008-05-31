@@ -180,9 +180,9 @@ void CMFlashPlayer::OnFlashOpen()
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT
-		,_T("Flash 动画(*.swf)|*.swf|所有文件(*.*)|*.*||"));
+		,ResStr(IDS_ASSOS_FLASH) + _T("(*.swf)|*.swf|") + ResStr(IDS_OTHER_ALL) + _T("(*.*)|*.*||"));
 
-	dlg.m_ofn.lpstrTitle=_T("打开Flash文件");
+	dlg.m_ofn.lpstrTitle= ResStr(IDS_ASSOS_OP) + ResStr(IDS_ASSOS_FLASH);
     if(dlg.DoModal()==IDOK)
 	{
 		m_playlist.RemoveAll();

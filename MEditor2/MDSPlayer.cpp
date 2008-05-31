@@ -335,13 +335,13 @@ void CMDSPlayer::OnDsOpen()
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT
-		,_T("常用视频格式|*.avi;*.mkv;*.ogm;*.mp4;*.m4v;*.m4p;*.m4b;*.flv;*.vp6;\
+		,ResStr(IDS_OTHER_TYPEV) + _T("|*.avi;*.mkv;*.ogm;*.mp4;*.m4v;*.m4p;*.m4b;*.flv;*.vp6;\
 *.divx;*.vg2;*.dat;*.mpg;*.mpeg;*.tp;*.ts;*.tpr;*.pva;*.pps;*.mpe;*.vob;*.rm;*.rmvb;\
 *.wmv;*.asf;*.wmp;*.wm;*.mov;*.qt;*.3gp;*.3gpp;*.3g2;*.3gp2\
-|常用音频格式|*.mp3;*.mp2;*.m4a;*.aac;*.mpc;*.wma;*.ogg;\
-*.arm;*.mka;*.flac;*.ac3;*.dts;*.wav;*.ra;*.aif|所有文件(*.*)|*.*||"));
+|") + ResStr(IDS_OTHER_TYPEA) + _T("|*.mp3;*.mp2;*.m4a;*.aac;*.mpc;*.wma;*.ogg;\
+*.arm;*.mka;*.flac;*.ac3;*.dts;*.wav;*.ra;*.aif|") + ResStr(IDS_OTHER_ALL) + _T("(*.*)|*.*||"));
 
-	dlg.m_ofn.lpstrTitle=_T("打开媒体文件");
+	dlg.m_ofn.lpstrTitle=ResStr(IDS_ASSOS_OP) + ResStr(IDS_ASSOS_DS);
 	if(dlg.DoModal()==IDOK)
 	{
 		m_filename = dlg.GetPathName();

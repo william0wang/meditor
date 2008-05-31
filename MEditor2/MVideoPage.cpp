@@ -111,7 +111,16 @@ void CMVideoPage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	TCHAR *	lpszHeaders[] = { _T("使用"),_T("滤镜名"), _T("选项"), _T("滤镜说明"), NULL };
+	CString use = ResStr(IDS_PLAYER_USE);
+	CString nam = ResStr(IDS_PLAYER_FNAME);
+	CString opt = ResStr(IDS_PLAYER_OPTION);
+	CString inf = ResStr(IDS_PLAYER_FINFO);
+	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(nam.GetBuffer())
+		,_tcsdup(opt.GetBuffer()) ,  _tcsdup(inf.GetBuffer()),  NULL };
+	use.ReleaseBuffer();
+	nam.ReleaseBuffer();
+	opt.ReleaseBuffer();
+	inf.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -173,120 +182,120 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 
 	// insert the items and subitems into the list
 	m_rotate.RemoveAll();
-	m_rotate.Add(_T("顺时针90度并翻转"));	
-	m_rotate.Add(_T("顺时针90度"));
-	m_rotate.Add(_T("逆时针90度"));
-	m_rotate.Add(_T("逆时针90度并翻转"));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA1));	
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA2));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA3));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA4));
 	
 	m_deinterlacing.RemoveAll();
-	m_deinterlacing.Add(_T("线性混合(Linear blend)"));
-	m_deinterlacing.Add(_T("立方插值(Cubic interpolating)"));
-	m_deinterlacing.Add(_T("中位数(Median)"));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD1));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD2));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD3));
 	m_deinterlacing.Add(_T("FFmpeg"));
 	m_deinterlacing.Add(_T("lowpass5"));
 	
 	m_deblocking.RemoveAll();
-	m_deblocking.Add(_T("水平方向"));
-	m_deblocking.Add(_T("垂直方向"));
-	m_deblocking.Add(_T("精确的水平方向"));
-	m_deblocking.Add(_T("精确的垂直方向"));
-	m_deblocking.Add(_T("水平/垂直方向"));
-	m_deblocking.Add(_T("精确水平/垂直方向"));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB1));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB2));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB3));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB4));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB5));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB6));
 
 	pList->InsertItem(screenshot, _T(""));
 	pList->SetCheckbox(screenshot, 0, 0);
-	pList->SetItemText(screenshot, 1, _T("截图滤镜"));
+	pList->SetItemText(screenshot, 1, ResStr(IDS_VIDEO_SST));
 	pList->SetItemText(screenshot, 2, _T(""));
-	pList->SetItemText(screenshot, 3, _T("打开该滤镜后在不用时不占用资源"));
+	pList->SetItemText(screenshot, 3,ResStr(IDS_VIDEO_SSTI));
 	
 	pList->InsertItem(ass, _T(""));
 	pList->SetCheckbox(ass, 0, 0);
-	pList->SetItemText(ass, 1, _T("截屏中渲染字幕"));
+	pList->SetItemText(ass, 1, ResStr(IDS_VIDEO_ASS));
 	pList->SetItemText(ass, 2, _T(""));
-	pList->SetItemText(ass, 3, _T("截屏内容将包含SSA/ASS字幕"));
+	pList->SetItemText(ass, 3, ResStr(IDS_VIDEO_ASSI));
 
 	pList->InsertItem(expand, _T(""));
 	pList->SetCheckbox(expand, 0, 0);
-	pList->SetItemText(expand, 1, _T("分辨率扩展"));
+	pList->SetItemText(expand, 1,ResStr(IDS_VIDEO_EXP));
 	pList->SetItemText(expand, 2, _T(":::::4/3"));
 	pList->SetEdit(expand, 2);
-	pList->SetItemText(expand, 3, _T("字幕放置在该滤镜的黑边中(expand)"));
-	pList->SetItemToolTipText(expand, 2, _T("扩展比例，值为空时自动扩展"));
+	pList->SetItemText(expand, 3, ResStr(IDS_VIDEO_EXPI));
+	pList->SetItemToolTipText(expand, 2, ResStr(IDS_VIDEO_EXPIT));
 	
 	pList->InsertItem(aspect, _T(""));
 	pList->SetCheckbox(aspect, 0, 0);
-	pList->SetItemText(aspect, 1, _T("重载高宽比"));
+	pList->SetItemText(aspect, 1, ResStr(IDS_VIDEO_ASP));
 	pList->SetItemText(aspect, 2, _T("4:3"));
 	pList->SetEdit(aspect, 2);
-	pList->SetItemText(aspect, 3, _T("播放中的文件的高宽比信息不正确或缺少(aspect)"));
+	pList->SetItemText(aspect, 3, ResStr(IDS_VIDEO_ASPI));
 
 	pList->InsertItem(eq2, _T(""));
 	pList->SetCheckbox(eq2, 0, 0);
-	pList->SetItemText(eq2, 1, _T("亮度/对比度/饱和度/伽玛"));
+	pList->SetItemText(eq2, 1, ResStr(IDS_VIDEO_EQ2));
 	pList->SetItemText(eq2, 2, _T(""));
-	pList->SetItemText(eq2, 3, _T("提供亮度/对比度/饱和度/伽玛调节能力"));
+	pList->SetItemText(eq2, 3, ResStr(IDS_VIDEO_EQ2I));
 	
 	pList->InsertItem(hue, _T(""));
 	pList->SetCheckbox(hue, 0, 0);
-	pList->SetItemText(hue, 1, _T("色度调节"));
-	pList->SetItemText(hue, 3, _T("为DirectX提供色度调节能力"));
+	pList->SetItemText(hue, 1, ResStr(IDS_VIDEO_HUE));
+	pList->SetItemText(hue, 3, ResStr(IDS_VIDEO_HUEI));
 	
 	pList->InsertItem(flip, _T(""));
 	pList->SetCheckbox(flip, 0, 0);
-	pList->SetItemText(flip, 1, _T("翻转影片"));
+	pList->SetItemText(flip, 1, ResStr(IDS_VIDEO_FLP));
 	pList->SetItemText(flip, 2, _T(""));
-	pList->SetItemText(flip, 3, _T("翻转图像使其上下颠倒"));
+	pList->SetItemText(flip, 3, ResStr(IDS_VIDEO_FLPI));
 	
 	pList->InsertItem(rotate, _T(""));
 	pList->SetCheckbox(rotate, 0, 0);
-	pList->SetItemText(rotate, 1, _T("旋转影片"));
+	pList->SetItemText(rotate, 1, ResStr(IDS_VIDEO_ROT));
 	pList->SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
-	pList->SetItemText(rotate, 3, _T("以90度为单位旋转图像并有选择地将其翻转"));
+	pList->SetItemText(rotate, 3, ResStr(IDS_VIDEO_ROTI));
 	
 	pList->InsertItem(crop, _T(""));
 	pList->SetCheckbox(crop, 0, 0);
-	pList->SetItemText(crop, 1, _T("切边滤镜"));
+	pList->SetItemText(crop, 1, ResStr(IDS_VIDEO_CRO));
 	pList->SetItemText(crop, 2, _T("640:480"));
 	pList->SetEdit(crop, 2);
-	pList->SetItemText(crop, 3, _T("切割出图像的指定部分并丢弃其余部分"));
-	pList->SetItemToolTipText(crop, 2, _T("宽度:高度:横坐标:纵坐标(中心坐标为0:0)"));
+	pList->SetItemText(crop, 3, ResStr(IDS_VIDEO_CROI));
+	pList->SetItemToolTipText(crop, 2, ResStr(IDS_VIDEO_CROIT));
 	
 	pList->InsertItem(deinterlacing, _T(""));
 	pList->SetCheckbox(deinterlacing, 0, 0);
-	pList->SetItemText(deinterlacing, 1, _T("反隔行扫描滤镜"));
+	pList->SetItemText(deinterlacing, 1, ResStr(IDS_VIDEO_DEI));
 	pList->SetComboBox(deinterlacing, 2, TRUE,  &m_deinterlacing,  5,  0,  FALSE);
-	pList->SetItemText(deinterlacing, 3, _T("解除视频隔行扫描(拉丝/交错/水波纹)"));
+	pList->SetItemText(deinterlacing, 3, ResStr(IDS_VIDEO_DEII));
 	
 	pList->InsertItem(deblocking, _T(""));
 	pList->SetCheckbox(deblocking, 0, 0);
-	pList->SetItemText(deblocking, 1, _T("反块效应滤镜"));
+	pList->SetItemText(deblocking, 1, ResStr(IDS_VIDEO_DEB));
 	pList->SetComboBox(deblocking, 2, TRUE,  &m_deblocking,  6,  0,  FALSE);
-	pList->SetItemText(deblocking, 3, _T("去除影片块效应(deblocking)"));
+	pList->SetItemText(deblocking, 3, ResStr(IDS_VIDEO_DEBI));
 	
 	pList->InsertItem(dering, _T(""));
 	pList->SetCheckbox(dering, 0, 0);
-	pList->SetItemText(dering, 1, _T("去色斑滤镜"));
+	pList->SetItemText(dering, 1, ResStr(IDS_VIDEO_DER));
 	pList->SetItemText(dering, 2, _T(""));
-	pList->SetItemText(dering, 3, _T("去除影片色斑(deringing)"));
+	pList->SetItemText(dering, 3, ResStr(IDS_VIDEO_DERI));
 	
 	pList->InsertItem(tmpnoise, _T(""));
 	pList->SetCheckbox(tmpnoise, 0, 0);
-	pList->SetItemText(tmpnoise, 1, _T("瞬时噪声去除器"));
+	pList->SetItemText(tmpnoise, 1, ResStr(IDS_VIDEO_TNO));
 	pList->SetItemText(tmpnoise, 2, _T(""));
-	pList->SetItemText(tmpnoise, 3, _T("去除影片瞬时噪声(tmpnoise)"));
+	pList->SetItemText(tmpnoise, 3, ResStr(IDS_VIDEO_TNOI));
 	
 	pList->InsertItem(autolevels, _T(""));
 	pList->SetCheckbox(autolevels, 0, 0);
-	pList->SetItemText(autolevels, 1, _T("自动更正亮度/对比度"));
+	pList->SetItemText(autolevels, 1, ResStr(IDS_VIDEO_ATL));
 	pList->SetItemText(autolevels, 2, _T(""));
-	pList->SetItemText(autolevels, 3, _T("自动更正影片亮度/对比度(autolevels)"));
+	pList->SetItemText(autolevels, 3, ResStr(IDS_VIDEO_ATLI));
 
 	pList->InsertItem(vf_other, _T(""));
 	pList->SetCheckbox(vf_other, 0, 0);
-	pList->SetItemText(vf_other, 1, _T("其它视频滤镜"));
+	pList->SetItemText(vf_other, 1, ResStr(IDS_VIDEO_OTH));
 	pList->SetItemText(vf_other, 2, _T(""));
 	pList->SetEdit(vf_other, 2);
-	pList->SetItemText(vf_other, 3, _T("直接输入视频滤镜参数"));
+	pList->SetItemText(vf_other, 3, ResStr(IDS_VIDEO_OTHI));
 
 	pList->UnlockWindowUpdate();
 }
@@ -312,22 +321,22 @@ BOOL CMVideoPage::OnInitDialog()
 	m_brightness_s = 100;
 	m_gamma_s = 10;
 
-	m_vo.AddString(_T("DirectX(推荐)"));
-	m_vo.AddString(_T("OpenGL(高性能显卡推荐)"));
-	m_vo.AddString(_T("OpenGL第2代"));
-	m_vo.AddString(_T("矩阵特效(黑客帝国特效)"));
-	m_vo.AddString(_T("矩阵特效(低分辨率)"));
-	m_vo.AddString(_T("矩阵特效(高分辨率)"));
-	m_vo.AddString(_T("输出每帧到JPG图片"));
-	m_vo.AddString(_T("输出每帧到PNG图片"));
-	m_vo.AddString(_T("输出视频到RAW文件(大)"));
-	m_vo.AddString(_T("无视频输出"));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO1));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO2));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO3));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO4));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO5));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO6));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO7));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO8));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO9));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO10));
 	m_vo.SetCurSel(directx);
 	
-	m_mxcolor.AddString(_T("绿色(默认)"));
-	m_mxcolor.AddString(_T("蓝色"));
-	m_mxcolor.AddString(_T("红色"));
-	m_mxcolor.AddString(_T("彩色"));
+	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX1));
+	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX2));
+	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX3));
+	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX4));
 	m_mxcolor.SetCurSel(mx_g);
 	
 	InitFromConfig();
@@ -338,8 +347,8 @@ BOOL CMVideoPage::OnInitDialog()
 	m_color_b.Color = RGB(r,g,b);
 	m_color_b.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
 	m_color_b.TrackSelection= TRUE;
-	m_color_b.CustomText= _T("更多颜色...");
-	m_color_b.DefaultText = _T("自动");
+	m_color_b.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_b.DefaultText = ResStr(IDS_VIDEO_COLAT);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -589,11 +598,14 @@ void CMVideoPage::InitFromConfig()
 			RemoveSubValue(value_vf , _T("eq2"));
 			if(m_cfg->GetSubValue(value_s,_T("eq2"), value_sub))
 			{
-				int gamma_i =  (int)(StringToDouble(value_sub) * 10);
-				if(gamma_i != 10)
+				if(value_sub.GetLength() >= 1)
 				{
-					m_gamma = value_sub;
-					m_gamma_s = gamma_i;
+					int gamma_i =  (int)(StringToDouble(value_sub) * 10);
+					if(gamma_i != 10)
+					{
+						m_gamma = value_sub;
+						m_gamma_s = gamma_i;
+					}
 				}
 			}
 		}
@@ -773,22 +785,22 @@ void CMVideoPage::SaveConfig()
 	
 	m_List.LockWindowUpdate();
 	if(!m_keepaspect)
-		m_cfg->SetValue(_T("keepaspect"),_T("no"));
+		m_cfg->SetValue(_T("keepaspect"),_T("0"));
 	else
 		m_cfg->RemoveValue(_T("keepaspect"));
 	
 	if(m_framedrop)
-		m_cfg->SetValue(_T("framedrop"),_T("yes"));
+		m_cfg->SetValue(_T("framedrop"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("framedrop"));
 	
 	if(m_idx)
-		m_cfg->SetValue(_T("idx"),_T("yes"));
+		m_cfg->SetValue(_T("idx"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("idx"));
 
 	if(m_dr)
-		m_cfg->SetValue(_T("dr"),_T("yes"));
+		m_cfg->SetValue(_T("dr"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("dr"));
 	
@@ -799,7 +811,7 @@ void CMVideoPage::SaveConfig()
 	
 	
 	if(m_List.GetCheckbox(flip, 0))
-		m_cfg->SetValue(_T("flip"),_T("yes"));
+		m_cfg->SetValue(_T("flip"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("flip"));
 	
@@ -1026,11 +1038,11 @@ void CMVideoPage::SaveConfig()
 	if(m_List.GetCheckbox(rotate, 0))
 	{
 		CString str = m_List.GetItemText(rotate, 2);
-		if(str == _T("顺时针90度"))
+		if(str == ResStr(IDS_VIDEO_ROTA2))
 			vf_str += _T("rotate=1,") ;
-		else if(str == _T("逆时针90度"))
+		else if(str == ResStr(IDS_VIDEO_ROTA3))
 			vf_str += _T("rotate=2,") ;
-		else if(str == _T("逆时针90度并翻转"))
+		else if(str == ResStr(IDS_VIDEO_ROTA4))
 			vf_str += _T("rotate=2,") ;
 		else
 			vf_str += _T("rotate,") ;
@@ -1063,9 +1075,9 @@ void CMVideoPage::SaveConfig()
 		if(vdi)
 		{
 			CString str = m_List.GetItemText(deinterlacing, 2);
-			if(str == _T("立方插值(Cubic interpolating)"))
+			if(str == ResStr(IDS_VIDEO_VD2))
 				vf_str += _T("ci/");
-			else if(str == _T("中位数(Median)"))
+			else if(str == ResStr(IDS_VIDEO_VD3))
 				vf_str += _T("md/");
 			else if(str == _T("FFmpeg"))
 				vf_str += _T("fd/");
@@ -1077,15 +1089,15 @@ void CMVideoPage::SaveConfig()
 		if(vdb)
 		{
 			CString str = m_List.GetItemText(deblocking, 2);
-			if(str == _T("垂直方向"))
+			if(str == ResStr(IDS_VIDEO_DB2))
 				vf_str += _T("vb/");
-			else if(str == _T("精确的水平方向"))
+			else if(str == ResStr(IDS_VIDEO_DB3))
 				vf_str += _T("ha/");
-			else if(str == _T("精确的垂直方向"))
+			else if(str == ResStr(IDS_VIDEO_DB4))
 				vf_str += _T("va/");
-			else if(str == _T("水平/垂直方向"))
+			else if(str == ResStr(IDS_VIDEO_DB5))
 				vf_str += _T("hb/vb/");
-			else if(str == _T("精确水平/垂直方向"))
+			else if(str == ResStr(IDS_VIDEO_DB6))
 				vf_str += _T("ha/va/");
 			else
 				vf_str += _T("hb/");

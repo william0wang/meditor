@@ -17,64 +17,71 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	, m_rightmenu2(FALSE)
 	, m_mpc(FALSE)
 {
-	m_alist.Add( _T("3gp"), _T("3GP 移动视频文件"), _T("视频文件"), _T("13"));
-	m_alist.Add( _T("3gp2"), _T("3GP 移动视频文件"), _T("视频文件"), _T("13"));
-	m_alist.Add( _T("asf"), _T("Advanced Streaming 视频文件"), _T("视频文件"), _T("16"));
-	m_alist.Add( _T("avi"), _T("AVI 视频剪辑"), _T("视频文件"), _T("1"));
-	m_alist.Add( _T("dat"), _T("VCD 影片文件"), _T("视频文件"), _T("5"));
-	m_alist.Add( _T("divx"), _T("DIVX 视频文件"), _T("视频文件"), _T("35"));
-	m_alist.Add( _T("flv"), _T("Flash 视频文件"), _T("视频文件"), _T("2"));
-	m_alist.Add( _T("m1v"), _T("MPEG-1 影片文件"), _T("视频文件"), _T("7"));
-	m_alist.Add( _T("m2v"), _T("MPEG-2 影片文件"), _T("视频文件"), _T("7"));
-	m_alist.Add( _T("m4b"), _T("MPEG-4 影片文件"), _T("视频文件"), _T("6"));
-	m_alist.Add( _T("m4p"), _T("MPEG-4 影片文件"), _T("视频文件"), _T("6"));
-	m_alist.Add( _T("m4v"), _T("MPEG-4 影片文件"), _T("视频文件"), _T("6"));
-	m_alist.Add( _T("mkv"), _T("Matroska 视频文件"), _T("视频文件"), _T("3"));
-	m_alist.Add( _T("mov"), _T("QuickTime 影片文件"), _T("视频文件"), _T("12"));
-	m_alist.Add( _T("mp4"), _T("MPEG-4 影片文件"), _T("视频文件"), _T("6"));
-	m_alist.Add( _T("mpeg"), _T("MPEG 影片文件"), _T("视频文件"), _T("7"));
-	m_alist.Add( _T("mpg"), _T("MPEG 影片文件"), _T("视频文件"), _T("8"));
-	m_alist.Add( _T("ogm"), _T("Ogg 视频文件"), _T("视频文件"), _T("4"));
-	m_alist.Add( _T("pss"), _T("MPEG-1 影片文件"), _T("视频文件"), _T("7"));
-	m_alist.Add( _T("pva"), _T("MPEG-1 影片文件"), _T("视频文件"), _T("7"));
-	m_alist.Add( _T("tpr"), _T("MPEG-1 影片文件"), _T("视频文件"), _T("7"));
-	m_alist.Add( _T("qt"), _T("QuickTime 影片文件"), _T("视频文件"), _T("12"));
-	m_alist.Add( _T("rm"), _T("RealMedia 视频文件"), _T("视频文件"), _T("14"));
-	m_alist.Add( _T("rmvb"), _T("RealMedia VBR 视频文件"), _T("视频文件"), _T("15"));
-	m_alist.Add( _T("tp"), _T("MPEG-2 影片文件"), _T("视频文件"), _T("10"));
-	m_alist.Add( _T("ts"), _T("MPEG-2 影片文件"), _T("视频文件"), _T("9"));
-	m_alist.Add( _T("vob"), _T("DVD 影片文件"), _T("视频文件"), _T("11"));
-	m_alist.Add( _T("vp6"), _T("VP6/VP7 视频文件"), _T("视频文件"), _T("35"));
-	m_alist.Add( _T("wmv"), _T("Windows Media 视频文件"), _T("视频文件"), _T("17"));
+	
+	m_str_list = ResStr(IDS_ASSOS_LIST);
+	m_str_flash = ResStr(IDS_ASSOS_FLASH);
+	m_str_ds = ResStr(IDS_ASSOS_DS);
+	m_str_v = ResStr(IDS_ASSOS_V);
+	m_str_a = ResStr(IDS_ASSOS_A);
+
+	m_alist.Add( _T("3gp"), _T("3GP ") + ResStr(IDS_ASSOS_MV), m_str_v, _T("13"));
+	m_alist.Add( _T("3gp2"), _T("3GP ") + ResStr(IDS_ASSOS_MV), m_str_v, _T("13"));
+	m_alist.Add( _T("asf"), _T("Advanced Streaming ") + ResStr(IDS_ASSOS_V), m_str_v, _T("16"));
+	m_alist.Add( _T("avi"), _T("AVI ") + ResStr(IDS_ASSOS_AVI), m_str_v, _T("1"));
+	m_alist.Add( _T("dat"), _T("VCD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("5"));
+	m_alist.Add( _T("divx"), _T("DIVX ") + ResStr(IDS_ASSOS_V), m_str_v, _T("35"));
+	m_alist.Add( _T("flv"), _T("Flash ") + ResStr(IDS_ASSOS_V), m_str_v, _T("2"));
+	m_alist.Add( _T("m1v"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
+	m_alist.Add( _T("m2v"), _T("MPEG-2 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
+	m_alist.Add( _T("m4b"), _T("MPEG-4 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("6"));
+	m_alist.Add( _T("m4p"), _T("MPEG-4 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("6"));
+	m_alist.Add( _T("m4v"), _T("MPEG-4 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("6"));
+	m_alist.Add( _T("mkv"), _T("Matroska ") + ResStr(IDS_ASSOS_V), m_str_v, _T("3"));
+	m_alist.Add( _T("mov"), _T("QuickTime ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("12"));
+	m_alist.Add( _T("mp4"), _T("MPEG-4 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("6"));
+	m_alist.Add( _T("mpeg"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
+	m_alist.Add( _T("mpg"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("8"));
+	m_alist.Add( _T("ogm"), _T("Ogg ") + ResStr(IDS_ASSOS_V), m_str_v, _T("4"));
+	m_alist.Add( _T("pss"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
+	m_alist.Add( _T("pva"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
+	m_alist.Add( _T("tpr"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
+	m_alist.Add( _T("qt"), _T("QuickTime ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("12"));
+	m_alist.Add( _T("rm"), _T("RealMedia ") + ResStr(IDS_ASSOS_V), m_str_v, _T("14"));
+	m_alist.Add( _T("rmvb"), _T("RealMedia VBR ") + ResStr(IDS_ASSOS_V), m_str_v, _T("15"));
+	m_alist.Add( _T("tp"), _T("MPEG-2 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("10"));
+	m_alist.Add( _T("ts"), _T("MPEG-2 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("9"));
+	m_alist.Add( _T("vob"), _T("DVD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("11"));
+	m_alist.Add( _T("vp6"), _T("VP6/VP7 ") + ResStr(IDS_ASSOS_V), m_str_v, _T("35"));
+	m_alist.Add( _T("wmv"), _T("Windows Media ") + ResStr(IDS_ASSOS_V), m_str_v, _T("17"));
 	m_vedio_num = m_alist.m_type.GetSize();
-	m_alist.Add( _T("aac"), _T("Advanced Audio Coding 音频文件"), _T("音频文件"), _T("18"));
-	m_alist.Add( _T("ac3"), _T("Dolby AC3 音频文件"), _T("音频文件"), _T("19"));
-	m_alist.Add( _T("aiff"), _T("AIFF Mac音频文件"), _T("音频文件"), _T("36"));
-	m_alist.Add( _T("amr"), _T("AMR 移动音频文件"), _T("音频文件"), _T("20"));
-	m_alist.Add( _T("dts"), _T("DTS DVD音频文件"), _T("音频文件"), _T("21"));
-	m_alist.Add( _T("flac"), _T("FLAC 无损音频文件"), _T("音频文件"), _T("22"));
-	m_alist.Add( _T("m4a"), _T("MPEG-4 音频文件"), _T("音频文件"), _T("23"));
-	m_alist.Add( _T("mp2"), _T("MPEG 音频文件"), _T("音频文件"), _T("36"));
-	m_alist.Add( _T("mp3"), _T("MPEG Laye-3 音频文件"), _T("音频文件"), _T("24"));
-	m_alist.Add( _T("mpa"), _T("MPEG 音频文件"), _T("音频文件"), _T("25"));
-	m_alist.Add( _T("mpc"), _T("MusePack 音频文件"), _T("音频文件"), _T("26"));
-	m_alist.Add( _T("mka"), _T("Matroska 音频文件"), _T("音频文件"), _T("27"));
-	m_alist.Add( _T("ogg"), _T("Ogg 音频文件"), _T("音频文件"), _T("28"));
-	m_alist.Add( _T("ra"), _T("RealMedia 音频文件"), _T("音频文件"), _T("29"));
-	m_alist.Add( _T("wav"), _T("WAVE 音频文件"), _T("音频文件"), _T("30"));
-	m_alist.Add( _T("wma"), _T("Windows Media 音频文件"), _T("音频文件"), _T("31"));
+	m_alist.Add( _T("aac"), _T("Advanced Audio Coding ") + ResStr(IDS_ASSOS_A),m_str_a, _T("18"));
+	m_alist.Add( _T("ac3"), _T("Dolby AC3 ") + ResStr(IDS_ASSOS_A),m_str_a, _T("19"));
+	m_alist.Add( _T("aiff"), _T("AIFF Mac") + ResStr(IDS_ASSOS_A),m_str_a, _T("36"));
+	m_alist.Add( _T("amr"), _T("AMR ") + ResStr(IDS_ASSOS_MA),m_str_a, _T("20"));
+	m_alist.Add( _T("dts"), _T("DTS DVD") + ResStr(IDS_ASSOS_A),m_str_a, _T("21"));
+	m_alist.Add( _T("flac"), _T("FLAC ") + ResStr(IDS_ASSOS_LA),m_str_a, _T("22"));
+	m_alist.Add( _T("m4a"), _T("MPEG-4 ") + ResStr(IDS_ASSOS_A),m_str_a, _T("23"));
+	m_alist.Add( _T("mp2"), _T("MPEG ") + ResStr(IDS_ASSOS_A),m_str_a, _T("36"));
+	m_alist.Add( _T("mp3"), _T("MPEG Laye-3 ") + ResStr(IDS_ASSOS_A),m_str_a, _T("24"));
+	m_alist.Add( _T("mpa"), _T("MPEG ") + ResStr(IDS_ASSOS_A),m_str_a, _T("25"));
+	m_alist.Add( _T("mpc"), _T("MusePack ") + ResStr(IDS_ASSOS_A),m_str_a, _T("26"));
+	m_alist.Add( _T("mka"), _T("Matroska ") + ResStr(IDS_ASSOS_A),m_str_a, _T("27"));
+	m_alist.Add( _T("ogg"), _T("Ogg ") + ResStr(IDS_ASSOS_A),m_str_a, _T("28"));
+	m_alist.Add( _T("ra"), _T("RealMedia ") + ResStr(IDS_ASSOS_A),m_str_a, _T("29"));
+	m_alist.Add( _T("wav"), _T("WAVE ") + ResStr(IDS_ASSOS_A),m_str_a, _T("30"));
+	m_alist.Add( _T("wma"), _T("Windows Media ") + ResStr(IDS_ASSOS_A),m_str_a, _T("31"));
 	m_audio_num = m_alist.m_type.GetSize();
-	m_alist.Add( _T("m3u"), _T("M3U 播放列表文件"), _T("播放列表"), _T("32"));
-	m_alist.Add( _T("m3u8"), _T("M3U8 播放列表文件"), _T("播放列表"), _T("33"));
-	m_alist.Add( _T("pls"), _T("PLS 播放列表文件"), _T("播放列表"), _T("34"));
-	m_alist.Add( _T("swf"), _T("Flash 动画文件"), _T("Flash动画"), _T("0"));
+	m_alist.Add( _T("m3u"), _T("M3U ") + ResStr(IDS_ASSOS_LISTFILE), m_str_list, _T("32"));
+	m_alist.Add( _T("m3u8"), _T("M3U8 ") + ResStr(IDS_ASSOS_LISTFILE), m_str_list, _T("33"));
+	m_alist.Add( _T("pls"), _T("PLS ") + ResStr(IDS_ASSOS_LISTFILE), m_str_list, _T("34"));
+	m_alist.Add( _T("swf"), _T("Flash ") + ResStr(IDS_ASSOS_CT), m_str_flash, _T("0"));
 	m_default_num = m_alist.m_type.GetSize();
 	m_sa.RemoveAll();
-	m_sa.Add(_T("视频文件"));
-	m_sa.Add(_T("音频文件"));
-	m_sa.Add(_T("播放列表"));
-	m_sa.Add(_T("Flash动画"));
-	m_sa.Add(_T("DirectShow媒体文件"));
+	m_sa.Add(m_str_v);
+	m_sa.Add(m_str_a);
+	m_sa.Add(m_str_list);
+	m_sa.Add(m_str_flash);
+	m_sa.Add(m_str_ds);
 
 	m_have_icons = false;
 	m_special = false;
@@ -131,7 +138,17 @@ void CMAssosPage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	TCHAR *	lpszHeaders[] = { _T("关联"),_T("扩展名"), _T("文件说明"), _T("类型"), NULL };
+	CString ass = ResStr(IDS_ASSOS_ASSOS);
+	CString ex = ResStr(IDS_ASSOS_EX);
+	CString inf = ResStr(IDS_ASSOS_INF);
+	CString tp = ResStr(IDS_ASSOS_TYP);
+	TCHAR *	lpszHeaders[] = { _tcsdup(ass.GetBuffer()) ,  _tcsdup(ex.GetBuffer()) 
+		,  _tcsdup(inf.GetBuffer()) ,  _tcsdup(tp.GetBuffer()) , NULL };
+	ass.ReleaseBuffer();
+	ex.ReleaseBuffer();
+	inf.ReleaseBuffer();
+	tp.ReleaseBuffer();
+
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -194,14 +211,14 @@ void CMAssosPage::FillListCtrl(CXListCtrl * pList)
 	//m_stv.RemoveAll();
 	//m_stf.RemoveAll();
 	//m_stl.RemoveAll();
-	//m_sta.Add(_T("音频文件"));
-	//m_sta.Add(_T("DirectShow媒体文件"));
-	//m_stv.Add(_T("视频文件"));
-	//m_stv.Add(_T("DirectShow媒体文件"));
-	//m_stf.Add(_T("Flash动画"));
-	//m_stf.Add(_T("DirectShow媒体文件"));
-	//m_stl.Add(_T("播放列表"));
-	//m_stl.Add(_T("DirectShow媒体文件"));
+	//m_sta.Add(m_str_a);
+	//m_sta.Add(m_str_ds);
+	//m_stv.Add(m_str_v);
+	//m_stv.Add(m_str_ds);
+	//m_stf.Add(m_str_flash);
+	//m_stf.Add(m_str_ds);
+	//m_stl.Add(m_str_list);
+	//m_stl.Add(m_str_ds);
 
 	CString str = _T("");
 	int nItem, nSubItem;
@@ -211,11 +228,11 @@ void CMAssosPage::FillListCtrl(CXListCtrl * pList)
 	// insert the items and subitems into the list
 	for (nItem = 0; nItem < num; nItem++)
 	{
-		if(m_alist.m_class[nItem].Find(_T("视频文件")) >= 0)
+		if(m_alist.m_class[nItem].Find(m_str_v) >= 0)
 			classnum = 0;
-		else if(m_alist.m_class[nItem].Find(_T("音频文件")) >= 0)
+		else if(m_alist.m_class[nItem].Find(m_str_a) >= 0)
 			classnum = 1;
-		else if(m_alist.m_class[nItem].Find(_T("播放列表")) >= 0)
+		else if(m_alist.m_class[nItem].Find(m_str_list) >= 0)
 			classnum = 2;
 		else
 			classnum = 3;
@@ -501,13 +518,13 @@ void CMAssosPage::SaveConfig()
 			continue;
 		s_info = m_List.GetItemText(i,2);
 		s_classes = m_List.GetItemText(i,3);
-		if(s_classes == _T("播放列表"))
+		if(s_classes == m_str_list)
 			playlist_str += s_type + _T("=")  + s_info  + _T(",");
-		else if(s_classes == _T("音频文件"))
+		else if(s_classes ==m_str_a)
 			audio_str += s_type + _T("=")  + s_info  + _T(",");
-		else if(s_classes == _T("Flash动画"))
+		else if(s_classes == m_str_flash)
 			flash_str += s_type + _T("=")  + s_info  + _T(",");
-		else if(s_classes == _T("DirectShow媒体文件"))
+		else if(s_classes == m_str_ds)
 			dshow_str += s_type + _T("=")  + s_info  + _T(",");
 		else
 			video_str += s_type + _T("=")  + s_info  + _T(",");
@@ -588,13 +605,13 @@ bool CMAssosPage::AssosType(CString type, CString info, CString icons, bool ispl
 
 		SubKey =  _T("mplayer.") + type + _T("\\shell\\open");
 		if(m_rightmenu)
-			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 mplayer 打开"));
+			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,ResStr(IDS_PLAYER_USE) + _T(" mplayer ") + ResStr(IDS_ASSOS_OP));
 		else
 			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T(""));
 		if(m_rightmenu2)
 		{
 			SubKey =  _T("mplayer.") + type + _T("\\shell\\play");
-			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 mplayer 播放"));
+			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,ResStr(IDS_PLAYER_USE) + _T(" mplayer ") + ResStr(IDS_ASSOS_PL));
 			SubKey =  _T("mplayer.") + type + _T("\\shell\\play\\command");
 			CString spini =_T("");
 
@@ -721,48 +738,18 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 		if(isflash)
 		{
 			if(m_rightmenu)
-				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 MFlashPlayer 打开"));
+				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,ResStr(IDS_PLAYER_USE) + _T(" MFlashPlayer ") + ResStr(IDS_ASSOS_OP));
 			else
 				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T(""));
-			//if(m_rightmenu2)
-			//{
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell\\play");
-			//	reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 MFlashPlayer 播放"));
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell\\play\\command");
-			//	Content =  _T("\"") +m_player_exe +_T("\" --Open FlashPlayer \"%1\"");
-			//	reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content);
-			//}
-			//else
-			//{
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell\\play");
-			//	reg.DeleteKey_STR(HKEY_CLASSES_ROOT,SubKey, _T("command"));
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell");
-			//	reg.DeleteKey_STR(HKEY_CLASSES_ROOT,SubKey, _T("play"));
-			//}
 		}
 		else
 		{
 			if(m_rightmenu && !m_mpc)
-				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 MDSPlayer 打开"));
+				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,ResStr(IDS_PLAYER_USE) + _T(" MDSPlayer ") + ResStr(IDS_ASSOS_OP));
 			else if(m_rightmenu && m_mpc)
-				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 MPC 打开"));
+				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,ResStr(IDS_PLAYER_USE) + _T(" MPC ") + ResStr(IDS_ASSOS_OP));
 			else
 				reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T(""));
-			//if(m_rightmenu2)
-			//{
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell\\play");
-			//	reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T("使用 MDSPlayer 播放"));
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell\\play\\command");
-			//	Content =  _T("\"") +m_player_exe +_T("\" --Open MediaPlayer \"%1\"");
-			//	reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content);
-			//}
-			//else
-			//{
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell\\play");
-			//	reg.DeleteKey_STR(HKEY_CLASSES_ROOT,SubKey, _T("command"));
-			//	SubKey =  _T("mplayer.") + type + _T("\\shell");
-			//	reg.DeleteKey_STR(HKEY_CLASSES_ROOT,SubKey, _T("play"));
-			//}
 		}
 
 		SubKey =  _T("mplayer.") + type + _T("\\shell\\open\\command");
@@ -865,7 +852,7 @@ void CMAssosPage::OnBnClickedAdd()
 	m_List.SetCheckbox(nItem, 0, 0);
 	m_List.SetItemText(nItem, 1, _T(""));
 	m_List.SetEdit(nItem, 1);
-	m_List.SetItemText(nItem, 2, _T("请输入扩展名和说明并选择类型"));
+	m_List.SetItemText(nItem, 2, ResStr(IDS_ASSOS_INPUT));
 	m_List.SetEdit(nItem, 2);
 	m_List.SetComboBox(nItem, 3,   TRUE,  &m_sa,  5,  0,  FALSE);
 	
@@ -879,7 +866,7 @@ void CMAssosPage::OnBnClickedDel()
 	if(nItem >= m_default_num)
 		m_List.DeleteItem(nItem);
 	else
-		MessageBox(_T("不能删除默认格式！"),_T("文件关联"));
+		MessageBox(ResStr(IDS_ASSOS_DEL),ResStr(IDS_ASSOS_AS));
 	m_List.UnlockWindowUpdate();
 }
 
@@ -931,7 +918,7 @@ void CMAssosPage::ApplyChange(bool quiet)
 	if(!IsFileExist(m_player_exe))
 	{
 		if(!quiet)
-			MessageBox(_T("请放在MPlayer目录中使用！"));
+			MessageBox(ResStr(IDS_PLAYER_SAMEDIR));
 		return;
 	}
 	CString type, info, icon ,classes;
@@ -949,11 +936,11 @@ void CMAssosPage::ApplyChange(bool quiet)
 			type = m_alist.m_type[nItem];
 			info = m_alist.m_info[nItem];
 			icon = m_alist.m_icon[nItem];
-			if(m_alist.m_class[nItem] == _T("播放列表"))
+			if(m_alist.m_class[nItem] == m_str_list)
 				isplaylist = true;
-			else if(m_alist.m_class[nItem] == _T("Flash动画"))
+			else if(m_alist.m_class[nItem] == m_str_flash)
 				 isflash = true;
-			else if(m_alist.m_class[nItem] == _T("DirectShow媒体文件"))
+			else if(m_alist.m_class[nItem] == m_str_ds)
 				 isdshow = true;
 		}
 		else
@@ -964,22 +951,22 @@ void CMAssosPage::ApplyChange(bool quiet)
 			
 			info = m_List.GetItemText(nItem,2);
 			classes = m_List.GetItemText(nItem,3);
-			if(classes == _T("播放列表"))
+			if(classes == m_str_list)
 			{
 				icon = _T("37");
 				isplaylist = true;
 			}
-			else if(classes == _T("Flash动画"))
+			else if(classes == m_str_flash)
 			{
 				 isflash = true;
 			}
-			else if(classes == _T("DirectShow媒体文件"))
+			else if(classes == m_str_ds)
 			{
 				 isdshow = true;
 			}
 			else
 			{
-				if(classes == _T("视频文件"))
+				if(classes == m_str_v)
 					icon = _T("35");
 				else
 					icon = _T("36");
