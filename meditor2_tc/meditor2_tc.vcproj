@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="meditor2_tc"
+	Name="meditor2.tc"
 	ProjectGUID="{CE4F59E3-B75A-4DAA-B1F2-C4AD4C9EDEDD}"
 	RootNamespace="meditor2_tc"
 	Keyword="MFCDLLProj"
