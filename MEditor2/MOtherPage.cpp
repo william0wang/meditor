@@ -162,6 +162,7 @@ void CMOtherPage::SetLower()
 
 void CMOtherPage::SaveConfig()
 {
+	UpdateData(1);
 	if(m_mplayer.GetCheck() == 1)
 		DeleteFile(m_program_dir + _T("codecs\\Real\\mloader.ini"));
 	else

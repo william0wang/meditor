@@ -18,3 +18,4 @@ bool Decode7zFile(CString filename , CString Path = _T("") , CString ex_name = _
 bool ExtractResource( LPCTSTR lpName, LPCTSTR lpType, LPCTSTR lpFilePath, bool bOverWrite,bool unzip = false,CString ex_filename = _T(""));
 bool GetSpecialFolder(int nFolder , TCHAR *path);
 void DeleteFolder(CString dir);
+bool IsDigit(CString dig_str);

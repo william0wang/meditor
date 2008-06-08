@@ -15,7 +15,6 @@
 #include "XListCtrl.h"
 #include "ColorButton.h"
 #include "afxcmn.h"
-class CMConfig;
 
 enum Filters
 {
@@ -78,6 +77,9 @@ enum mx_color
 	mx_a
 };
 
+class CMConfig;
+class CMShowInfoDlg;
+
 class CMVideoPage : public CDialog
 {
 // Construction
@@ -117,6 +119,7 @@ protected:
 	BOOL	m_keepaspect;
 	BOOL	m_framedrop;
 	BOOL	m_idx;
+	CMShowInfoDlg *info;
 	//}}AFX_DATA
 	
 	CStringArray m_rotate;
@@ -128,6 +131,7 @@ protected:
 	static int m_nColWidths[];
 	void FillListCtrl(CXListCtrl * pList);
 	void InitListCtrl(CXListCtrl * pList);
+	void ShowInfo(int type);
 
 
 // Overrides
@@ -162,6 +166,7 @@ protected:
 public:
 	afx_msg void OnEnChangeEditGamma();
 	BOOL m_dr;
+	void SetInfoDlg(CMShowInfoDlg *infoDlg);
 };
 
 //{{AFX_INSERT_LOCATION}}

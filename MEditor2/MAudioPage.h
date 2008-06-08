@@ -12,6 +12,7 @@ class CMConfig;
 #define XLISTCTRLLIB_STATIC
 #endif
 #include "XListCtrl.h" 
+#include "afxwin.h"
 /////////////////////////////////////////////////////////////////////////////
 // CMAudioPage dialog
 
@@ -96,6 +97,7 @@ protected:
 	CString	m_subpos;
 	CString	m_slang;
 	CString	m_subcp;
+	CString	m_str_no;
 	CString	m_str_at;
 	CString	m_str_low;
 	CString	m_str_int;
@@ -138,6 +140,8 @@ public:
 	CString m_alang;
 	BOOL m_ass_use_margins;
 	BOOL m_noautosub;
+	CComboBox m_ass_expand;
+	CString m_ass_expand_s;
 };
 
 //{{AFX_INSERT_LOCATION}}

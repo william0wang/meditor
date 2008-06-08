@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "MEditor2.h"
 #include "MEditor2Dlg.h"
+#include "MShowInfoDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -79,6 +80,10 @@ BEGIN_MESSAGE_MAP(CMEditor2Dlg, CDialog)
 	ON_COMMAND(ID_LOG_TXT, &CMEditor2Dlg::OnLogTxt)
 	ON_COMMAND(IDM_ABOUT, &CMEditor2Dlg::OnAbout)
 	ON_COMMAND(IDC_GOTOHOME, &CMEditor2Dlg::OnGotohome)
+	ON_COMMAND(IDC_SHOWLOG, &CMEditor2Dlg::OnShowlog)
+	ON_COMMAND(IDC_SHOW_HELP, &CMEditor2Dlg::OnShowHelp)
+	ON_COMMAND(IDC_SHOWFAQ, &CMEditor2Dlg::OnShowfaq)
+	ON_COMMAND(IDC_RESETINFO, &CMEditor2Dlg::OnResetinfo)
 END_MESSAGE_MAP()
 
 
@@ -142,13 +147,19 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_decode.m_cfg = &m_config;
 	m_resume.m_cfg = &m_config;
 	m_other.m_cfg = &m_config;
+	m_profile.m_cfg = &m_config;
 	m_assos.m_cfg = &m_config;
+	infoDlg.SetConfig(&m_config);
+
+	m_video.SetInfoDlg(&infoDlg);
+
 	CString p_str = ResStr(IDS_TAB_PLAYER);
 	CString v_str = ResStr(IDS_TAB_VIDEO);
 	CString a_str = ResStr(IDS_TAB_AUDIO);
 	CString d_str = ResStr(IDS_TAB_DECODE);
 	CString r_str = ResStr(IDS_TAB_RESUME);
 	CString o_str = ResStr(IDS_TAB_OTHER);
+	CString f_str = ResStr(IDS_TAB_PROFILE);
 	CString i_str = ResStr(IDS_TAB_INPUT);
 	CString s_str = ResStr(IDS_TAB_ASSOS);
 
@@ -158,10 +169,12 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_TabSheet.AddPage( d_str , &m_decode, IDD_DECODE_DIALOG);
 	m_TabSheet.AddPage( r_str , &m_resume, IDD_RESUME_DIALOG);
 	m_TabSheet.AddPage( o_str , &m_other, IDD_OTHER_DIALOG);
+	m_TabSheet.AddPage( f_str , &m_profile, IDD_PROFILE_DIALOG);
 	m_TabSheet.AddPage( i_str , &m_Input, IDD_INPUT_DIALOG);
 	m_TabSheet.AddPage( s_str , &m_assos, IDD_ASSOS_DIALOG);
 	m_TabSheet.Show();
 	
+
 	int value_i;
 	if(m_config.GetValue_Integer(_T("meditor_last_page"),value_i,true))
 	{
@@ -245,11 +258,12 @@ bool CMEditor2Dlg::SaveAll()
 		return false;
 	m_player.SaveConfig();
 	m_decode.SaveConfig();
-	m_video.SaveConfig();
 	m_audio.SaveConfig();
+	m_video.SaveConfig();
 	m_other.SaveConfig();
 	m_resume.SaveConfig();
 	m_assos.SaveConfig();
+	m_profile.SaveConfig();
 	bool value_b;
 	if(m_config.GetValue_Boolean(_T("meditor_last_page"),value_b,true))
 	{
@@ -263,6 +277,7 @@ bool CMEditor2Dlg::SaveAll()
 			m_config.RemoveValue(_T("meditor_last_page"),true);
 	}
 	m_config.SaveConfig(m_program_dir + _T("mplayer.ini"));
+	ShowInfo(type_reload);
 	m_config.SaveConfig(m_program_dir + _T("kk.ini"),true);
 	return true;
 }
@@ -289,18 +304,25 @@ void CMEditor2Dlg::OnBnClickedOk()
 
 void CMEditor2Dlg::OnBnClickedHelp()
 {
-	CString m_help = m_program_dir + _T("man_page_ww.html");
+	CString m_help = m_program_dir + _T("help");
+	
 	if(IsFileExist(m_help))
 	{
 		//switch(m_TabSheet.GetCurSel())
 		//{
-		//case Player:
-		//	m_help += _T("#播放器设置");
-		//	break;
 		//default:
-		//	m_help += _T("#meditor2使用说明");
+			m_help += _T("/man_page.html");
 		//	break;
 		//}
+		if(IsFileExist(m_help))
+		{
+			ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+			return;
+		}
+	}
+	m_program_dir + _T("man_page_ww.html");
+	if(IsFileExist(m_help))
+	{
 		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
 	}
 	else
@@ -326,6 +348,7 @@ BOOL CMEditor2Dlg::DestroyWindow()
 	// TODO: 在此添加专用代码和/或调用基类
 	if(gUniqueEvent)
 		CloseHandle(gUniqueEvent);
+
 	return CDialog::DestroyWindow();
 }
 
@@ -408,4 +431,69 @@ void CMEditor2Dlg::OnAbout()
 void CMEditor2Dlg::OnGotohome()
 {
 	ShellExecute(0, _T("open"),_T("http://mplayer-ww.sourceforge.net/") , _T(""), NULL, SW_SHOW);
+}
+
+void CMEditor2Dlg::OnShowlog()
+{
+	CString m_help = m_program_dir + _T("help/changelog.html");
+	if(IsFileExist(m_help))
+	{
+		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+		return;
+	}
+	m_program_dir + _T("man_page_ww.html");
+	if(IsFileExist(m_help))
+	{
+		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+	}
+	else
+		ShellExecute(0, _T("open"),_T("http://mplayer-ww.sourceforge.net/") , _T(""), NULL, SW_SHOW);
+}
+
+void CMEditor2Dlg::OnShowHelp()
+{
+
+	CString m_help = m_program_dir + _T("help/default.html");
+	if(IsFileExist(m_help))
+	{
+		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+		return;
+	}
+	m_program_dir + _T("man_page_ww.html");
+	if(IsFileExist(m_help))
+	{
+		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+	}
+	else
+		ShellExecute(0, _T("open"),_T("http://mplayer-ww.sourceforge.net/") , _T(""), NULL, SW_SHOW);
+}
+
+void CMEditor2Dlg::OnShowfaq()
+{
+
+	CString m_help = m_program_dir + _T("help/faq.html");
+	if(IsFileExist(m_help))
+	{
+		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+		return;
+	}
+	m_program_dir + _T("man_page_ww.html");
+	if(IsFileExist(m_help))
+	{
+		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
+	}
+	else
+		ShellExecute(0, _T("open"),_T("http://mplayer-ww.sourceforge.net/") , _T(""), NULL, SW_SHOW);
+}
+
+void CMEditor2Dlg::OnResetinfo()
+{
+	infoDlg.ResetInfo();
+	m_config.RemoveValue(_T("meditor_hide_info"),true);
+}
+
+void CMEditor2Dlg::ShowInfo(int type)
+{
+	if(infoDlg.IsShow(type))
+		infoDlg.DoModal();
 }

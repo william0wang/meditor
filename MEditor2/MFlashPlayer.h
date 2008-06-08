@@ -23,7 +23,7 @@ public:
 
 // Dialog Data
 	//{{AFX_DATA(CMFlashPlayer)
-	enum { IDD = IDD_DIALOG_FLASHPLAYER };
+	enum { IDD = IDD_DIALOG_FLASH };
 	CSliderCtrl	m_control;
 	CShockwaveFlash	m_flash;
 	//}}AFX_DATA

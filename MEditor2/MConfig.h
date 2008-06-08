@@ -8,6 +8,29 @@
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
+#include <vector>
+using namespace std;
+
+struct ConfigDataSP_info
+{
+	bool uesed;
+	CString name;
+	CString value;
+};
+typedef vector<ConfigDataSP_info> ConfigSP_info;
+
+struct ConfigDataSP
+{
+	CString type;
+	ConfigSP_info info;
+};
+typedef vector<ConfigDataSP> ConfigSP;
+
+enum ConfigType
+{
+	cf_default,
+	cf_other
+};
 
 enum ConfigTypeEx
 {
@@ -64,12 +87,25 @@ public:
 	void SetValue(CString name, CString value, bool ex = false, int type = ex_option);
 	CString GetValue_Other();
 	void SetValue_Other(CString Other);
+	bool GetValueSP_String(CString type, CString name, CString &value);
+	bool GetValueSP_Integer(CString type, CString name, int &value);
+	bool GetValueSP_Boolean(CString type, CString name, bool &value);
+	bool RemoveValueSP(CString type, CString name);
+	void AddConfigSP(CString type);
+	void RemoveConfigSP(CString type);
+	void SetValueSP(CString type, CString name, CString value);
+	bool GetTypeSp(size_t index, CString &value);
+	size_t GetSizeSp();
 
 private:
+	ConfigSP m_spcfg;
 	CMConfigData m_pconfig;
 	CString m_other_config;
 	int m_now_type;
 	void AnalyseLine(CString line, bool ex = false);
+	void LoadConfigSP(CString filename);
+	CString GetConfigSP();
+	bool AnalyseLineSP(CString line);
 };
 
 #endif // !defined(AFX_MCONFIG_H__F3AA9003_59DB_485F_AE6C_121952846E3E__INCLUDED_)

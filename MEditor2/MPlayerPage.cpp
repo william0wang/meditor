@@ -198,6 +198,7 @@ BOOL CMPlayerPage::OnInitDialog()
 
 	m_monitor.AddString(m_auto_s);
 	m_monitor.AddString(_T("4:3"));
+	m_monitor.AddString(_T("8:5"));
 	m_monitor.AddString(_T("16:9"));
 	m_monitor_s = m_auto_s;
 

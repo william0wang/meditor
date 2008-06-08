@@ -9,10 +9,11 @@
 #include "MDecodePage.h"
 #include "MOtherPage.h"
 #include "MResumePage.h"
+#include "MProfilePage.h"
 #include "MInputPage.h"
 #include "MAssosPage.h"
+#include "MShowInfoDlg.h"
 #include "MConfig.h"
-
 
 enum Views
 {
@@ -22,6 +23,7 @@ enum Views
 	Decode,
 	Resume,
 	Other,
+	Profile,
 	Input,
 	Assos
 };
@@ -51,9 +53,11 @@ protected:
 	CMAudioPage m_audio;
 	CMDecodePage m_decode;
 	CMOtherPage m_other;
+	CMProfilePage m_profile;
 	CMResumePage m_resume;
 	CMInputPage m_Input;
 	CMAssosPage m_assos;
+	CMShowInfoDlg infoDlg;
 	CMConfig m_config;
 	CString m_program_dir;
 	int m_pos;
@@ -66,6 +70,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	DECLARE_MESSAGE_MAP()
+	void ShowInfo(int type);
 
 public:
 	afx_msg void OnBnClickedApply();
@@ -84,4 +89,8 @@ protected:
 public:
 	afx_msg void OnAbout();
 	afx_msg void OnGotohome();
+	afx_msg void OnShowlog();
+	afx_msg void OnShowHelp();
+	afx_msg void OnShowfaq();
+	afx_msg void OnResetinfo();
 };

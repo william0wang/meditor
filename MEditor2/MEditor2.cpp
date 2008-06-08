@@ -142,13 +142,13 @@ BOOL CMEditor2App::InitInstance()
 		(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 		CString program_dir;
 		program_dir.Format(_T("%s"),szFilePath);
-		if(IsFileExist(program_dir + _T("meditor2_tc.dll")))
+		if(IsFileExist(program_dir + _T("meditor2.tc.dll")))
 			langfile_tc = 1;
-		if(IsFileExist(program_dir + _T("codecs\\meditor2_tc.dll")))
+		if(IsFileExist(program_dir + _T("codecs\\meditor2.tc.dll")))
 			langfile_tc = 2;
-		if(IsFileExist(program_dir + _T("meditor2_en.dll")))
+		if(IsFileExist(program_dir + _T("meditor2.en.dll")))
 			langfile_en = 1;
-		if(IsFileExist(program_dir + _T("codecs\\meditor2_en.dll")))
+		if(IsFileExist(program_dir + _T("codecs\\meditor2.en.dll")))
 			langfile_en = 2;
 
 		if(langfile_tc || langfile_en)
@@ -174,9 +174,9 @@ BOOL CMEditor2App::InitInstance()
 			{
 				LPCTSTR  strSatellite;
 				if(langfile_en == 1)
-					strSatellite = _T("meditor2_en.dll");
+					strSatellite = _T("meditor2.en.dll");
 				else
-					strSatellite = _T("codecs\\meditor2_en.dll");
+					strSatellite = _T("codecs\\meditor2.en.dll");
 				if (strSatellite)
 				{
 					HMODULE		hMod = LoadLibrary (strSatellite);
@@ -188,9 +188,9 @@ BOOL CMEditor2App::InitInstance()
 			{
 				LPCTSTR  strSatellite;
 				if(langfile_tc == 1)
-					strSatellite = _T("meditor2_tc.dll");
+					strSatellite = _T("meditor2.tc.dll");
 				else
-					strSatellite = _T("codecs\\meditor2_tc.dll");
+					strSatellite = _T("codecs\\meditor2.tc.dll");
 				if (strSatellite)
 				{
 					HMODULE		hMod = LoadLibrary (strSatellite);

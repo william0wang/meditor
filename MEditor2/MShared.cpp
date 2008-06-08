@@ -400,3 +400,17 @@ void DeleteFolder(CString dir)
 		RemoveDirectory(dir);
 	}
 }
+
+bool IsDigit(CString dig_str)
+{
+	int len = dig_str.GetLength();
+	if(len <= 0)
+		return false;
+	for(int i = 0 ; i < len ; i++)
+	{
+		if(!_istdigit(dig_str[i]))
+			return false;
+	}
+	return true;
+}
+

@@ -5,6 +5,7 @@
 #include "meditor2.h"
 #include "MVideoPage.h"
 #include "MConfig.h"
+#include "MShowInfoDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -878,7 +879,59 @@ void CMVideoPage::SaveConfig()
 		vf_str += _T("ass,");
 	if(m_List.GetCheckbox(screenshot, 0))
 		vf_str += _T("screenshot,");
+
+	bool use_coreavc = false;
+	if(! m_cfg->IsRemoved(_T("vc")))
+	{
+		CString value_s;
+		if(m_cfg->GetValue_String(_T("vc"),value_s))
+		{
+			value_s += _T(",");
+			if(value_s.Find(_T("coreavc,")) >= 0)
+				use_coreavc = true;
+		}
+	}
+	if(! m_cfg->IsRemoved(_T("cofing_codecs"),true))
+	{
+		int value_i;
+		if(m_cfg->GetValue_Integer(_T("cofing_codecs"),value_i,true))
+		{
+			if(value_i == 2)
+				use_coreavc = true;
+		}
+	}
 	
+	bool use_ass_expand = false;
+	if(! m_cfg->IsRemoved(_T("ass")))
+	{
+		bool value_b;
+		if(m_cfg->GetValue_Boolean(_T("ass"),value_b))
+		{
+			if(value_b && ! m_cfg->IsRemoved(_T("ass_auto_expand"), true))
+			{
+				if(m_cfg->GetValue_Boolean(_T("ass_auto_expand"),value_b,true))
+				{
+					if(value_b)
+						use_ass_expand = true;
+				}
+			}
+		}
+	}
+	bool use_expand = false;
+	if(!use_ass_expand)
+	{
+		if(m_List.GetCheckbox(expand, 0))
+			use_expand = true;
+		else
+			use_coreavc = false;
+	}
+	else if(m_List.GetCheckbox(expand, 0))
+	{
+		ShowInfo(type_ass_expand);
+		m_List.SetCheckbox(expand, 0, 0);
+	}
+
+
 	int veq = m_List.GetCheckbox(eq2, 0);
 	int vhue = m_List.GetCheckbox(hue, 0);
 	CString value;
@@ -893,7 +946,7 @@ void CMVideoPage::SaveConfig()
 	m_cfg->RemoveValue(_T("contrast"));
 	m_cfg->RemoveValue(_T("saturation"));
 	m_cfg->RemoveValue(_T("hue"));
-	if(veq || vvo == gl || vvo == gl2)
+	if(veq || vvo == gl || vvo == gl2 || use_coreavc)
 	//	|| m_brightness_s > 100
 	//	|| m_contrast_s > 100
 	//	|| m_saturation_s > 100)
@@ -908,20 +961,41 @@ void CMVideoPage::SaveConfig()
 				else
 					vf_str += _T("eq2=") + m_gamma + _T(",");
 			}
+			else if(use_coreavc)
+			{
+				vf_str += _T("eq2,");
+				ShowInfo(type_coreavc);
+				m_List.SetCheckbox(eq2, 0 , 1);
+			}
 //			else
 //				adjust = 100;
 		}
 		else if(veq)
 		{
 			if(m_gamma_s == 10)
-				m_cfg->SetValue(_T("cofing_eq2"), _T("1") ,true ,ex_meditor);
+			{
+				if(use_coreavc && use_expand)
+				{
+					vf_str += _T("eq2,");
+					ShowInfo(type_coreavc);
+					m_List.SetCheckbox(eq2, 0 , 1);
+				}
+				else
+					m_cfg->SetValue(_T("cofing_eq2"), _T("1") ,true ,ex_meditor);
+			}
 			else
 				vf_str += _T("eq2=") + m_gamma + _T(",");
 		}
 		else
 		{
-				value.Format(_T("%d") , m_gamma_s);
-				m_cfg->SetValue(_T("cofing_gamma"), value, true , ex_meditor);
+			if(use_coreavc && use_expand)
+			{
+				vf_str += _T("eq2,");
+				ShowInfo(type_coreavc);
+				m_List.SetCheckbox(eq2, 0 , 1);
+			}
+			value.Format(_T("%d") , m_gamma_s);
+			m_cfg->SetValue(_T("cofing_gamma"), value, true , ex_meditor);
 		}
 
 		if(m_brightness_s != 100)
@@ -987,32 +1061,11 @@ void CMVideoPage::SaveConfig()
 			m_cfg->SetValue(_T("cofing_hue"), value , true , ex_meditor);
 		}
 	}
-	bool use_expand = true;
-
-	if(! m_cfg->IsRemoved(_T("vc")))
-	{
-		CString value_s;
-		if(m_cfg->GetValue_String(_T("vc"),value_s))
-		{
-				value_s += _T(",");
-				if(value_s.Find(_T("coreavc,")) >= 0)
-					use_expand = false;
-		}
-	}
-	if(! m_cfg->IsRemoved(_T("cofing_codecs"),true))
-	{
-		int value_i;
-		if(m_cfg->GetValue_Integer(_T("cofing_codecs"),value_i,true))
-		{
-			if(value_i == 2)
-				use_expand = false;
-		}
-	}
 
 	CString str_expand = m_List.GetItemText(expand, 2);
 	str_expand.TrimLeft(_T(" "));
 	str_expand.TrimRight(_T(" "));
-	if(use_expand && m_List.GetCheckbox(expand, 0))
+	if(use_expand)
 	{
 		if(str_expand.GetLength() > 0)
 		{
@@ -1270,4 +1323,18 @@ void CMVideoPage::OnEnChangeEditGamma()
 	else
 		m_gamma_s = 10;
 	UpdateData(FALSE);
+}
+
+void CMVideoPage::SetInfoDlg(CMShowInfoDlg *infoDlg)
+{
+	info = infoDlg;
+}
+
+void CMVideoPage::ShowInfo(int type)
+{
+	if(info)
+	{
+		if(info->IsShow(type))
+			info->DoModal();
+	}
 }

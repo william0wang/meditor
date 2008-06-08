@@ -429,11 +429,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MProfileDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MProfilePage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MResumePage.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\MShared.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MShowInfoDlg.cpp"
 				>
 			</File>
 			<File
@@ -612,11 +624,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MProfileDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MProfilePage.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MResumePage.h"
 				>
 			</File>
 			<File
 				RelativePath=".\MShared.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MShowInfoDlg.h"
 				>
 			</File>
 			<File

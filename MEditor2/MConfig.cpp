@@ -178,7 +178,7 @@ CString CMConfigData::GetValue_Other()
 
 CString CMConfigData::GetConfig()
 {
-	CString return_str = _T("");
+	CString return_str = _T("[default]\r\n");
 	for(int i = 0 ; i < m_config.name.GetSize() ; i ++)
 	{
 		if(m_config.state[i] > 0)
@@ -194,7 +194,7 @@ CString CMConfigData::GetConfig()
 	}
 	return return_str;
 }
-	
+
 CString CMConfigData::GetConfigEx()
 {
 	CString return_str = _T("");
@@ -240,6 +240,8 @@ void CMConfig::LoadConfig(CString filename, bool ex)
 	CStdioFile playercfg;
 	if(playercfg.Open(filename,CFile::modeRead))
 	{
+		if(!ex)
+			m_now_type = cf_default;
 		CString line;
 		while(playercfg.ReadString(line))
 		{
@@ -248,54 +250,194 @@ void CMConfig::LoadConfig(CString filename, bool ex)
 		}
 		playercfg.Close();
 	}
+	if(!ex)
+		LoadConfigSP(filename);
 }
 
-void CMConfig::SaveConfig(CString filename, bool ex)
+void CMConfig::LoadConfigSP(CString filename)
 {
-	CFile playercfg;
-	if(playercfg.Open(filename , CFile::modeCreate | CFile::modeWrite))
+	CStdioFile playercfg;
+	m_spcfg.clear();
+	if(playercfg.Open(filename,CFile::modeRead))
 	{
-		if(ex)
+		CString line;
+		while(playercfg.ReadString(line))
 		{
-			int outlen = 0;
-			CString cfg = m_pconfig.GetConfigEx();
-			char *out = UnicodeToLocal(cfg,outlen);
-			playercfg.Write(out,outlen);
-			delete out;
-		}
-		else
-		{
-			int outlen = 0;
-			char *out = UnicodeToLocal(_T("## Mplayer Config Options\r\n\r\n"),outlen);
-			playercfg.Write(out,outlen);
-			delete out;
-			CString cfg = m_pconfig.GetConfig();
-			if(m_other_config != _T(""))
-				cfg += m_other_config;
-			out = UnicodeToLocal(cfg,outlen);
-			playercfg.Write(out,outlen);
-			delete out;
+			line = LocalToUnicode(line);
+			if(AnalyseLineSP(line))
+			{
+				line.TrimLeft(_T(" "));
+				line.TrimRight(_T(" "));
+				line.TrimLeft(_T("["));
+				line.TrimRight(_T("]"));
+				ConfigDataSP sp;
+				sp.type = line;
+				m_spcfg.push_back(sp);
+			}
 		}
 		playercfg.Close();
 	}
+	ConfigSP::iterator vi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		CString types = vi->type;
+		CString name;
+		CString value;
+		TCHAR vl[MAX_PATH];
+
+		name = _T("alang");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("slang");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("vf");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("flip");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("af");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("autosync");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("mc");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
+		name = _T("af-adv");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+	}
 }
+
+bool CMConfig::AnalyseLineSP(CString line)
+{
+	line.TrimLeft(_T(" "));
+	line.TrimRight(_T(" "));
+	line.MakeLower();
+	int len = line.GetLength() - 1;
+	if(line[0] == L'[' && line[len] == L']' && line != _T("[default]"))
+		return true;
+	return false;
+}
+
+CString CMConfig::GetConfigSP()
+{
+	CString return_str = _T("");
+
+	ConfigSP::iterator vi;
+	ConfigSP_info::iterator fi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		return_str += _T("\r\n[") + vi->type + _T("]\r\n");
+		for(fi = vi->info.begin(); fi != vi->info.end(); fi++)
+		{
+			if(fi->uesed)
+				return_str += fi->name + _T("=") + fi->value + _T("\r\n");
+		}
+
+	}
+	return return_str;
+}
+
 void CMConfig::AnalyseLine(CString line, bool ex)
 {
 	if(line.GetLength() < 1)
 		return;
 	CString name, value;
+	value = line;
+	value.TrimLeft(_T(" "));
+	value.TrimRight(_T(" "));
+	value.MakeLower();
 	if(ex)
 	{
-		value = line;
-		value.TrimLeft(_T(" "));
-		value.TrimRight(_T(" "));
-		value.MakeLower();
 		if(value == _T("[option]"))
 			m_now_type = ex_option;
 		else if(value == _T("[status]"))
 			m_now_type = ex_status;
 		else if(value == _T("[meditor]"))
 			m_now_type = ex_meditor;
+	}
+	else
+	{
+		int len = value.GetLength() - 1;
+		if(value[0] == L'[' && value[len] == L']' && value == _T("[default]"))
+			m_now_type = cf_default;
+		else if(value[0] == L'[' && value[len] == L']' )
+			m_now_type = cf_other;
 	}
 
 	line.TrimLeft(_T(" "));
@@ -362,8 +504,39 @@ void CMConfig::AnalyseLine(CString line, bool ex)
 	value.TrimRight(_T(" "));
 	if(ex)
 		m_pconfig.SetValueEx(name,value,m_now_type,false);
-	else
+	else if(m_now_type == cf_default)
 		m_pconfig.SetValue(name,value,false);
+}
+
+void CMConfig::SaveConfig(CString filename, bool ex)
+{
+	CFile playercfg;
+	if(playercfg.Open(filename , CFile::modeCreate | CFile::modeWrite))
+	{
+		if(ex)
+		{
+			int outlen = 0;
+			CString cfg = m_pconfig.GetConfigEx();
+			char *out = UnicodeToLocal(cfg,outlen);
+			playercfg.Write(out,outlen);
+			delete out;
+		}
+		else
+		{
+			int outlen = 0;
+			char *out = UnicodeToLocal(_T("## Mplayer Config Options\r\n\r\n"),outlen);
+			playercfg.Write(out,outlen);
+			delete out;
+			CString cfg = m_pconfig.GetConfig();
+			if(m_other_config != _T(""))
+				cfg += m_other_config;
+			cfg += GetConfigSP();
+			out = UnicodeToLocal(cfg,outlen);
+			playercfg.Write(out,outlen);
+			delete out;
+		}
+		playercfg.Close();
+	}
 }
 
 bool CMConfig::IsRemoved(CString name, bool ex)
@@ -521,4 +694,209 @@ CString CMConfig::GetValue_Other()
 void CMConfig::SetValue_Other(CString Other)
 {
 	m_other_config = Other;
+}
+
+bool CMConfig::GetValueSP_String(CString type, CString name, CString &value)
+{
+	bool return_value = false;
+	ConfigSP::iterator vi;
+	ConfigSP_info::iterator fi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			for(fi = vi->info.begin(); fi != vi->info.end(); fi++)
+			{
+				if(fi->name == name)
+				{
+					if(! fi->uesed)
+						return false;
+					return_value = true;
+					value = fi->value;
+					break;
+				}
+			}
+			break;
+		}
+
+	}
+	return return_value;
+}
+
+bool CMConfig::GetValueSP_Integer(CString type, CString name, int &value)
+{
+	bool return_value = false;
+	ConfigSP::iterator vi;
+	ConfigSP_info::iterator fi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			for(fi = vi->info.begin(); fi != vi->info.end(); fi++)
+			{
+				if(fi->name == name)
+				{
+					if(! fi->uesed)
+						return false;
+					return_value = true;
+					value = _ttoi(fi->value);
+					break;
+				}
+			}
+			break;
+		}
+
+	}
+	return return_value;
+}
+
+bool CMConfig::GetValueSP_Boolean(CString type, CString name, bool &value)
+{
+	bool return_value = false;
+	ConfigSP::iterator vi;
+	ConfigSP_info::iterator fi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			for(fi = vi->info.begin(); fi != vi->info.end(); fi++)
+			{
+				if(fi->name == name)
+				{
+					if(! fi->uesed)
+						return false;
+					return_value = true;
+					if(fi->value == _T("yes"))
+						value = true;
+					else if(fi->value == _T("no"))
+						value = false;
+					else if(_ttoi(fi->value))
+						value = true;
+					else
+						value = false;
+					break;
+				}
+			}
+			break;
+		}
+
+	}
+	return return_value;
+}
+
+bool CMConfig::RemoveValueSP(CString type, CString name)
+{
+	bool return_value = false;
+	ConfigSP::iterator vi;
+	ConfigSP_info::iterator fi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			for(fi = vi->info.begin(); fi != vi->info.end(); fi++)
+			{
+				if(fi->name == name)
+				{
+					return_value = true;
+					fi->uesed = false;
+					break;
+				}
+			}
+			break;
+		}
+
+	}
+	return return_value;
+
+}
+
+void CMConfig::SetValueSP(CString type, CString name, CString value)
+{
+	bool have_name = false;
+	bool have_type = false;
+	ConfigSP::iterator vi;
+	ConfigSP_info::iterator fi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			have_type = true;
+			for(fi = vi->info.begin(); fi != vi->info.end(); fi++)
+			{
+				if(fi->name == name)
+				{
+					have_name = true;
+					fi->uesed = true;
+					fi->value = value;
+					break;
+				}
+			}
+			if(!have_name)
+			{
+				ConfigDataSP_info new_info;
+				new_info.name = name;
+				new_info.value = value;
+				new_info.uesed = true;
+				vi->info.push_back(new_info);
+			}
+			break;
+		}
+	}
+	if(!have_type)
+	{
+		ConfigDataSP_info new_info;
+		new_info.name = name;
+		new_info.value = value;
+		new_info.uesed = true;
+		ConfigDataSP new_cfg;
+		new_cfg.type = type;
+		new_cfg.info.push_back(new_info);
+		m_spcfg.push_back(new_cfg);
+	}
+}
+
+size_t CMConfig::GetSizeSp()
+{
+	return m_spcfg.size();
+}
+
+bool CMConfig::GetTypeSp(size_t index, CString &value)
+{
+	if(index < 0 || m_spcfg.empty() || index >= m_spcfg.size())
+		return false;
+	value = m_spcfg[index].type;
+	return true;
+}
+
+void CMConfig::AddConfigSP(CString type)
+{
+	bool HaveType = false;
+	ConfigSP::iterator vi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			HaveType = true;
+			break;
+		}
+	}
+	if(!HaveType)
+	{
+		ConfigDataSP new_cfg;
+		new_cfg.type = type;
+		m_spcfg.push_back(new_cfg);
+	}
+}
+
+void CMConfig::RemoveConfigSP(CString type)
+{
+	ConfigSP::iterator vi;
+	for(vi = m_spcfg.begin(); vi != m_spcfg.end(); vi++)
+	{
+		if(vi->type == type)
+		{
+			m_spcfg.erase(vi);
+			break;
+		}
+	}
 }

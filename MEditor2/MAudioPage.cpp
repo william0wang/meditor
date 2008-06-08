@@ -21,6 +21,7 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	, m_alang(_T(""))
 	, m_ass_use_margins(FALSE)
 	, m_noautosub(FALSE)
+	, m_ass_expand_s(_T(""))
 {
 	//{{AFX_DATA_INIT(CMAudioPage)
 	m_dvdsub = FALSE;
@@ -41,6 +42,7 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_slang = _T("zh,ch,chi,tw");
 	m_subcp = _T("GBK,BIG5,UTF-8,UTF-16");
 	m_str_at = ResStr(IDS_PLAYER_AUTO);
+	m_str_no = ResStr(IDS_PLAYER_NONE);
 	m_str_low = ResStr(IDS_AUDIO_RELOW);
 	m_str_int = ResStr(IDS_AUDIO_REINT);
 	m_str_foa = ResStr(IDS_AUDIO_REFOA);
@@ -93,6 +95,8 @@ void CMAudioPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_ALANG, m_alang);
 	DDX_Check(pDX, IDC_CHECK_ASS_MARGINS, m_ass_use_margins);
 	DDX_Check(pDX, IDC_CHECK_ASS_MARGINS2, m_noautosub);
+	DDX_Control(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand);
+	DDX_CBString(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand_s);
 }
 
 
@@ -248,7 +252,7 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->InsertItem(adv_af, _T(""));
 	pList->SetCheckbox(adv_af, 0, 0);
 	pList->SetItemText(adv_af, 1, ResStr(IDS_AUDIO_ADV));
-	pList->SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  2,  FALSE);
+	pList->SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
 	pList->SetItemText(adv_af, 3, ResStr(IDS_AUDIO_ADV_INFO));
 
 	pList->InsertItem(volnormal, _T(""));
@@ -256,14 +260,12 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetItemText(volnormal, 1, ResStr(IDS_AUDIO_VNL));
 	pList->SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
 	pList->SetItemText(volnormal, 3, ResStr(IDS_AUDIO_VNL_INFO));
-
 	
 	pList->InsertItem(resample, _T(""));
 	pList->SetCheckbox(resample, 0, 0);
 	pList->SetItemText(resample, 1, ResStr(IDS_AUDIO_RE));
 	pList->SetComboBox(resample, 2, TRUE,  &m_resample,  5,  16,  FALSE);
 	pList->SetItemText(resample, 3, ResStr(IDS_AUDIO_RE_INFO));
-
 	
 	pList->InsertItem(equalizer, _T(""));
 	pList->SetCheckbox(equalizer, 0, 0);
@@ -345,6 +347,14 @@ BOOL CMAudioPage::OnInitDialog()
 	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ2));
 	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ3));
 	m_fuzziness.SetCurSel(name);
+
+	m_ass_expand.AddString(m_str_no);
+	m_ass_expand.AddString(m_str_at);
+	m_ass_expand.AddString(_T("4:3"));
+	m_ass_expand.AddString(_T("16:11"));
+	m_ass_expand.AddString(_T("16:10"));
+	m_ass_expand.AddString(_T("16:9"));
+	m_ass_expand_s = m_str_at;
 
 	m_align.AddString(ResStr(IDS_SUB_ALIG1));
 	m_align.AddString(ResStr(IDS_SUB_ALIG2));
@@ -465,7 +475,7 @@ void CMAudioPage::SetNormal()
 	m_List.SetCheckbox(resample, 0, 0);
 	m_List.SetComboBox(resample, 2, TRUE,  &m_resample,  8,  16,  FALSE);
 	m_List.SetCheckbox(adv_af, 0, 0);
-	m_List.SetComboBox(adv_af, 1, TRUE,  &m_adv_af,  5,  0,  FALSE);
+	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
 	m_List.SetCheckbox(volnormal, 0, 1);
 	m_List.SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
 }
@@ -474,7 +484,7 @@ void CMAudioPage::SetHigh()
 {
 	SetNormal();
 	m_List.SetCheckbox(adv_af, 0, 1);
-	m_List.SetComboBox(adv_af, 1, TRUE,  &m_adv_af,  5,  0,  FALSE);
+	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  2,  FALSE);
 }
 
 void CMAudioPage::SetLower()
@@ -486,7 +496,7 @@ void CMAudioPage::SetLower()
 	m_volnorm = _T("100");
 	m_List.SetCheckbox(volnormal, 0, 0);
 	m_List.SetCheckbox(adv_af, 0, 1);
-	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  0,  FALSE);
+	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
 }
 
 void CMAudioPage::InitFromConfig()
@@ -511,10 +521,31 @@ void CMAudioPage::InitFromConfig()
 	if(m_cfg->GetValue_Boolean(_T("ass-use-margins"),value_b))
 	{
 		if(value_b)
-			m_ass_use_margins = TRUE;
+			m_ass_expand_s = m_str_at;
 		else
-			m_ass_use_margins = FALSE;
+			m_ass_expand_s = m_str_no;
 	}
+	else
+		m_ass_expand_s = m_str_no;
+	if(m_cfg->GetValue_Boolean(_T("ass_auto_expand"),value_b,true))
+	{
+		if(value_b)
+		{
+			m_ass_expand_s = m_str_at;
+			CString width,height;
+			if(m_cfg->GetValue_String(_T("ass_expand_width"),value_s,true))
+				width = value_s;
+			if(m_cfg->GetValue_String(_T("ass_expand_height"),value_s,true))
+				height = value_s;
+			if(IsDigit(width) && IsDigit(height))
+				m_ass_expand_s.Format(_T("%s:%s"),width,height);
+		}
+		else
+			m_ass_expand_s = m_str_no;
+	}
+	else
+		m_ass_expand_s = m_str_no;
+
 	if(m_cfg->GetValue_Boolean(_T("noautosub"),value_b))
 	{
 		if(value_b)
@@ -743,10 +774,52 @@ void CMAudioPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("ass"));
 
-	if(m_ass_use_margins)
+	//if(m_ass_use_margins)
+	//{
+	//	m_cfg->SetValue(_T("ass-use-margins"),_T("1"));
+	//	m_cfg->SetValue(_T("ass_auto_expand"),_T("1"),true);
+	//}
+	//else
+	//{
+	//	m_cfg->RemoveValue(_T("ass-use-margins"));
+	//	m_cfg->RemoveValue(_T("ass_auto_expand"),true);
+	//}
+
+	if(m_ass_expand_s != m_str_no)
+	{
 		m_cfg->SetValue(_T("ass-use-margins"),_T("1"));
+		m_cfg->SetValue(_T("ass_auto_expand"),_T("1"),true);
+		if(m_ass_expand_s != m_str_at)
+		{
+			int index = m_ass_expand_s.Find(_T(":"));
+			int rightlen = m_ass_expand_s.GetLength() - index - 1;
+			if(index > 0 &&rightlen > 0)
+			{
+				CString left = m_ass_expand_s.Left(index);
+				CString right = m_ass_expand_s.Right(rightlen);
+				if(IsDigit(left))
+				{
+					if(IsDigit(right))
+					{
+						m_cfg->SetValue(_T("ass_expand_width"),left,true);
+						m_cfg->SetValue(_T("ass_expand_height"),right,true);
+					}
+				}
+			}
+		}
+		else
+		{
+			m_cfg->RemoveValue(_T("ass_expand_width"),true);
+			m_cfg->RemoveValue(_T("ass_expand_height"),true);
+		}
+	}
 	else
+	{
 		m_cfg->RemoveValue(_T("ass-use-margins"));
+		m_cfg->RemoveValue(_T("ass_auto_expand"),true);
+		m_cfg->RemoveValue(_T("ass_expand_width"),true);
+		m_cfg->RemoveValue(_T("ass_expand_height"),true);
+	}
 
 	if(m_noautosub)
 		m_cfg->SetValue(_T("noautosub"),_T("1"));
