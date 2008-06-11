@@ -6,8 +6,6 @@
 #include "MEditor2Dlg.h"
 #include "MDSPlayer.h"
 #include "MFlashPlayer.h"
-//#include "MMediaPlayer.h"
-//#include "MRealPlayer.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -91,21 +89,20 @@ BOOL CMEditor2App::InitInstance()
 			OpenType = START_MEDIAPLAYER;
 			sCmdLine.Replace(_T("--Open MediaPlayer"),_T(""));
 		}
-		else if(sCmdLine.Find(_T("prer://")) >= 0 || sCmdLine.Find(_T("prek://")) >= 0
-				|| sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0)
-		{
+		else if(sCmdLine.Find(_T("prer://")) >= 0)
 			OpenType = START_MEDIAPLAYER;
-			//sCmdLine.Replace(_T("prer://") ,_T("http://"));
-			//sCmdLine.Replace(_T("prek://") ,_T("http://"));
-			//sCmdLine.Replace(_T("prea://") ,_T("http://"));
-			//sCmdLine.Replace(_T("prem://") ,_T("http://"));
-			//test_url(sCmdLine,512);
-			//sCmdLine = _T("mplayer.exe -nocache ") + sCmdLine;
-			//int outlen = 0;
-			//char *out = UnicodeToGB(sCmdLine,outlen);
-			//WinExec(out, SW_SHOW);
-			//delete out;
-			//return FALSE;
+		else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0)
+		{
+			sCmdLine.Replace(_T("prek://") ,_T("http://"));
+			sCmdLine.Replace(_T("prea://") ,_T("http://"));
+			sCmdLine.Replace(_T("prem://") ,_T("http://"));
+			TestURL(sCmdLine,128);
+			sCmdLine = _T("mplayer.exe -nocache ") + sCmdLine;
+			int outlen = 0;
+			char *out = UnicodeToLocal(sCmdLine,outlen);
+			WinExec(out, SW_SHOW);
+			delete out;
+			return FALSE;
 		}
 	}
 
@@ -118,16 +115,6 @@ BOOL CMEditor2App::InitInstance()
 	}
 	else if(OpenType == START_MEDIAPLAYER)
 	{
-		//CMMediaPlayer wmplayer;
-		//m_pMainWnd = &wmplayer;
-		//wmplayer.IninFileName(sCmdLine);
-		//INT_PTR nResponse = wmplayer.DoModal();
-
-		//CMRealPlayer realplayer;
-		//m_pMainWnd = &realplayer;
-		//realplayer.IninFileName(sCmdLine);
-		//INT_PTR nResponse = realplayer.DoModal();
-
 		CMDSPlayer dsplayer;
 		m_pMainWnd = &dsplayer;
 		dsplayer.IninFileName(sCmdLine);
@@ -174,9 +161,9 @@ BOOL CMEditor2App::InitInstance()
 			{
 				LPCTSTR  strSatellite;
 				if(langfile_en == 1)
-					strSatellite = _T("meditor2.en.dll");
+					strSatellite = program_dir + _T("meditor2.en.dll");
 				else
-					strSatellite = _T("codecs\\meditor2.en.dll");
+					strSatellite = program_dir + _T("codecs\\meditor2.en.dll");
 				if (strSatellite)
 				{
 					HMODULE		hMod = LoadLibrary (strSatellite);
@@ -188,9 +175,9 @@ BOOL CMEditor2App::InitInstance()
 			{
 				LPCTSTR  strSatellite;
 				if(langfile_tc == 1)
-					strSatellite = _T("meditor2.tc.dll");
+					strSatellite = program_dir + _T("meditor2.tc.dll");
 				else
-					strSatellite = _T("codecs\\meditor2.tc.dll");
+					strSatellite = program_dir + _T("codecs\\meditor2.tc.dll");
 				if (strSatellite)
 				{
 					HMODULE		hMod = LoadLibrary (strSatellite);
@@ -198,7 +185,6 @@ BOOL CMEditor2App::InitInstance()
 						AfxSetResourceHandle(hMod);
 				}
 			}
-	
 		}
 		CMEditor2Dlg dlg;
 		m_pMainWnd = &dlg;

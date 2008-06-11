@@ -186,6 +186,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	BOOL m_htimer;
+	BOOL m_rightmenu;
 };
 
 //{{AFX_INSERT_LOCATION}}

@@ -22,6 +22,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	, m_gamma(_T("1.0"))
 	, m_gamma_s(10)
 	, m_dr(FALSE)
+	, m_vista_fs(FALSE)
 {
 	//{{AFX_DATA_INIT(CMVideoPage)
 	m_noflash = TRUE;
@@ -76,6 +77,7 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Slider(pDX, IDC_SLIDER_GAMMA, m_gamma_s);
 	DDX_Control(pDX, IDC_SLIDER_GAMMA, m_gc);
 	DDX_Check(pDX, IDC_CHECK_DR, m_dr);
+	DDX_Check(pDX, IDC_CHECK_VISTA_FS, m_vista_fs);
 }
 
 
@@ -455,6 +457,20 @@ void CMVideoPage::InitFromConfig()
 		else
 			m_framedrop = FALSE;
 	}
+	if(m_cfg->GetValue_Boolean(_T("vista_fs_layer"),value_b,true))
+	{
+		if(!value_b)
+			m_vista_fs = TRUE;
+		else
+			m_vista_fs = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("gl_fs_flash"),value_b,true))
+	{
+		if(!value_b)
+			m_noflash = TRUE;
+		else
+			m_noflash = FALSE;
+	}
 	if(m_cfg->GetValue_Boolean(_T("gl_fs_flash"),value_b,true))
 	{
 		if(!value_b)
@@ -809,6 +825,11 @@ void CMVideoPage::SaveConfig()
 		m_cfg->RemoveValue(_T("gl_fs_flash"),true);
 	else
 		m_cfg->SetValue(_T("gl_fs_flash"),_T("1"),true, ex_option);
+
+	if(m_vista_fs)
+		m_cfg->SetValue(_T("vista_fs_layer"),_T("0"),true, ex_option);
+	else
+		m_cfg->RemoveValue(_T("vista_fs_layer"),true);
 	
 	
 	if(m_List.GetCheckbox(flip, 0))

@@ -19,6 +19,7 @@ static char THIS_FILE[] = __FILE__;
 CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMPlayerPage::IDD, pParent)
 	, m_htimer(FALSE)
+	, m_rightmenu(FALSE)
 {
 	m_cfg = NULL;
 	//{{AFX_DATA_INIT(CMPlayerPage)
@@ -93,6 +94,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, m_auto_fuzziness, 3);
 	//}}AFX_DATA_MAP
 	DDX_Check(pDX, IDC_CHECK_HTIMER, m_htimer);
+	DDX_Check(pDX, IDC_CHECK_RIGHTMENU, m_rightmenu);
 }
 
 
@@ -306,6 +308,7 @@ void CMPlayerPage::SetNormal()
 	m_double = TRUE;
 	m_conf = FALSE;
 	m_htimer= FALSE;
+	m_rightmenu = FALSE;
 	m_end = _T("0:0:0");
 	m_png = _T("");
 	m_start = _T("0:0:0");
@@ -464,6 +467,13 @@ void CMPlayerPage::InitFromConfig()
 			m_guithread = TRUE;
 		else
 			m_guithread = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("use_rightmenu"),value_b,true))
+	{
+		if(value_b)
+			m_rightmenu = TRUE;
+		else
+			m_rightmenu = FALSE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("high_accuracy_timer"),value_b,true))
 	{
@@ -767,11 +777,16 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("urlcp"),_T("GBK"));
 	else
 		m_cfg->RemoveValue(_T("urlcp"));
-	
+
 	if(m_guithread)
 		m_cfg->SetValue(_T("gui_thread") ,_T("1") , true , ex_option);
 	else
 		m_cfg->SetValue(_T("gui_thread"),_T("0") ,true ,ex_option);
+
+	if(m_rightmenu)
+		m_cfg->SetValue(_T("use_rightmenu") ,_T("1") , true , ex_option);
+	else
+		m_cfg->RemoveValue(_T("use_rightmenu") , true);
 
 	if(m_htimer)
 		m_cfg->SetValue(_T("high_accuracy_timer") ,_T("1") , true , ex_option);

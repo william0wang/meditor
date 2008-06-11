@@ -167,6 +167,7 @@ public:
 	afx_msg void OnEnChangeEditGamma();
 	BOOL m_dr;
 	void SetInfoDlg(CMShowInfoDlg *infoDlg);
+	BOOL m_vista_fs;
 };
 
 //{{AFX_INSERT_LOCATION}}

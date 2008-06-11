@@ -456,6 +456,7 @@ void CMAudioPage::SetNormal()
 	m_size_s = _T("3");
 	m_bcolor = m_str_nco;
 	m_color = m_str_nco;
+	m_ass_expand_s = m_str_at;
 	m_audio_delay = _T("0");
 	m_sub_delay = _T("0");
 	m_sub_error = _T("8");
