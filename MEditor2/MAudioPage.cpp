@@ -485,7 +485,7 @@ void CMAudioPage::SetHigh()
 {
 	SetNormal();
 	m_List.SetCheckbox(adv_af, 0, 1);
-	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  2,  FALSE);
+	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
 }
 
 void CMAudioPage::SetLower()
@@ -496,8 +496,8 @@ void CMAudioPage::SetLower()
 	m_volnorm_s = 100;
 	m_volnorm = _T("100");
 	m_List.SetCheckbox(volnormal, 0, 0);
-	m_List.SetCheckbox(adv_af, 0, 1);
-	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
+	m_List.SetCheckbox(adv_af, 0, 0);
+	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  2,  FALSE);
 }
 
 void CMAudioPage::InitFromConfig()

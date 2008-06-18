@@ -31,6 +31,7 @@ protected:
 	static int m_nColWidths[];
 	CMKeyList m_skey;
 	CString m_program_dir;
+	CString m_str_none;
 	CMInputList m_inputs;
 	int CheckMute();
 	int GetKeyNumber(CString Key);

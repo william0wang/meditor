@@ -12,7 +12,8 @@ IMPLEMENT_DYNAMIC(CMInputPage, CDialog)
 CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMInputPage::IDD, pParent)
 {
-	m_skey.Add(_T("#None"),_T("无快捷键"));
+	m_str_none = ResStr(IDS_INPUT_NONE);
+	m_skey.Add(_T("#None"),m_str_none);
 	m_skey.Add(_T("a"),_T("a"));
 	m_skey.Add(_T("b"),_T("b"));
 	m_skey.Add(_T("c"),_T("c"));
@@ -75,18 +76,18 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_skey.Add(_T("X"),_T("X"));
 	m_skey.Add(_T("Y"),_T("Y"));
 	m_skey.Add(_T("Z"),_T("Z"));
-	m_skey.Add(_T("LEFT"),_T("<- 左"));
-	m_skey.Add(_T("RIGHT"),_T("-> 右"));
-	m_skey.Add(_T("UP"),_T("Up 上"));
-	m_skey.Add(_T("DOWN"),_T("Down 下"));
+	m_skey.Add(_T("LEFT"),_T("<- ") + ResStr(IDS_INPUT_LEFT));
+	m_skey.Add(_T("RIGHT"),_T("-> ") + ResStr(IDS_INPUT_RIGHT));
+	m_skey.Add(_T("UP"),_T("Up ") + ResStr(IDS_INPUT_UP));
+	m_skey.Add(_T("DOWN"),_T("Down ") + ResStr(IDS_INPUT_DOWN));
 	m_skey.Add(_T("PGUP"),_T("Page Up"));
 	m_skey.Add(_T("PGDWN"),_T("Page Down"));
 	m_skey.Add(_T("HOME"),_T("Home"));
 	m_skey.Add(_T("END"),_T("End"));
-	m_skey.Add(_T("INS"),_T("Insert 插入"));
-	m_skey.Add(_T("DEL"),_T("Delete 删除"));
-	m_skey.Add(_T("SPACE"),_T("Space 空格"));
-	m_skey.Add(_T("ENTER"),_T("Enter 回车"));
+	m_skey.Add(_T("INS"),_T("Insert ") + ResStr(IDS_INPUT_INS));
+	m_skey.Add(_T("DEL"),_T("Delete ") + ResStr(IDS_INPUT_DEL));
+	m_skey.Add(_T("SPACE"),_T("Space ") + ResStr(IDS_INPUT_SPACE));
+	m_skey.Add(_T("ENTER"),_T("Enter ") + ResStr(IDS_INPUT_ENTER));
 	m_skey.Add(_T("ESC"),_T("ESC"));
 	m_skey.Add(_T("<"),_T("<"));
 	m_skey.Add(_T(">"),_T(">"));
@@ -120,29 +121,29 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_skey.Add(_T("F11"),_T("F11"));
 	m_skey.Add(_T("F12"),_T("F12"));
 
-	m_skey.Add(_T("MOUSE_BTN0"),_T("单击左键"));
-	m_skey.Add(_T("MOUSE_BTN0_DBL"),_T("双击左键"));
-	m_skey.Add(_T("MOUSE_BTN2"),_T("单击右键"));
-	m_skey.Add(_T("MOUSE_BTN2_DBL"),_T("双击右键"));
-	m_skey.Add(_T("MOUSE_BTN1"),_T("单击中键"));
-	m_skey.Add(_T("MOUSE_BTN1_DBL"),_T("双击中键"));
-	m_skey.Add(_T("MOUSE_BTN3"),_T("向前滚动"));
-	m_skey.Add(_T("MOUSE_BTN4"),_T("向后滚动"));
-	m_skey.Add(_T("MOUSE_BTN5"),_T("单击X1键"));
-	m_skey.Add(_T("MOUSE_BTN5_DBL"),_T("双击X1键"));
-	m_skey.Add(_T("MOUSE_BTN6"),_T("单击X2键"));
-	m_skey.Add(_T("MOUSE_BTN6_DBL"),_T("双击X2键"));
-	m_skey.Add(_T("MOUSE_BTN8"),_T("按住右键并前滚"));
-	m_skey.Add(_T("MOUSE_BTN9"),_T("按住右键并后滚"));
+	m_skey.Add(_T("MOUSE_BTN0"),ResStr(IDS_INPUT_LC));
+	m_skey.Add(_T("MOUSE_BTN0_DBL"),ResStr(IDS_INPUT_LD));
+	m_skey.Add(_T("MOUSE_BTN2"),ResStr(IDS_INPUT_RC));
+	m_skey.Add(_T("MOUSE_BTN2_DBL"),ResStr(IDS_INPUT_RD));
+	m_skey.Add(_T("MOUSE_BTN1"),ResStr(IDS_INPUT_MC));
+	m_skey.Add(_T("MOUSE_BTN1_DBL"),ResStr(IDS_INPUT_MD));
+	m_skey.Add(_T("MOUSE_BTN3"),ResStr(IDS_INPUT_WF));
+	m_skey.Add(_T("MOUSE_BTN4"),ResStr(IDS_INPUT_WB));
+	m_skey.Add(_T("MOUSE_BTN5"),ResStr(IDS_INPUT_X1C));
+	m_skey.Add(_T("MOUSE_BTN5_DBL"),ResStr(IDS_INPUT_X1D));
+	m_skey.Add(_T("MOUSE_BTN6"),ResStr(IDS_INPUT_X2C));
+	m_skey.Add(_T("MOUSE_BTN6_DBL"),ResStr(IDS_INPUT_X2D));
+	m_skey.Add(_T("MOUSE_BTN8"),ResStr(IDS_INPUT_RF));
+	m_skey.Add(_T("MOUSE_BTN9"),ResStr(IDS_INPUT_RB));
 	
-	m_skey.Add(_T("JOY_RIGHT"),_T("手柄－左"));
-	m_skey.Add(_T("JOY_LEFT"),_T("手柄－右"));
-	m_skey.Add(_T("JOY_UP"),_T("手柄－上"));
-	m_skey.Add(_T("JOY_DOWN"),_T("手柄－下"));
-	m_skey.Add(_T("JOY_BTN0"),_T("手柄 1键"));
-	m_skey.Add(_T("JOY_BTN1"),_T("手柄 2键"));
-	m_skey.Add(_T("JOY_BTN2"),_T("手柄 3键"));
-	m_skey.Add(_T("JOY_BTN3"),_T("手柄 4键"));
+	m_skey.Add(_T("JOY_LEFT"),ResStr(IDS_INPUT_JL));
+	m_skey.Add(_T("JOY_RIGHT"),ResStr(IDS_INPUT_JR));
+	m_skey.Add(_T("JOY_UP"),ResStr(IDS_INPUT_JU));
+	m_skey.Add(_T("JOY_DOWN"),ResStr(IDS_INPUT_JD));
+	m_skey.Add(_T("JOY_BTN0"),ResStr(IDS_INPUT_J1));
+	m_skey.Add(_T("JOY_BTN1"),ResStr(IDS_INPUT_J2));
+	m_skey.Add(_T("JOY_BTN2"),ResStr(IDS_INPUT_J3));
+	m_skey.Add(_T("JOY_BTN3"),ResStr(IDS_INPUT_J4));
 	m_readonly_number = 0;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -182,8 +183,17 @@ void CMInputPage::InitListCtrl(CXListCtrl * pList)
 	pList->GetWindowRect(&rect);
 
 	int w = rect.Width() - 2;
+	CString cmd = ResStr(IDS_INPUT_CMD);
+	CString inf = ResStr(IDS_DECODE_INF);
+	CString val	 = ResStr(IDS_INPUT_VAL);
+	CString key = ResStr(IDS_INPUT_KEY);
 
-	TCHAR *	lpszHeaders[] = { _T("命令"),_T("功能说明"), _T("参数"), _T("快捷键"), NULL };
+	TCHAR *	lpszHeaders[] = {_tcsdup(cmd.GetBuffer()),_tcsdup(inf.GetBuffer())
+		, _tcsdup(val.GetBuffer()), _tcsdup(key.GetBuffer()), NULL };
+	cmd.ReleaseBuffer();
+	val.ReleaseBuffer();
+	key.ReleaseBuffer();
+	inf.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -245,46 +255,52 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 	CString str = _T("");
 
 	int index = 0;
-	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("增大字幕尺寸"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T("增大 0.1"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("c 或 C"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1,ResStr(IDS_INPUT_ADD)+ResStr(IDS_INPUT_SUBSZ),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2,ResStr(IDS_INPUT_ADD)+_T(" 0.1"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("c / C"),RGB(0,0,0),RGB(200,255,200));
 	++index;
 
-	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("减小字幕尺寸"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T("减小 0.1"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("v 或 V"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DEC)+ResStr(IDS_INPUT_SUBSZ),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_DEC)+_T(" 0.1"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("v / V"),RGB(0,0,0),RGB(200,255,200));
 	++index;
 
-	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("调整单文件循环次数"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T("1~10、始终、停止"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("b 或 B"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_LOOP),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_LOOPIF),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("b / B"),RGB(0,0,0),RGB(200,255,200));
 	++index;
 
-	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("全屏时调节画面尺寸"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T("放大/缩小/变形"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("右 Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1,ResStr(IDS_INPUT_RESIZE),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2,ResStr(IDS_INPUT_SIZEIF),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3,ResStr(IDS_INPUT_RIGHT) + _T(" Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
 	++index;
 
-	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("全屏时调节画面位置"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T("上下左右移动"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("左 Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1,ResStr(IDS_INPUT_POS),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2,ResStr(IDS_INPUT_POSIF),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3,ResStr(IDS_INPUT_LEFT)+ _T(" Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
 	++index;
 
-	m_List.InsertItem(index, _T("内置快捷键"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("全屏幕"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_FS),RGB(0,0,0),RGB(200,255,200));
 	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Alt + 回车"),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Alt + ")+ ResStr(IDS_INPUT_ENTER),RGB(0,0,0),RGB(200,255,200));
+	++index;
+
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_SYS),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Alt + H/S"),RGB(0,0,0),RGB(200,255,200));
 	++index;
 	
-	m_List.InsertItem(index, _T("内置鼠标操作"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, _T("全屏幕下右键菜单"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T("鼠标移动到屏幕最上方"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("单击鼠标右键"),RGB(0,0,0),RGB(200,255,200));
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INMOS),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_FSR),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_FSRIF),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, ResStr(IDS_INPUT_RC),RGB(0,0,0),RGB(200,255,200));
 	++index;
 
 	m_readonly_number = index;
@@ -373,7 +389,7 @@ void CMInputPage::LoadInputConfig()
 	}
 	if(m_inputs.GetSize() < 1)
 	{
-		if(MessageBox(_T("未找到快捷键设置，是否使用默认快捷键设置？"),_T("MEditor2 - 快捷键设置"),MB_OKCANCEL|MB_TOPMOST) != IDOK)
+		if(MessageBox(ResStr(IDS_INPUT_SETNONE),ResStr(IDS_INPUT_SET),MB_OKCANCEL|MB_TOPMOST) != IDOK)
 			return;
 		ExtractResource(MAKEINTRESOURCE(IDZ_INPUT),TEXT("INPUT_INI")
 			,m_program_dir + _T("input.ini"),true,true,_T("input.ini"));
@@ -401,10 +417,10 @@ bool CMInputPage::SaveInputConfig()
 	if(mute >= 0)
 	{
 		CString msg;
-		msg.Format(_T("重复使用快捷键：%s 、 %s 、 %s。"), m_List.GetItemText(mute,0)
-			, m_List.GetItemText(mute,2), m_List.GetItemText(mute,3));
+		msg.Format(_T("%s：%s 、 %s 、 %s。"), ResStr(IDS_INPUT_REUS)
+			, m_List.GetItemText(mute,0), m_List.GetItemText(mute,2), m_List.GetItemText(mute,3));
 		m_List.UnlockWindowUpdate();
-		MessageBox(msg,_T("快捷键冲突！"));
+		MessageBox(msg, ResStr(IDS_INPUT_CONF));
 		return false;
 	}
 	CStdioFile inputcfg;
@@ -412,7 +428,7 @@ bool CMInputPage::SaveInputConfig()
 	if(inputcfg.Open(m_program_dir + _T("input.ini"),CFile::modeCreate|CFile::modeWrite))
 	{
 		inputcfg.WriteString(_T("## MPlayer input control file\n\n"));
-		for(int i = 0; i < m_List.GetItemCount(); i++)
+		for(int i = m_readonly_number; i < m_List.GetItemCount(); i++)
 		{
 			cmd = m_List.GetItemText(i,0);
 			value = m_List.GetItemText(i,2);
@@ -439,221 +455,79 @@ bool CMInputPage::SaveInputConfig()
 	return true;
 }
 
-//int CMInputPage::GetKeyNumber(CString Key)
-//{
-//	if(Key.GetLength() == 1)
-//	{
-//		TCHAR x = Key.GetAt(0);
-//		int xi =  x - _T('a');
-//		if(xi < 26 && xi >= 0)
-//			return xi + 1;
-//		xi =   x - _T('A');
-//		if(xi < 26 && xi >= 0)
-//			return xi + 37;
-//		xi =   x - _T('0');
-//		if(xi < 10 && xi >= 0)
-//			return xi + 27;
-//	}
-//
-//	if(Key == _T("LEFT"))
-//		return 63;
-//	else if(Key == _T("RIGHT"))
-//		return 64;
-//	else if(Key == _T("UP"))
-//		return 65;
-//	else if(Key == _T("DOWN"))
-//		return 66;
-//	else if(Key == _T("PGUP"))
-//		return 67;
-//	else if(Key == _T("PGDWN"))
-//		return 68;
-//	else if(Key == _T("HOME"))
-//		return 69;
-//	else if(Key == _T("END"))
-//		return 70;
-//	else if(Key == _T("INS"))
-//		return 71;
-//	else if(Key == _T("DEL"))
-//		return 72;
-//	else if(Key == _T("SPACE"))
-//		return 73;
-//	else if(Key == _T("ENTER"))
-//		return 74;
-//	else if(Key == _T("ESC"))
-//		return 75;
-//
-//	else if(Key == _T("<"))
-//		return 76;
-//	else if(Key == _T(">"))
-//		return 77;
-//	else if(Key == _T("["))
-//		return 78;
-//	else if(Key == _T("]"))
-//		return 79;
-//	else if(Key == _T("{"))
-//		return 80;
-//	else if(Key == _T("}"))
-//		return 81;
-//	else if(Key == _T("\\"))
-//		return 82;
-//	else if(Key == _T(";"))
-//		return 83;
-//	else if(Key == _T("'"))
-//		return 84;
-//	else if(Key == _T(","))
-//		return 85;
-//	else if(Key == _T("."))
-//		return 86;
-//	else if(Key == _T("|"))
-//		return 87;
-//	else if(Key == _T(":"))
-//		return 88;
-//	else if(Key == _T("\""))
-//		return 89;
-//	else if(Key == _T("="))
-//		return 90;
-//	else if(Key == _T("-"))
-//		return 91;
-//	else if(Key == _T("+"))
-//		return 92;
-//	else if(Key == _T("/"))
-//		return 93;
-//	else if(Key == _T("*"))
-//		return 94;
-//
-//	else if(Key == _T("F1"))
-//		return 95;
-//	else if(Key == _T("F2"))
-//		return 96;
-//	else if(Key == _T("F3"))
-//		return 97;
-//	else if(Key == _T("F4"))
-//		return 98;
-//	else if(Key == _T("F5"))
-//		return 99;
-//	else if(Key == _T("F6"))
-//		return 100;
-//	else if(Key == _T("F7"))
-//		return 101;
-//	else if(Key == _T("F8"))
-//		return 102;
-//	else if(Key == _T("F9"))
-//		return 103;
-//	else if(Key == _T("F10"))
-//		return 104;
-//	else if(Key == _T("F11"))
-//		return 105;
-//	else if(Key == _T("F12"))
-//		return 106;
-//
-//	else if(Key == _T("MOUSE_BTN0"))
-//		return 107;
-//	else if(Key == _T("MOUSE_BTN0_DBL"))
-//		return 108;
-//	else if(Key == _T("MOUSE_BTN2"))
-//		return 109;
-//	else if(Key == _T("MOUSE_BTN2_DBL"))
-//		return 110;
-//	else if(Key == _T("MOUSE_BTN1"))
-//		return 111;
-//	else if(Key == _T("MOUSE_BTN3"))
-//		return 112;
-//	else if(Key == _T("MOUSE_BTN4"))
-//		return 113;
-//
-//	else if(Key == _T("JOY_RIGHT"))
-//		return 114;
-//	else if(Key == _T("JOY_LEFT"))
-//		return 115;
-//	else if(Key == _T("JOY_UP"))
-//		return 116;
-//	else if(Key == _T("JOY_DOWN"))
-//		return 117;
-//	else if(Key == _T("JOY_BTN0"))
-//		return 118;
-//	else if(Key == _T("JOY_BTN1"))
-//		return 119;
-//	else if(Key == _T("JOY_BTN2"))
-//		return 120;
-//	else if(Key == _T("JOY_BTN3"))
-//		return 121;
-//
-//	return 0;
-//}
-
 void CMInputPage::GetCmdInfo(CString cmd ,CString &info)
 {
 	info = _T("");
 	if(cmd == _T("seek"))
-		info = _T("快进/快退  单位:秒");	
+		info = ResStr(IDS_INPUT_SEEK);
 	else if(cmd == _T("sub_step"))
-		info = _T("上/下n句字幕  n为参数值");
+		info = ResStr(IDS_INPUT_SUBT);
 	else if(cmd == _T("pt_up_step"))
-		info = _T("上/下n项  n为参数值");
+		info = ResStr(IDS_INPUT_PTUS);
 	else if(cmd == _T("pt_step"))
-		info = _T("上/下n个视频  n为参数值");
+		info = ResStr(IDS_INPUT_PTS);
 	else if(cmd == _T("alt_src_step"))
-		info = _T("上/下n个(asx)源  n为参数值");
+		info = ResStr(IDS_INPUT_ALTS);
 	else if(cmd == _T("panscan"))
-		info = _T("增加/减少过扫描");
+		info = ResStr(IDS_INPUT_PANS);
 	else if(cmd == _T("pause"))
-		info = _T("暂停/播放");
+		info = ResStr(IDS_INPUT_PAUS);
 	else if(cmd == _T("screenshot"))
-		info = _T("视频截图");
+		info = ResStr(IDS_INPUT_SCRS);
 	else if(cmd == _T("keep_aspect"))
-		info = _T("是否保持视频比例");
+		info = ResStr(IDS_INPUT_KEEP);
 	else if(cmd == _T("frame_drop"))
-		info = _T("丢帧 状态切换");
+		info = ResStr(IDS_INPUT_FRAD);
 	else if(cmd == _T("osd"))
-		info = _T("OSD 状态切换");
+		info = ResStr(IDS_INPUT_OSD);
 	else if(cmd == _T("quit"))
-		info = _T("退出播放器");
+		info = ResStr(IDS_INPUT_QUIT);
 	else if(cmd == _T("mute"))
-		info = _T("静音 状态切换");
-	else if(cmd == _T("frame_drop"))
-		info = _T("丢帧 状态切换");
+		info = ResStr(IDS_INPUT_MUTE);
 	else if(cmd == _T("switch_audio"))
-		info = _T("音轨/声道切换");
+		info = ResStr(IDS_INPUT_SWIA);
 	else if(cmd == _T("switch_font"))
-		info = _T("字体切换");
+		info = ResStr(IDS_INPUT_SWIF);
 	else if(cmd == _T("sub_select"))
-		info = _T("字幕切换");
+		info = ResStr(IDS_INPUT_SUBS);
 	else if(cmd == _T("sub_alignment"))
-		info = _T("字幕校正");
+		info = ResStr(IDS_INPUT_SUBA);
 	else if(cmd == _T("switch_view"))
-		info = _T("视图切换");
+		info = ResStr(IDS_INPUT_SWIV);
 	else if(cmd == _T("vo_fullscreen"))
-		info = _T("全屏幕 状态切换");
+		info = ResStr(IDS_INPUT_VOFS);
 	else if(cmd == _T("vo_ontop"))
-		info = _T("前端显示 状态切换");
+		info = ResStr(IDS_INPUT_VOOT);
 	else if(cmd == _T("reload"))
-		info = _T("重新加载视频");
+		info = ResStr(IDS_INPUT_RELO);
 	else if(cmd == _T("frame_step"))
-		info = _T("单帧播放");
+		info = ResStr(IDS_INPUT_FRAS);
 	else if(cmd == _T("speed_set"))
-		info = _T("设置播放速度  1.0为正常速度");
+		info = ResStr(IDS_INPUT_SPES);
 	else if(cmd == _T("speed_incr"))
-		info = _T("加速/减速播放  1.0为正常速度");
+		info = ResStr(IDS_INPUT_SPEI);
+	else if(cmd == _T("balance"))
+		info = ResStr(IDS_INPUT_BALA);
 
 	else if(cmd == _T("volume"))
-		info = _T("音量调节  0~100");
+		info = ResStr(IDS_INPUT_VOLU);
 	else if(cmd == _T("sub_pos"))
-		info = _T("字幕位置  0~100");
+		info = ResStr(IDS_INPUT_SUBP);
 	else if(cmd == _T("contrast"))
-		info = _T("对比度调节  -100~100");
+		info = ResStr(IDS_INPUT_CONT);
 	else if(cmd == _T("brightness"))
-		info = _T("亮度调节  -100~100");
+		info = ResStr(IDS_INPUT_BRIG);
 	else if(cmd == _T("saturation"))
-		info = _T("饱和度调节  -100~100");
+		info = ResStr(IDS_INPUT_SATU);
 	else if(cmd == _T("gamma"))
-		info = _T("伽玛值调节  -100~100");
+		info = ResStr(IDS_INPUT_GAMM);
 	else if(cmd == _T("hue"))
-		info = _T("色度调节  -100~100");
+		info = ResStr(IDS_INPUT_HUE);
 
 	else if(cmd == _T("audio_delay"))
-		info = _T("音频延迟  单位:秒");
+		info = ResStr(IDS_INPUT_AUDD);
 	else if(cmd == _T("sub_delay"))
-		info = _T("字幕延迟  单位:秒");
+		info = ResStr(IDS_INPUT_SUBD);
 
 
 }
@@ -717,7 +591,7 @@ void CMInputPage::OnBnClickedButtonAdd()
 	int nItem = m_List.GetItemCount();
 	m_List.InsertItem(nItem, _T(""));
 	m_List.SetEdit(nItem, 0);
-	m_List.SetItemText(nItem, 1, _T("自定义快捷键"));
+	m_List.SetItemText(nItem, 1, ResStr(IDS_INPUT_CUST));
 	m_List.SetItemText(nItem, 2, _T(""));
 	m_List.SetEdit(nItem, 2);
 	m_List.SetItemText(nItem, 3, _T(""));
@@ -735,9 +609,9 @@ void CMInputPage::OnBnClickedButtonDel()
 	else if(nItem >= m_readonly_number)
 	{
 		CString msg;
-		msg.Format(_T("确定删除快捷键：%s   %s ？")
+		msg.Format(_T("%s：%s   %s ？") , ResStr(IDS_INPUT_CDEL)
 			, m_List.GetItemText(nItem,3),  m_List.GetItemText(nItem,1));
-		if( MessageBox(msg,_T("删除快捷键"),MB_OKCANCEL) == IDOK)
+		if( MessageBox(msg,ResStr(IDS_INPUT_CDEL),MB_OKCANCEL) == IDOK)
 		{
 			m_List.DeleteItem(nItem);
 			m_def_number--;
@@ -756,7 +630,7 @@ int CMInputPage::CheckMute()
 		CString keyinfo = m_List.GetItemText(i,3);
 		for(int j = 0; j < m_keyInfoList.GetSize() ; j++)
 		{
-			if(keyinfo == m_keyInfoList[j] && keyinfo != _T("无快捷键"))
+			if(keyinfo == m_keyInfoList[j] && keyinfo != m_str_none)
 				return i;
 		}
 		m_keyInfoList.Add(keyinfo);

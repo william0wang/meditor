@@ -42,12 +42,14 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("divx"));
 	m_vdecode.Add(_T("mpeg4ds"));
 	m_vdecode.Add(_T("mpeg4"));
-	m_vdecode.Add(_T("wmvdmo"));
+	m_vdecode.Add(_T("wmv10dmo"));
 	m_vdecode.Add(_T("wmv9dmo"));
+	m_vdecode.Add(_T("wmvdmo"));
 	m_vdecode.Add(_T("wmv8"));
 	m_vdecode.Add(_T("wmv7"));
 	m_vdecode.Add(_T("wmvadmo"));
 	m_vdecode.Add(_T("wmvvc1dmo"));
+	m_vdecode.Add(_T("wms10dmod"));
 	m_vdecode.Add(_T("wmsdmod"));
 	m_vdecode.Add(_T("rv3040win"));
 	m_vdecode.Add(_T("rv20winrp10"));

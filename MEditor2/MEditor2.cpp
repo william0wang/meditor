@@ -151,7 +151,7 @@ BOOL CMEditor2App::InitInstance()
 					else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
 						lang = 4;		//Traditional Chinese Big5
 					else
-						lang = 2;		//ANSI
+						lang = 3;		//ANSI
 				}
 				else
 					lang = 2;			//ANSI

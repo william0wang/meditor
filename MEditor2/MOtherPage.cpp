@@ -17,11 +17,32 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CMOtherPage dialog
 
+UINT CheckThread(LPVOID pParam)
+{
+	CMOtherPage* This = (CMOtherPage *) pParam;
+	int checktime = 0;
+CheckReal:
+	checktime++;
+	Sleep(300);
+	if(This->CheckRealOnline())
+		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), 0);
+	else
+	{
+		if(checktime < 5)
+			goto CheckReal;
+		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), 0);
+	}
+
+	This->CheckRealThread = NULL;
+	return 0;
+}
+
 CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMOtherPage::IDD, pParent)
 	, m_mpc(FALSE)
 	, m_disable_xptoolbars(FALSE)
 	, m_disable_xpwindow(FALSE)
+	, m_screensaver(FALSE)
 {
 	//{{AFX_DATA_INIT(CMOtherPage)
 	m_other = _T("");
@@ -57,6 +78,7 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_MPC, m_mpc);
 	DDX_Check(pDX, IDC_CHECK_XPTOOLBARS, m_disable_xptoolbars);
 	DDX_Check(pDX, IDC_CHECK_XPWINDOW, m_disable_xpwindow);
+	DDX_Check(pDX, IDC_CHECK_SCREENSAVER, m_screensaver);
 }
 
 
@@ -123,6 +145,13 @@ BOOL CMOtherPage::OnInitDialog()
 			else
 				m_disable_xpwindow = FALSE;
 		}
+		if(m_cfg->GetValue_Boolean(_T("disable_screensaver"),value_b,true))
+		{
+			if(!value_b)
+				m_screensaver = TRUE;
+			else
+				m_screensaver = FALSE;
+		}
 	}
 	if(IsFileExist(m_program_dir + _T("codecs\\Real\\mloader.ini")))
 	{
@@ -162,7 +191,7 @@ void CMOtherPage::SetLower()
 
 void CMOtherPage::SaveConfig()
 {
-	UpdateData(1);
+	UpdateData(TRUE);
 	if(m_mplayer.GetCheck() == 1)
 		DeleteFile(m_program_dir + _T("codecs\\Real\\mloader.ini"));
 	else
@@ -179,7 +208,6 @@ void CMOtherPage::SaveConfig()
 
 	if(!m_cfg)
 		return;
-	UpdateData(TRUE);
 
 	if(m_last_page)
 		m_cfg->SetValue(_T("meditor_last_page"),_T("1"),true,ex_meditor);
@@ -200,6 +228,12 @@ void CMOtherPage::SaveConfig()
 		m_cfg->SetValue(_T("disable_xptoolbars"),_T("1"),true);
 	else	
 		m_cfg->RemoveValue(_T("disable_xptoolbars"),true);
+
+	if(m_screensaver)
+		m_cfg->SetValue(_T("disable_screensaver"),_T("0"),true);
+	else	
+		m_cfg->RemoveValue(_T("disable_screensaver"),true);
+
 	
 	m_other.TrimRight(_T("\r\n"));
 	if(m_other.GetLength() > 1)
@@ -207,6 +241,9 @@ void CMOtherPage::SaveConfig()
 		m_other += _T("\r\n");
 		m_cfg->SetValue_Other(m_other);
 	}
+	else
+		m_cfg->SetValue_Other(_T(""));
+
 }
 
 BOOL CMOtherPage::PreTranslateMessage(MSG* pMsg) 
@@ -318,26 +355,6 @@ bool CMOtherPage::CheckRealOnline()
 	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr1,_T("")))
 		return false;
 	return true;
-}
-
-UINT CheckThread(LPVOID pParam)
-{
-	CMOtherPage* This = (CMOtherPage *) pParam;
-	int checktime = 0;
-CheckReal:
-	checktime++;
-	Sleep(300);
-	if(This->CheckRealOnline())
-		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), 0);
-	else
-	{
-		if(checktime < 5)
-			goto CheckReal;
-		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), 0);
-	}
-	
-	This->CheckRealThread = NULL;
-	return 0;
 }
 
 void CMOtherPage::OnButtonOnline() 
