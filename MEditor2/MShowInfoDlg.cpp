@@ -81,6 +81,12 @@ bool CMShowInfoDlg::IsShow(int type)
 	case type_ass_expand:
 		m_info = ResStr(IDS_INFO_ASSEXP);
 		break;
+	case type_boost:
+		m_info = ResStr(IDS_INFO_BOOST);
+		break;
+	case type_realtime:
+		m_info = ResStr(IDS_INFO_REALTIME);
+		break;
 	default:
 		return false;
 		break;

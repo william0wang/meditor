@@ -206,10 +206,25 @@ CString CMConfigData::GetConfigEx()
 			return_str +=  _T("[Option]\r\n");
 			break;
 		case ex_status:
-			return_str +=  _T("[Status]\r\n");
+			return_str +=  _T("\r\n[Status]\r\n");
+			break;
+		case ex_setting:
+			return_str +=  _T("\r\n[Setting]\r\n");
+			break;
+		case ex_gui:
+			return_str +=  _T("\r\n[Gui]\r\n");
+			break;
+		case ex_osd:
+			return_str +=  _T("\r\n[OSD]\r\n");
+			break;
+		case ex_sysinfo:
+			return_str +=  _T("\r\n[Sysinfo]\r\n");
+			break;
+		case ex_theme:
+			return_str +=  _T("\r\n[Theme]\r\n");
 			break;
 		case ex_meditor:
-			return_str +=  _T("[meditor]\r\n");
+			return_str +=  _T("\r\n[meditor]\r\n");
 			break;
 		}
 		for(int i = 0 ; i < m_config_ex.name.GetSize() ; i ++)
@@ -428,6 +443,16 @@ void CMConfig::AnalyseLine(CString line, bool ex)
 			m_now_type = ex_option;
 		else if(value == _T("[status]"))
 			m_now_type = ex_status;
+		else if(value == _T("[setting]"))
+			m_now_type = ex_setting;
+		else if(value == _T("[gui]"))
+			m_now_type = ex_gui;
+		else if(value == _T("[osd]"))
+			m_now_type = ex_osd;
+		else if(value == _T("[sysinfo]"))
+			m_now_type = ex_sysinfo;
+		else if(value == _T("[theme]"))
+			m_now_type = ex_theme;
 		else if(value == _T("[meditor]"))
 			m_now_type = ex_meditor;
 	}

@@ -144,6 +144,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_player.m_cfg = &m_config;
 	m_video.m_cfg = &m_config;
 	m_audio.m_cfg = &m_config;
+	m_subtitle.m_cfg = &m_config;
 	m_decode.m_cfg = &m_config;
 	m_resume.m_cfg = &m_config;
 	m_other.m_cfg = &m_config;
@@ -151,11 +152,13 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_assos.m_cfg = &m_config;
 	infoDlg.SetConfig(&m_config);
 
+	m_player.SetInfoDlg(&infoDlg);
 	m_video.SetInfoDlg(&infoDlg);
 
 	CString p_str = ResStr(IDS_TAB_PLAYER);
 	CString v_str = ResStr(IDS_TAB_VIDEO);
 	CString a_str = ResStr(IDS_TAB_AUDIO);
+	CString sub_str = ResStr(IDS_TAB_SUBTITLE);
 	CString d_str = ResStr(IDS_TAB_DECODE);
 	CString r_str = ResStr(IDS_TAB_RESUME);
 	CString o_str = ResStr(IDS_TAB_OTHER);
@@ -166,6 +169,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_TabSheet.AddPage(  p_str, &m_player, IDD_PLAYER_DIALOG);
 	m_TabSheet.AddPage(  v_str , &m_video, IDD_VIDEO_DIALOG);
 	m_TabSheet.AddPage(  a_str , &m_audio, IDD_AUDIO_DIALOG);
+	m_TabSheet.AddPage(  sub_str , &m_subtitle, IDD_OSD_DIALOG);
 	m_TabSheet.AddPage( d_str , &m_decode, IDD_DECODE_DIALOG);
 	m_TabSheet.AddPage( r_str , &m_resume, IDD_RESUME_DIALOG);
 	m_TabSheet.AddPage( o_str , &m_other, IDD_OTHER_DIALOG);
@@ -258,8 +262,9 @@ bool CMEditor2Dlg::SaveAll()
 		return false;
 	m_player.SaveConfig();
 	m_decode.SaveConfig();
-	m_audio.SaveConfig();
+	m_subtitle.SaveConfig();
 	m_video.SaveConfig();
+	m_audio.SaveConfig();
 	m_other.SaveConfig();
 	m_resume.SaveConfig();
 	m_assos.SaveConfig();

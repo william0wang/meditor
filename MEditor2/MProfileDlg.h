@@ -24,4 +24,5 @@ public:
 	CString m_profile_add;
 	afx_msg void OnBnClickedOk();
 	virtual BOOL OnInitDialog();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

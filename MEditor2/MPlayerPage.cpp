@@ -5,6 +5,7 @@
 #include "meditor2.h"
 #include "MPlayerPage.h"
 #include "MConfig.h"
+#include "MShowInfoDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -20,6 +21,11 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMPlayerPage::IDD, pParent)
 	, m_htimer(FALSE)
 	, m_rightmenu(FALSE)
+	, m_gui_high(FALSE)
+	, m_boost(FALSE)
+	, m_reload(FALSE)
+	, m_no_dvdnav(FALSE)
+	, m_def(_T(""))
 {
 	m_cfg = NULL;
 	//{{AFX_DATA_INIT(CMPlayerPage)
@@ -28,11 +34,9 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_guithread = FALSE;
 	m_menu = TRUE;
 	m_oneplayer = FALSE;
-	m_quit = FALSE;
+	m_quit = TRUE;
 	m_show = FALSE;
 	m_url = FALSE;
-	m_osd_font = _T("");
-	m_osdsize_s = _T("");
 	m_dvd = _T("G:");
 	m_end = _T("0:0:0");
 	m_png = _T("");
@@ -42,7 +46,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_double = TRUE;
 	m_colorkey_s = _T("");
 	m_conf = FALSE;
-	m_bottom = TRUE;
+	m_bottom = FALSE;
 	m_auto_fuzziness = _T("1");
 	//}}AFX_DATA_INIT
 }
@@ -65,10 +69,6 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MONITOR, m_monitor);
 	DDX_Control(pDX, IDC_COMBO_ONTOP, m_ontop);
 	DDX_Control(pDX, IDC_COMBO_PRIORITY, m_priority);
-	DDX_Control(pDX, IDC_COMBO_OSDF, m_osd_font_c);
-	DDX_Control(pDX, IDC_COMBO_OSDTIME, m_osdtime);
-	DDX_Control(pDX, IDC_COMBO_OSDSIZE, m_osdsize);
-	DDX_Control(pDX, IDC_COMBO_OSDMODE, m_osdmode);
 	DDX_Check(pDX, IDC_CHECK_CTRL, m_control);
 	DDX_Check(pDX, IDC_CHECK_FULLSCREEN, m_fullscreen);
 	DDX_Check(pDX, IDC_CHECK_GUITHREAD, m_guithread);
@@ -77,9 +77,6 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_QUIT, m_quit);
 	DDX_Check(pDX, IDC_CHECK_SHOW, m_show);
 	DDX_Check(pDX, IDC_CHECK_URL, m_url);
-	DDX_CBString(pDX, IDC_COMBO_OSDF, m_osd_font);
-	DDX_CBString(pDX, IDC_COMBO_OSDSIZE, m_osdsize_s);
-	DDV_MaxChars(pDX, m_osdsize_s, 3);
 	DDX_Text(pDX, IDC_EDIT_DVD, m_dvd);
 	DDX_Text(pDX, IDC_EDIT_END, m_end);
 	DDX_Text(pDX, IDC_EDIT_PNG, m_png);
@@ -95,6 +92,11 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	//}}AFX_DATA_MAP
 	DDX_Check(pDX, IDC_CHECK_HTIMER, m_htimer);
 	DDX_Check(pDX, IDC_CHECK_RIGHTMENU, m_rightmenu);
+	DDX_Check(pDX, IDC_CHECK_GUI, m_gui_high);
+	DDX_Check(pDX, IDC_CHECK_BOOST, m_boost);
+	DDX_Check(pDX, IDC_CHECK_RELOAD, m_reload);
+	DDX_Check(pDX, IDC_CHECK_DVDNAV, m_no_dvdnav);
+	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
 }
 
 
@@ -105,6 +107,8 @@ BEGIN_MESSAGE_MAP(CMPlayerPage, CDialog)
 	ON_BN_CLICKED(IDC_CHECK_CTRL, OnCheckCtrl)
 	ON_CBN_SELCHANGE(IDC_COMBO_AUTOPLAY, OnSelchangeAutoplay)
 	//}}AFX_MSG_MAP
+	ON_BN_CLICKED(IDC_CHECK_BOOST, &CMPlayerPage::OnBnClickedCheckBoost)
+	ON_BN_CLICKED(IDC_BUTTON_DEF, &CMPlayerPage::OnBnClickedButtonDef)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -112,7 +116,6 @@ END_MESSAGE_MAP()
 
 void CMPlayerPage::OnButtonPng() 
 {
-	// TODO: Add your control notification handler code here
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	CWnd* pMainCWnd = NULL; 
@@ -218,33 +221,6 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_A));
 	m_switchview.SetCurSel(switch_none);
 	
-	m_osdsize.AddString(_T("2"));
-	m_osdsize.AddString(_T("2.5"));
-	m_osdsize.AddString(_T("3"));
-	m_osdsize.AddString(_T("3.5"));
-	m_osdsize.AddString(_T("4"));
-	m_osdsize.AddString(_T("4.5"));
-	m_osdsize.AddString(_T("5"));
-	m_osdsize_s = _T("3");
-	
-	m_osdtime.AddString(ResStr(IDS_PLAYER_NOTIME));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T1));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T2));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T3));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T4));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T5));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T6));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T7));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T8));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T9));
-	m_osdtime.SetCurSel(time_none);
-	
-	m_osdmode.AddString(ResStr(IDS_PLAYER_NORMAL_MODE));
-	m_osdmode.AddString(ResStr(IDS_PLAYER_SHOWTIME));
-	m_osdmode.AddString(ResStr(IDS_PLAYER_SHOWREMAIN));
-	m_osdmode.AddString(ResStr(IDS_PLAYER_NOOSD));
-	m_osdmode.SetCurSel(osd_normal);
-	
 	m_systray.AddString(ResStr(IDS_PLAYER_TASK));
 	m_systray.AddString(ResStr(IDS_PLAYER_TRAY));
 	m_systray.AddString(ResStr(IDS_PLAYER_TRAYSTOP));
@@ -255,38 +231,6 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_autoplay.AddString(ResStr(IDS_PLAYER_EX));
 	m_autoplay.SetCurSel(auto_ex);
 
-	TCHAR szCurPath[MAX_PATH + 1];
-	::GetCurrentDirectory(MAX_PATH,szCurPath);
-
-	TCHAR szFontPath[MAX_PATH + 1];
-	SHGetSpecialFolderPath(NULL, szFontPath , CSIDL_FONTS , FALSE);
-
-	::SetCurrentDirectory(szFontPath);
-
-	CFileFind finder;
-	if(finder.FindFile(_T("*.ttf"),0))
-	{
-		while(finder.FindNextFile())
-		{
-			m_osd_font_c.AddString(finder.GetFileName());
-		}
-		CString str = finder.GetFileName();
-		if(str.GetLength() > 1)
-			m_osd_font_c.AddString(str);
-	}
-	if(finder.FindFile(_T("*.ttc"),0))
-	{
-		while(finder.FindNextFile())
-		{
-			m_osd_font_c.AddString(finder.GetFileName());
-		}
-		CString str = finder.GetFileName();
-		if(str.GetLength() > 1)
-			m_osd_font_c.AddString(str);
-	}
-	::SetCurrentDirectory(szCurPath);
-	m_osd_font = _T("simhei.ttf");
-
 	InitFromConfig();
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -295,6 +239,10 @@ BOOL CMPlayerPage::OnInitDialog()
 
 void CMPlayerPage::SetNormal()
 {
+	m_gui_high = FALSE;
+	m_boost = FALSE;
+	m_reload = FALSE;
+	m_no_dvdnav = FALSE;
 	m_control = TRUE;
 	m_menu = TRUE;
 	m_bottom = TRUE;
@@ -311,11 +259,11 @@ void CMPlayerPage::SetNormal()
 	m_rightmenu = FALSE;
 	m_end = _T("0:0:0");
 	m_png = _T("");
+	m_def = _T("");
 	m_start = _T("0:0:0");
 	m_auto_fuzziness = _T("1");
 	m_colorkey_s = _T("0x000001");
 	m_monitor_s = m_auto_s;
-	m_osdsize_s = _T("3");
 	m_language.SetCurSel(lang_auto);
 	m_cache.SetCurSel(0);
 	m_ontop.SetCurSel(top_playing);
@@ -323,9 +271,7 @@ void CMPlayerPage::SetNormal()
 	m_priority.SetCurSel(prio_auto);
 	m_loop.SetCurSel(loop_none);
 	m_log.SetCurSel(log_none);	
-	m_switchview.SetCurSel(switch_none);	
-	m_osdtime.SetCurSel(time_none);	
-	m_osdmode.SetCurSel(osd_normal);
+	m_switchview.SetCurSel(switch_none);
 	m_systray.SetCurSel(sys_task);	
 	m_autoplay.SetCurSel(auto_ex);
 }
@@ -468,6 +414,34 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_guithread = FALSE;
 	}
+	if(m_cfg->GetValue_Boolean(_T("gui_priority_lowest"),value_b,true))
+	{
+		if(!value_b)
+			m_gui_high = TRUE;
+		else
+			m_gui_high = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("boost_speed"),value_b,true))
+	{
+		if(value_b)
+			m_boost = TRUE;
+		else
+			m_boost = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("reload_when_open"),value_b,true))
+	{
+		if(value_b)
+			m_reload = TRUE;
+		else
+			m_reload = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("no_dvdnav"),value_b,true))
+	{
+		if(value_b)
+			m_no_dvdnav = TRUE;
+		else
+			m_no_dvdnav = FALSE;
+	}
 	if(m_cfg->GetValue_Boolean(_T("use_rightmenu"),value_b,true))
 	{
 		if(value_b)
@@ -568,23 +542,6 @@ void CMPlayerPage::InitFromConfig()
 			m_ontop.SetCurSel(top_playing);
 		}
 	}
-	if(m_cfg->GetValue_Integer(_T("osdlevel"),value_i))
-	{
-		switch (value_i)
-		{
-		case 0:
-			m_osdmode.SetCurSel(osd_none);
-			break;
-		case 3:
-			m_osdmode.SetCurSel(osd_play_time);
-			break;
-		case 4:
-			m_osdmode.SetCurSel(osd_left_time);
-			break;
-		default:
-			m_osdmode.SetCurSel(osd_normal);
-		}
-	}
 	if(m_cfg->GetValue_Integer(_T("cache"),value_i))
 	{
 		if(value_i <= 0)
@@ -627,13 +584,6 @@ void CMPlayerPage::InitFromConfig()
 			m_language.SetCurSel(lang_auto);
 		}
 	}
-	if(m_cfg->GetValue_Integer(_T("osd_systime"),value_i,true))
-	{
-		if(value_i >= 1 && value_i <= 9)
-			m_osdtime.SetCurSel(value_i);
-		else
-			m_osdtime.SetCurSel(time_none);
-	}
 	if(m_cfg->GetValue_Integer(_T("end_pos"),value_i,true))
 	{
 		m_end.Format(_T("%d:%d:%d"),value_i/3600,(value_i/60)%60,value_i%60 );
@@ -672,19 +622,8 @@ void CMPlayerPage::InitFromConfig()
 			m_autosync.SetCurSel(sync_fast);
 		else
 			m_autosync.SetCurSel(sync_none);
-			
 	}
 
-	if(m_cfg->GetValue_String(_T("font"),value_s))
-	{
-		value_s.TrimLeft(_T('"'));
-		value_s.TrimRight(_T('"'));
-		m_osd_font = value_s;
-	}
-	if(m_cfg->GetValue_String(_T("subfont-osd-scale"),value_s))
-	{
-		m_osdsize_s = value_s;
-	}
 	if(m_cfg->GetValue_String(_T("urlcp"),value_s))
 	{
 		if(value_s == _T("GBK"))
@@ -721,9 +660,18 @@ void CMPlayerPage::InitFromConfig()
 	{
 		m_dvd = value_s;
 	}
-	if(m_cfg->GetValue_String(_T("ScreenShot_DIR"),value_s,true))
+	if(m_cfg->GetValue_String(_T("default_dir"),value_s,true))
+	{
+		m_def = value_s;
+	}
+	if(m_cfg->GetValue_String(_T("screenshot_dir"),value_s,true))
 	{
 		m_png = value_s;
+	}
+	else if(m_cfg->GetValue_String(_T("ScreenShot_DIR"),value_s,true))
+	{
+		m_png = value_s;
+		m_cfg->RemoveValue(_T("ScreenShot_DIR"), true);
 	}
 
 	UpdateData(FALSE);
@@ -781,10 +729,30 @@ void CMPlayerPage::SaveConfig()
 	if(m_guithread)
 		m_cfg->SetValue(_T("gui_thread") ,_T("1") , true , ex_option);
 	else
-		m_cfg->SetValue(_T("gui_thread"),_T("0") ,true ,ex_option);
+		m_cfg->RemoveValue(_T("gui_thread"),true);
+
+	if(m_gui_high)
+		m_cfg->SetValue(_T("gui_priority_lowest") ,_T("0") , true,ex_gui);
+	else
+		m_cfg->RemoveValue(_T("gui_priority_lowest"), true );
+
+	if(m_boost)
+		m_cfg->SetValue(_T("boost_speed") ,_T("1") , true,ex_setting);
+	else
+		m_cfg->RemoveValue(_T("boost_speed"), true );
+
+	if(m_reload)
+		m_cfg->SetValue(_T("reload_when_open") ,_T("1") , true,ex_setting);
+	else
+		m_cfg->RemoveValue(_T("reload_when_open"), true );
+
+	if(m_no_dvdnav)
+		m_cfg->SetValue(_T("no_dvdnav") ,_T("1") , true,ex_setting);
+	else
+		m_cfg->RemoveValue(_T("no_dvdnav"), true );
 
 	if(m_rightmenu)
-		m_cfg->SetValue(_T("use_rightmenu") ,_T("1") , true , ex_option);
+		m_cfg->SetValue(_T("use_rightmenu") ,_T("1") , true , ex_gui);
 	else
 		m_cfg->RemoveValue(_T("use_rightmenu") , true);
 
@@ -794,27 +762,27 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->RemoveValue(_T("high_accuracy_timer") , true);
 	
 	if(m_menu)
-		m_cfg->SetValue(_T("show_menubar") ,_T("1") , true , ex_option);
+		m_cfg->RemoveValue(_T("show_menubar"), true);
 	else
-		m_cfg->SetValue(_T("show_menubar"),_T("0") ,true ,ex_option);
+		m_cfg->SetValue(_T("show_menubar") ,_T("0") , true , ex_gui);
 
 	if(m_control)
-		m_cfg->SetValue(_T("show_controlbar") ,_T("1") , true , ex_option);
+		m_cfg->RemoveValue(_T("show_controlbar") , true);
 	else
-		m_cfg->SetValue(_T("show_controlbar"),_T("0") ,true ,ex_option);
+		m_cfg->SetValue(_T("show_controlbar"),_T("0") ,true ,ex_gui);
 	
 	if(m_bottom)
-		m_cfg->SetValue(_T("show_playbar") ,_T("1") , true , ex_option);
+		m_cfg->SetValue(_T("show_playbar") ,_T("1") , true , ex_gui);
 	else
-		m_cfg->SetValue(_T("show_playbar"),_T("0") ,true ,ex_option);
+		m_cfg->RemoveValue(_T("show_playbar") ,true);
 	
 	if(m_oneplayer)
-		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_option);
+		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_setting);
 	else
-		m_cfg->SetValue(_T("one_player"),_T("0") ,true ,ex_option);
+		m_cfg->RemoveValue(_T("one_player"),true);
 	
 	if(m_quit)
-		m_cfg->SetValue(_T("always_quit") ,_T("1") , true , ex_option);
+		m_cfg->RemoveValue(_T("always_quit"), true);
 	else
 		m_cfg->SetValue(_T("always_quit"),_T("0") ,true ,ex_option);
 	
@@ -840,8 +808,6 @@ void CMPlayerPage::SaveConfig()
 		break;
 	}
 	
-	m_cfg->SetValue(_T("font"), _T("\"") + m_osd_font + _T("\""));
-	m_cfg->SetValue(_T("subfont-osd-scale"),m_osdsize_s );
 	if(m_monitor_s != m_auto_s)
 		m_cfg->SetValue(_T("monitoraspect"),m_monitor_s );
 	else
@@ -879,11 +845,16 @@ void CMPlayerPage::SaveConfig()
 	default:
 		m_cfg->RemoveValue(_T("switchview"));
 	}
-	
-	if(m_png != _T(""))
-		m_cfg->SetValue(_T("ScreenShot_DIR"),m_png, true , ex_option);
+
+	if(m_def.GetLength() > 2)
+		m_cfg->SetValue(_T("default_dir"),m_def, true , ex_setting);
 	else
-		m_cfg->RemoveValue(_T("ScreenShot_DIR"), true);
+		m_cfg->RemoveValue(_T("default_dir"), true);
+
+	if(m_png.GetLength() > 2)
+		m_cfg->SetValue(_T("screenshot_dir"),m_png, true , ex_setting);
+	else
+		m_cfg->RemoveValue(_T("screenshot_dir"), true);
 		
 	if(m_start != _T("0:0:0") && m_start != _T("")  && m_start != _T("0") )
 	{
@@ -969,56 +940,6 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->RemoveValue(_T("ontop"));
 	}
 	
-	int vosdmode = m_osdmode.GetCurSel();
-	switch (vosdmode)
-	{
-	case osd_play_time:
-		m_cfg->SetValue(_T("osdlevel") ,_T("3") );
-		break;
-	case osd_left_time:
-		m_cfg->SetValue(_T("osdlevel") ,_T("4") );
-		break;
-	case osd_none:
-		m_cfg->SetValue(_T("osdlevel") ,_T("0") );
-		break;
-	default:
-		m_cfg->RemoveValue(_T("osdlevel"));
-	}
-	
-	int vosdtime = m_osdtime.GetCurSel();
-	switch (vosdtime)
-	{
-	case time_t1:
-		m_cfg->SetValue(_T("osd_systime") ,_T("1") ,true, ex_option);
-		break;
-	case time_t2:
-		m_cfg->SetValue(_T("osd_systime") ,_T("2") ,true, ex_option);
-		break;
-	case time_t3:
-		m_cfg->SetValue(_T("osd_systime") ,_T("3") ,true, ex_option);
-		break;
-	case time_t4:
-		m_cfg->SetValue(_T("osd_systime") ,_T("4") ,true, ex_option);
-		break;
-	case time_dt1:
-		m_cfg->SetValue(_T("osd_systime") ,_T("5") ,true, ex_option);
-		break;
-	case time_dt2:
-		m_cfg->SetValue(_T("osd_systime") ,_T("6") ,true, ex_option);
-		break;
-	case time_dt3:
-		m_cfg->SetValue(_T("osd_systime") ,_T("7") ,true, ex_option);
-		break;
-	case time_dt4:
-		m_cfg->SetValue(_T("osd_systime") ,_T("8") ,true, ex_option);
-		break;
-	case time_ot:
-		m_cfg->SetValue(_T("osd_systime") ,_T("9") ,true, ex_option);
-		break;
-	default:
-		m_cfg->RemoveValue(_T("osd_systime"),true);
-	}
-	
 	int vcache = m_cache.GetCurSel();
 	switch (vcache)
 	{
@@ -1071,11 +992,11 @@ void CMPlayerPage::SaveConfig()
 	{
 	case loop_list:
 		m_cfg->SetValue(_T("loop"), _T("0"));
-		m_cfg->SetValue(_T("loop_all"), _T("1") ,true ,ex_option);
+		m_cfg->SetValue(_T("loop_all"), _T("1") ,true ,ex_setting);
 		break;
 	case loop_single:
 		m_cfg->SetValue(_T("loop"), _T("0"));
-		m_cfg->SetValue(_T("loop_all"), _T("0") ,true ,ex_option);
+		m_cfg->RemoveValue(_T("loop_all") ,true);
 		break;
 	default:
 		m_cfg->RemoveValue(_T("loop"));
@@ -1120,6 +1041,7 @@ void CMPlayerPage::SaveConfig()
 	{
 	case prio_realtime:
 		m_cfg->SetValue(_T("priority"), _T("realtime"));
+		ShowInfo(type_realtime);
 		break;
 	case prio_high:
 		m_cfg->SetValue(_T("priority"), _T("high"));
@@ -1140,11 +1062,22 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->RemoveValue(_T("priority"));
 	}
 }
+void CMPlayerPage::SetInfoDlg(CMShowInfoDlg *infoDlg)
+{
+	info = infoDlg;
+}
+
+void CMPlayerPage::ShowInfo(int type)
+{
+	if(info)
+	{
+		if(info->IsShow(type))
+			info->DoModal();
+	}
+}
 
 BOOL CMPlayerPage::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
-	
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
@@ -1174,5 +1107,26 @@ void CMPlayerPage::OnSelchangeAutoplay()
 		m_fuzziness.EnableWindow(TRUE);
 	else
 		m_fuzziness.EnableWindow(FALSE);
+	UpdateData(FALSE);
+}
+
+void CMPlayerPage::OnBnClickedCheckBoost()
+{
+	UpdateData(TRUE);
+	if(m_boost)
+		ShowInfo(type_boost);
+}
+
+void CMPlayerPage::OnBnClickedButtonDef()
+{
+	TCHAR szFilePath[MAX_PATH + 1];
+	::GetCurrentDirectory(MAX_PATH,szFilePath);
+	CWnd* pMainCWnd = NULL; 
+	pMainCWnd = GetActiveWindow(); 
+	CString csFolder = _T( "" );
+	HWND pMainHWnd = pMainCWnd->GetSafeHwnd();
+	if(SelectFolder( pMainHWnd, csFolder ))
+		m_def = csFolder;
+	::SetCurrentDirectory(szFilePath);
 	UpdateData(FALSE);
 }

@@ -11,6 +11,7 @@
 // CMPlayerPage dialog
 
 class CMConfig;
+class CMShowInfoDlg;
 
 enum language
 {
@@ -74,27 +75,6 @@ enum log
 	log_v5
 };
 
-enum osd_type
-{
-	osd_normal,
-	osd_play_time,
-	osd_left_time,
-	osd_none
-};
-
-enum osd_time
-{
-	time_none,
-	time_t1,
-	time_t2,
-	time_t3,
-	time_t4,
-	time_dt1,
-	time_dt2,
-	time_dt3,
-	time_dt4,
-	time_ot
-};
 
 enum switch_view
 {
@@ -114,8 +94,6 @@ public:
 	void SetHigh();
 	void SetLower();
 
-// Dialog Data
-	//{{AFX_DATA(CMPlayerPage)
 	enum { IDD = IDD_PLAYER_DIALOG };
 	CEdit	m_fuzziness;
 	CComboBox	m_autoplay;
@@ -131,10 +109,6 @@ public:
 	CComboBox m_monitor;
 	CComboBox m_ontop;
 	CComboBox m_priority;
-	CComboBox	m_osd_font_c;
-	CComboBox	 m_osdtime;
-	CComboBox	 m_osdsize;
-	CComboBox	 m_osdmode;
 	BOOL	m_control;
 	BOOL	m_framedrop;
 	BOOL	m_fullscreen;
@@ -144,8 +118,12 @@ public:
 	BOOL	m_quit;
 	BOOL	m_show;
 	BOOL	m_url;
-	CString	m_osd_font;
-	CString	m_osdsize_s;
+	BOOL m_htimer;
+	BOOL m_rightmenu;
+	BOOL m_gui_high;
+	BOOL m_boost;
+	BOOL m_reload;
+	BOOL m_no_dvdnav;
 	CString	m_dvd;
 	CString	m_end;
 	CString	m_png;
@@ -159,14 +137,15 @@ public:
 	BOOL	m_conf;
 	BOOL	m_bottom;
 	CString	m_auto_fuzziness;
-	//}}AFX_DATA
+	CMShowInfoDlg *info;
 
 
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMPlayerPage)
 	public:
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
+		virtual BOOL PreTranslateMessage(MSG* pMsg);
+		void SetInfoDlg(CMShowInfoDlg *infoDlg);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
@@ -175,6 +154,7 @@ public:
 protected:
 
 	void InitFromConfig();
+	void ShowInfo(int type);
 	// Generated message map functions
 	//{{AFX_MSG(CMPlayerPage)
 	afx_msg void OnButtonPng();
@@ -185,8 +165,9 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-	BOOL m_htimer;
-	BOOL m_rightmenu;
+	afx_msg void OnBnClickedCheckBoost();
+	afx_msg void OnBnClickedButtonDef();
+	CString m_def;
 };
 
 //{{AFX_INSERT_LOCATION}}

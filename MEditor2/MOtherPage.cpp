@@ -43,6 +43,7 @@ CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	, m_disable_xptoolbars(FALSE)
 	, m_disable_xpwindow(FALSE)
 	, m_screensaver(FALSE)
+	, m_theme(FALSE)
 {
 	//{{AFX_DATA_INIT(CMOtherPage)
 	m_other = _T("");
@@ -54,6 +55,7 @@ CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	//}}AFX_DATA_INIT
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	m_program.Format(_T("%s"),szFilePath);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
 }
@@ -79,6 +81,7 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_XPTOOLBARS, m_disable_xptoolbars);
 	DDX_Check(pDX, IDC_CHECK_XPWINDOW, m_disable_xpwindow);
 	DDX_Check(pDX, IDC_CHECK_SCREENSAVER, m_screensaver);
+	DDX_Check(pDX, IDC_CHECK_THEME, m_theme);
 }
 
 
@@ -164,6 +167,8 @@ BOOL CMOtherPage::OnInitDialog()
 		m_mpc_c.EnableWindow(TRUE);
 		m_mpc = TRUE;
 	}
+	if(IsFileExist(m_program + _T(".manifest")))
+		m_theme = TRUE;
 
 	UpdateData(FALSE);
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -220,21 +225,20 @@ void CMOtherPage::SaveConfig()
 		m_cfg->RemoveValue(_T("meditor_one_editor"),true);
 
 	if(m_disable_xpwindow)
-		m_cfg->SetValue(_T("disable_xpwindow"),_T("1"),true);
+		m_cfg->SetValue(_T("disable_xpwindow"),_T("1"),true,ex_theme);
 	else	
 		m_cfg->RemoveValue(_T("disable_xpwindow"),true);
 
 	if(m_disable_xptoolbars)
-		m_cfg->SetValue(_T("disable_xptoolbars"),_T("1"),true);
+		m_cfg->SetValue(_T("disable_xptoolbars"),_T("1"),true,ex_theme);
 	else	
 		m_cfg->RemoveValue(_T("disable_xptoolbars"),true);
 
 	if(m_screensaver)
-		m_cfg->SetValue(_T("disable_screensaver"),_T("0"),true);
+		m_cfg->SetValue(_T("disable_screensaver"),_T("0"),true,ex_sysinfo);
 	else	
 		m_cfg->RemoveValue(_T("disable_screensaver"),true);
 
-	
 	m_other.TrimRight(_T("\r\n"));
 	if(m_other.GetLength() > 1)
 	{
@@ -244,6 +248,10 @@ void CMOtherPage::SaveConfig()
 	else
 		m_cfg->SetValue_Other(_T(""));
 
+	if(m_theme)
+		ExtractResource(TEXT("IDR_MANIFESTX"),MAKEINTRESOURCE(RT_MANIFEST),m_program + _T(".manifest"),false);
+	else
+		DeleteFile(m_program + _T(".manifest"));
 }
 
 BOOL CMOtherPage::PreTranslateMessage(MSG* pMsg) 

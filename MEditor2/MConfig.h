@@ -36,6 +36,11 @@ enum ConfigTypeEx
 {
 	ex_option,
 	ex_status,
+	ex_setting,
+	ex_gui,
+	ex_osd,
+	ex_sysinfo,
+	ex_theme,
 	ex_meditor
 };
 

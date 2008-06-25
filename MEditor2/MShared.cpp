@@ -4,6 +4,7 @@
 #include "MShared.h"
 #include "unrar.h"
 #include "7zDec.h"
+#include "resource.h"
 //#include "zlib.h"
 #include <wininet.h>
 #pragma comment(lib, "wininet.lib")
@@ -145,8 +146,7 @@ bool SelectFolder(HWND hWnd,CString& strFolder)
 	browseInfo.hwndOwner = hWnd; 
 	browseInfo.pidlRoot = NULL; // set root at Desktop
 	browseInfo.pszDisplayName = szDisplayName; 
-	browseInfo.lpszTitle = _T("选择一个文件夹");
-	browseInfo.ulFlags = BIF_USENEWUI;
+	browseInfo.ulFlags = BIF_USENEWUI |BIF_RETURNONLYFSDIRS | BIF_EDITBOX;
 	browseInfo.lpfn = NULL;
 	browseInfo.lParam = 0;
 	LPITEMIDLIST lpItemIDList;

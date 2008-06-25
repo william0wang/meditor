@@ -24,28 +24,6 @@ enum ao
 	ao_null
 };
 
-enum fuzziness
-{
-	exact,
-	name,
-	all
-};
-
-enum align
-{
-	top,
-	center,
-	bottom
-};
-
-enum autoscale
-{
-	none,
-	high,
-	width,
-	diagonal
-};
-
 enum channels
 {
 	ch_auto,
@@ -67,43 +45,21 @@ public:
 
 protected:
 // Dialog Data
-	//{{AFX_DATA(CMAudioPage)
 	enum { IDD = IDD_AUDIO_DIALOG };
-	CComboBox	m_autoscale;
-	CComboBox	m_align;
-	CComboBox	m_fuzziness;
-	CComboBox	m_bcolor_c;
-	CComboBox	m_color_c;
 	CComboBox	m_channels;
-	CComboBox	m_font2_c;
-	CComboBox	m_font_c;
-	CSliderCtrl	m_volnorm_c;
-	CComboBox	 m_size;
 	CComboBox	 m_audio;
-	BOOL	m_dvdsub;
-	BOOL	m_ass;
 	CString	m_audio_delay;
-	CString	m_sub_delay;
-	CString	m_sub_error;
+	CString m_alang;
 	CString	m_volume;
 	CString	m_volnorm;
 	int		m_volnorm_s;
 	int		m_volume_s;
-	CString	m_font;
-	CString	m_font2;
-	CString	m_size_s;
-	CString	m_color;
-	CString	m_bcolor;
-	CString	m_subpos;
-	CString	m_slang;
-	CString	m_subcp;
 	CString	m_str_no;
 	CString	m_str_at;
 	CString	m_str_low;
 	CString	m_str_int;
 	CString	m_str_foa;
-	CString	m_str_nco;
-	//}}AFX_DATA
+	CSliderCtrl	m_volnorm_c;
 	CStringArray m_adv_af;
 	CStringArray m_volnormal;
 	CStringArray m_equalizer;
@@ -136,12 +92,6 @@ protected:
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-public:
-	CString m_alang;
-	BOOL m_ass_use_margins;
-	BOOL m_noautosub;
-	CComboBox m_ass_expand;
-	CString m_ass_expand_s;
 };
 
 //{{AFX_INSERT_LOCATION}}

@@ -262,7 +262,7 @@ void CMAssosPage::FillListCtrl(CXListCtrl * pList)
 			else if(classnum == 0)
 				color = RGB(200,180,250);
 			else
-				color = RGB(255,120,120);
+				color = RGB(230,150,150);
 			if (nSubItem == 0)
 			{
 				pList->InsertItem(nItem, str,RGB(0,0,0), color);

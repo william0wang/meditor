@@ -13,7 +13,7 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMInputPage::IDD, pParent)
 {
 	m_str_none = ResStr(IDS_INPUT_NONE);
-	m_skey.Add(_T("#None"),m_str_none);
+	m_skey.Add(_T("#NoneInput"),m_str_none);
 	m_skey.Add(_T("a"),_T("a"));
 	m_skey.Add(_T("b"),_T("b"));
 	m_skey.Add(_T("c"),_T("c"));
@@ -88,6 +88,7 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_skey.Add(_T("DEL"),_T("Delete ") + ResStr(IDS_INPUT_DEL));
 	m_skey.Add(_T("SPACE"),_T("Space ") + ResStr(IDS_INPUT_SPACE));
 	m_skey.Add(_T("ENTER"),_T("Enter ") + ResStr(IDS_INPUT_ENTER));
+	m_skey.Add(_T("TAB"),_T("Tab"));
 	m_skey.Add(_T("ESC"),_T("ESC"));
 	m_skey.Add(_T("<"),_T("<"));
 	m_skey.Add(_T(">"),_T(">"));
@@ -108,6 +109,14 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_skey.Add(_T("+"),_T("+"));
 	m_skey.Add(_T("/"),_T("/"));
 	m_skey.Add(_T("*"),_T("*"));
+	m_skey.Add(_T("!"),_T("!"));
+	m_skey.Add(_T("@"),_T("@"));
+	m_skey.Add(_T("$"),_T("$"));
+	m_skey.Add(_T("%"),_T("%"));
+	m_skey.Add(_T("^"),_T("^"));
+	m_skey.Add(_T("&"),_T("&"));
+	m_skey.Add(_T("("),_T("("));
+	m_skey.Add(_T(")"),_T(")"));
 	m_skey.Add(_T("F1"),_T("F1"));
 	m_skey.Add(_T("F2"),_T("F2"));
 	m_skey.Add(_T("F3"),_T("F3"));
@@ -296,7 +305,31 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
 	m_List.SetItemText(index, 3, _T("Alt + H/S"),RGB(0,0,0),RGB(200,255,200));
 	++index;
-	
+
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDDIR),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Ctrl + ")+ ResStr(IDS_INPUT_DVDDIR2),RGB(0,0,0),RGB(200,255,200));
+	++index;
+
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDSEL),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Ctrl + ")+ ResStr(IDS_INPUT_ENTER),RGB(0,0,0),RGB(200,255,200));
+	++index;
+
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDROOT),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Ctrl + Home"),RGB(0,0,0),RGB(200,255,200));
+	++index;
+
+	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDPRE),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
+	m_List.SetItemText(index, 3, _T("Ctrl + End"),RGB(0,0,0),RGB(200,255,200));
+	++index;
+
 	m_List.InsertItem(index, ResStr(IDS_INPUT_INMOS),RGB(0,0,0),RGB(200,255,200));
 	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_FSR),RGB(0,0,0),RGB(200,255,200));
 	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_FSRIF),RGB(0,0,0),RGB(200,255,200));
@@ -331,9 +364,9 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 			
 			COLORREF color;
 			if(nItem % 2 == 0)
-				color = RGB(250,230,200);
+				color = RGB(255,255,240);
 			else
-				color = RGB(240,230,250);
+				color = RGB(220,240,255);
 
 			// show background coloring
 			if (nSubItem == 0)
@@ -484,10 +517,18 @@ void CMInputPage::GetCmdInfo(CString cmd ,CString &info)
 		info = ResStr(IDS_INPUT_QUIT);
 	else if(cmd == _T("mute"))
 		info = ResStr(IDS_INPUT_MUTE);
+
 	else if(cmd == _T("switch_audio"))
 		info = ResStr(IDS_INPUT_SWIA);
 	else if(cmd == _T("switch_font"))
 		info = ResStr(IDS_INPUT_SWIF);
+	else if(cmd == _T("seek_chapter"))
+		info = ResStr(IDS_INPUT_CHAP);
+	else if(cmd == _T("switch_title"))
+		info = ResStr(IDS_INPUT_TITLE);
+	else if(cmd == _T("switch_angle"))
+		info = ResStr(IDS_INPUT_ANGLE);
+
 	else if(cmd == _T("sub_select"))
 		info = ResStr(IDS_INPUT_SUBS);
 	else if(cmd == _T("sub_alignment"))
@@ -529,7 +570,6 @@ void CMInputPage::GetCmdInfo(CString cmd ,CString &info)
 	else if(cmd == _T("sub_delay"))
 		info = ResStr(IDS_INPUT_SUBD);
 
-
 }
 
 bool CMInputPage::AnalyseLine(CString line, CString &key, CString &cmd, CString &val)
@@ -539,7 +579,7 @@ bool CMInputPage::AnalyseLine(CString line, CString &key, CString &cmd, CString 
 	int sp = -1;
 	if(line.Find(_T("#")) == 0)
 	{
-		sp = line.Find(_T("#None"));
+		sp = line.Find(_T("#NoneInput"));
 		if(sp < 0)
 			return false;
 		key = line.Left(sp);

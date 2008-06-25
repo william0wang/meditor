@@ -299,7 +299,7 @@ void CMResumePage::SaveConfig()
 	m_maxnum.TrimLeft();
 	m_maxnum.TrimRight();
 	if(m_maxnum != _T("10"))
-		m_cfg->SetValue(_T("save_stats_num") ,m_maxnum, true , ex_option);
+		m_cfg->SetValue(_T("save_stats_num") ,m_maxnum, true , ex_setting);
 	else
 		m_cfg->RemoveValue(_T("save_stats_num") ,true);
 

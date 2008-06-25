@@ -17,86 +17,39 @@ static char THIS_FILE[] = __FILE__;
 
 
 CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
-	: CDialog(CMAudioPage::IDD, pParent)
-	, m_alang(_T(""))
-	, m_ass_use_margins(FALSE)
-	, m_noautosub(FALSE)
-	, m_ass_expand_s(_T(""))
+		: CDialog(CMAudioPage::IDD, pParent)
+		, m_alang(_T(""))
 {
-	//{{AFX_DATA_INIT(CMAudioPage)
-	m_dvdsub = FALSE;
-	m_ass = FALSE;
+	m_cfg = NULL;
 	m_audio_delay = _T("0");
-	m_sub_delay = _T("0");
-	m_sub_error = _T("8");
 	m_volume = _T("60");
 	m_volnorm = _T("100");
 	m_volnorm_s = 0;
 	m_volume_s = 60;
-	m_font = _T("");
-	m_font2 = _T("");
-	m_size_s = _T("");
-	m_color = _T("");
-	m_bcolor = _T("");
-	m_subpos = _T("90");
-	m_slang = _T("zh,ch,chi,tw");
-	m_subcp = _T("GBK,BIG5,UTF-8,UTF-16");
 	m_str_at = ResStr(IDS_PLAYER_AUTO);
 	m_str_no = ResStr(IDS_PLAYER_NONE);
 	m_str_low = ResStr(IDS_AUDIO_RELOW);
 	m_str_int = ResStr(IDS_AUDIO_REINT);
 	m_str_foa = ResStr(IDS_AUDIO_REFOA);
-	m_str_nco = ResStr(IDS_SUB_NORMAL_COL);
-	//}}AFX_DATA_INIT
 }
 
 
 void CMAudioPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CMAudioPage)
-	DDX_Control(pDX, IDC_COMBO_AUTOSCALE, m_autoscale);
-	DDX_Control(pDX, IDC_COMBO_ALIGN, m_align);
-	DDX_Control(pDX, IDC_COMBO_FUZZINESS, m_fuzziness);
-	DDX_Control(pDX, IDC_COMBO_BCOLOR, m_bcolor_c);
-	DDX_Control(pDX, IDC_COMBO_COLOR, m_color_c);
 	DDX_Control(pDX, IDC_COMBO_CHANNELS, m_channels);
-	DDX_Control(pDX, IDC_COMBO_F2, m_font2_c);
-	DDX_Control(pDX, IDC_COMBO_F1, m_font_c);
-	DDX_Control(pDX, IDC_SLIDER_VOLNORM, m_volnorm_c);
-	DDX_Control(pDX, IDC_COMBO_SIZE, m_size);
-	DDX_Control(pDX, IDC_COMBO_AUDIO, m_audio);
-	DDX_Check(pDX, IDC_CHECK_DVDSUB, m_dvdsub);
-	DDX_Check(pDX, IDC_CHECK_ASS, m_ass);
 	DDX_Text(pDX, IDC_EDIT_AUDIODELAY, m_audio_delay);
 	DDV_MaxChars(pDX, m_audio_delay, 9);
-	DDX_Text(pDX, IDC_EDIT_SUBDELAY, m_sub_delay);
-	DDV_MaxChars(pDX, m_sub_delay, 9);
-	DDX_Text(pDX, IDC_EDIT_ERROR, m_sub_error);
-	DDV_MaxChars(pDX, m_sub_error, 3);
 	DDX_Text(pDX, IDC_EDIT_VOLUME, m_volume);
+	DDX_Control(pDX, IDC_SLIDER_VOLNORM, m_volnorm_c);
 	DDV_MaxChars(pDX, m_volume, 3);
 	DDX_Text(pDX, IDC_EDIT_VOLNORM, m_volnorm);
 	DDV_MaxChars(pDX, m_volnorm, 4);
+	DDX_Control(pDX, IDC_LIST_AUDIO, m_List);
 	DDX_Slider(pDX, IDC_SLIDER_VOLNORM, m_volnorm_s);
 	DDX_Slider(pDX, IDC_SLIDER_VOLUME, m_volume_s);
-	DDX_CBString(pDX, IDC_COMBO_F1, m_font);
-	DDX_CBString(pDX, IDC_COMBO_F2, m_font2);
-	DDX_CBString(pDX, IDC_COMBO_SIZE, m_size_s);
-	DDV_MaxChars(pDX, m_size_s, 3);
-	DDX_CBString(pDX, IDC_COMBO_COLOR, m_color);
-	DDX_CBString(pDX, IDC_COMBO_BCOLOR, m_bcolor);
-	DDX_Text(pDX, IDC_EDIT_SUBPOS, m_subpos);
-	DDV_MaxChars(pDX, m_subpos, 3);
-	DDX_Text(pDX, IDC_EDIT_SLANG, m_slang);
-	DDX_Text(pDX, IDC_EDIT_SUBCP, m_subcp);
-	//}}AFX_DATA_MAP
-	DDX_Control(pDX, IDC_LIST_AUDIO, m_List);
+	DDX_Control(pDX, IDC_COMBO_AUDIO, m_audio);
 	DDX_Text(pDX, IDC_EDIT_ALANG, m_alang);
-	DDX_Check(pDX, IDC_CHECK_ASS_MARGINS, m_ass_use_margins);
-	DDX_Check(pDX, IDC_CHECK_ASS_MARGINS2, m_noautosub);
-	DDX_Control(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand);
-	DDX_CBString(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand_s);
 }
 
 
@@ -343,102 +296,11 @@ BOOL CMAudioPage::OnInitDialog()
 	m_audio.AddString(ResStr(IDS_AUDIO_NULL));
 	m_audio.SetCurSel(dsound);
 
-	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ1));
-	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ2));
-	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ3));
-	m_fuzziness.SetCurSel(name);
-
-	m_ass_expand.AddString(m_str_no);
-	m_ass_expand.AddString(m_str_at);
-	m_ass_expand.AddString(_T("4:3"));
-	m_ass_expand.AddString(_T("16:11"));
-	m_ass_expand.AddString(_T("16:10"));
-	m_ass_expand.AddString(_T("16:9"));
-	m_ass_expand_s = m_str_at;
-
-	m_align.AddString(ResStr(IDS_SUB_ALIG1));
-	m_align.AddString(ResStr(IDS_SUB_ALIG2));
-	m_align.AddString(ResStr(IDS_SUB_ALIG3));
-	m_align.SetCurSel(center);
-
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL1));
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL2));
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL3));
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL4));
-	m_autoscale.SetCurSel(diagonal);
-
-	m_size.AddString(_T("2"));
-	m_size.AddString(_T("2.5"));
-	m_size.AddString(_T("3"));
-	m_size.AddString(_T("3.5"));
-	m_size.AddString(_T("4"));
-	m_size.AddString(_T("4.5"));
-	m_size.AddString(_T("5"));
-	m_size_s = _T("3");
-	
-	m_color_c.AddString(m_str_nco);
-	m_color_c.AddString(_T("ffffff00"));
-	m_color_c.AddString(_T("ff000000"));
-	m_color_c.AddString(_T("00ff0000"));
-	m_color_c.AddString(_T("0000ff00"));
-	m_color_c.AddString(_T("ffffff50"));
-
-	m_bcolor_c.AddString(m_str_nco);
-	m_bcolor_c.AddString(_T("ffffff00"));
-	m_bcolor_c.AddString(_T("ff000000"));
-	m_bcolor_c.AddString(_T("00ff0000"));
-	m_bcolor_c.AddString(_T("0000ff00"));
-	m_bcolor_c.AddString(_T("00000050"));
-
-	m_bcolor = m_str_nco;
-	m_color = m_str_nco;
-
 	m_channels.AddString(ResStr(IDS_RESUME_NORMAL));
 	m_channels.AddString(_T("2.0") + ResStr(IDS_AUDIO_CHAN));
 	m_channels.AddString(_T("4.0") + ResStr(IDS_AUDIO_CHAN));
 	m_channels.AddString(_T("5.1") + ResStr(IDS_AUDIO_CHAN));
 	m_channels.SetCurSel(ch_auto);
-
-	TCHAR szCurPath[MAX_PATH + 1];
-	::GetCurrentDirectory(MAX_PATH,szCurPath);
-
-	TCHAR szFontPath[MAX_PATH + 1];
-	SHGetSpecialFolderPath(NULL, szFontPath , CSIDL_FONTS , FALSE);
-
-	::SetCurrentDirectory(szFontPath);
-
-	CFileFind finder;
-	if(finder.FindFile(_T("*.ttf"),0))
-	{
-		while(finder.FindNextFile())
-		{
-			m_font_c.AddString(finder.GetFileName());
-			m_font2_c.AddString(finder.GetFileName());
-		}
-		CString str = finder.GetFileName();
-		if(str.GetLength() > 1)
-		{
-			m_font_c.AddString(str);
-			m_font2_c.AddString(str);
-		}
-	}
-	if(finder.FindFile(_T("*.ttc"),0))
-	{
-		while(finder.FindNextFile())
-		{
-			m_font_c.AddString(finder.GetFileName());
-			m_font2_c.AddString(finder.GetFileName());
-		}
-		CString str = finder.GetFileName();
-		if(str.GetLength() > 1)
-		{
-			m_font_c.AddString(str);
-			m_font2_c.AddString(str);
-		}
-	}
-	::SetCurrentDirectory(szCurPath);
-	m_font2_c.AddString(_T(""));
-	m_font = _T("simhei.ttf");
 
 	InitFromConfig();
 
@@ -448,28 +310,13 @@ BOOL CMAudioPage::OnInitDialog()
 
 void CMAudioPage::SetNormal()
 {
-	m_ass = TRUE;
-	m_dvdsub = TRUE;
-	m_ass_use_margins = TRUE;
 	m_volnorm_s = 150;
 	m_volnorm = _T("150");
-	m_size_s = _T("3");
-	m_bcolor = m_str_nco;
-	m_color = m_str_nco;
-	m_ass_expand_s = m_str_at;
 	m_audio_delay = _T("0");
-	m_sub_delay = _T("0");
-	m_sub_error = _T("8");
 	m_volume = _T("60");
 	m_volume_s = 60;
-	m_subpos = _T("90");
-	m_slang = _T("zh,ch,chi,tw");
 	m_alang = _T("");
-	m_subcp = _T("GBK,BIG-5,CP932,CP949,UTF-8,UTF-16");
 	m_audio.SetCurSel(dsound);
-	m_fuzziness.SetCurSel(name);
-	m_align.SetCurSel(center);
-	m_autoscale.SetCurSel(diagonal);
 	m_channels.SetCurSel(ch_auto);
 	m_List.SetCheckbox(equalizer, 0, 0);
 	m_List.SetItemText(equalizer, 2,_T("0:0:0:0:0:0:0:0:0:0"));
@@ -491,8 +338,6 @@ void CMAudioPage::SetHigh()
 void CMAudioPage::SetLower()
 {
 	SetNormal();
-	m_ass = FALSE;
-	m_dvdsub = FALSE;
 	m_volnorm_s = 100;
 	m_volnorm = _T("100");
 	m_List.SetCheckbox(volnormal, 0, 0);
@@ -512,55 +357,6 @@ void CMAudioPage::InitFromConfig()
 	m_List.LockWindowUpdate();
 
 	m_cfg->GetValue_Boolean(_T("softvol"),value_b);
-	if(m_cfg->GetValue_Boolean(_T("ass"),value_b))
-	{
-		if(value_b)
-			m_ass = TRUE;
-		else
-			m_ass = FALSE;
-	}
-	if(m_cfg->GetValue_Boolean(_T("ass-use-margins"),value_b))
-	{
-		if(value_b)
-			m_ass_expand_s = m_str_at;
-		else
-			m_ass_expand_s = m_str_no;
-	}
-	else
-		m_ass_expand_s = m_str_no;
-	if(m_cfg->GetValue_Boolean(_T("ass_auto_expand"),value_b,true))
-	{
-		if(value_b)
-		{
-			m_ass_expand_s = m_str_at;
-			CString width,height;
-			if(m_cfg->GetValue_String(_T("ass_expand_width"),value_s,true))
-				width = value_s;
-			if(m_cfg->GetValue_String(_T("ass_expand_height"),value_s,true))
-				height = value_s;
-			if(IsDigit(width) && IsDigit(height))
-				m_ass_expand_s.Format(_T("%s:%s"),width,height);
-		}
-		else
-			m_ass_expand_s = m_str_no;
-	}
-	else
-		m_ass_expand_s = m_str_no;
-
-	if(m_cfg->GetValue_Boolean(_T("noautosub"),value_b))
-	{
-		if(value_b)
-			m_noautosub = TRUE;
-		else
-			m_noautosub = FALSE;
-	}
-	if(m_cfg->GetValue_Integer(_T("spuaa"),value_i))
-	{
-		if(value_i  == 4)
-			m_dvdsub = TRUE;
-		else
-			m_dvdsub = FALSE;
-	}
 	if(m_cfg->GetValue_Integer(_T("softvol-max"),value_i))
 	{
 		if(value_i > 100 && value_i < 1000)
@@ -574,31 +370,9 @@ void CMAudioPage::InitFromConfig()
 			m_volnorm = _T("100");
 		}
 	}
-	if(m_cfg->GetValue_Integer(_T("sub-ignore-errors"),value_i))
-	{
-		if(value_i >= 0 && value_i <= 500)
-			m_sub_error.Format(_T("%d"),value_i);
-	}
-	if(m_cfg->GetValue_Integer(_T("sub-fuzziness"),value_i))
-		m_fuzziness.SetCurSel(value_i);
-	if(m_cfg->GetValue_Integer(_T("spualign"),value_i))
-		m_align.SetCurSel(value_i);
-	if(m_cfg->GetValue_Integer(_T("subalign"),value_i))
-		m_align.SetCurSel(value_i);
-	if(m_cfg->GetValue_Integer(_T("subfont-autoscale"),value_i))
-		m_autoscale.SetCurSel(value_i);
-	if(m_cfg->GetValue_Integer(_T("subpos"),value_i))
-	{
-		if(value_i >= 0 && value_i <= 100)
-			m_subpos.Format(_T("%d"),value_i);
-	}
 	if(m_cfg->GetValue_Double(_T("delay"),value_d))
 	{
 		m_audio_delay.Format(_T("%0.3f"),value_d);
-	}
-	if(m_cfg->GetValue_Double(_T("subdelay"),value_d))
-	{
-		m_sub_delay.Format(_T("%0.3f"),value_d);
 	}
 	if(m_cfg->GetValue_Integer(_T("Volume"),value_i,true))
 	{
@@ -625,30 +399,6 @@ void CMAudioPage::InitFromConfig()
 			m_channels.SetCurSel(ch_auto);
 		}
 	}
-	if(m_cfg->GetValue_String(_T("subfont"),value_s))
-	{
-		value_s.TrimLeft(_T('"'));
-		value_s.TrimRight(_T('"'));
-
-		int first = value_s.Find(_T(","));
-		if( first > 0)
-		{
-			m_font = value_s.Left(first);
-			m_font2 = value_s.Right(value_s.GetLength() - first - 1);
-		}
-		else
-			m_font = value_s;
-	}
-	if(m_cfg->GetValue_String(_T("ass-color"),value_s))
-		m_color = value_s;
-	if(m_cfg->GetValue_String(_T("ass-border-color"),value_s))
-		m_bcolor = value_s;
-	if(m_cfg->GetValue_String(_T("slang"),value_s))
-		m_slang = value_s;
-	if(m_cfg->GetValue_String(_T("alang"),value_s))
-		m_alang = value_s;
-	if(m_cfg->GetValue_String(_T("subcp"),value_s))
-		m_subcp = value_s;
 	if(m_cfg->GetValue_String(_T("ao"),value_s))
 	{
 		if(value_s == _T("win32"))
@@ -659,10 +409,6 @@ void CMAudioPage::InitFromConfig()
 			m_audio.SetCurSel(ao_null);
 		else
 			m_audio.SetCurSel(dsound);
-	}
-	if(m_cfg->GetValue_String(_T("subfont-text-scale"),value_s))
-	{
-		m_size_s = value_s;
 	}
 	if(m_cfg->GetValue_String(_T("af"),value_s))
 	{
@@ -726,6 +472,8 @@ void CMAudioPage::InitFromConfig()
 				m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  0,  FALSE);
 		}
 	}
+	if(m_cfg->GetValue_String(_T("alang"),value_s))
+		m_alang = value_s;
 	m_List.UnlockWindowUpdate();
 	UpdateData(FALSE);
 }
@@ -768,70 +516,7 @@ void CMAudioPage::SaveConfig()
 		break;
 	default:
 		m_cfg->RemoveValue(_T("channels"));
-	}
-	
-	if(m_ass)
-		m_cfg->SetValue(_T("ass"),_T("1"));
-	else
-		m_cfg->RemoveValue(_T("ass"));
-
-	//if(m_ass_use_margins)
-	//{
-	//	m_cfg->SetValue(_T("ass-use-margins"),_T("1"));
-	//	m_cfg->SetValue(_T("ass_auto_expand"),_T("1"),true);
-	//}
-	//else
-	//{
-	//	m_cfg->RemoveValue(_T("ass-use-margins"));
-	//	m_cfg->RemoveValue(_T("ass_auto_expand"),true);
-	//}
-
-	if(m_ass_expand_s != m_str_no)
-	{
-		m_cfg->SetValue(_T("ass-use-margins"),_T("1"));
-		m_cfg->SetValue(_T("ass_auto_expand"),_T("1"),true);
-		if(m_ass_expand_s != m_str_at)
-		{
-			int index = m_ass_expand_s.Find(_T(":"));
-			int rightlen = m_ass_expand_s.GetLength() - index - 1;
-			if(index > 0 &&rightlen > 0)
-			{
-				CString left = m_ass_expand_s.Left(index);
-				CString right = m_ass_expand_s.Right(rightlen);
-				if(IsDigit(left))
-				{
-					if(IsDigit(right))
-					{
-						m_cfg->SetValue(_T("ass_expand_width"),left,true);
-						m_cfg->SetValue(_T("ass_expand_height"),right,true);
-					}
-				}
-			}
-		}
-		else
-		{
-			m_cfg->RemoveValue(_T("ass_expand_width"),true);
-			m_cfg->RemoveValue(_T("ass_expand_height"),true);
-		}
-	}
-	else
-	{
-		m_cfg->RemoveValue(_T("ass-use-margins"));
-		m_cfg->RemoveValue(_T("ass_auto_expand"),true);
-		m_cfg->RemoveValue(_T("ass_expand_width"),true);
-		m_cfg->RemoveValue(_T("ass_expand_height"),true);
-	}
-
-	if(m_noautosub)
-		m_cfg->SetValue(_T("noautosub"),_T("1"));
-	else
-		m_cfg->RemoveValue(_T("noautosub"));
-
-	if(m_dvdsub)
-		m_cfg->SetValue(_T("spuaa"),_T("4"));
-	else
-		m_cfg->RemoveValue(_T("spuaa"));
-	
+	}	
 	
 	if(m_volnorm_s > 10 && m_volnorm_s <= 100)
 	{
@@ -844,19 +529,12 @@ void CMAudioPage::SaveConfig()
 		m_cfg->RemoveValue(_T("softvol"));
 		m_cfg->RemoveValue(_T("softvol-max"));
 	}
-	
-	int vsub_error = _ttoi(m_sub_error);
-	if(vsub_error > 0 && vsub_error <= 500)
-		m_cfg->SetValue(_T("sub-ignore-errors"), m_sub_error);
+
+	if(m_alang != _T(""))
+		m_cfg->SetValue(_T("alang"),  m_alang );
 	else
-		m_cfg->RemoveValue(_T("sub-ignore-errors"));
-	
-	int vsubpos = _ttoi(m_subpos);
-	if(vsubpos >= 0 && vsubpos <= 100)
-		m_cfg->SetValue(_T("subpos"), m_subpos);
-	else
-		m_cfg->RemoveValue(_T("subpos"));
-	
+		m_cfg->RemoveValue(_T("alang"));
+
 	if(m_volume_s >= 0 && m_volume_s <= 100)
 	{
 		m_volume.Format(_T("%d"),m_volume_s);
@@ -869,91 +547,7 @@ void CMAudioPage::SaveConfig()
 		m_cfg->SetValue(_T("delay"), m_audio_delay);
 	else
 		m_cfg->RemoveValue(_T("delay"));
-	
-	if(StringToDouble(m_sub_delay) != 0.0)
-		m_cfg->SetValue(_T("subdelay"), m_sub_delay);
-	else
-		m_cfg->RemoveValue(_T("subdelay"));
-	
-	if(m_font2 == _T(""))
-		m_cfg->SetValue(_T("subfont"), _T("\"") + m_font + _T("\""));
-	else
-		m_cfg->SetValue(_T("subfont"), _T("\"") + m_font + _T(",") + m_font2 +  _T("\""));
-	
-	if(m_size_s != _T(""))
-		m_cfg->SetValue(_T("subfont-text-scale"),  m_size_s );
-	else
-		m_cfg->RemoveValue(_T("subfont-text-scale"));
-		
-	//if(m_color != m_str_nco)
-	//	m_cfg->SetValue(_T("ass-color"),  m_color );
-	//else
-		m_cfg->RemoveValue(_T("ass-color"));
-	
-	//if(m_bcolor != m_str_nco)
-	//	m_cfg->SetValue(_T("ass-border-color"),  m_bcolor );
-	//else
-		m_cfg->RemoveValue(_T("ass-border-color"));
-	
-	if(m_slang != _T(""))
-		m_cfg->SetValue(_T("slang"),  m_slang );
-	else
-		m_cfg->RemoveValue(_T("slang"));
 
-	if(m_alang != _T(""))
-		m_cfg->SetValue(_T("alang"),  m_alang );
-	else
-		m_cfg->RemoveValue(_T("alang"));
-	
-	if(m_subcp != _T(""))
-		m_cfg->SetValue(_T("subcp"),  m_subcp );
-	else
-		m_cfg->SetValue(_T("subcp"),  _T("GBK,BIG-5,CP932,CP949,UTF-8,UTF-16") );
-
-	int vautoscale = m_autoscale.GetCurSel();
-	switch (vautoscale)
-	{
-	case 0:
-		m_cfg->SetValue(_T("subfont-autoscale") ,_T("0") );
-		break;
-	case 1:
-		m_cfg->SetValue(_T("subfont-autoscale") ,_T("1") );
-		break;
-	case 2:
-		m_cfg->SetValue(_T("subfont-autoscale") ,_T("2") );
-		break;
-	default:
-		m_cfg->SetValue(_T("subfont-autoscale") ,_T("3") );
-	}
-	
-	int vfuzziness = m_fuzziness.GetCurSel();
-	switch (vfuzziness)
-	{
-	case 0:
-		m_cfg->SetValue(_T("sub-fuzziness") ,_T("0") );
-		break;
-	case 2:
-		m_cfg->SetValue(_T("sub-fuzziness") ,_T("2") );
-		break;
-	default:
-		m_cfg->SetValue(_T("sub-fuzziness") ,_T("1") );
-	}
-	
-	int valign = m_align.GetCurSel();
-	switch (valign)
-	{
-	case 0:
-		m_cfg->SetValue(_T("subalign") ,_T("0") );
-		m_cfg->SetValue(_T("spualign") ,_T("0") );
-		break;
-	case 2:
-		m_cfg->SetValue(_T("subalign") ,_T("2") );
-		m_cfg->SetValue(_T("spualign") ,_T("2") );
-		break;
-	default:
-		m_cfg->SetValue(_T("subalign") ,_T("1") );
-		m_cfg->SetValue(_T("spualign") ,_T("1") );
-	}
 	if(m_List.GetCheckbox(adv_af, 0))
 	{
 		CString str = m_List.GetItemText(adv_af, 2);

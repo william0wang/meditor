@@ -54,4 +54,5 @@ public:
 	afx_msg void OnCbnSelchangeComboExtensino();
 	afx_msg void OnBnClickedDel();
 	afx_msg void OnBnClickedAdd();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

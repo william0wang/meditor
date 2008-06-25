@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by MEditor2.rc
+// Used by meditor2_tc.rc
 //
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
@@ -37,6 +37,8 @@
 #define IDD_DIALOG_PROFILE_ADD          175
 #define IDD_DIALOG_INFO                 176
 #define IDD_PROFILE_DIALOG              190
+#define IDD_OSD_DIALOG                  191
+#define IDD_SUBTITLE_DIALOG             191
 #define IDC_TAB1                        1000
 #define IDC_LIST_INPUT                  1001
 #define IDC_APPLY                       1004
@@ -65,13 +67,14 @@
 #define IDC_COMBO_ONTOP                 1025
 #define IDC_COMBO_ALIGN                 1025
 #define IDC_CHECK_FRAMEDROP             1026
-#define IDC_COMBO_OSDSIZE               1026
 #define IDC_COMBO_AUTOSCALE             1026
 #define IDC_EDIT_PNG                    1027
 #define IDC_CHECK_DR                    1027
 #define IDC_COMBO_ASSEXPAND             1027
+#define IDC_COMBO_OSDSIZE               1028
 #define IDC_CHECK_INDEX                 1028
 #define IDC_CHECK_REINDEX               1028
+#define IDC_EDIT_DEF                    1028
 #define IDC_CHECK_AUTOPLAY              1029
 #define IDC_CHECK_SHOW                  1030
 #define IDC_CHECK_QUIT                  1031
@@ -89,15 +92,16 @@
 #define IDC_CHECK_ASS_MARGINS           1039
 #define IDC_EDIT_ERROR                  1040
 #define IDC_CHECK_SYS                   1040
+#define IDC_BUTTON_DEF                  1040
 #define IDC_CHECK_DVDSUB                1041
 #define IDC_CHECK_OSD                   1041
 #define IDC_COMBO_OSDTIME               1041
 #define IDC_SLIDER_VOLUME               1042
 #define IDC_CHECK_FLASH                 1042
-#define IDC_COMBO_OSDMODE               1042
 #define IDC_EDIT_VOLUME                 1043
 #define IDC_SLIDER_BRINGHTNESS          1043
 #define IDC_CHECK_QUIET                 1043
+#define IDC_COMBO_OSDMODE               1043
 #define IDC_EDIT_BRINGHTNESS            1044
 #define IDC_EDIT_SUBPOS                 1044
 #define IDC_CHECK_DOUBLE                1044
@@ -127,9 +131,15 @@
 #define IDC_SLIDER_GAMMA                1053
 #define IDC_EDIT_GAMMA                  1054
 #define IDC_EDIT_ALANG                  1054
-#define IDC_CHECK_ASS_MARGINS2          1055
+#define IDC_CHECK_DVDNAV                1054
+#define IDC_CHECK_AUTOSUB               1055
+#define IDC_CHECK_RELOAD                1055
 #define IDC_COMBO_OSDF                  1056
+#define IDC_CHECK_BOOST                 1056
+#define IDC_COMBO_OSDFONT               1056
 #define IDC_COMBO_F1                    1057
+#define IDC_CHECK_BOOST2                1057
+#define IDC_CHECK_GUI                   1057
 #define IDC_COMBO_F2                    1058
 #define IDC_COMBO_VO                    1060
 #define IDC_CHECK_SOFT                  1061
@@ -168,6 +178,7 @@
 #define IDC_CHECK_XPWINDOW              1094
 #define IDC_CHECK_XPTOOLBARS2           1095
 #define IDC_CHECK_SCREENSAVER           1095
+#define IDC_CHECK_THEME                 1096
 #define IDC_BUTTON_REAL                 1098
 #define IDC_BUTTON_MEDIA                1098
 #define IDC_BUTTON_ONLINE               1099
@@ -206,6 +217,10 @@
 #define IDC_STATIC_INFO                 1132
 #define IDC_CHECK_INFO                  1133
 #define IDC_CHECK_RIGHTMENU             1134
+#define IDC_COMBO_OSD_TIME              1134
+#define IDC_COMBO_OSD_SIZE              1135
+#define IDC_CHECK_PRECENT               1136
+#define IDC_CHECK_PERCENT               1136
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -357,6 +372,8 @@
 #define IDS_OTHER_TOOL7                 35107
 #define IDS_OTHER_TOOL8                 35108
 #define IDS_OTHER_TOOL9                 35109
+#define IDS_TAB_AUDIO2                  35109
+#define IDS_TAB_SUBTITLE                35109
 #define IDS_OTHER_TOOL10                35110
 #define IDS_DECODE_PR                   35112
 #define IDS_DECODE_NAME                 35113
@@ -427,6 +444,7 @@
 #define IDS_VIDEO_DB6                   35178
 #define IDS_VIDEO_VO1                   35179
 #define IDS_VIDEO_VO2                   35180
+#define IDS_VIDEO_VOGL                  35180
 #define IDS_VIDEO_VO3                   35181
 #define IDS_VIDEO_VO4                   35182
 #define IDS_VIDEO_VO5                   35183
@@ -573,16 +591,33 @@
 #define IDS_INPUT_FS                    35324
 #define IDS_INPUT_SYS                   35325
 #define IDS_INPUT_FSR                   35326
-#define IDS_STRING35327                 35327
 #define IDS_INPUT_FSRIF                 35327
+#define IDS_INPUT_CHAP                  35328
+#define IDS_INPUT_ANGLE                 35329
+#define IDS_INPUT_ANGLE2                35330
+#define IDS_INPUT_TITLE                 35330
+#define IDS_INFO_BOOST                  35331
+#define IDS_INPUT_DVDDIR                35332
+#define IDS_INPUT_DVDSEL                35333
+#define IDS_INPUT_DVDROOT               35334
+#define IDS_INPUT_DVDDIR2               35335
+#define IDS_INPUT_DVDPRE                35336
+#define IDS_VIDEO_VONV                  35337
+#define IDS_VIDEO_VOATI                 35338
+#define IDS_VIDEO_VOGL4                 35339
+#define IDS_VIDEO_VOGL2                 35340
+#define IDS_VIDEO_VOGL6                 35341
+#define IDS_VIDEO_VOGL0                 35342
+#define IDS_VIDEO_VOGL1                 35343
+#define IDS_INFO_REALTIME               35343
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        177
+#define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1134
+#define _APS_NEXT_CONTROL_VALUE         1137
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

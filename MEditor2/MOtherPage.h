@@ -52,6 +52,7 @@ public:
 // Implementation
 protected:
 	CString m_program_dir;
+	CString m_program;
 
 	// Generated message map functions
 	//{{AFX_MSG(CMOtherPage)
@@ -80,6 +81,7 @@ public:
 	BOOL m_disable_xptoolbars;
 	BOOL m_disable_xpwindow;
 	BOOL m_screensaver;
+	BOOL m_theme;
 };
 
 //{{AFX_INSERT_LOCATION}}

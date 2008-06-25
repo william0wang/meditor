@@ -6,7 +6,9 @@ enum Info_Type
 {
 	type_reload,
 	type_coreavc,
-	type_ass_expand
+	type_ass_expand,
+	type_boost,
+	type_realtime,
 };
 
 class CMConfig;

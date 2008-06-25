@@ -6,6 +6,7 @@
 #include "MPlayerPage.h"
 #include "MVideoPage.h"
 #include "MAudioPage.h"
+#include "MSubPage.h"
 #include "MDecodePage.h"
 #include "MOtherPage.h"
 #include "MResumePage.h"
@@ -20,6 +21,7 @@ enum Views
 	Player,
 	Video,
 	Audio,
+	Subtitle,
 	Decode,
 	Resume,
 	Other,
@@ -51,6 +53,7 @@ protected:
 	CMPlayerPage m_player;
 	CMVideoPage m_video;
 	CMAudioPage m_audio;
+	CMSubPage m_subtitle;
 	CMDecodePage m_decode;
 	CMOtherPage m_other;
 	CMProfilePage m_profile;

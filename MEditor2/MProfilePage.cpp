@@ -1022,3 +1022,17 @@ void CMProfilePage::OnBnClickedAdd()
 		}
 	}
 }
+
+BOOL CMProfilePage::PreTranslateMessage(MSG* pMsg)
+{
+	switch(pMsg->message)
+	{
+	case   WM_KEYDOWN:
+		switch(pMsg->wParam)
+		{
+		case   VK_RETURN:
+			return TRUE;
+		}
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}

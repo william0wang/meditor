@@ -82,3 +82,17 @@ BOOL CMProfileDlg::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
+
+BOOL CMProfileDlg::PreTranslateMessage(MSG* pMsg)
+{
+	switch(pMsg->message)
+	{
+	case   WM_KEYDOWN:
+		switch(pMsg->wParam)
+		{
+		case   VK_RETURN:
+			return TRUE;
+		}
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}

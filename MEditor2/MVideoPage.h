@@ -59,6 +59,12 @@ enum vo
 {
 	directx,
 	gl,
+	glyuv3,
+	glyuv2,
+	glnv,
+	glati,
+	glyuv6,
+	glyuv0,
 	gl2,
 	mx,
 	mx_l,
@@ -93,7 +99,6 @@ public:
 
 protected:
 // Dialog Data
-	//{{AFX_DATA(CMVideoPage)
 	enum { IDD = IDD_VIDEO_DIALOG };
 	CComboBox	m_mxcolor;
 	CSliderCtrl	m_sc;
@@ -103,7 +108,6 @@ protected:
 	CComboBox	m_vo;
 	BOOL	m_noflash;
 	BOOL	m_vosd;
-	BOOL	m_soft;
 	CString	m_color;
 	CString	m_saturation;
 	int		m_saturation_s;
@@ -120,7 +124,6 @@ protected:
 	BOOL	m_framedrop;
 	BOOL	m_idx;
 	CMShowInfoDlg *info;
-	//}}AFX_DATA
 	
 	CStringArray m_rotate;
 	CStringArray m_deinterlacing;

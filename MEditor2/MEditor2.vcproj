@@ -449,6 +449,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MSubPage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MVideoPage.cpp"
 				>
 			</File>
@@ -547,6 +551,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\stlye1.bin"
+				>
+			</File>
+			<File
 				RelativePath=".\res\swf.ico"
 				>
 			</File>
@@ -641,6 +649,10 @@
 			</File>
 			<File
 				RelativePath=".\MShowInfoDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MSubPage.h"
 				>
 			</File>
 			<File

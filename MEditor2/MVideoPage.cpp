@@ -27,7 +27,6 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	//{{AFX_DATA_INIT(CMVideoPage)
 	m_noflash = TRUE;
 	m_vosd = FALSE;
-	m_soft = FALSE;
 	m_color = _T("0xffffff");
 	m_saturation = _T("0");
 	m_saturation_s = 0;
@@ -56,7 +55,6 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_VO, m_vo);
 	DDX_Check(pDX, IDC_CHECK_FLASH, m_noflash);
 	DDX_Check(pDX, IDC_CHECK_OSD, m_vosd);
-	DDX_Check(pDX, IDC_CHECK_SOFT, m_soft);
 	DDX_Text(pDX, IDC_EDIT_COLOR, m_color);
 	DDV_MaxChars(pDX, m_color, 8);
 	DDX_Text(pDX, IDC_EDIT_SATURATIONS, m_saturation);
@@ -209,6 +207,7 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetCheckbox(screenshot, 0, 0);
 	pList->SetItemText(screenshot, 1, ResStr(IDS_VIDEO_SST));
 	pList->SetItemText(screenshot, 2, _T(""));
+	pList->SetEdit(screenshot, 2);
 	pList->SetItemText(screenshot, 3,ResStr(IDS_VIDEO_SSTI));
 	
 	pList->InsertItem(ass, _T(""));
@@ -325,7 +324,13 @@ BOOL CMVideoPage::OnInitDialog()
 	m_gamma_s = 10;
 
 	m_vo.AddString(ResStr(IDS_VIDEO_VO1));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO2));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOGL));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOGL4));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOGL2));
+	m_vo.AddString(ResStr(IDS_VIDEO_VONV));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOATI));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOGL6));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOGL0));
 	m_vo.AddString(ResStr(IDS_VIDEO_VO3));
 	m_vo.AddString(ResStr(IDS_VIDEO_VO4));
 	m_vo.AddString(ResStr(IDS_VIDEO_VO5));
@@ -361,7 +366,6 @@ void CMVideoPage::SetNormal()
 	m_noflash = TRUE;
 	m_keepaspect = TRUE;
 	m_vosd = FALSE;
-	m_soft = FALSE;
 	m_idx = FALSE;
 	m_dr = FALSE;
 	m_framedrop = FALSE;
@@ -531,11 +535,21 @@ void CMVideoPage::InitFromConfig()
 			m_vo.SetCurSel(gl2);
 		else if(value_s == _T("gl") || value_s.Find(_T("gl:")) == 0)
 		{
-			m_vo.SetCurSel(gl);
 			if(value_s.Find(_T(":yuv=4")) > 0)
-				m_soft = 0;
+				m_vo.SetCurSel(gl);
+			else if(value_s.Find(_T(":yuv=2")) > 0)
+				m_vo.SetCurSel(glyuv2);
+			else if(value_s.Find(_T(":yuv=3")) > 0)
+				m_vo.SetCurSel(glyuv3);
+			else if(value_s.Find(_T(":yuv=1")) > 0)
+				m_vo.SetCurSel(glnv);
+			else if(value_s.Find(_T(":yuv=5")) > 0)
+				m_vo.SetCurSel(glati);
+			else if(value_s.Find(_T(":yuv=6")) > 0)
+				m_vo.SetCurSel(glyuv6);
 			else
-				m_soft = 1;
+				m_vo.SetCurSel(gl);
+			
 			if(value_s.Find(_T(":scaled-osd")) > 0)
 				m_vosd = 1;
 			else
@@ -602,8 +616,14 @@ void CMVideoPage::InitFromConfig()
 		if(m_cfg->HaveSubValue(value_s,_T("screenshot")))
 		{
 			m_List.SetCheckbox(screenshot, 0, 1);
+			if(m_cfg->GetSubValue(value_s,_T("screenshot"), value_sub))
+			{
+				if(value_sub.GetLength() == 1)
+					m_List.SetItemText(screenshot, 2,value_sub);
+			}
 			RemoveSubValue(value_vf , _T("screenshot"));
 		}
+
 		if(m_cfg->HaveSubValue(value_s,_T("eq")))
 		{
 			m_List.SetCheckbox(eq2, 0, 1);
@@ -824,10 +844,10 @@ void CMVideoPage::SaveConfig()
 	if(m_noflash)
 		m_cfg->RemoveValue(_T("gl_fs_flash"),true);
 	else
-		m_cfg->SetValue(_T("gl_fs_flash"),_T("1"),true, ex_option);
+		m_cfg->SetValue(_T("gl_fs_flash"),_T("1"),true, ex_gui);
 
 	if(m_vista_fs)
-		m_cfg->SetValue(_T("vista_fs_layer"),_T("0"),true, ex_option);
+		m_cfg->SetValue(_T("vista_fs_layer"),_T("0"),true, ex_sysinfo);
 	else
 		m_cfg->RemoveValue(_T("vista_fs_layer"),true);
 	
@@ -860,8 +880,54 @@ void CMVideoPage::SaveConfig()
 	switch (vvo)
 	{
 	case gl:
-		if(!m_soft)
-			glstr += _T(":yuv=4") ;
+		glstr += _T(":yuv=4");
+		if(m_vosd)
+			glstr += _T(":scaled-osd");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color;	
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glyuv3:
+		glstr += _T(":yuv=3");
+		if(m_vosd)
+			glstr += _T(":scaled-osd");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color;	
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glyuv2:
+		glstr += _T(":yuv=2");
+		if(m_vosd)
+			glstr += _T(":scaled-osd");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color;
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glyuv6:
+		glstr += _T(":yuv=6");
+		if(m_vosd)
+			glstr += _T(":scaled-osd");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color;
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glnv:
+		glstr += _T(":yuv=1");
+		if(m_vosd)
+			glstr += _T(":scaled-osd");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color;
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glati:
+		glstr += _T(":yuv=5");
+		if(m_vosd)
+			glstr += _T(":scaled-osd");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color;
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glyuv0:
 		if(m_vosd)
 			glstr += _T(":scaled-osd") ;
 		if( m_color != _T("0xffffff"))
@@ -898,8 +964,17 @@ void CMVideoPage::SaveConfig()
 	CString vf_str = _T("");
 	if(m_List.GetCheckbox(ass, 0))
 		vf_str += _T("ass,");
+
+	CString str_screenshot = m_List.GetItemText(screenshot, 2);
+	str_screenshot.TrimLeft(_T(" "));
+	str_screenshot.TrimRight(_T(" "));
 	if(m_List.GetCheckbox(screenshot, 0))
-		vf_str += _T("screenshot,");
+	{
+		if(str_screenshot.GetLength() == 1 && IsDigit(str_screenshot))
+			vf_str += _T("screenshot=") + str_screenshot + _T(",");
+		else
+			vf_str += _T("screenshot,");
+	}
 
 	bool use_coreavc = false;
 	if(! m_cfg->IsRemoved(_T("vc")))
@@ -967,10 +1042,7 @@ void CMVideoPage::SaveConfig()
 	m_cfg->RemoveValue(_T("contrast"));
 	m_cfg->RemoveValue(_T("saturation"));
 	m_cfg->RemoveValue(_T("hue"));
-	if(veq || vvo == gl || vvo == gl2 || use_coreavc)
-	//	|| m_brightness_s > 100
-	//	|| m_contrast_s > 100
-	//	|| m_saturation_s > 100)
+	if(veq || (vvo >= gl && vvo <= gl2) || use_coreavc)
 	{
 		int adjust = 0;
 		if(vvo == directx)
@@ -988,8 +1060,6 @@ void CMVideoPage::SaveConfig()
 				ShowInfo(type_coreavc);
 				m_List.SetCheckbox(eq2, 0 , 1);
 			}
-//			else
-//				adjust = 100;
 		}
 		else if(veq)
 		{
@@ -1015,8 +1085,11 @@ void CMVideoPage::SaveConfig()
 				ShowInfo(type_coreavc);
 				m_List.SetCheckbox(eq2, 0 , 1);
 			}
-			value.Format(_T("%d") , m_gamma_s);
-			m_cfg->SetValue(_T("cofing_gamma"), value, true , ex_meditor);
+			if(m_gamma_s != 10)
+			{
+				value.Format(_T("%d") , m_gamma_s);
+				m_cfg->SetValue(_T("cofing_gamma"), value, true , ex_meditor);
+			}
 		}
 
 		if(m_brightness_s != 100)
@@ -1059,7 +1132,7 @@ void CMVideoPage::SaveConfig()
 		}
 	}
 	
-	if(vhue || vvo == gl || vvo == gl2)//	|| m_hue_s > 100)
+	if(vhue || (vvo >= gl && vvo <= gl2))
 	{
 		if(vvo == directx && vhue)
 		{
@@ -1100,7 +1173,7 @@ void CMVideoPage::SaveConfig()
 		}
 		m_cfg->RemoveValue(_T("cofing_expand"),true);
 	}
-	else if(str_expand.GetLength() > 0)
+	else if(str_expand.GetLength() > 0 && str_expand != _T(":::::4/3"))
 		m_cfg->SetValue(_T("cofing_expand"),  str_expand, true , ex_meditor);
 	else
 	{
@@ -1131,7 +1204,7 @@ void CMVideoPage::SaveConfig()
 			vf_str += _T("crop=") + str_crop + _T(",");
 		m_cfg->RemoveValue(_T("cofing_crop"),true);
 	}
-	else if(str_crop.GetLength() > 0)
+	else if(str_crop.GetLength() > 0 && str_crop != _T("640:480"))
 		m_cfg->SetValue(_T("cofing_crop"),  str_crop, true , ex_meditor);
 	else
 		m_cfg->RemoveValue(_T("cofing_crop"),true);
