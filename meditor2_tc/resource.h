@@ -147,10 +147,19 @@
 #define IDC_EDIT_COLOR                  1064
 #define IDC_BUTTON_COLOR                1065
 #define IDC_LIST_VF                     1066
+#define IDC_EDIT_COLORP                 1066
+#define IDC_BUTTON_COLORO               1067
 #define IDC_SLIDER_CONTRAST             1068
+#define IDC_EDIT_COLORO                 1068
 #define IDC_EDIT_CONTRAST               1069
+#define IDC_BUTTON_COLORS               1069
+#define IDC_BUTTON_COLORB               1070
+#define IDC_EDIT_COLORB                 1071
 #define IDC_LIST_VC                     1072
+#define IDC_EDIT_OUTLINE                1072
 #define IDC_LIST_AC                     1073
+#define IDC_EDIT_COLORP3                1073
+#define IDC_EDIT_SHADOW                 1073
 #define IDC_BUTTON_ADD                  1074
 #define IDC_BUTTON_DEL                  1075
 #define IDC_BUTTON_DOWN                 1076
@@ -221,6 +230,14 @@
 #define IDC_COMBO_OSD_SIZE              1135
 #define IDC_CHECK_PRECENT               1136
 #define IDC_CHECK_PERCENT               1136
+#define IDC_BUTTON_COLORP               1138
+#define IDC_CHECKP                      1139
+#define IDC_CHECKS                      1140
+#define IDC_CHECKO                      1141
+#define IDC_CHECKB                      1142
+#define IDC_EDIT_COLORS                 1143
+#define IDC_CHECKWO                     1144
+#define IDC_CHECKWB                     1145
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -608,7 +625,6 @@
 #define IDS_VIDEO_VOGL2                 35340
 #define IDS_VIDEO_VOGL6                 35341
 #define IDS_VIDEO_VOGL0                 35342
-#define IDS_VIDEO_VOGL1                 35343
 #define IDS_INFO_REALTIME               35343
 
 // Next default values for new objects
@@ -617,7 +633,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1137
+#define _APS_NEXT_CONTROL_VALUE         1144
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

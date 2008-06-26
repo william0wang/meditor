@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ColorButton.h"
 
 // CMSubPage 对话框
 enum align
@@ -65,11 +66,9 @@ protected:
 	CComboBox	m_autoscale;
 	CComboBox	m_align;
 	CComboBox	m_fuzziness;
-	CComboBox	m_bcolor_c;
-	CComboBox	m_color_c;
 	CComboBox	m_font2_c;
 	CComboBox	m_font_c;
-	CComboBox	 m_size;
+	CComboBox	m_size;
 	CComboBox	m_osd_font_c;
 	CComboBox	 m_osdtime;
 	CComboBox	 m_osdsize;
@@ -83,8 +82,6 @@ protected:
 	CString	m_font;
 	CString	m_font2;
 	CString	m_size_s;
-	CString	m_color;
-	CString	m_bcolor;
 	CString	m_subpos;
 	CString	m_slang;
 	CString	m_subcp;
@@ -95,6 +92,19 @@ protected:
 	CString	m_str_at;
 	CString	m_str_nco;
 	CString	m_str_no;
+	CColorButton m_color_pri;
+	CColorButton m_color_sec;
+	CColorButton m_color_out;
+	CColorButton m_color_bak;
+	BOOL m_osdpercent;
+	BOOL m_colpri;
+	BOOL m_colsec;
+	BOOL m_colout;
+	BOOL m_colbak;
+	int m_colpria;
+	int m_colseca;
+	int m_colouta;
+	int m_colbaka;
 
 // 对话框数据
 	enum { IDD = IDD_SUBTITLE_DIALOG };
@@ -107,5 +117,8 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	BOOL m_osdpercent;
+	CString m_outline;
+	CString m_shadow;
+	BOOL m_boutline;
+	BOOL m_bshadow;
 };

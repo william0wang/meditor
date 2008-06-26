@@ -46,7 +46,6 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CMVideoPage)
 	DDX_Control(pDX, IDC_COMBO_MXCOLOR, m_mxcolor);
 	DDX_Control(pDX, IDC_SLIDER_SATURATIONS, m_sc);
 	DDX_Control(pDX, IDC_SLIDER_HUE, m_hc);
@@ -68,7 +67,6 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_KEEPAS, m_keepaspect);
 	DDX_Check(pDX, IDC_CHECK_FRAMEDROP, m_framedrop);
 	DDX_Check(pDX, IDC_CHECK_REINDEX, m_idx);
-	//}}AFX_DATA_MAP
 	DDX_Control(pDX, IDC_BUTTON_COLOR, m_color_b);
 	DDX_Control(pDX, IDC_LIST_VF, m_List);
 	DDX_Text(pDX, IDC_EDIT_GAMMA, m_gamma);

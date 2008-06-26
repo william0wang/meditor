@@ -17,6 +17,18 @@ CMSubPage::CMSubPage(CWnd* pParent /*=NULL*/)
 		, m_noautosub(FALSE)
 		, m_ass_expand_s(_T(""))
 		, m_osdpercent(FALSE)
+		, m_colpri(FALSE)
+		, m_colsec(FALSE)
+		, m_colout(FALSE)
+		, m_colbak(FALSE)
+		, m_colpria(0)
+		, m_colseca(0)
+		, m_colouta(0)
+		, m_colbaka(0)
+		, m_outline(_T("1"))
+		, m_shadow(_T("0"))
+		, m_boutline(FALSE)
+		, m_bshadow(FALSE)
 {
 	m_cfg = NULL;
 	m_dvdsub = FALSE;
@@ -26,8 +38,6 @@ CMSubPage::CMSubPage(CWnd* pParent /*=NULL*/)
 	m_font = _T("");
 	m_font2 = _T("");
 	m_size_s = _T("");
-	m_color = _T("");
-	m_bcolor = _T("");
 	m_osd_font = _T("");
 	m_osdsize_s = _T("");
 	m_subpos = _T("90");
@@ -49,8 +59,6 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_AUTOSCALE, m_autoscale);
 	DDX_Control(pDX, IDC_COMBO_ALIGN, m_align);
 	DDX_Control(pDX, IDC_COMBO_FUZZINESS, m_fuzziness);
-	DDX_Control(pDX, IDC_COMBO_BCOLOR, m_bcolor_c);
-	DDX_Control(pDX, IDC_COMBO_COLOR, m_color_c);
 	DDX_Control(pDX, IDC_COMBO_F2, m_font2_c);
 	DDX_Control(pDX, IDC_COMBO_F1, m_font_c);
 	DDX_Control(pDX, IDC_COMBO_SIZE, m_size);
@@ -64,8 +72,6 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_COMBO_F2, m_font2);
 	DDX_CBString(pDX, IDC_COMBO_SIZE, m_size_s);
 	DDV_MaxChars(pDX, m_size_s, 3);
-	DDX_CBString(pDX, IDC_COMBO_COLOR, m_color);
-	DDX_CBString(pDX, IDC_COMBO_BCOLOR, m_bcolor);
 	DDX_Text(pDX, IDC_EDIT_SUBPOS, m_subpos);
 	DDV_MaxChars(pDX, m_subpos, 3);
 	DDX_Text(pDX, IDC_EDIT_SLANG, m_slang);
@@ -81,6 +87,28 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_OSDMODE, m_osdmode);
 	DDX_Control(pDX, IDC_COMBO_OSD_TIME, m_osdtime);
 	DDX_Check(pDX, IDC_CHECK_PERCENT, m_osdpercent);
+	DDX_Control(pDX, IDC_BUTTON_COLORP, m_color_pri);
+	DDX_Control(pDX, IDC_BUTTON_COLORS, m_color_sec);
+	DDX_Control(pDX, IDC_BUTTON_COLORO, m_color_out);
+	DDX_Control(pDX, IDC_BUTTON_COLORB, m_color_bak);
+	DDX_Check(pDX, IDC_CHECKP, m_colpri);
+	DDX_Check(pDX, IDC_CHECKS, m_colsec);
+	DDX_Check(pDX, IDC_CHECKO, m_colout);
+	DDX_Check(pDX, IDC_CHECKB, m_colbak);
+	DDX_Text(pDX, IDC_EDIT_COLORP, m_colpria);
+	DDV_MinMaxInt(pDX, m_colpria, 0, 255);
+	DDX_Text(pDX, IDC_EDIT_COLORS, m_colseca);
+	DDV_MinMaxInt(pDX, m_colseca, 0, 255);
+	DDX_Text(pDX, IDC_EDIT_COLORO, m_colouta);
+	DDV_MinMaxInt(pDX, m_colouta, 0, 255);
+	DDX_Text(pDX, IDC_EDIT_COLORB, m_colbaka);
+	DDV_MinMaxInt(pDX, m_colbaka, 0, 255);
+	DDX_Text(pDX, IDC_EDIT_OUTLINE, m_outline);
+	DDV_MaxChars(pDX, m_outline, 1);
+	DDX_Text(pDX, IDC_EDIT_SHADOW, m_shadow);
+	DDV_MaxChars(pDX, m_shadow, 1);
+	DDX_Check(pDX, IDC_CHECKWO, m_boutline);
+	DDX_Check(pDX, IDC_CHECKWB, m_bshadow);
 }
 
 
@@ -127,20 +155,6 @@ BOOL CMSubPage::OnInitDialog()
 	m_size.AddString(_T("5"));
 	m_size_s = _T("3");
 
-	m_color_c.AddString(m_str_nco);
-	m_color_c.AddString(_T("ffffff00"));
-	m_color_c.AddString(_T("ff000000"));
-	m_color_c.AddString(_T("00ff0000"));
-	m_color_c.AddString(_T("0000ff00"));
-	m_color_c.AddString(_T("ffffff50"));
-
-	m_bcolor_c.AddString(m_str_nco);
-	m_bcolor_c.AddString(_T("ffffff00"));
-	m_bcolor_c.AddString(_T("ff000000"));
-	m_bcolor_c.AddString(_T("00ff0000"));
-	m_bcolor_c.AddString(_T("0000ff00"));
-	m_bcolor_c.AddString(_T("00000050"));
-
 	m_osdsize.AddString(_T("2"));
 	m_osdsize.AddString(_T("2.5"));
 	m_osdsize.AddString(_T("3"));
@@ -168,8 +182,6 @@ BOOL CMSubPage::OnInitDialog()
 	m_osdmode.AddString(ResStr(IDS_PLAYER_NOOSD));
 	m_osdmode.SetCurSel(osd_normal);
 
-	m_bcolor = m_str_nco;
-	m_color = m_str_nco;
 	TCHAR szCurPath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szCurPath);
 
@@ -216,6 +228,30 @@ BOOL CMSubPage::OnInitDialog()
 	m_font = _T("simhei.ttf");
 	m_osd_font = _T("simhei.ttf");
 
+	m_color_pri.Color = RGB(255,255,255);
+	m_color_pri.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_pri.TrackSelection= TRUE;
+	m_color_pri.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_pri.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_color_sec.Color = RGB(0,0,0);
+	m_color_sec.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_sec.TrackSelection= TRUE;
+	m_color_sec.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_sec.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_color_out.Color = RGB(0,0,0);
+	m_color_out.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_out.TrackSelection= TRUE;
+	m_color_out.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_out.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_color_bak.Color = RGB(0,0,0);
+	m_color_bak.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_bak.TrackSelection= TRUE;
+	m_color_bak.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_bak.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
 	InitFromConfig();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -227,8 +263,6 @@ void CMSubPage::SetNormal()
 	m_ass = TRUE;
 	m_dvdsub = TRUE;
 	m_size_s = _T("3");
-	m_bcolor = m_str_nco;
-	m_color = m_str_nco;
 	m_ass_expand_s = m_str_at;
 	m_sub_delay = _T("0");
 	m_sub_error = _T("8");
@@ -403,10 +437,6 @@ void CMSubPage::InitFromConfig()
 		else
 			m_font = value_s;
 	}
-	if(m_cfg->GetValue_String(_T("ass-color"),value_s))
-		m_color = value_s;
-	if(m_cfg->GetValue_String(_T("ass-border-color"),value_s))
-		m_bcolor = value_s;
 	if(m_cfg->GetValue_String(_T("slang"),value_s))
 		m_slang = value_s;
 	if(m_cfg->GetValue_String(_T("subcp"),value_s))
@@ -414,6 +444,84 @@ void CMSubPage::InitFromConfig()
 	if(m_cfg->GetValue_String(_T("subfont-text-scale"),value_s))
 	{
 		m_size_s = value_s;
+	}
+	if(m_cfg->GetValue_String(_T("ass-force-style"),value_s))
+	{
+		CString value_sub;
+		if(m_cfg->GetSubValue(value_s,_T("Outline"), value_sub))
+		{
+			if(value_sub.GetLength() == 1)
+			{
+				m_boutline = TRUE;
+				if(IsDigit(value_sub))
+					m_outline= value_sub;
+			}
+		}
+		if(m_cfg->GetSubValue(value_s,_T("Shadow"), value_sub))
+		{
+			if(value_sub.GetLength() == 1)
+			{
+				m_bshadow = TRUE;
+				if(IsDigit(value_sub))
+					m_shadow= value_sub;
+			}
+		}
+		if(m_cfg->GetSubValue(value_s,_T("PrimaryColour"), value_sub))
+		{
+			if(value_sub.GetLength() == 10)
+			{
+				m_colpri = TRUE;
+				int r = _tcstoul(value_sub.Right(2), 0, 16);
+				int g = _tcstoul(value_sub.Right(4).Left(2), 0, 16);
+				int b = _tcstoul(value_sub.Right(6).Left(2), 0, 16);
+				int a = _tcstoul(value_sub.Right(8).Left(2), 0, 16);
+				m_color_pri.Color = RGB(r,g,b);
+				if(a >= 0 && a <= 255)
+					m_colpria = a;
+			}
+		}
+		if(m_cfg->GetSubValue(value_s,_T("SecondaryColour"), value_sub))
+		{
+			if(value_sub.GetLength() == 10)
+			{
+				m_colsec = TRUE;
+				int r = _tcstoul(value_sub.Right(2), 0, 16);
+				int g = _tcstoul(value_sub.Right(4).Left(2), 0, 16);
+				int b = _tcstoul(value_sub.Right(6).Left(2), 0, 16);
+				int a = _tcstoul(value_sub.Right(8).Left(2), 0, 16);
+				m_color_sec.Color = RGB(r,g,b);
+				if(a >= 0 && a <= 255)
+					m_colseca = a;
+			}
+		}
+		if(m_cfg->GetSubValue(value_s,_T("OutlineColour"), value_sub))
+		{
+			if(value_sub.GetLength() == 10)
+			{
+				m_colout = TRUE;
+				int r = _tcstoul(value_sub.Right(2), 0, 16);
+				int g = _tcstoul(value_sub.Right(4).Left(2), 0, 16);
+				int b = _tcstoul(value_sub.Right(6).Left(2), 0, 16);
+				int a = _tcstoul(value_sub.Right(8).Left(2), 0, 16);
+				m_color_out.Color = RGB(r,g,b);
+				if(a >= 0 && a <= 255)
+					m_colouta = a;
+			}
+		}
+		if(m_cfg->GetSubValue(value_s,_T("BackColour"), value_sub))
+		{
+			if(value_sub.GetLength() == 10)
+			{
+				m_colbak = TRUE;
+				int r = _tcstoul(value_sub.Right(2), 0, 16);
+				int g = _tcstoul(value_sub.Right(4).Left(2), 0, 16);
+				int b = _tcstoul(value_sub.Right(6).Left(2), 0, 16);
+				int a = _tcstoul(value_sub.Right(8).Left(2), 0, 16);
+				m_color_bak.Color = RGB(r,g,b);
+				if(a >= 0 && a <= 255)
+					m_colbaka = a;
+			}
+		}
 	}
 	UpdateData(FALSE);
 }
@@ -508,16 +616,6 @@ void CMSubPage::SaveConfig()
 
 	m_cfg->SetValue(_T("font"), _T("\"") + m_osd_font + _T("\""));
 	m_cfg->SetValue(_T("subfont-osd-scale"),m_osdsize_s );
-
-	if(m_color != m_str_nco)
-		m_cfg->SetValue(_T("ass-color"),  m_color );
-	else
-	m_cfg->RemoveValue(_T("ass-color"));
-
-	if(m_bcolor != m_str_nco)
-		m_cfg->SetValue(_T("ass-border-color"),  m_bcolor );
-	else
-	m_cfg->RemoveValue(_T("ass-border-color"));
 
 	if(m_slang != _T(""))
 		m_cfg->SetValue(_T("slang"),  m_slang );
@@ -629,6 +727,60 @@ void CMSubPage::SaveConfig()
 		m_cfg->SetValue(_T("subalign") ,_T("1") );
 		m_cfg->SetValue(_T("spualign") ,_T("1") );
 	}
+
+	CString style_str;
+	if (m_boutline && IsDigit(m_outline))
+	{
+		if(_ttoi(m_outline) > 4)
+			style_str += _T("Outline=4,");
+		else
+			style_str += _T("Outline=") + m_outline + _T(",");
+	}
+	if (m_bshadow && IsDigit(m_shadow))
+	{
+		if(_ttoi(m_shadow) > 4)
+			style_str += _T("Shadow=4,");
+		else
+			style_str += _T("Shadow=") + m_shadow + _T(",");
+	}
+	if(m_colpri)
+	{
+		COLORREF Color = m_color_pri.GetColor();
+		CString str_col;
+		if (m_colpria > 255) m_colpria = 255;
+		str_col.Format(_T("PrimaryColour=&H%02X%02X%02X%02X,"),m_colpria, GetBValue(Color), GetGValue(Color),GetRValue(Color));
+		style_str += str_col ;
+	}
+	if(m_colsec)
+	{
+		COLORREF Color = m_color_sec.GetColor();
+		CString str_col;
+		if (m_colseca > 255) m_colseca = 255;
+		str_col.Format(_T("SecondaryColour=&H%02X%02X%02X%02X,"),m_colseca, GetBValue(Color), GetGValue(Color),GetRValue(Color));
+		style_str += str_col ;
+	}
+	if(m_colout)
+	{
+		COLORREF Color = m_color_out.GetColor();
+		CString str_col;
+		if (m_colouta > 255) m_colouta = 255;
+		str_col.Format(_T("OutlineColour=&H%02X%02X%02X%02X,"),m_colouta, GetBValue(Color), GetGValue(Color),GetRValue(Color));
+		style_str += str_col ;
+	}
+	if(m_colbak)
+	{
+		COLORREF Color = m_color_bak.GetColor();
+		CString str_col;
+		if (m_colbaka > 255) m_colbaka = 255;
+		str_col.Format(_T("BackColour=&H%02X%02X%02X%02X,"),m_colbaka, GetBValue(Color), GetGValue(Color),GetRValue(Color));
+		style_str += str_col ;
+	}
+	style_str.TrimRight(_T(","));
+	if (style_str.GetLength() > 1)
+		m_cfg->SetValue(_T("ass-force-style") , style_str);
+	else
+		m_cfg->RemoveValue(_T("ass-force-style"));
+
 }
 
 BOOL CMSubPage::PreTranslateMessage(MSG* pMsg)
