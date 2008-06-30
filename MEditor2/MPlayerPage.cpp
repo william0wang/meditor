@@ -22,7 +22,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_htimer(FALSE)
 	, m_rightmenu(FALSE)
 	, m_gui_high(FALSE)
-	, m_boost(FALSE)
+	, m_fixedvo(TRUE)
 	, m_reload(FALSE)
 	, m_no_dvdnav(FALSE)
 	, m_def(_T(""))
@@ -93,7 +93,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_HTIMER, m_htimer);
 	DDX_Check(pDX, IDC_CHECK_RIGHTMENU, m_rightmenu);
 	DDX_Check(pDX, IDC_CHECK_GUI, m_gui_high);
-	DDX_Check(pDX, IDC_CHECK_BOOST, m_boost);
+	DDX_Check(pDX, IDC_CHECK_BOOST, m_fixedvo);
 	DDX_Check(pDX, IDC_CHECK_RELOAD, m_reload);
 	DDX_Check(pDX, IDC_CHECK_DVDNAV, m_no_dvdnav);
 	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
@@ -240,7 +240,7 @@ BOOL CMPlayerPage::OnInitDialog()
 void CMPlayerPage::SetNormal()
 {
 	m_gui_high = FALSE;
-	m_boost = FALSE;
+	m_fixedvo = TRUE;
 	m_reload = FALSE;
 	m_no_dvdnav = FALSE;
 	m_control = TRUE;
@@ -297,8 +297,6 @@ void CMPlayerPage::InitFromConfig()
 	bool value_b,auto_play_b = false;
 	double value_d;
 	CString value_s;
-
-	m_cfg->GetValue_Boolean(_T("fixed-vo"),value_b);
 
 	if(m_cfg->GetValue_Boolean(_T("use-filedir-conf"),value_b))
 	{
@@ -407,6 +405,13 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_show = FALSE;
 	}
+	if(m_cfg->GetValue_Boolean(_T("fixed-vo"),value_b))
+	{
+		if(value_b)
+			m_fixedvo = TRUE;
+		else
+			m_fixedvo = FALSE;
+	}
 	if(m_cfg->GetValue_Boolean(_T("gui_thread"),value_b,true))
 	{
 		if(value_b)
@@ -420,13 +425,6 @@ void CMPlayerPage::InitFromConfig()
 			m_gui_high = TRUE;
 		else
 			m_gui_high = FALSE;
-	}
-	if(m_cfg->GetValue_Boolean(_T("boost_speed"),value_b,true))
-	{
-		if(value_b)
-			m_boost = TRUE;
-		else
-			m_boost = FALSE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("reload_when_open"),value_b,true))
 	{
@@ -683,7 +681,10 @@ void CMPlayerPage::SaveConfig()
 		return;
 	UpdateData(TRUE);
 
-	m_cfg->SetValue(_T("fixed-vo"),_T("1"));
+	if(m_fixedvo)
+		m_cfg->SetValue(_T("fixed-vo"),_T("1"));
+	else
+		m_cfg->SetValue(_T("fixed-vo"),_T("0"));
 
 	if(m_conf)
 		m_cfg->SetValue(_T("use-filedir-conf"),_T("1"));
@@ -736,10 +737,10 @@ void CMPlayerPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("gui_priority_lowest"), true );
 
-	if(m_boost)
-		m_cfg->SetValue(_T("boost_speed") ,_T("1") , true,ex_setting);
-	else
-		m_cfg->RemoveValue(_T("boost_speed"), true );
+	//if(m_boost)
+	//	m_cfg->SetValue(_T("boost_speed") ,_T("1") , true,ex_setting);
+	//else
+	//	m_cfg->RemoveValue(_T("boost_speed"), true );
 
 	if(m_reload)
 		m_cfg->SetValue(_T("reload_when_open") ,_T("1") , true,ex_setting);
@@ -1113,7 +1114,7 @@ void CMPlayerPage::OnSelchangeAutoplay()
 void CMPlayerPage::OnBnClickedCheckBoost()
 {
 	UpdateData(TRUE);
-	if(m_boost)
+	if(!m_fixedvo)
 		ShowInfo(type_boost);
 }
 

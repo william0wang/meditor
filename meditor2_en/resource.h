@@ -158,7 +158,6 @@
 #define IDC_LIST_VC                     1072
 #define IDC_EDIT_OUTLINE                1072
 #define IDC_LIST_AC                     1073
-#define IDC_EDIT_COLORP3                1073
 #define IDC_EDIT_SHADOW                 1073
 #define IDC_BUTTON_ADD                  1074
 #define IDC_BUTTON_DEL                  1075
@@ -237,7 +236,9 @@
 #define IDC_CHECKB                      1142
 #define IDC_EDIT_COLORS                 1143
 #define IDC_CHECKWO                     1144
+#define IDC_RADIOAUTO                   1144
 #define IDC_CHECKWB                     1145
+#define IDC_RADIOMANUAL                 1145
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -633,7 +634,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1144
+#define _APS_NEXT_CONTROL_VALUE         1145
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

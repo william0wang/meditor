@@ -121,7 +121,7 @@ public:
 	BOOL m_htimer;
 	BOOL m_rightmenu;
 	BOOL m_gui_high;
-	BOOL m_boost;
+	BOOL m_fixedvo;
 	BOOL m_reload;
 	BOOL m_no_dvdnav;
 	CString	m_dvd;

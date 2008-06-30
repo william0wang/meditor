@@ -35,6 +35,8 @@ void CMResumePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_RESUME, m_auto_resume);
 	DDX_Text(pDX, IDC_EDIT_NUM, m_maxnum);
 	DDV_MaxChars(pDX, m_maxnum, 3);
+	DDX_Control(pDX, IDC_RADIOAUTO, m_auto);
+	DDX_Control(pDX, IDC_RADIOMANUAL, m_manual);
 }
 
 
@@ -44,6 +46,8 @@ BEGIN_MESSAGE_MAP(CMResumePage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_DOWN, OnBnClickedButtonDown)
 	ON_BN_CLICKED(IDC_BUTTON_DEL, OnBnClickedButtonDel)
 	ON_BN_CLICKED(IDC_BUTTON_CLA, OnBnClickedButtonCla)
+	ON_BN_CLICKED(IDC_RADIOAUTO, OnBnClickedRadioAuto)
+	ON_BN_CLICKED(IDC_RADIOMANUAL, OnBnClickedRadioManual)
 END_MESSAGE_MAP()
 
 
@@ -128,17 +132,29 @@ BOOL CMResumePage::OnInitDialog()
 	m_list.EnableToolTips(TRUE);
 	InitListCtrl(&m_list);
 
+	m_auto.SetCheck(1);
+	m_manual.SetCheck(0);
+
 	m_list.LockWindowUpdate();
 	m_list.DeleteAllItems();
 	if(m_cfg)
 	{
 		bool value_b;
+		int value_i;
 		CString value_s;
 		CString index;
-		if(m_cfg->GetValue_Boolean(_T("auto_resume"),value_b,true))
+		if(m_cfg->GetValue_Integer(_T("auto_resume"),value_i,true))
 		{
-			if(value_b)
+			if(value_i == 1)
+			{
 				m_auto_resume = TRUE;
+			}
+			else if(value_i == 2)
+			{
+				m_auto_resume = TRUE;
+				m_auto.SetCheck(0);
+				m_manual.SetCheck(1);
+			}
 			else
 				m_auto_resume = FALSE;
 		}
@@ -292,7 +308,12 @@ void CMResumePage::SaveConfig()
 {
 	UpdateData(TRUE);
 	if(m_auto_resume)
-		m_cfg->SetValue(_T("auto_resume") ,_T("1") , true , ex_option);
+	{
+		if (m_manual.GetCheck() == 1)
+			m_cfg->SetValue(_T("auto_resume") ,_T("2") , true , ex_option);
+		else
+			m_cfg->SetValue(_T("auto_resume") ,_T("1") , true , ex_option);
+	}
 	else
 		m_cfg->RemoveValue(_T("auto_resume") ,true);
 
@@ -365,4 +386,14 @@ void resume_info::WritePrivateProfile(int index, CString m_configs_ex)
 	WritePrivateProfileString(_T("Status"), _T("TXTSub") + str, TXTSub , m_configs_ex);
 	WritePrivateProfileString(_T("Status"), _T("SubPos") + str, SubPos, m_configs_ex);
 	WritePrivateProfileString(_T("Status"), _T("Filename") + str	, Filename, m_configs_ex);
+}
+
+void CMResumePage::OnBnClickedRadioAuto()
+{
+	m_manual.SetCheck(0);
+}
+
+void CMResumePage::OnBnClickedRadioManual()
+{
+	m_auto.SetCheck(0);
 }

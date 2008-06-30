@@ -56,6 +56,7 @@ void CMConfigData::Remove(CString name)
 
 void CMConfigData::RemoveEx(CString name)
 {
+	name.MakeLower();
 	for(int i = 0; i < m_config_ex.name.GetSize(); i++)
 	{
 		if(m_config_ex.name[i] == name)
@@ -86,6 +87,7 @@ void CMConfigData::SetValue(CString name, CString value, bool changed)
 
 void CMConfigData::SetValueEx(CString name, CString value,int type, bool changed)
 {
+	name.MakeLower();
 	bool finded = false;
 	for(int i = 0; i < m_config_ex.name.GetSize(); i++)
 	{
@@ -119,6 +121,7 @@ bool CMConfigData::GetValue(CString name, CString &value)
 
 bool CMConfigData::GetValueEx(CString name, CString &value)
 {
+	name.MakeLower();
 	for(int i = 0; i < m_config_ex.name.GetSize(); i++)
 	{
 		if(m_config_ex.name[i] == name)
@@ -146,6 +149,7 @@ bool CMConfigData::IsRemoved(CString name)
 
 bool CMConfigData::IsRemovedEx(CString name)
 {
+	name.MakeLower();
 	for(int i = 0; i < m_config_ex.name.GetSize(); i++)
 	{
 		if(m_config_ex.name[i] == name)
@@ -439,6 +443,7 @@ void CMConfig::AnalyseLine(CString line, bool ex)
 	value.MakeLower();
 	if(ex)
 	{
+		line.MakeLower();
 		if(value == _T("[option]"))
 			m_now_type = ex_option;
 		else if(value == _T("[status]"))
@@ -542,6 +547,7 @@ void CMConfig::SaveConfig(CString filename, bool ex)
 		{
 			int outlen = 0;
 			CString cfg = m_pconfig.GetConfigEx();
+			cfg.MakeLower();
 			char *out = UnicodeToLocal(cfg,outlen);
 			playercfg.Write(out,outlen);
 			delete out;

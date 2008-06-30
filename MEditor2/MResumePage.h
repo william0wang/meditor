@@ -42,6 +42,8 @@ protected:
 	resume_info reinfo[12];
 	int m_number;
 	CXListCtrl m_list;
+	CButton	m_auto;
+	CButton	m_manual;
 	static int m_nColWidths[];
 	void InitListCtrl(CXListCtrl * pList);
 
@@ -55,4 +57,6 @@ public:
 	afx_msg void OnBnClickedButtonDel();
 	afx_msg void OnBnClickedButtonCla();
 	BOOL m_auto_resume;
+	afx_msg void OnBnClickedRadioAuto();
+	afx_msg void OnBnClickedRadioManual();
 };
