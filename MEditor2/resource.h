@@ -36,6 +36,7 @@
 #define IDD_DIALOG_LINK                 171
 #define IDD_DIALOG_PROFILE_ADD          175
 #define IDD_DIALOG_INFO                 176
+#define IDD_DIALOG_MEDIAINFO            179
 #define IDD_PROFILE_DIALOG              190
 #define IDD_OSD_DIALOG                  191
 #define IDD_SUBTITLE_DIALOG             191
@@ -239,6 +240,8 @@
 #define IDC_RADIOAUTO                   1144
 #define IDC_CHECKWB                     1145
 #define IDC_RADIOMANUAL                 1145
+#define IDC_EXPLORER_HTML               1145
+#define IDC_CHECK_HTML                  1146
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -632,9 +635,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        178
+#define _APS_NEXT_RESOURCE_VALUE        181
 #define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1145
+#define _APS_NEXT_CONTROL_VALUE         1147
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

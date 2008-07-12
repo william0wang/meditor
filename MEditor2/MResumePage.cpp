@@ -287,11 +287,11 @@ void CMResumePage::OnBnClickedButtonDel()
 	int cur = m_list.GetCurSel();
 	if(cur < 0)
 		return;
-	for(int i = cur; i < m_number ; i++)
+	for(int i = cur; i < m_list.GetItemCount() ; i++)
 	{
 		reinfo[i] = reinfo[i + 1];
-		m_list.SetItemText(cur, 1, reinfo[cur].Time);
-		m_list.SetItemText(cur, 2,reinfo[cur].Filename);
+		m_list.SetItemText(i, 1, reinfo[i].Time);
+		m_list.SetItemText(i, 2,reinfo[i].Filename);
 	}
 	m_list.DeleteItem(m_number);
 	m_number--;

@@ -64,7 +64,6 @@ CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CMOtherPage)
 	DDX_Control(pDX, IDC_RADIO_MPLAYER, m_mplayer);
 	DDX_Control(pDX, IDC_RADIO_MEDITOR, m_meditor);
 	DDX_Control(pDX, IDC_EDIT_OTHER, m_other_c);
@@ -73,7 +72,6 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_VIDEO, m_video);
 	DDX_Text(pDX, IDC_EDIT_AUDIO, m_audio);
 	DDX_Check(pDX, IDC_CHECK_ONE, m_one);
-	//}}AFX_DATA_MAP
 	DDX_Control(pDX, IDC_BUTTON_ONLINE, m_realreg);
 	DDX_Control(pDX, IDC_BUTTON_DONLINE, m_unrealreg);
 	DDX_Control(pDX, IDC_CHECK_MPC, m_mpc_c);
@@ -82,11 +80,11 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_XPWINDOW, m_disable_xpwindow);
 	DDX_Check(pDX, IDC_CHECK_SCREENSAVER, m_screensaver);
 	DDX_Check(pDX, IDC_CHECK_THEME, m_theme);
+	DDX_Check(pDX, IDC_CHECK_INFO, m_info_html);
 }
 
 
 BEGIN_MESSAGE_MAP(CMOtherPage, CDialog)
-	//{{AFX_MSG_MAP(CMOtherPage)
 	ON_BN_CLICKED(IDC_BUTTON_AUDIO, OnButtonAudio)
 	ON_BN_CLICKED(IDC_BUTTON_CLEAN, OnButtonClean)
 	ON_BN_CLICKED(IDC_BUTTON_PLAY, OnButtonPlay)
@@ -97,9 +95,8 @@ BEGIN_MESSAGE_MAP(CMOtherPage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_DONLINE, OnButtonDonline)
 	ON_BN_CLICKED(IDC_RADIO_MPLAYER, OnRadioMplayer)
 	ON_BN_CLICKED(IDC_RADIO_MEDITOR, OnRadioMeditor)
+	ON_BN_CLICKED(IDC_BUTTON_LINK, OnBnClickedButtonLink)
 	ON_WM_KEYDOWN()
-	//}}AFX_MSG_MAP
-	ON_BN_CLICKED(IDC_BUTTON_LINK, &CMOtherPage::OnBnClickedButtonLink)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -133,6 +130,13 @@ BOOL CMOtherPage::OnInitDialog()
 				m_one = TRUE;
 			else
 				m_one = FALSE;
+		}
+		if(m_cfg->GetValue_Boolean(_T("info_to_html"),value_b,true))
+		{
+			if(value_b)
+				m_info_html = TRUE;
+			else
+				m_info_html = FALSE;
 		}
 		if(m_cfg->GetValue_Boolean(_T("disable_xptoolbars"),value_b,true))
 		{
@@ -180,6 +184,8 @@ void CMOtherPage::SetNormal()
 	m_other = _T("");
 	m_disable_xptoolbars = FALSE;
 	m_disable_xpwindow = FALSE;
+	m_screensaver = FALSE;
+	m_info_html = FALSE;
 }
 
 void CMOtherPage::SetHigh()
@@ -189,9 +195,9 @@ void CMOtherPage::SetHigh()
 
 void CMOtherPage::SetLower()
 {
+	SetNormal();
 	m_disable_xptoolbars = TRUE;
 	m_disable_xpwindow = TRUE;
-	SetNormal();
 }
 
 void CMOtherPage::SaveConfig()
@@ -223,6 +229,11 @@ void CMOtherPage::SaveConfig()
 		m_cfg->SetValue(_T("meditor_one_editor"),_T("1"),true,ex_meditor);
 	else	
 		m_cfg->RemoveValue(_T("meditor_one_editor"),true);
+
+	if(m_info_html)
+		m_cfg->SetValue(_T("info_to_html"),_T("1"),true,ex_setting);
+	else	
+		m_cfg->RemoveValue(_T("info_to_html"),true);
 
 	if(m_disable_xpwindow)
 		m_cfg->SetValue(_T("disable_xpwindow"),_T("1"),true,ex_theme);

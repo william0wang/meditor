@@ -6,6 +6,7 @@
 #include "MEditor2Dlg.h"
 #include "MDSPlayer.h"
 #include "MFlashPlayer.h"
+#include "MediaInfoDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -13,6 +14,7 @@
 
 #define START_FLASHPLAYER 1001
 #define START_MEDIAPLAYER 2002
+#define START_MEDIAINFO 2005
 
 // CMEditor2App
 
@@ -79,6 +81,8 @@ BOOL CMEditor2App::InitInstance()
 			OpenType = 2;
 		else if(sCmdLine.Find(_T("Open Editor")) >= 0)
 			OpenType = 3;
+		else if(sCmdLine.Find(_T("--Show Media Info")) >= 0)
+			OpenType = START_MEDIAINFO;
 		else if(sCmdLine.Find(_T("--Open FlashPlayer")) >= 0)
 		{
 			OpenType = START_FLASHPLAYER;
@@ -106,7 +110,13 @@ BOOL CMEditor2App::InitInstance()
 		}
 	}
 
-	if(OpenType == START_FLASHPLAYER)
+	if(OpenType == START_MEDIAINFO)
+	{
+		CMediaInfoDlg info;
+		m_pMainWnd = &info;
+		INT_PTR nResponse = info.DoModal();
+	}
+	else if(OpenType == START_FLASHPLAYER)
 	{
 		CMFlashPlayer flashplayer;
 		m_pMainWnd = &flashplayer;

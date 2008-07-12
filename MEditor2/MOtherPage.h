@@ -82,6 +82,7 @@ public:
 	BOOL m_disable_xpwindow;
 	BOOL m_screensaver;
 	BOOL m_theme;
+	BOOL m_info_html;
 };
 
 //{{AFX_INSERT_LOCATION}}
