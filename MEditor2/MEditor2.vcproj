@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zDecD.lib  Strmiids.lib Quartz.lib"
+				AdditionalDependencies="7zDecD.lib  Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -154,7 +154,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecR.lib Strmiids.lib Quartz.lib"
+				AdditionalDependencies="7zdecR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="false"
@@ -239,7 +239,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecR.lib  Strmiids.lib Quartz.lib"
+				AdditionalDependencies="7zdecR.lib  Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="false"
@@ -322,7 +322,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecD.lib  Strmiids.lib Quartz.lib"
+				AdditionalDependencies="7zdecD.lib  Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -374,6 +374,10 @@
 			</File>
 			<File
 				RelativePath=".\explorer_html.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FontComboBox.cpp"
 				>
 			</File>
 			<File
@@ -535,6 +539,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\font.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\icon1.ico"
 				>
 			</File>
@@ -581,6 +589,10 @@
 			</File>
 			<File
 				RelativePath=".\explorer_html.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FontComboBox.h"
 				>
 			</File>
 			<File

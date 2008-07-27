@@ -154,6 +154,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 
 	m_player.SetInfoDlg(&infoDlg);
 	m_video.SetInfoDlg(&infoDlg);
+	m_subtitle.SetInfoDlg(&infoDlg);
 
 	CString p_str = ResStr(IDS_TAB_PLAYER);
 	CString v_str = ResStr(IDS_TAB_VIDEO);

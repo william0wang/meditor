@@ -483,8 +483,6 @@ void CMVideoPage::InitFromConfig()
 	if(m_cfg->GetValue_Integer(_T("brightness"),value_i))
 	{
 		m_brightness_s = value_i + 100;
-		//if(is_directx && !(m_List.GetCheckbox(eq2, 0)))
-		//		m_brightness_s += 100;
 		m_brightness.Format(_T("%d"),m_brightness_s - 100);
 	}
 	else if(m_cfg->GetValue_Integer(_T("cofing_brightness"),value_i,true))
@@ -1025,7 +1023,8 @@ void CMVideoPage::SaveConfig()
 		m_List.SetCheckbox(expand, 0, 0);
 	}
 
-
+	if(m_brightness_s != 100 && vvo == directx)
+		m_List.SetCheckbox(eq2, 0 ,1);
 	int veq = m_List.GetCheckbox(eq2, 0);
 	int vhue = m_List.GetCheckbox(hue, 0);
 	CString value;
@@ -1040,9 +1039,9 @@ void CMVideoPage::SaveConfig()
 	m_cfg->RemoveValue(_T("contrast"));
 	m_cfg->RemoveValue(_T("saturation"));
 	m_cfg->RemoveValue(_T("hue"));
+
 	if(veq || (vvo >= gl && vvo <= gl2) || use_coreavc)
 	{
-		int adjust = 0;
 		if(vvo == directx)
 		{
 			if(veq)
@@ -1092,7 +1091,7 @@ void CMVideoPage::SaveConfig()
 
 		if(m_brightness_s != 100)
 		{
-			value.Format(_T("%d") , m_brightness_s - 100 - adjust);
+			value.Format(_T("%d") , m_brightness_s - 100);
 			m_cfg->SetValue(_T("brightness"), value);
 		}
 		if(m_contrast_s != 100)
@@ -1108,20 +1107,36 @@ void CMVideoPage::SaveConfig()
 	}
 	else
 	{
+		if(vvo == directx)
+		{
+			if(m_contrast_s != 100)
+			{
+				value.Format(_T("%d") , m_contrast_s - 100);
+				m_cfg->SetValue(_T("contrast"), value);
+			}
+			if(m_saturation_s != 100)
+			{
+				value.Format(_T("%d") , m_saturation_s - 100);
+				m_cfg->SetValue(_T("saturation"), value);
+			}
+		}
+		else
+		{
+			if(m_contrast_s != 100)
+			{
+				value.Format(_T("%d") , m_contrast_s - 100);
+				m_cfg->SetValue(_T("cofing_contrast"), value, true , ex_meditor);
+			}
+			if(m_saturation_s != 100)
+			{
+				value.Format(_T("%d") , m_saturation_s - 100);
+				m_cfg->SetValue(_T("cofing_saturation"), value, true , ex_meditor);
+			}
+		}
 		if(m_brightness_s != 100)
 		{
 			value.Format(_T("%d") , m_brightness_s - 100);
 			m_cfg->SetValue(_T("cofing_brightness"), value , true , ex_meditor);
-		}
-		if(m_contrast_s != 100)
-		{
-			value.Format(_T("%d") , m_contrast_s - 100);
-			m_cfg->SetValue(_T("cofing_contrast"), value, true , ex_meditor);
-		}
-		if(m_saturation_s != 100)
-		{
-			value.Format(_T("%d") , m_saturation_s - 100);
-			m_cfg->SetValue(_T("cofing_saturation"), value, true , ex_meditor);
 		}
 		if(m_gamma_s != 10)
 		{

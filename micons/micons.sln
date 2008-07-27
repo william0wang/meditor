@@ -5,9 +5,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "micons", "micons.vcproj", "
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release_Large|Win32 = Release_Large|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28D9AFF3-79B4-48F6-9A1B-DF504BCEC824}.Release_Large|Win32.ActiveCfg = Release_Large|Win32
+		{28D9AFF3-79B4-48F6-9A1B-DF504BCEC824}.Release_Large|Win32.Build.0 = Release_Large|Win32
 		{28D9AFF3-79B4-48F6-9A1B-DF504BCEC824}.Release|Win32.ActiveCfg = Release|Win32
 		{28D9AFF3-79B4-48F6-9A1B-DF504BCEC824}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

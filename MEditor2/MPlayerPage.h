@@ -165,7 +165,7 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedCheckBoost();
+	//afx_msg void OnBnClickedCheckBoost();
 	afx_msg void OnBnClickedButtonDef();
 	CString m_def;
 };

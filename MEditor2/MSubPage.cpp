@@ -5,6 +5,7 @@
 #include "meditor2.h"
 #include "MSubPage.h"
 #include "MConfig.h"
+#include "MShowInfoDlg.h"
 
 
 // CMSubPage 对话框
@@ -29,6 +30,10 @@ CMSubPage::CMSubPage(CWnd* pParent /*=NULL*/)
 		, m_shadow(_T("0"))
 		, m_boutline(FALSE)
 		, m_bshadow(FALSE)
+		, m_fontconfig(FALSE)
+		, m_bold(FALSE)
+		, m_italic(FALSE)
+		, m_ass_font_scale(1.0)
 {
 	m_cfg = NULL;
 	m_dvdsub = FALSE;
@@ -109,10 +114,17 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, m_shadow, 1);
 	DDX_Check(pDX, IDC_CHECKWO, m_boutline);
 	DDX_Check(pDX, IDC_CHECKWB, m_bshadow);
+	DDX_Check(pDX, IDC_CHECK_FONTCONFIG, m_fontconfig);
+	DDX_Check(pDX, IDC_CHECK_B, m_bold);
+	DDX_Check(pDX, IDC_CHECK_I, m_italic);
+	//DDX_Control(pDX, IDC_COMBO_SYSFONT, m_sysfont);
+	//DDX_CBString(pDX, IDC_COMBO_SYSFONT, m_sysfont_s);
+	DDX_Text(pDX, IDC_EDIT_FSCALE, m_ass_font_scale);
 }
 
 
 BEGIN_MESSAGE_MAP(CMSubPage, CDialog)
+	ON_BN_CLICKED(IDC_CHECK_FONTCONFIG, OnBnClickedCheckFontconfig)
 END_MESSAGE_MAP()
 
 
@@ -252,7 +264,18 @@ BOOL CMSubPage::OnInitDialog()
 	m_color_bak.CustomText= ResStr(IDS_VIDEO_COLMORE);
 	m_color_bak.DefaultText = ResStr(IDS_VIDEO_COLAT);
 
+	//m_sysfont.FillFontList();
+	//m_sysfont_s = _T("黑体");
+
 	InitFromConfig();
+
+	//if (m_fontconfig)
+	//{
+	//	m_font_c.EnableWindow(FALSE);
+	//	m_font2_c.EnableWindow(FALSE);
+	//}
+	//else
+	//	m_sysfont.EnableWindow(FALSE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -262,6 +285,9 @@ void CMSubPage::SetNormal()
 {
 	m_ass = TRUE;
 	m_dvdsub = TRUE;
+	m_fontconfig = FALSE;
+	m_bold = FALSE;
+	m_italic = FALSE;
 	m_size_s = _T("3");
 	m_ass_expand_s = m_str_at;
 	m_sub_delay = _T("0");
@@ -306,6 +332,13 @@ void CMSubPage::InitFromConfig()
 			m_ass = TRUE;
 		else
 			m_ass = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("fontconfig"),value_b))
+	{
+		if(!value_b)
+			m_fontconfig = FALSE;
+		else
+			m_fontconfig = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("ass-use-margins"),value_b))
 	{
@@ -445,9 +478,24 @@ void CMSubPage::InitFromConfig()
 	{
 		m_size_s = value_s;
 	}
+	if(m_cfg->GetValue_Double(_T("ass-font-scale"),value_d))
+	{
+		if(value_d > 0.09 && value_d < 20.01 )
+			m_ass_font_scale = (float)value_d;
+	}
 	if(m_cfg->GetValue_String(_T("ass-force-style"),value_s))
 	{
 		CString value_sub;
+		if(m_cfg->GetSubValue(value_s,_T("Bold"), value_sub))
+		{
+			if(value_sub == _T("-1"))
+				m_bold = TRUE;
+		}
+		if(m_cfg->GetSubValue(value_s,_T("Italic"), value_sub))
+		{
+			if(value_sub == _T("-1"))
+				m_italic = TRUE;
+		}
 		if(m_cfg->GetSubValue(value_s,_T("Outline"), value_sub))
 		{
 			if(value_sub.GetLength() == 1)
@@ -728,7 +776,21 @@ void CMSubPage::SaveConfig()
 		m_cfg->SetValue(_T("spualign") ,_T("1") );
 	}
 
+	int ass_font_scale = (int)(m_ass_font_scale * 10);
+	if(ass_font_scale > 0 && ass_font_scale < 201 && ass_font_scale != 10)
+	{
+		CString fscale;
+		fscale.Format(_T("%.1f") ,(float)ass_font_scale / 10.0);
+		m_cfg->SetValue(_T("ass-font-scale") ,fscale );
+	}
+	else
+		m_cfg->RemoveValue(_T("ass-font-scale"));
+
 	CString style_str;
+	if (m_bold)
+		style_str += _T("Bold=-1,");
+	if (m_italic)
+		style_str += _T("Italic=-1,");
 	if (m_boutline && IsDigit(m_outline))
 	{
 		if(_ttoi(m_outline) > 4)
@@ -781,6 +843,10 @@ void CMSubPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("ass-force-style"));
 
+	if (m_fontconfig)
+		m_cfg->SetValue(_T("fontconfig") , _T("1"));
+	else
+		m_cfg->SetValue(_T("fontconfig") , _T("0"));
 }
 
 BOOL CMSubPage::PreTranslateMessage(MSG* pMsg)
@@ -796,4 +862,36 @@ BOOL CMSubPage::PreTranslateMessage(MSG* pMsg)
 		}
 	}
 	return CDialog::PreTranslateMessage(pMsg);
+}
+
+void CMSubPage::OnBnClickedCheckFontconfig()
+{
+	UpdateData(TRUE);
+	if (m_fontconfig)
+		ShowInfo(type_boost);
+	//{
+	//	m_font_c.EnableWindow(FALSE);
+	//	m_font2_c.EnableWindow(FALSE);
+	//	m_sysfont.EnableWindow(TRUE);
+	//}
+	//else
+	//{
+	//	m_font_c.EnableWindow(TRUE);
+	//	m_font2_c.EnableWindow(TRUE);
+	//	m_sysfont.EnableWindow(FALSE);
+	//}
+}
+
+void CMSubPage::SetInfoDlg(CMShowInfoDlg *infoDlg)
+{
+	info = infoDlg;
+}
+
+void CMSubPage::ShowInfo(int type)
+{
+	if(info)
+	{
+		if(info->IsShow(type))
+			info->DoModal();
+	}
 }

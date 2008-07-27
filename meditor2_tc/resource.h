@@ -17,14 +17,19 @@
 #define IDD_DECODE_DIALOG               134
 #define IDD_OTHER_DIALOG                135
 #define IDR_MENU_FLASH                  141
+#define IDD_DIALOG_LIST                 142
 #define IDR_MENU_WMP                    142
 #define IDR_MENU_REAL                   143
 #define IDR_MENU_DSHOW                  143
 #define IDI_ICON_SWF                    144
+#define IDD_DIALOG_FLASH                145
+#define IDD_DIALOG_MEDIA                148
+#define IDD_DIALOG_MLIST                149
 #define IDI_ICON1                       150
 #define IDI_ICON_DS                     150
 #define IDD_RESUME_DIALOG               150
 #define IDD_DIALOG_FLASH1               151
+#define IDD_DIALOG_DSHOW                151
 #define IDZ_CODECS_INI                  168
 #define IDZ_CODECS                      168
 #define IDZ_INPUT                       170
@@ -94,6 +99,8 @@
 #define IDC_COMBO_OSDTIME               1041
 #define IDC_SLIDER_VOLUME               1042
 #define IDC_CHECK_FLASH                 1042
+#define IDC_EDIT_ERROR2                 1042
+#define IDC_EDIT_FSCALE                 1042
 #define IDC_EDIT_VOLUME                 1043
 #define IDC_SLIDER_BRINGHTNESS          1043
 #define IDC_CHECK_QUIET                 1043
@@ -173,9 +180,12 @@
 #define IDC_BUTTON_AUDIO                1088
 #define IDC_BUTTON_PLAY                 1089
 #define IDC_BUTTON_CLEAN                1090
+#define IDC_SHOCKWAVEFLASH              1090
+#define IDC_SLIDER_CONTROL              1091
 #define IDC_BUTTON_FLASH                1091
 #define IDC_BUTTON_LINK                 1092
 #define IDC_CHECK_XPTOOLBARS            1093
+#define IDC_PLAYLIST                    1094
 #define IDC_CHECK_XPWINDOW              1094
 #define IDC_CHECK_XPTOOLBARS2           1095
 #define IDC_CHECK_SCREENSAVER           1095
@@ -188,6 +198,8 @@
 #define IDC_RADIO_MPLAYER               1102
 #define IDC_RADIO_MEDITOR               1103
 #define IDC_OCX1                        1106
+#define IDC_OCX_MEDIA                   1106
+#define IDC_SLIDER_CTRL                 1107
 #define IDC_LIST_RESUME                 1108
 #define IDC_CHECK1                      1109
 #define IDC_CHECK_RESUME                1109
@@ -231,7 +243,9 @@
 #define IDC_CHECKWB                     1145
 #define IDC_RADIOMANUAL                 1145
 #define IDC_EXPLORER_HTML               1145
-#define IDC_CHECK_HTML                  1146
+#define IDC_CHECK_FONTCONFIG            1148
+#define IDC_CHECK_B                     1149
+#define IDC_CHECK_I                     1150
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -625,9 +639,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        181
-#define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1147
+#define _APS_NEXT_RESOURCE_VALUE        183
+#define _APS_NEXT_COMMAND_VALUE         32828
+#define _APS_NEXT_CONTROL_VALUE         1149
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

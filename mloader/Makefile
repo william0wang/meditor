@@ -1,4 +1,4 @@
-CC = gcc-4.3.1
+CC = cc
 
 CCFLAGS = -Wdisabled-optimization -Wno-pointer-sign -Wdeclaration-after-statement -std=gnu99 -I. -Wall -Wno-switch -Wpointer-arith -Wredundant-decls -O4 -ffast-math -fomit-frame-pointer -DPTW32_STATIC_LIB 
 
@@ -17,6 +17,9 @@ all:	$(TARGET)
 
 %-rc.o: %.rc
 	WINDRES -I. $< $@
+
+install:
+	install -m 755 mloader.exe release/
 
 clean:
 	rm -f $(OBJS) $(TARGET)

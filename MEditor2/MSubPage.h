@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ColorButton.h"
+//#include "FontComboBox.h"
+#include "afxwin.h"
 
 // CMSubPage ¶Ô»°¿ò
 enum align
@@ -48,6 +50,7 @@ enum osd_time
 };
 
 class CMConfig;
+class CMShowInfoDlg;
 
 class CMSubPage : public CDialog
 {
@@ -121,4 +124,14 @@ public:
 	CString m_shadow;
 	BOOL m_boutline;
 	BOOL m_bshadow;
+	BOOL m_fontconfig;
+	BOOL m_bold;
+	BOOL m_italic;
+	CMShowInfoDlg *info;
+	//CFontComboBox m_sysfont;
+	//CString m_sysfont_s;
+	void SetInfoDlg(CMShowInfoDlg *infoDlg);
+	void ShowInfo(int type);
+	afx_msg void OnBnClickedCheckFontconfig();
+	float m_ass_font_scale;
 };

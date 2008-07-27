@@ -722,10 +722,10 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 		SubKey =  _T("mplayer.") + type + _T("\\DefaultIcon");
 		if(IsFileExist(_T("icons\\")  +type +_T(".ico")))
 			Content = m_program_dir +_T("icons\\") +type +_T(".ico");
-		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
-			Content = m_program_dir +_T("micons.dll,") + icons;
 		else if(isflash)
 			Content =  m_player_exe + _T(",1");
+		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
+			Content = m_program_dir +_T("micons.dll,") + icons;
 		else
 			Content =  m_player_exe + _T(",2");
 		reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content);

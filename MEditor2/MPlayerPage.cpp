@@ -101,13 +101,11 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CMPlayerPage, CDialog)
-	//{{AFX_MSG_MAP(CMPlayerPage)
 	ON_BN_CLICKED(IDC_BUTTON_PNG, OnButtonPng)
 	ON_BN_CLICKED(IDC_BUTTON_DVD, OnButtonDvd)
 	ON_BN_CLICKED(IDC_CHECK_CTRL, OnCheckCtrl)
 	ON_CBN_SELCHANGE(IDC_COMBO_AUTOPLAY, OnSelchangeAutoplay)
-	//}}AFX_MSG_MAP
-	ON_BN_CLICKED(IDC_CHECK_BOOST, &CMPlayerPage::OnBnClickedCheckBoost)
+	//ON_BN_CLICKED(IDC_CHECK_BOOST, &CMPlayerPage::OnBnClickedCheckBoost)
 	ON_BN_CLICKED(IDC_BUTTON_DEF, &CMPlayerPage::OnBnClickedButtonDef)
 END_MESSAGE_MAP()
 
@@ -261,7 +259,7 @@ void CMPlayerPage::SetNormal()
 	m_png = _T("");
 	m_def = _T("");
 	m_start = _T("0:0:0");
-	m_auto_fuzziness = _T("1");
+	m_auto_fuzziness = _T("6");
 	m_colorkey_s = _T("0x000001");
 	m_monitor_s = m_auto_s;
 	m_language.SetCurSel(lang_auto);
@@ -287,6 +285,7 @@ void CMPlayerPage::SetLower()
 	m_bottom = FALSE;
 	m_priority.SetCurSel(prio_high);
 	m_autosync.SetCurSel(sync_normal);
+	m_auto_fuzziness = _T("1");
 }
 
 void CMPlayerPage::InitFromConfig()
@@ -1063,6 +1062,7 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->RemoveValue(_T("priority"));
 	}
 }
+
 void CMPlayerPage::SetInfoDlg(CMShowInfoDlg *infoDlg)
 {
 	info = infoDlg;
@@ -1111,12 +1111,12 @@ void CMPlayerPage::OnSelchangeAutoplay()
 	UpdateData(FALSE);
 }
 
-void CMPlayerPage::OnBnClickedCheckBoost()
-{
-	UpdateData(TRUE);
-	if(!m_fixedvo)
-		ShowInfo(type_boost);
-}
+//void CMPlayerPage::OnBnClickedCheckBoost()
+//{
+//	UpdateData(TRUE);
+//	if(!m_fixedvo)
+//		ShowInfo(type_boost);
+//}
 
 void CMPlayerPage::OnBnClickedButtonDef()
 {

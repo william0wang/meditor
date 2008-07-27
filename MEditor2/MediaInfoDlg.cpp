@@ -47,9 +47,7 @@ BOOL CMediaInfoDlg::OnInitDialog()
 
 	SetIcon(m_hIcon, TRUE);
 	SetIcon(m_hIcon, FALSE);
-
 	m_html.Navigate(URL,NULL,NULL,NULL,NULL);
-	::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 	return TRUE; 
 }
 
@@ -70,6 +68,7 @@ void CMediaInfoDlg::OnDestroy()
 	CDialog::OnDestroy();
 	if(IsFileExist(URL))
 		DeleteFile(URL);
+	
 }
 BEGIN_EVENTSINK_MAP(CMediaInfoDlg, CDialog)
 	ON_EVENT(CMediaInfoDlg, IDC_EXPLORER_HTML, 104, CMediaInfoDlg::DownloadCompleteExplorerHtml, VTS_NONE)
@@ -78,4 +77,5 @@ END_EVENTSINK_MAP()
 void CMediaInfoDlg::DownloadCompleteExplorerHtml()
 {
 	DeleteFile(URL);
+	::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 }

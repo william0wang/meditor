@@ -99,6 +99,8 @@
 #define IDC_COMBO_OSDTIME               1041
 #define IDC_SLIDER_VOLUME               1042
 #define IDC_CHECK_FLASH                 1042
+#define IDC_EDIT_ERROR2                 1042
+#define IDC_EDIT_FSCALE                 1042
 #define IDC_EDIT_VOLUME                 1043
 #define IDC_SLIDER_BRINGHTNESS          1043
 #define IDC_CHECK_QUIET                 1043
@@ -241,7 +243,9 @@
 #define IDC_CHECKWB                     1145
 #define IDC_RADIOMANUAL                 1145
 #define IDC_EXPLORER_HTML               1145
-#define IDC_CHECK_HTML                  1146
+#define IDC_CHECK_FONTCONFIG            1148
+#define IDC_CHECK_B                     1149
+#define IDC_CHECK_I                     1150
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -635,9 +639,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        181
-#define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1147
+#define _APS_NEXT_RESOURCE_VALUE        183
+#define _APS_NEXT_COMMAND_VALUE         32828
+#define _APS_NEXT_CONTROL_VALUE         1149
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
