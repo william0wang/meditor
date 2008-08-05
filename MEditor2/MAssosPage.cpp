@@ -42,6 +42,7 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_alist.Add( _T("mpeg"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
 	m_alist.Add( _T("mpg"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("8"));
 	m_alist.Add( _T("ogm"), _T("Ogg ") + ResStr(IDS_ASSOS_V), m_str_v, _T("4"));
+	m_alist.Add( _T("pmp"), _T("PMP ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("38"));
 	m_alist.Add( _T("pss"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
 	m_alist.Add( _T("pva"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
 	m_alist.Add( _T("tpr"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));

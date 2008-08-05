@@ -32,9 +32,9 @@ enum Avcodec
 //	gray,
 //	sb,
 //	st,
-//	threads,
 	xy,
-	lowres
+	lowres,
+	threads
 };
 
 class CMDecodePage : public CDialog

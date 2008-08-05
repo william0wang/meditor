@@ -24,7 +24,7 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_audio_delay = _T("0");
 	m_volume = _T("60");
 	m_volnorm = _T("100");
-	m_volnorm_s = 0;
+	m_volnorm_s = 10;
 	m_volume_s = 60;
 	m_str_at = ResStr(IDS_PLAYER_AUTO);
 	m_str_no = ResStr(IDS_PLAYER_NONE);
@@ -289,6 +289,7 @@ BOOL CMAudioPage::OnInitDialog()
 	FillListCtrl(&m_List);
 
 	m_volnorm_c.SetRange(10,100);
+	m_volnorm_c.SetPos(0);
 	
 	m_audio.AddString(ResStr(IDS_AUDIO_DS));
 	m_audio.AddString(ResStr(IDS_AUDIO_WIN));
@@ -310,8 +311,8 @@ BOOL CMAudioPage::OnInitDialog()
 
 void CMAudioPage::SetNormal()
 {
-	m_volnorm_s = 150;
-	m_volnorm = _T("150");
+	m_volnorm_s = 0;
+	m_volnorm = _T("100");
 	m_audio_delay = _T("0");
 	m_volume = _T("60");
 	m_volume_s = 60;
@@ -324,7 +325,7 @@ void CMAudioPage::SetNormal()
 	m_List.SetComboBox(resample, 2, TRUE,  &m_resample,  8,  16,  FALSE);
 	m_List.SetCheckbox(adv_af, 0, 0);
 	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
-	m_List.SetCheckbox(volnormal, 0, 1);
+	m_List.SetCheckbox(volnormal, 0, 0);
 	m_List.SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
 }
 
@@ -338,9 +339,6 @@ void CMAudioPage::SetHigh()
 void CMAudioPage::SetLower()
 {
 	SetNormal();
-	m_volnorm_s = 100;
-	m_volnorm = _T("100");
-	m_List.SetCheckbox(volnormal, 0, 0);
 	m_List.SetCheckbox(adv_af, 0, 0);
 	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  2,  FALSE);
 }
@@ -365,10 +363,7 @@ void CMAudioPage::InitFromConfig()
 			m_volnorm.Format(_T("%d"),value_i);
 		}
 		else
-		{
-			m_volnorm_s = 100;
 			m_volnorm = _T("100");
-		}
 	}
 	if(m_cfg->GetValue_Double(_T("delay"),value_d))
 	{

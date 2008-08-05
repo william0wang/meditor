@@ -329,7 +329,7 @@ FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     CONTROL         "",IDC_LIST_RESUME,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,35,336,109
     GROUPBOX        "收藏的媒體檔案",IDC_STATIC,7,23,336,121
-    CONTROL         "記住檔案播放狀態",IDC_CHECK_RESUME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,39,8,77,10
+    CONTROL         "使用我的最愛",IDC_CHECK_RESUME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,39,8,59,10
     PUSHBUTTON      "播放",IDC_BUTTON_PLAY,23,147,39,14
     PUSHBUTTON      "向下",IDC_BUTTON_DOWN,155,146,39,14
     PUSHBUTTON      "向上",IDC_BUTTON_UP,89,147,39,14
@@ -484,7 +484,7 @@ BEGIN
             VALUE "OriginalFilename", "MEditor2.exe"
             VALUE "ProductName", "MPlayer 首選項"
             VALUE "ProductVersion", "2.0.1.0"
-            VALUE "SpecialBuild", "2008.07.12"
+            VALUE "SpecialBuild", "2008.08.04"
         END
     END
     BLOCK "VarFileInfo"
@@ -1168,6 +1168,12 @@ BEGIN
     IDS_VIDEO_VOGL6         "OpenGL(高GPU帶寬依賴)"
     IDS_VIDEO_VOGL0         "OpenGL軟體轉換(不推薦)"
     IDS_INFO_REALTIME       "實時優先級在某些電腦上會造成系統失去響應，請謹慎使用！"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_DECODE_THREADS      "多线程MPEG/H.264解碼"
+    IDS_DECODE_THREADS_INFO "1~8线程解碼(可能導致錯誤，請慎用)"
 END
 
 #endif    // 中文(中华人民共和国) resources

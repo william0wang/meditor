@@ -332,7 +332,7 @@ FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     CONTROL         "",IDC_LIST_RESUME,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,35,336,109
     GROUPBOX        "Favorites",IDC_STATIC,7,23,336,121
-    CONTROL         "Remember Play State",IDC_CHECK_RESUME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,31,8,77,10
+    CONTROL         "Enable Favorites",IDC_CHECK_RESUME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,31,8,77,10
     PUSHBUTTON      "Play",IDC_BUTTON_PLAY,23,147,39,14
     PUSHBUTTON      "Down",IDC_BUTTON_DOWN,155,146,39,14
     PUSHBUTTON      "Up",IDC_BUTTON_UP,89,147,39,14
@@ -489,7 +489,7 @@ BEGIN
             VALUE "OriginalFilename", "MEditor2.exe"
             VALUE "ProductName", "MPlayer Preferences"
             VALUE "ProductVersion", "2.0.1.0"
-            VALUE "SpecialBuild", "2008.07.12"
+            VALUE "SpecialBuild", "2008.08.04"
         END
     END
     BLOCK "VarFileInfo"
@@ -773,7 +773,7 @@ BEGIN
     IDS_ASSOS_MA            "Mobile Audio File"
     IDS_ASSOS_LA            "Lossless Audio file"
     IDS_ASSOS_LISTFILE      "Playlist File"
-    IDS_ASSOS_MOV           "Video File"
+    IDS_ASSOS_MOV           "Media File"
 END
 
 STRINGTABLE 
@@ -838,7 +838,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_ASSOS_AVI           "Video clip"
+    IDS_ASSOS_AVI           "Video Clip"
     IDS_ASSOS_CT            "Animation file"
     IDS_ASSOS_INPUT         "Input Extension and Description"
     IDS_ASSOS_AS            "Associate"
@@ -1173,6 +1173,12 @@ BEGIN
     IDS_VIDEO_VOGL6         "OpenGL(High GPU Bandwidth)"
     IDS_VIDEO_VOGL0         "OpenGL(software YUV)"
     IDS_INFO_REALTIME       "Real-time priority in some computer systems will cause loss of response , please use extreme caution."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_DECODE_THREADS      "Multithreading MPEG/H.264 decoding"
+    IDS_DECODE_THREADS_INFO "1~8 threads(May cause errors, please use caution)"
 END
 
 #endif    // 中文(中华人民共和国) resources

@@ -132,8 +132,8 @@ BOOL CMResumePage::OnInitDialog()
 	m_list.EnableToolTips(TRUE);
 	InitListCtrl(&m_list);
 
-	m_auto.SetCheck(1);
-	m_manual.SetCheck(0);
+	m_auto.SetCheck(0);
+	m_manual.SetCheck(1);
 
 	m_list.LockWindowUpdate();
 	m_list.DeleteAllItems();
@@ -148,6 +148,8 @@ BOOL CMResumePage::OnInitDialog()
 			if(value_i == 1)
 			{
 				m_auto_resume = TRUE;
+				m_auto.SetCheck(1);
+				m_manual.SetCheck(0);
 			}
 			else if(value_i == 2)
 			{
@@ -336,15 +338,15 @@ void CMResumePage::SaveConfig()
 	CString index;
 	for(int j = 1; j <= 10 ; j++)
 	{
-			index.Format(_T("%02d"),j);
-			m_cfg->RemoveValue(_T("Resume")  + index,true);
-			m_cfg->RemoveValue(_T("Time") + index,true);
-			m_cfg->RemoveValue(_T("Audio") + index ,true);
-			m_cfg->RemoveValue(_T("DVDSub") + index,true);
-			m_cfg->RemoveValue(_T("VOBSub") + index,true);
-			m_cfg->RemoveValue(_T("TXTSub") + index ,true);
-			m_cfg->RemoveValue(_T("SubPos")  + index,true);
-			m_cfg->RemoveValue(_T("Filename") + index ,true);
+		index.Format(_T("%02d"),j);
+		m_cfg->RemoveValue(_T("Resume")  + index,true);
+		m_cfg->RemoveValue(_T("Time") + index,true);
+		m_cfg->RemoveValue(_T("Audio") + index ,true);
+		m_cfg->RemoveValue(_T("DVDSub") + index,true);
+		m_cfg->RemoveValue(_T("VOBSub") + index,true);
+		m_cfg->RemoveValue(_T("TXTSub") + index ,true);
+		m_cfg->RemoveValue(_T("SubPos")  + index,true);
+		m_cfg->RemoveValue(_T("Filename") + index ,true);
 	}
 	if(m_number >= 0)
 	{

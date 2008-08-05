@@ -327,13 +327,6 @@ void CMDecodePage::FillListCtrlAV(CXListCtrl * pList)
 //	pList->SetItemText(st, 2, _T(""));
 //	pList->SetItemText(st, 3, _T("仅用于 MPEG-2"));
 	
-	//pList->InsertItem(threads, _T(""));
-	//pList->SetCheckbox(threads, 0, 0);
-	//pList->SetItemText(threads, 1, _T("解码的线程数"));
-	//pList->SetItemText(threads, 2, _T("2"));
-	//pList->SetEdit(threads, 2);
-	//pList->SetItemText(threads, 3, _T("1-8线程(仅用于 MPEG-1/2 和 H.264)"));
-
 	pList->InsertItem(xy, _T(""));
 	pList->SetCheckbox(xy, 0, 0);
 	pList->SetItemText(xy, 1, ResStr(IDS_DECODE_XY));
@@ -347,6 +340,13 @@ void CMDecodePage::FillListCtrlAV(CXListCtrl * pList)
 	pList->SetItemText(lowres, 2, _T("1,1281"));
 	pList->SetEdit(lowres, 2);
 	pList->SetItemText(lowres, 3, ResStr(IDS_DECODE_LOW_INFO));
+
+	pList->InsertItem(threads, _T(""));
+	pList->SetCheckbox(threads, 0, 0);
+	pList->SetItemText(threads, 1, ResStr(IDS_DECODE_THREADS));
+	pList->SetItemText(threads, 2, _T("2"));
+	pList->SetEdit(threads, 2);
+	pList->SetItemText(threads, 3, ResStr(IDS_DECODE_THREADS_INFO));
 
 	pList->UnlockWindowUpdate();
 }
@@ -386,8 +386,7 @@ void CMDecodePage::SetNormal()
 	m_avlist.SetComboBox(skiploopfilter, 2, TRUE,  &m_skip,  5,  4,  FALSE);
 	m_avlist.SetCheckbox(skipframe, 0, 0);
 	m_avlist.SetComboBox(skipframe, 2, TRUE,  &m_skip,  5,  0,  FALSE);
-	//m_avlist.SetCheckbox(threads, 0, 0);
-	//m_avlist.SetItemText(threads, 2, _T("2"));
+	m_avlist.SetCheckbox(threads, 0, 0);
 	m_avlist.SetCheckbox(xy, 0, 0);
 	m_avlist.SetItemText(xy, 2, _T("720"));
 	m_avlist.SetCheckbox(lowres, 0, 0);
@@ -589,11 +588,11 @@ void CMDecodePage::InitFromConfig()
 			m_avlist.SetCheckbox(lowres, 0, 1);
 			m_avlist.SetItemText(lowres, 2, value_sub);
 		}
-		//if(m_cfg->GetSubValue(value_s,_T("threads"),value_sub,0,_T(":")))
-		//{
-		//	m_avlist.SetCheckbox(threads, 0, 1);
-		//	m_avlist.SetItemText(threads, 2, value_sub);
-		//}
+		if(m_cfg->GetSubValue(value_s,_T("threads"),value_sub,0,_T(":")))
+		{
+			m_avlist.SetCheckbox(threads, 0, 1);
+			m_avlist.SetItemText(threads, 2, value_sub);
+		}
 	}
 	if(m_cfg->GetValue_String(_T("xy"),value_s))
 	{
@@ -736,15 +735,15 @@ void CMDecodePage::SaveConfig()
 		if(str.GetLength() > 0)
 			av_str += _T("lowres=") + str + _T(":");
 	}
-	//if(m_avlist.GetCheckbox(threads, 0))
-	//{
-	//	CString str = m_avlist.GetItemText(threads, 2);
-	//	str.TrimLeft(_T(" "));
-	//	str.TrimRight(_T(" "));
-	//	int tr = _ttoi(str);
-	//	if(tr > 0 && tr < 9 && str.GetLength() == 1)
-	//		av_str += _T("threads=") + str + _T(":");
-	//}
+	if(m_avlist.GetCheckbox(threads, 0))
+	{
+		CString str = m_avlist.GetItemText(threads, 2);
+		str.TrimLeft(_T(" "));
+		str.TrimRight(_T(" "));
+		int tr = _ttoi(str);
+		if(tr > 0 && tr < 9 && str.GetLength() == 1)
+			av_str += _T("threads=") + str + _T(":");
+	}
 //	if(m_avlist.GetCheckbox(fast, 0))
 //		av_str += _T("fast:");
 //	if(m_avlist.GetCheckbox(gray, 0))

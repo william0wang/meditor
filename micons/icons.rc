@@ -42,4 +42,5 @@ IDI_ICON34              ICON    DISCARDABLE     "icons\\pls.ico"
 IDI_ICON35              ICON    DISCARDABLE     "icons\\video.ico"
 IDI_ICON36              ICON    DISCARDABLE     "icons\\audio.ico"
 IDI_ICON37              ICON    DISCARDABLE     "icons\\list.ico"
+IDI_ICON38              ICON    DISCARDABLE     "icons\\pmp.ico"
 

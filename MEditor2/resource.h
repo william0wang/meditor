@@ -99,7 +99,6 @@
 #define IDC_COMBO_OSDTIME               1041
 #define IDC_SLIDER_VOLUME               1042
 #define IDC_CHECK_FLASH                 1042
-#define IDC_EDIT_ERROR2                 1042
 #define IDC_EDIT_FSCALE                 1042
 #define IDC_EDIT_VOLUME                 1043
 #define IDC_SLIDER_BRINGHTNESS          1043
@@ -634,6 +633,8 @@
 #define IDS_VIDEO_VOGL6                 35341
 #define IDS_VIDEO_VOGL0                 35342
 #define IDS_INFO_REALTIME               35343
+#define IDS_DECODE_THREADS              35344
+#define IDS_DECODE_THREADS_INFO         35345
 
 // Next default values for new objects
 // 

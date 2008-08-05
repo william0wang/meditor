@@ -139,14 +139,14 @@ BOOL CMEditor2App::InitInstance()
 		(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 		CString program_dir;
 		program_dir.Format(_T("%s"),szFilePath);
-		if(IsFileExist(program_dir + _T("meditor2.tc.dll")))
-			langfile_tc = 1;
 		if(IsFileExist(program_dir + _T("codecs\\meditor2.tc.dll")))
 			langfile_tc = 2;
-		if(IsFileExist(program_dir + _T("meditor2.en.dll")))
-			langfile_en = 1;
+		if(IsFileExist(program_dir + _T("meditor2.tc.dll")))
+			langfile_tc = 1;
 		if(IsFileExist(program_dir + _T("codecs\\meditor2.en.dll")))
 			langfile_en = 2;
+		if(IsFileExist(program_dir + _T("meditor2.en.dll")))
+			langfile_en = 1;
 
 		if(langfile_tc || langfile_en)
 		{
