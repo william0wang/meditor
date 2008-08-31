@@ -30,6 +30,7 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_alist.Add( _T("avi"), _T("AVI ") + ResStr(IDS_ASSOS_AVI), m_str_v, _T("1"));
 	m_alist.Add( _T("dat"), _T("VCD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("5"));
 	m_alist.Add( _T("divx"), _T("DIVX ") + ResStr(IDS_ASSOS_V), m_str_v, _T("35"));
+	m_alist.Add( _T("evo"), _T("EVOB ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("35"));
 	m_alist.Add( _T("flv"), _T("Flash ") + ResStr(IDS_ASSOS_V), m_str_v, _T("2"));
 	m_alist.Add( _T("m1v"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
 	m_alist.Add( _T("m2v"), _T("MPEG-2 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));

@@ -47,10 +47,10 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("wmvdmo"));
 	m_vdecode.Add(_T("wmv8"));
 	m_vdecode.Add(_T("wmv7"));
-	m_vdecode.Add(_T("wmvadmo"));
-	m_vdecode.Add(_T("wmvvc1dmo"));
 	m_vdecode.Add(_T("wms10dmod"));
 	m_vdecode.Add(_T("wmsdmod"));
+	m_vdecode.Add(_T("wmvvc1dmo"));
+	m_vdecode.Add(_T("wmvadmo"));
 	m_vdecode.Add(_T("rv3040win"));
 	m_vdecode.Add(_T("rv20winrp10"));
 	m_vdecode.Add(_T("rv10winrp10"));
@@ -74,6 +74,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.Add(_T("wma9spdmo"));
 	m_adecode.Add(_T("wma9spdshow"));
 	m_adecode.Add(_T("ffcook"));
+	m_adecode.Add(_T("ffatrc"));
 	m_adecode.Add(_T("ra10cookwin"));
 	m_adecode.Add(_T("racookwin"));
 	m_adecode.Add(_T("ra10siprwin"));
@@ -107,17 +108,18 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.Add(_T("hwdts"));
 	m_adecode.Add(_T("ffvorbis"));
 	m_adecode.Add(_T("vorbis"));
+
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
 	m_last_extract = inner;
     	
-    	m_str_skip1 = ResStr(IDS_DECODE_SKIP1);
-    	m_str_skip2 = ResStr(IDS_DECODE_SKIP2);
-    	m_str_skip3 = ResStr(IDS_DECODE_SKIP3);
-    	m_str_skip4 = ResStr(IDS_DECODE_SKIP4);
-    	m_str_skip5 = ResStr(IDS_DECODE_SKIP5);
+	m_str_skip1 = ResStr(IDS_DECODE_SKIP1);
+	m_str_skip2 = ResStr(IDS_DECODE_SKIP2);
+	m_str_skip3 = ResStr(IDS_DECODE_SKIP3);
+	m_str_skip4 = ResStr(IDS_DECODE_SKIP4);
+	m_str_skip5 = ResStr(IDS_DECODE_SKIP5);
 }
 
 
