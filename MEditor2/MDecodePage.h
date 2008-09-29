@@ -47,6 +47,7 @@ public:
 	void SetNormal();
 	void SetHigh();
 	void SetLower();
+	void RegCoreCodec();
 
 
 // Dialog Data

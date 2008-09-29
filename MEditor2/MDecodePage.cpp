@@ -5,6 +5,7 @@
 #include "meditor2.h"
 #include "MDecodePage.h"
 #include "MConfig.h"
+#include "reg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -608,6 +609,30 @@ void CMDecodePage::InitFromConfig()
 	UpdateData(FALSE);
 }
 
+void CMDecodePage::RegCoreCodec()
+{
+	CString regfile = m_program_dir + _T("codecs\\CoreAVCDecoder.reg");
+	if(!IsFileExist(regfile))
+		return;
+	CReg reg;
+	CString SubKey = _T("SOFTWARE\\CoreCodec\\CoreAVC Pro");
+	CString Name = _T("User");
+	bool regIt = false;
+	if(reg.ShowContent_STR(HKEY_LOCAL_MACHINE,SubKey,Name))
+	{
+		CString Content;
+		Content.Format(_T("%s"),reg.content);
+		if (Content.Find(_T("Registered User")) < 0)
+			regIt = true;
+	}
+	else
+		regIt = true;
+
+	if(regIt)
+		ShellExecute(0, _T("open"), _T("regedit"), _T(" /s \"")+regfile+_T("\""), NULL, SW_HIDE);
+
+}
+
 void CMDecodePage::SaveConfig()
 {
 	if(!m_cfg)
@@ -626,6 +651,7 @@ void CMDecodePage::SaveConfig()
 		m_last_extract =  external;
 		break;
 	case coreavc:
+		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("2") , true , ex_meditor);
 		if(m_last_extract !=  coreavc)
 			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
