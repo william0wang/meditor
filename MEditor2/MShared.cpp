@@ -170,7 +170,7 @@ bool SelectFolder(HWND hWnd,CString& strFolder)
 BOOL WritePrivateProfileInt(CString section, CString key, int value, CString profile)
 {
 	TCHAR tmp[16];
-	wsprintf(tmp, _T("%d"), value);
+	_stprintf_s(tmp, _T("%d"), value);
 	return WritePrivateProfileString(section, key, tmp, profile);
 }
 
