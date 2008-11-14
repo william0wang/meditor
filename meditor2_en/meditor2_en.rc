@@ -1179,6 +1179,8 @@ STRINGTABLE
 BEGIN
     IDS_DECODE_THREADS      "Multithreading MPEG/H.264 decoding"
     IDS_DECODE_THREADS_INFO "1~8 threads(May cause errors, please use caution)"
+    IDS_AUDIO_DELAY         "Audio Delay"
+    IDS_AUDIO_DELAY_INFO    "Audio Delay , second"
 END
 
 #endif    // 中文(中华人民共和国) resources

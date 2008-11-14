@@ -174,8 +174,8 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_ontop.SetCurSel(top_none);
 
 	m_colorkey.AddString(m_no_s);
-	m_colorkey.AddString(_T("0x000001"));
-	m_colorkey_s = _T("0x000001");
+	m_colorkey.AddString(_T("0x101010"));
+	m_colorkey_s = _T("0x101010");
 
 	m_autosync.AddString(ResStr(IDS_PLAYER_AS_NO));
 	m_autosync.AddString(ResStr(IDS_PLAYER_AS_NORMAL));
@@ -306,7 +306,7 @@ void CMPlayerPage::InitFromConfig()
 	}
 	if(m_cfg->GetValue_String(_T("colorkey"),value_s))
 	{
-		if(value_s != _T("0x000001"))
+		if(value_s != _T("0x101010"))
 			m_colorkey.AddString(value_s);
 		m_colorkey_s = value_s;
 	}

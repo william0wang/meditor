@@ -404,14 +404,15 @@ void DeleteFolder(CString dir)
 
 bool IsDigit(CString dig_str)
 {
+	if(dig_str[0] == _T('-') || dig_str[0] == _T('+'))
+		dig_str = dig_str.Right(dig_str.GetLength() - 1);
 	int len = dig_str.GetLength();
 	if(len <= 0)
 		return false;
 	for(int i = 0 ; i < len ; i++)
 	{
-		if(!_istdigit(dig_str[i]))
+		if(!_istdigit(dig_str[i]) && dig_str[i] != _T('.'))
 			return false;
 	}
 	return true;
 }
-

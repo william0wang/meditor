@@ -328,6 +328,18 @@ void CMConfig::LoadConfigSP(CString filename)
 			vi->info.push_back(info);
 		}
 
+		name = _T("delay");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
+
 		name = _T("vf");
 		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
 		value.Format(_T("%s"),vl);

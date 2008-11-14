@@ -30,7 +30,8 @@ enum Profile_list
 	autolevels,
 	volnormal,
 	resample,
-	equalizer
+	equalizer,
+	audiodelay,
 };
 
 enum Deinterlacing_Profile
@@ -362,6 +363,12 @@ void CMProfilePage::FillListCtrl(CXListCtrl * pList)
 	pList->SetEdit(equalizer, 2);
 	pList->SetItemText(equalizer, 3, ResStr(IDS_AUDIO_EQ_INFO));
 
+	pList->InsertItem(audiodelay, _T(""));
+	pList->SetCheckbox(audiodelay, 0, 0);
+	pList->SetItemText(audiodelay, 1, ResStr(IDS_AUDIO_DELAY));
+	pList->SetItemText(audiodelay, 2, _T(""));
+	pList->SetEdit(audiodelay, 2);
+	pList->SetItemText(audiodelay, 3, ResStr(IDS_AUDIO_DELAY_INFO));
 	pList->UnlockWindowUpdate();
 }
 
@@ -427,6 +434,12 @@ void CMProfilePage::CleanConfig()
 	m_List.SetCheckbox(slang, 0, 0);
 	m_List.SetItemText(slang, 2, _T("zh,ch,tw"));
 	m_List.SetCheckbox(flvsync, 0, 0);
+	m_List.SetCheckbox(resample, 0, 0);
+	m_List.SetComboBox(resample, 2, TRUE,  &m_resample,  5,  16,  FALSE);
+	m_List.SetCheckbox(equalizer, 0, 0);
+	m_List.SetItemText(equalizer, 2, _T("0:0:0:0:0:0:0:0:0:0"));
+	m_List.SetCheckbox(audiodelay, 0, 0);
+	m_List.SetItemText(audiodelay, 2, _T(""));
 	m_List.UnlockWindowUpdate();
 }
 
@@ -465,6 +478,11 @@ void CMProfilePage::SetCurConfig()
 	{
 		m_List.SetCheckbox(alang, 0, 1);
 		m_List.SetItemText(alang, 2,value_s);
+	}
+	if(m_cfg->GetValueSP_String(curtype,_T("delay"),value_s))
+	{
+		m_List.SetCheckbox(audiodelay, 0, 1);
+		m_List.SetItemText(audiodelay, 2,value_s);
 	}
 	if(m_cfg->GetValueSP_String(curtype,_T("aspect"),value_s))
 	{
@@ -727,6 +745,19 @@ void CMProfilePage::SavePreConfig()
 	}
 	else
 		m_cfg->RemoveValueSP(m_pre_profile,_T("slang"));
+
+	if(m_List.GetCheckbox(audiodelay, 0))
+	{
+		CString str = m_List.GetItemText(audiodelay, 2);
+		str.TrimLeft(_T(" "));
+		str.TrimRight(_T(" "));
+		if(IsDigit(str))
+			m_cfg->SetValueSP(m_pre_profile,_T("delay"),str);
+		else
+			m_cfg->RemoveValueSP(m_pre_profile,_T("delay"));
+	}
+	else
+		m_cfg->RemoveValueSP(m_pre_profile,_T("delay"));
 
 	if(m_List.GetCheckbox(adv_af, 0))
 	{
