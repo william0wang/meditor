@@ -1341,6 +1341,7 @@ BEGIN
     IDS_DECODE_THREADS_INFO "1~8线程解码(可能导致错误，请慎用)"
     IDS_AUDIO_DELAY         "音频延迟"
     IDS_AUDIO_DELAY_INFO    "音频延迟 单位:秒"
+    IDS_VIDEO_VOD3D         "Direct3D"
 END
 
 #endif    // 中文(中华人民共和国) resources

@@ -1,7 +1,8 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by meditor2_tc.rc
+// Used by MEditor2.rc
 //
+#define IDR_MANIFEST                    1
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
@@ -637,6 +638,8 @@
 #define IDS_DECODE_THREADS_INFO         35345
 #define IDS_AUDIO_DELAY                 35346
 #define IDS_AUDIO_DELAY_INFO            35347
+#define IDS_VIDEO_VO11                  35348
+#define IDS_VIDEO_VOD3D                 35348
 
 // Next default values for new objects
 // 

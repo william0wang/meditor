@@ -58,6 +58,7 @@ enum Deblocking
 enum vo
 {
 	directx,
+	direct3d,
 	gl,
 	glyuv3,
 	glyuv2,

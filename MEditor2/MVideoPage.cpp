@@ -322,6 +322,7 @@ BOOL CMVideoPage::OnInitDialog()
 	m_gamma_s = 10;
 
 	m_vo.AddString(ResStr(IDS_VIDEO_VO1));
+	m_vo.AddString(ResStr(IDS_VIDEO_VOD3D));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOGL));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOGL4));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOGL2));
@@ -527,7 +528,9 @@ void CMVideoPage::InitFromConfig()
 	}
 	if(m_cfg->GetValue_String(_T("vo"),value_s))
 	{
-		if(value_s == _T("gl2") || value_s.Find(_T("gl2:")) == 0)
+		if(value_s == _T("direct3d"))
+			m_vo.SetCurSel(direct3d);
+		else if(value_s == _T("gl2") || value_s.Find(_T("gl2:")) == 0)
 			m_vo.SetCurSel(gl2);
 		else if(value_s == _T("gl") || value_s.Find(_T("gl:")) == 0)
 		{
@@ -875,6 +878,9 @@ void CMVideoPage::SaveConfig()
 		mxcolorstr = _T(":color=0");
 	switch (vvo)
 	{
+	case direct3d:
+		m_cfg->SetValue(_T("vo") , _T("direct3d") );
+		break;
 	case gl:
 		glstr += _T(":yuv=4");
 		if(m_vosd)

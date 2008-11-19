@@ -1181,6 +1181,7 @@ BEGIN
     IDS_DECODE_THREADS_INFO "1~8 threads(May cause errors, please use caution)"
     IDS_AUDIO_DELAY         "Audio Delay"
     IDS_AUDIO_DELAY_INFO    "Audio Delay , second"
+    IDS_VIDEO_VOD3D         "Direct3D"
 END
 
 #endif    // 中文(中华人民共和国) resources
