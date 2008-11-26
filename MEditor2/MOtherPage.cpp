@@ -186,11 +186,13 @@ void CMOtherPage::SetNormal()
 	m_disable_xpwindow = FALSE;
 	m_screensaver = FALSE;
 	m_info_html = FALSE;
+	m_theme = FALSE;
 }
 
 void CMOtherPage::SetHigh()
 {
 	SetNormal();
+	m_theme = TRUE;
 }
 
 void CMOtherPage::SetLower()

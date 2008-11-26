@@ -1,3 +1,4 @@
+#include "afxwin.h"
 #if !defined(AFX_MPLAYERPAGE_H__8314A3DD_EE1B_4563_B7FB_79EB59179287__INCLUDED_)
 #define AFX_MPLAYERPAGE_H__8314A3DD_EE1B_4563_B7FB_79EB59179287__INCLUDED_
 
@@ -98,7 +99,7 @@ public:
 	CEdit	m_fuzziness;
 	CComboBox	m_autoplay;
 	CComboBox	m_systray;
-	CButton	m_bottom_c;
+	CButton	m_button_c;
 	CComboBox	m_switchview;
 	CComboBox	m_cache;
 	CComboBox	m_colorkey;
@@ -135,7 +136,7 @@ public:
 	BOOL	m_double;
 	CString	m_colorkey_s;
 	BOOL	m_conf;
-	BOOL	m_bottom;
+	BOOL	m_button;
 	CString	m_auto_fuzziness;
 	CMShowInfoDlg *info;
 
@@ -168,6 +169,9 @@ public:
 	//afx_msg void OnBnClickedCheckBoost();
 	afx_msg void OnBnClickedButtonDef();
 	CString m_def;
+	BOOL m_status;
+	BOOL m_filename;
+	CButton m_status_c;
 };
 
 //{{AFX_INSERT_LOCATION}}

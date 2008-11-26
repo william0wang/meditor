@@ -108,7 +108,7 @@ protected:
 	CSliderCtrl	m_bc;
 	CComboBox	m_vo;
 	BOOL	m_noflash;
-	BOOL	m_vosd;
+	BOOL	m_aithack;
 	CString	m_color;
 	CString	m_saturation;
 	int		m_saturation_s;

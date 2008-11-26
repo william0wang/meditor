@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by MEditor2.rc
+// Used by meditor2_en.rc
 //
 #define IDR_MANIFEST                    1
 #define IDM_ABOUTBOX                    0x0010
@@ -98,6 +98,7 @@
 #define IDC_CHECK_DVDSUB                1041
 #define IDC_CHECK_OSD                   1041
 #define IDC_COMBO_OSDTIME               1041
+#define IDC_CHECK_TITLE                 1041
 #define IDC_SLIDER_VOLUME               1042
 #define IDC_CHECK_FLASH                 1042
 #define IDC_EDIT_FSCALE                 1042
@@ -120,7 +121,7 @@
 #define IDC_COMBO_VIEW                  1048
 #define IDC_LIST_AUDIO                  1049
 #define IDC_SLIDER_SATURATIONS          1049
-#define IDC_CHECK_BOTTOM                1049
+#define IDC_CHECK_BUTTON                1049
 #define IDC_COMBO_AUDIO                 1050
 #define IDC_EDIT_SATURATIONS            1050
 #define IDC_COMBO_SYSTRAY               1050
@@ -132,6 +133,7 @@
 #define IDC_CHECK_HTIMER                1052
 #define IDC_EDIT_SUBCP                  1053
 #define IDC_SLIDER_GAMMA                1053
+#define IDC_CHECK_STATUS                1053
 #define IDC_EDIT_GAMMA                  1054
 #define IDC_EDIT_ALANG                  1054
 #define IDC_CHECK_DVDNAV                1054
@@ -638,7 +640,6 @@
 #define IDS_DECODE_THREADS_INFO         35345
 #define IDS_AUDIO_DELAY                 35346
 #define IDS_AUDIO_DELAY_INFO            35347
-#define IDS_VIDEO_VO11                  35348
 #define IDS_VIDEO_VOD3D                 35348
 
 // Next default values for new objects

@@ -26,6 +26,8 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_reload(FALSE)
 	, m_no_dvdnav(FALSE)
 	, m_def(_T(""))
+	, m_status(FALSE)
+	, m_filename(TRUE)
 {
 	m_cfg = NULL;
 	//{{AFX_DATA_INIT(CMPlayerPage)
@@ -46,7 +48,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_double = TRUE;
 	m_colorkey_s = _T("");
 	m_conf = FALSE;
-	m_bottom = FALSE;
+	m_button = FALSE;
 	m_auto_fuzziness = _T("1");
 	//}}AFX_DATA_INIT
 }
@@ -58,7 +60,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_FUZZINESS, m_fuzziness);
 	DDX_Control(pDX, IDC_COMBO_AUTOPLAY, m_autoplay);
 	DDX_Control(pDX, IDC_COMBO_SYSTRAY, m_systray);
-	DDX_Control(pDX, IDC_CHECK_BOTTOM, m_bottom_c);
+	DDX_Control(pDX, IDC_CHECK_BUTTON, m_button_c);
 	DDX_Control(pDX, IDC_COMBO_VIEW, m_switchview);
 	DDX_Control(pDX, IDC_COMBO_CACHE, m_cache);
 	DDX_Control(pDX, IDC_COMBO_COLORKEY, m_colorkey);
@@ -86,7 +88,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_DOUBLE, m_double);
 	DDX_CBString(pDX, IDC_COMBO_COLORKEY, m_colorkey_s);
 	DDX_Check(pDX, IDC_CHECK_CONF, m_conf);
-	DDX_Check(pDX, IDC_CHECK_BOTTOM, m_bottom);
+	DDX_Check(pDX, IDC_CHECK_BUTTON, m_button);
 	DDX_Text(pDX, IDC_EDIT_FUZZINESS, m_auto_fuzziness);
 	DDV_MaxChars(pDX, m_auto_fuzziness, 3);
 	//}}AFX_DATA_MAP
@@ -97,6 +99,9 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_RELOAD, m_reload);
 	DDX_Check(pDX, IDC_CHECK_DVDNAV, m_no_dvdnav);
 	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
+	DDX_Check(pDX, IDC_CHECK_STATUS, m_status);
+	DDX_Check(pDX, IDC_CHECK_TITLE, m_filename);
+	DDX_Control(pDX, IDC_CHECK_STATUS, m_status_c);
 }
 
 
@@ -243,7 +248,7 @@ void CMPlayerPage::SetNormal()
 	m_no_dvdnav = FALSE;
 	m_control = TRUE;
 	m_menu = TRUE;
-	m_bottom = TRUE;
+	m_button = TRUE;
 	m_fullscreen = FALSE;
 	m_guithread = TRUE;
 	m_oneplayer = FALSE;
@@ -282,7 +287,7 @@ void CMPlayerPage::SetHigh()
 void CMPlayerPage::SetLower()
 {
 	SetNormal();
-	m_bottom = FALSE;
+	m_button = FALSE;
 	m_priority.SetCurSel(prio_high);
 	m_autosync.SetCurSel(sync_normal);
 	m_auto_fuzziness = _T("1");
@@ -425,6 +430,13 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_gui_high = FALSE;
 	}
+	if(m_cfg->GetValue_Boolean(_T("show_filename"),value_b,true))
+	{
+		if(!value_b)
+			m_status = FALSE;
+		else
+			m_status = TRUE;
+	}
 	if(m_cfg->GetValue_Boolean(_T("reload_when_open"),value_b,true))
 	{
 		if(value_b)
@@ -464,9 +476,16 @@ void CMPlayerPage::InitFromConfig()
 	if(m_cfg->GetValue_Boolean(_T("show_playbar"),value_b,true))
 	{
 		if(value_b)
-			m_bottom = TRUE;
+			m_button = TRUE;
 		else
-			m_bottom = FALSE;
+			m_button = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("show_statusbar"),value_b,true))
+	{
+		if(value_b)
+			m_status = TRUE;
+		else
+			m_status = FALSE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("show_controlbar"),value_b,true))
 	{
@@ -475,8 +494,10 @@ void CMPlayerPage::InitFromConfig()
 		else
 		{
 			m_control = FALSE;
-			m_bottom = FALSE;
-			m_bottom_c.EnableWindow(FALSE);
+			m_button = FALSE;
+			m_status = FALSE;
+			m_button_c.EnableWindow(FALSE);
+			m_status_c.EnableWindow(FALSE);
 		}
 	}
 	if(m_cfg->GetValue_Boolean(_T("one_player"),value_b,true))
@@ -736,10 +757,10 @@ void CMPlayerPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("gui_priority_lowest"), true );
 
-	//if(m_boost)
-	//	m_cfg->SetValue(_T("boost_speed") ,_T("1") , true,ex_setting);
-	//else
-	//	m_cfg->RemoveValue(_T("boost_speed"), true );
+	if(m_filename)
+		m_cfg->RemoveValue(_T("show_filename"), true );
+	else
+		m_cfg->SetValue(_T("show_filename") ,_T("0") , true,ex_gui);
 
 	if(m_reload)
 		m_cfg->SetValue(_T("reload_when_open") ,_T("1") , true,ex_setting);
@@ -771,10 +792,15 @@ void CMPlayerPage::SaveConfig()
 	else
 		m_cfg->SetValue(_T("show_controlbar"),_T("0") ,true ,ex_gui);
 	
-	if(m_bottom)
+	if(m_button)
 		m_cfg->SetValue(_T("show_playbar") ,_T("1") , true , ex_gui);
 	else
 		m_cfg->RemoveValue(_T("show_playbar") ,true);
+
+	if(m_status)
+		m_cfg->SetValue(_T("show_statusbar") ,_T("1") , true,ex_gui);
+	else
+		m_cfg->RemoveValue(_T("show_statusbar"), true );
 	
 	if(m_oneplayer)
 		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_setting);
@@ -1095,10 +1121,13 @@ void CMPlayerPage::OnCheckCtrl()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
-	if(m_control)
-		m_bottom_c.EnableWindow(TRUE);
-	else
-		m_bottom_c.EnableWindow(FALSE);
+	if(m_control) {
+		m_button_c.EnableWindow(TRUE);
+		m_status_c.EnableWindow(TRUE);
+	} else {
+		m_button_c.EnableWindow(FALSE);
+		m_status_c.EnableWindow(FALSE);
+	}
 }
 
 void CMPlayerPage::OnSelchangeAutoplay() 
