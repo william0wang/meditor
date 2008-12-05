@@ -433,9 +433,9 @@ void CMPlayerPage::InitFromConfig()
 	if(m_cfg->GetValue_Boolean(_T("show_filename"),value_b,true))
 	{
 		if(!value_b)
-			m_status = FALSE;
+			m_filename = FALSE;
 		else
-			m_status = TRUE;
+			m_filename = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("reload_when_open"),value_b,true))
 	{

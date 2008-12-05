@@ -436,10 +436,10 @@ void CMFlashPlayer::OnFSCommand(LPCTSTR command, LPCTSTR args)
 
 bool CMFlashPlayer::GetKeyCommand(LONG KeyNumber,CString &cmd, CString &value)
 {
-	CString key;
+	CString key, abs;
 	for(int i = 0 ; i < m_inputs.GetSize() ; i++)
 	{
-		m_inputs.GetAt(i, key ,cmd, value);
+		m_inputs.GetAt(i, key ,cmd, value, abs);
 		if( KeyNumber == GetKeyNumber(key) )
 			return true;
 	}

@@ -9,9 +9,10 @@ public:
 	CStringArray m_key;
 	CStringArray m_cmd;
 	CStringArray m_val;
+	CStringArray m_abs;
 	CMInputList();
-	void Add(CString key, CString cmd, CString val);
-	bool GetAt(int i, CString &key, CString &cmd, CString &val);
+	void Add(CString key, CString cmd, CString val, CString abs = _T(""));
+	bool GetAt(int i, CString &key, CString &cmd, CString &val, CString &abs);
 	int GetSize();
 };
 

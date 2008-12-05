@@ -39,7 +39,7 @@ protected:
 	void InitListCtrl(CXListCtrl * pList);
 	void LoadInputConfig();
 	void GetCmdInfo(CString cmd ,CString &info);
-	bool AnalyseLine(CString line, CString &key, CString &cmd, CString &val);
+	bool AnalyseLine(CString line, CString &key, CString &cmd, CString &val, CString &abs);
 public:
 	virtual BOOL OnInitDialog();
 	bool SaveInputConfig();

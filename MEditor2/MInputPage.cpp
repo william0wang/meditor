@@ -342,11 +342,11 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 	m_def_number = m_inputs.GetSize() + m_readonly_number;
 
 	// insert the items and subitems into the list
-	CString info, command, value, key;
+	CString info, command, value, key, abs;
 	int keynum = 0;
 	for (nItem = m_readonly_number; nItem < m_def_number; nItem++)
 	{
-		m_inputs.GetAt(nItem - m_readonly_number,key,command,value);
+		m_inputs.GetAt(nItem - m_readonly_number,key,command,value,abs);
 		keynum = m_skey.GetKeyInfo(key);
 		GetCmdInfo(command,info);
 		for (nSubItem = 0; nSubItem < 4; nSubItem++)
@@ -358,7 +358,11 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 			else if (nSubItem == 1)			// detiel
 				str = info;
 			else if (nSubItem == 2)			// value
+			{
 				str = value;
+				if(abs.GetLength() > 0)
+					str = _T("=") + str;
+			}
 			else if (nSubItem == 3)			// key
 				str = key;
 			
@@ -409,13 +413,13 @@ void CMInputPage::LoadInputConfig()
 	CStdioFile inputcfg;
 	if(inputcfg.Open(m_program_dir + _T("input.ini"),CFile::modeRead))
 	{
-		CString line,command,value,key;
+		CString line, command, value, key, abs;
 		while(inputcfg.ReadString(line))
 		{
 			line = LocalToUnicode(line);
-			if(AnalyseLine(line,key,command,value))
+			if(AnalyseLine(line, key, command, value, abs))
 			{
-				m_inputs.Add(key,command,value);
+				m_inputs.Add(key, command, value, abs);
 			}
 		}
 		inputcfg.Close();
@@ -428,13 +432,13 @@ void CMInputPage::LoadInputConfig()
 			,m_program_dir + _T("input.ini"),true,true,_T("input.ini"));
 		if(inputcfg.Open(m_program_dir + _T("input.ini"),CFile::modeRead))
 		{
-			CString line,command,value,key;
+			CString line,command,value,key,abs;
 			while(inputcfg.ReadString(line))
 			{
 				line = LocalToUnicode(line);
-				if(AnalyseLine(line,key,command,value))
+				if(AnalyseLine(line,key,command,value,abs))
 				{
-					m_inputs.Add(key,command,value);
+					m_inputs.Add(key,command,value,abs);
 				}
 			}
 			inputcfg.Close();
@@ -466,6 +470,12 @@ bool CMInputPage::SaveInputConfig()
 			cmd = m_List.GetItemText(i,0);
 			value = m_List.GetItemText(i,2);
 			keyinfo = m_List.GetItemText(i,3);
+			int offset = value.Find(_T("="));
+			if(offset >= 0)
+			{
+				value.Delete(0,offset + 1);
+				value += _T(" 1");
+			}
 			if(m_skey.GetKeyName(keyinfo,key))
 			{
 				if(i >= m_def_number)
@@ -572,7 +582,7 @@ void CMInputPage::GetCmdInfo(CString cmd ,CString &info)
 
 }
 
-bool CMInputPage::AnalyseLine(CString line, CString &key, CString &cmd, CString &val)
+bool CMInputPage::AnalyseLine(CString line, CString &key, CString &cmd, CString &val, CString &abs)
 {
 	line += _T(" ");
 	line.TrimLeft(_T(" "));
@@ -604,6 +614,18 @@ bool CMInputPage::AnalyseLine(CString line, CString &key, CString &cmd, CString 
 		val = _T("");
 	else
 		val = line.Left(sp);
+	line.Delete(0,sp);
+
+	line.TrimLeft(_T(" "));
+	sp = line.Find(_T(" "));
+	if(sp <= 0)
+		abs = _T("");
+	else
+	{
+		abs = line.Left(sp);
+		if(_ttoi(abs) == 0)
+			abs = _T("");
+	}
 	return true;
 }
 
