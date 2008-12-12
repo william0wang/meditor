@@ -647,7 +647,7 @@ void CMDecodePage::SaveConfig()
 		m_cfg->SetValue(_T("cofing_codecs"), _T("1"), true , ex_meditor);
 		if(m_last_extract !=  external)
 			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
-				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.ini"));
+				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.conf"));
 		m_last_extract =  external;
 		break;
 	case coreavc:
@@ -655,7 +655,7 @@ void CMDecodePage::SaveConfig()
 		m_cfg->SetValue(_T("cofing_codecs") , _T("2") , true , ex_meditor);
 		if(m_last_extract !=  coreavc)
 			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
-				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.coreavc.ini"));
+				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.coreavc.conf"));
 		m_last_extract =  coreavc;
 		break;
 	default:

@@ -203,7 +203,7 @@ BEGIN
     GROUPBOX        "OpenGL 驱动设置",IDC_STATIC,120,7,99,71
     LTEXT           "驱动",IDC_STATIC,8,12,18,8
     COMBOBOX        IDC_COMBO_VO,24,10,93,166,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "ATI显卡驱动加速",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,34,91,10
+    CONTROL         "开启显卡驱动加速",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,34,91,10
     CONTROL         "全屏进度条不闪屏(推荐)",IDC_CHECK_FLASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,20,91,10
     LTEXT           "OSD颜色",IDC_STATIC,122,63,29,8
     EDITTEXT        IDC_EDIT_COLOR,152,61,38,12,ES_AUTOHSCROLL
@@ -887,7 +887,7 @@ END
 // CODECS_INI
 //
 
-IDZ_CODECS              CODECS_INI              "res\\codecs_ini.7z"
+IDZ_CODECS              CODECS_INI              "res\\codecs.7z"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1344,6 +1344,8 @@ BEGIN
     IDS_AUDIO_DELAY         "音频延迟"
     IDS_AUDIO_DELAY_INFO    "音频延迟 单位:秒"
     IDS_VIDEO_VOD3D         "Direct3D"
+    IDS_AUDIO_STM           "变速但声调不变"
+    IDS_AUDIO_STM_INFO      "改变播放速度时不改变声调只改变音频的节奏"
 END
 
 #endif    // 中文(中华人民共和国) resources

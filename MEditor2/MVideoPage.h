@@ -57,8 +57,8 @@ enum Deblocking
 
 enum vo
 {
-	directx,
 	direct3d,
+	directx,
 	gl,
 	glyuv3,
 	glyuv2,
@@ -108,7 +108,7 @@ protected:
 	CSliderCtrl	m_bc;
 	CComboBox	m_vo;
 	BOOL	m_noflash;
-	BOOL	m_aithack;
+	BOOL	m_forcepbo;
 	CString	m_color;
 	CString	m_saturation;
 	int		m_saturation_s;

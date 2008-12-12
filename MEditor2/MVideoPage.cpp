@@ -26,7 +26,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(CMVideoPage)
 	m_noflash = TRUE;
-	m_aithack = FALSE;
+	m_forcepbo = FALSE;
 	m_color = _T("0xffffff");
 	m_saturation = _T("0");
 	m_saturation_s = 0;
@@ -53,7 +53,7 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER_BRINGHTNESS, m_bc);
 	DDX_Control(pDX, IDC_COMBO_VO, m_vo);
 	DDX_Check(pDX, IDC_CHECK_FLASH, m_noflash);
-	DDX_Check(pDX, IDC_CHECK_OSD, m_aithack);
+	DDX_Check(pDX, IDC_CHECK_OSD, m_forcepbo);
 	DDX_Text(pDX, IDC_EDIT_COLOR, m_color);
 	DDV_MaxChars(pDX, m_color, 8);
 	DDX_Text(pDX, IDC_EDIT_SATURATIONS, m_saturation);
@@ -321,8 +321,8 @@ BOOL CMVideoPage::OnInitDialog()
 	m_brightness_s = 100;
 	m_gamma_s = 10;
 
-	m_vo.AddString(ResStr(IDS_VIDEO_VO1));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOD3D));
+	m_vo.AddString(ResStr(IDS_VIDEO_VO1));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOGL));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOGL4));
 	m_vo.AddString(ResStr(IDS_VIDEO_VOGL2));
@@ -548,10 +548,10 @@ void CMVideoPage::InitFromConfig()
 			else
 				m_vo.SetCurSel(gl);
 			
-			if(value_s.Find(_T(":force-pbo:ati-hack")) > 0)
-				m_aithack = 1;
+			if(value_s.Find(_T(":force-pbo")) > 0)
+				m_forcepbo = 1;
 			else
-				m_aithack = 0;
+				m_forcepbo = 0;
 			int offset = value_s.Find(_T(":osdcolor="));
 			value_s += _T(":");
 			if(offset > 0)
@@ -882,55 +882,55 @@ void CMVideoPage::SaveConfig()
 		break;
 	case gl:
 		glstr += _T(":yuv=4");
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color;	
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glyuv3:
 		glstr += _T(":yuv=3");
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color;	
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glyuv2:
 		glstr += _T(":yuv=2");
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color;
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glyuv6:
 		glstr += _T(":yuv=6");
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color;
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glnv:
 		glstr += _T(":yuv=1");
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color;
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glati:
 		glstr += _T(":yuv=5");
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color;
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glyuv0:
-		if(m_aithack)
-			glstr += _T(":force-pbo:ati-hack");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
 			glstr += _T(":osdcolor=") + m_color ;	
 		m_cfg->SetValue(_T("vo") , glstr );

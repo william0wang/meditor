@@ -525,6 +525,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\codecs.7z"
+				>
+			</File>
+			<File
 				RelativePath=".\res\codecs_ini.7z"
 				>
 			</File>

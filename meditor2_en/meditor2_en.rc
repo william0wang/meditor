@@ -201,7 +201,7 @@ BEGIN
     GROUPBOX        "OpenGL Driver Setting",IDC_STATIC,115,7,101,68
     LTEXT           "Driver",IDC_STATIC,7,12,18,8
     COMBOBOX        IDC_COMBO_VO,28,10,83,183,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "ATI drivers speed up",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,32,95,10
+    CONTROL         "Enable driver speed up",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,32,95,10
     CONTROL         "No flash when Control Bar",IDC_CHECK_FLASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,19,95,10
     LTEXT           "OSD Color",IDC_STATIC,117,61,32,8
     EDITTEXT        IDC_EDIT_COLOR,153,59,33,12,ES_AUTOHSCROLL
@@ -926,7 +926,7 @@ BEGIN
     IDS_AUDIO_AFF           "Speed optimize"
     IDS_AUDIO_RS            "single sample"
     IDS_AUDIO_RM            "several samples"
-    IDS_AUDIO_VNL           "Vol normalize"
+    IDS_AUDIO_VNL           "volume normalize"
     IDS_AUDIO_VNL_INFO      "Maximizes the volume without distorting"
     IDS_AUDIO_RE            "resample"
     IDS_AUDIO_RE_INFO       "Changes the sample rate of the audio stream"
@@ -1184,6 +1184,8 @@ BEGIN
     IDS_AUDIO_DELAY         "Audio Delay"
     IDS_AUDIO_DELAY_INFO    "Audio Delay , second"
     IDS_VIDEO_VOD3D         "Direct3D"
+    IDS_AUDIO_STM           "constant pitch"
+    IDS_AUDIO_STM_INFO      "Scales audio tempo without altering pitch, optionally synced to playback speed"
 END
 
 #endif    // 中文(中华人民共和国) resources

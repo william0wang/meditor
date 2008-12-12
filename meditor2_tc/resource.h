@@ -641,6 +641,8 @@
 #define IDS_AUDIO_DELAY                 35346
 #define IDS_AUDIO_DELAY_INFO            35347
 #define IDS_VIDEO_VOD3D                 35348
+#define IDS_AUDIO_STM                   35349
+#define IDS_AUDIO_STM_INFO              35350
 
 // Next default values for new objects
 // 

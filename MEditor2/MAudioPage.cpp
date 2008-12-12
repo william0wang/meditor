@@ -69,8 +69,9 @@ enum Filters
 {
 	adv_af,
 	volnormal,
+	scaletempo,
 	resample,
-	equalizer
+	equalizer,
 };
 
 
@@ -213,6 +214,12 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetItemText(volnormal, 1, ResStr(IDS_AUDIO_VNL));
 	pList->SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
 	pList->SetItemText(volnormal, 3, ResStr(IDS_AUDIO_VNL_INFO));
+
+	pList->InsertItem(scaletempo, _T(""));
+	pList->SetCheckbox(scaletempo, 0, 0);
+	pList->SetItemText(scaletempo, 1, ResStr(IDS_AUDIO_STM));
+	pList->SetItemText(scaletempo, 2, _T(""));
+	pList->SetItemText(scaletempo, 3, ResStr(IDS_AUDIO_STM_INFO));
 	
 	pList->InsertItem(resample, _T(""));
 	pList->SetCheckbox(resample, 0, 0);
@@ -225,7 +232,6 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetItemText(equalizer, 1, ResStr(IDS_AUDIO_EQ));
 	pList->SetItemText(equalizer, 2, _T("0:0:0:0:0:0:0:0:0:0"));
 	pList->SetEdit(equalizer, 2);
-	//.SetComboBox(equalizer, 2, TRUE,  &m_equalizer,  5,  0,  FALSE);
 	pList->SetItemText(equalizer, 3, ResStr(IDS_AUDIO_EQ_INFO));
 
 
@@ -327,6 +333,7 @@ void CMAudioPage::SetNormal()
 	m_List.SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
 	m_List.SetCheckbox(volnormal, 0, 0);
 	m_List.SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
+	m_List.SetCheckbox(scaletempo, 0, 0);
 }
 
 void CMAudioPage::SetHigh()
@@ -420,6 +427,10 @@ void CMAudioPage::InitFromConfig()
 				if(value_sub == _T("2"))
 					m_List.SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  1,  FALSE);
 			}
+		}
+		if(m_cfg->HaveSubValue(value_s,_T("scaletempo")))
+		{
+			m_List.SetCheckbox(scaletempo, 0, 1);
 		}
 		if(m_cfg->GetSubValue(value_s,_T("resample"), value_sub,1))
 		{
@@ -564,6 +575,10 @@ void CMAudioPage::SaveConfig()
 			af_str +=  _T("volnorm=2,");
 		else
 			af_str +=  _T("volnorm,");
+	}
+	if(m_List.GetCheckbox(scaletempo, 0))
+	{
+		af_str +=  _T("scaletempo,");
 	}
 	if(m_List.GetCheckbox(equalizer, 0))
 	{
