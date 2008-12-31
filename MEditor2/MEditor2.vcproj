@@ -158,7 +158,8 @@
 				AdditionalDependencies="7zdecR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
-				GenerateManifest="false"
+				GenerateManifest="true"
+				UACExecutionLevel="2"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -529,23 +530,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\codecs_ini.7z"
-				>
-			</File>
-			<File
-				RelativePath=".\res\ds.ico"
-				>
-			</File>
-			<File
 				RelativePath=".\res\dshow.ico"
 				>
 			</File>
 			<File
 				RelativePath=".\res\flash.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\res\font.bmp"
 				>
 			</File>
 			<File
@@ -566,10 +555,6 @@
 			</File>
 			<File
 				RelativePath=".\res\style.manifest"
-				>
-			</File>
-			<File
-				RelativePath=".\res\swf.ico"
 				>
 			</File>
 		</Filter>

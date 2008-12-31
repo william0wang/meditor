@@ -459,9 +459,9 @@ void CMVideoPage::InitFromConfig()
 		else
 			m_framedrop = FALSE;
 	}
-	if(m_cfg->GetValue_Boolean(_T("vista_fs_layer"),value_b,true))
+	if(m_cfg->GetValue_Boolean(_T("always_thread"),value_b,true))
 	{
-		if(!value_b)
+		if(value_b)
 			m_vista_fs = TRUE;
 		else
 			m_vista_fs = FALSE;
@@ -845,9 +845,9 @@ void CMVideoPage::SaveConfig()
 		m_cfg->SetValue(_T("gl_fs_flash"),_T("1"),true, ex_gui);
 
 	if(m_vista_fs)
-		m_cfg->SetValue(_T("vista_fs_layer"),_T("0"),true, ex_sysinfo);
+		m_cfg->SetValue(_T("always_thread"),_T("1"),true, ex_sysinfo);
 	else
-		m_cfg->RemoveValue(_T("vista_fs_layer"),true);
+		m_cfg->RemoveValue(_T("always_thread"),true);
 	
 	
 	if(m_List.GetCheckbox(flip, 0))
@@ -1208,7 +1208,7 @@ void CMVideoPage::SaveConfig()
 		else if(str == ResStr(IDS_VIDEO_ROTA3))
 			vf_str += _T("rotate=2,") ;
 		else if(str == ResStr(IDS_VIDEO_ROTA4))
-			vf_str += _T("rotate=2,") ;
+			vf_str += _T("rotate=3,") ;
 		else
 			vf_str += _T("rotate,") ;
 	}

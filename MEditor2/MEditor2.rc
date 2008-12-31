@@ -231,7 +231,7 @@ BEGIN
     CONTROL         "",IDC_SLIDER_GAMMA,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,244,66,78,10
     EDITTEXT        IDC_EDIT_GAMMA,323,65,20,12,ES_AUTOHSCROLL
     CONTROL         "直接渲染",IDC_CHECK_DR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,71,59,40,10
-    CONTROL         "禁用Vista全屏无闪屏支持",IDC_CHECK_VISTA_FS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,48,91,10
+    CONTROL         "Vista下开启窗口独立线程",IDC_CHECK_VISTA_FS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,48,91,10
 END
 
 IDD_AUDIO_DIALOG DIALOGEX 0, 0, 350, 200
@@ -311,7 +311,7 @@ BEGIN
     CONTROL         "控制栏禁用主题",IDC_CHECK_XPTOOLBARS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,101,75,10
     CONTROL         "播放器窗口禁用主题",IDC_CHECK_XPWINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,86,101,80,10
     CONTROL         "播放时不禁用系统屏幕保护",IDC_CHECK_SCREENSAVER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,118,114,10
-    CONTROL         "支持XP/Vista主题",IDC_CHECK_THEME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,53,77,10
+    CONTROL         "支持XP/Vista主题",IDC_CHECK_THEME,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,184,53,77,10
     CONTROL         "使用HTML格式媒体信息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,131,122,10
 END
 
@@ -824,7 +824,7 @@ END
 // RT_MANIFEST
 //
 
-IDR_MANIFESTX           RT_MANIFEST             "res\\style.manifest"
+IDR_MANIFEST            RT_MANIFEST             "res\\style.manifest"
 
 /////////////////////////////////////////////////////////////////////////////
 //
