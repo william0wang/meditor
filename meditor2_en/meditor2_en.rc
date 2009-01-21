@@ -229,7 +229,7 @@ BEGIN
     CONTROL         "",IDC_SLIDER_GAMMA,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,251,66,71,10
     EDITTEXT        IDC_EDIT_GAMMA,323,65,20,12,ES_AUTOHSCROLL
     CONTROL         "Direct Render",IDC_CHECK_DR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,60,57,10
-    CONTROL         "Enable GUI thread in Vista",IDC_CHECK_VISTA_FS,
+    CONTROL         "Auto Detect in Vista",IDC_CHECK_VISTA_FS,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,46,98,10
 END
 

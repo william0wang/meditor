@@ -287,7 +287,6 @@ void CMPlayerPage::SetHigh()
 void CMPlayerPage::SetLower()
 {
 	SetNormal();
-	m_button = FALSE;
 	m_priority.SetCurSel(prio_high);
 	m_autosync.SetCurSel(sync_normal);
 	m_auto_fuzziness = _T("1");

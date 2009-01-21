@@ -22,7 +22,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	, m_gamma(_T("1.0"))
 	, m_gamma_s(10)
 	, m_dr(FALSE)
-	, m_vista_fs(FALSE)
+	, m_vista_fs(TRUE)
 {
 	//{{AFX_DATA_INIT(CMVideoPage)
 	m_noflash = TRUE;
@@ -459,12 +459,12 @@ void CMVideoPage::InitFromConfig()
 		else
 			m_framedrop = FALSE;
 	}
-	if(m_cfg->GetValue_Boolean(_T("always_thread"),value_b,true))
+	if(m_cfg->GetValue_Boolean(_T("gl_new_window"),value_b,true))
 	{
-		if(value_b)
-			m_vista_fs = TRUE;
-		else
+		if(!value_b)
 			m_vista_fs = FALSE;
+		else
+			m_vista_fs = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("gl_fs_flash"),value_b,true))
 	{
@@ -845,11 +845,10 @@ void CMVideoPage::SaveConfig()
 		m_cfg->SetValue(_T("gl_fs_flash"),_T("1"),true, ex_gui);
 
 	if(m_vista_fs)
-		m_cfg->SetValue(_T("always_thread"),_T("1"),true, ex_sysinfo);
+		m_cfg->RemoveValue(_T("gl_new_window"),true);
 	else
-		m_cfg->RemoveValue(_T("always_thread"),true);
-	
-	
+		m_cfg->SetValue(_T("gl_new_window"),_T("0"),true, ex_sysinfo);
+
 	if(m_List.GetCheckbox(flip, 0))
 		m_cfg->SetValue(_T("flip"),_T("1"));
 	else
