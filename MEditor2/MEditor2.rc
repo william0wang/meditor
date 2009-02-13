@@ -311,8 +311,9 @@ BEGIN
     CONTROL         "控制栏禁用主题",IDC_CHECK_XPTOOLBARS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,101,75,10
     CONTROL         "播放器窗口禁用主题",IDC_CHECK_XPWINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,86,101,80,10
     CONTROL         "播放时不禁用系统屏幕保护",IDC_CHECK_SCREENSAVER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,118,114,10
-    CONTROL         "支持XP/Vista主题",IDC_CHECK_THEME,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,184,53,77,10
+    CONTROL         "支持XP/Vista主题",IDC_CHECK_THEME,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,184,52,77,10
     CONTROL         "使用HTML格式媒体信息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,131,122,10
+    PUSHBUTTON      "安装 AviSynth (AVS)",IDC_BUTTON_AVS,184,52,73,16
 END
 
 IDD_PROFILE_DIALOG DIALOGEX 0, 0, 350, 200
@@ -1346,6 +1347,8 @@ BEGIN
     IDS_VIDEO_VOD3D         "Direct3D"
     IDS_AUDIO_STM           "变速但声调不变"
     IDS_AUDIO_STM_INFO      "改变播放速度时不改变声调只改变音频的节奏"
+    IDS_ASSOS_AVS           "AviSynth 脚本"
+    IDS_MESSAGE_AVS         "安装成功！"
 END
 
 #endif    // 中文(中华人民共和国) resources

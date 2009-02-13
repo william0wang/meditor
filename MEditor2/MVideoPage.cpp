@@ -546,7 +546,7 @@ void CMVideoPage::InitFromConfig()
 			else if(value_s.Find(_T(":yuv=6")) > 0)
 				m_vo.SetCurSel(glyuv6);
 			else
-				m_vo.SetCurSel(gl);
+				m_vo.SetCurSel(glyuv0);
 			
 			if(value_s.Find(_T(":force-pbo")) > 0)
 				m_forcepbo = 1;

@@ -83,6 +83,7 @@ public:
 	BOOL m_screensaver;
 	BOOL m_theme;
 	BOOL m_info_html;
+	afx_msg void OnBnClickedButtonAvs();
 };
 
 //{{AFX_INSERT_LOCATION}}

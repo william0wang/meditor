@@ -97,6 +97,7 @@ BEGIN_MESSAGE_MAP(CMOtherPage, CDialog)
 	ON_BN_CLICKED(IDC_RADIO_MEDITOR, OnRadioMeditor)
 	ON_BN_CLICKED(IDC_BUTTON_LINK, OnBnClickedButtonLink)
 	ON_WM_KEYDOWN()
+	ON_BN_CLICKED(IDC_BUTTON_AVS, &CMOtherPage::OnBnClickedButtonAvs)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -705,4 +706,59 @@ void CMOtherPage::OnBnClickedButtonLink()
 			CoUninitialize();
 		}
 	}
+}
+
+void CMOtherPage::OnBnClickedButtonAvs()
+{
+	TCHAR szFilePath[MAX_PATH + 1];
+	TCHAR szSystemPath[MAX_PATH + 1];
+	CString m_dir, m_sysdir;
+	::GetSystemDirectory(szSystemPath,MAX_PATH);
+	m_sysdir.Format(_T("%s\\"),szSystemPath);
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	m_dir.Format(_T("%s"),szFilePath);
+
+	if(!IsFileExist(m_dir + _T("codecs\\AviSynth\\AviSynth.7z"))
+		|| !IsFileExist(m_dir + _T("codecs\\AviSynth\\plugins\\DirectShowSource.dll")))
+		return;
+
+	Decode7zFile(m_dir + _T("codecs\\AviSynth\\AviSynth.7z"), m_sysdir);
+
+	CReg reg;
+	CString SubKey, Name, Content;
+
+	SubKey = _T("SOFTWARE\\AviSynth");
+	Name =  _T("plugindir2_5");
+	Content = m_dir + _T("codecs\\AviSynth\\plugins");
+	if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE,SubKey,Name))
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
+	else{
+		Content = reg.content;
+		if(!IsFileExist(Content + _T("\\DirectShowSource.dll")))
+			CopyFile(m_dir + _T("codecs\\AviSynth\\plugins\\DirectShowSource.dll")
+				, Content + _T("\\DirectShowSource.dll"), TRUE);
+	}
+
+	SubKey = _T("SOFTWARE\\AviSynth");
+	Name =  _T("");
+	Content = m_dir + _T("codecs\\AviSynth");
+	if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE,SubKey,Name))
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
+
+	SubKey =  _T("SOFTWARE\\Classes\\CLSID\\{E6D6B700-124D-11D4-86F3-DB80AFD98778}");
+	Name =  _T("");
+	Content = _T("AviSynth");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
+
+	SubKey =  _T("SOFTWARE\\Classes\\CLSID\\{E6D6B700-124D-11D4-86F3-DB80AFD98778}\\InProcServer32");
+	Name =  _T("");
+	Content = _T("AviSynth.dll");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
+
+	Name =  _T("ThreadingModel");
+	Content = _T("Apartment");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
+
+	MessageBox(ResStr(IDS_MESSAGE_AVS), _T("AviSynth(AVS)"));
 }

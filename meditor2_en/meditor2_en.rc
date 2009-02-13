@@ -229,8 +229,7 @@ BEGIN
     CONTROL         "",IDC_SLIDER_GAMMA,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,251,66,71,10
     EDITTEXT        IDC_EDIT_GAMMA,323,65,20,12,ES_AUTOHSCROLL
     CONTROL         "Direct Render",IDC_CHECK_DR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,60,57,10
-    CONTROL         "Auto Detect in Vista",IDC_CHECK_VISTA_FS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,46,98,10
+    CONTROL         "Auto Detect in Vista",IDC_CHECK_VISTA_FS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,46,98,10
 END
 
 IDD_AUDIO_DIALOG DIALOGEX 0, 0, 350, 200
@@ -315,6 +314,7 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,113,143,10
     CONTROL         "Use HTML format Media Information",IDC_CHECK_INFO,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,126,143,10
+    PUSHBUTTON      "Install AviSynth (AVS)",IDC_BUTTON_AVS,184,44,84,16
 END
 
 IDD_PROFILE_DIALOG DIALOGEX 0, 0, 350, 200
@@ -1186,6 +1186,8 @@ BEGIN
     IDS_VIDEO_VOD3D         "Direct3D"
     IDS_AUDIO_STM           "constant pitch"
     IDS_AUDIO_STM_INFO      "Scales audio tempo without altering pitch, optionally synced to playback speed"
+    IDS_ASSOS_AVS           "AviSynth Script"
+    IDS_MESSAGE_AVS         "Installed Successfully !"
 END
 
 #endif    // 中文(中华人民共和国) resources

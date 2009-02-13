@@ -311,6 +311,7 @@ BEGIN
     CONTROL         "播放時不禁用系統螢幕保護",IDC_CHECK_SCREENSAVER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,116,114,10
     CONTROL         "支持XP/Vista主題",IDC_CHECK_THEME,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,184,47,77,10
     CONTROL         "使用HTML格式媒體訊息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,128,126,10
+    PUSHBUTTON      "安裝 AviSynth (AVS)",IDC_BUTTON_AVS,184,45,73,16
 END
 
 IDD_PROFILE_DIALOG DIALOGEX 0, 0, 350, 200
@@ -1181,6 +1182,8 @@ BEGIN
     IDS_VIDEO_VOD3D         "Direct3D"
     IDS_AUDIO_STM           "變速但聲調不變"
     IDS_AUDIO_STM_INFO      "改變播放速度時不改變聲調只改變音頻的節奏"
+    IDS_ASSOS_AVS           "AviSynth 腳本"
+    IDS_MESSAGE_AVS         "安裝成功！"
 END
 
 #endif    // 中文(中华人民共和国) resources

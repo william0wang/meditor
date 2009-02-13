@@ -197,6 +197,8 @@
 #define IDC_BUTTON_ONLINE               1099
 #define IDC_BUTTON_DONLINE              1100
 #define IDC_CHECK_VISTA                 1101
+#define IDC_BUTTON_ONLINE2              1101
+#define IDC_BUTTON_AVS                  1101
 #define IDC_RADIO_MPLAYER               1102
 #define IDC_RADIO_MEDITOR               1103
 #define IDC_OCX1                        1106
@@ -643,6 +645,9 @@
 #define IDS_VIDEO_VOD3D                 35348
 #define IDS_AUDIO_STM                   35349
 #define IDS_AUDIO_STM_INFO              35350
+#define IDS_ASSOS_AVS                   35351
+#define IDS_ASSOS_AVS2                  35352
+#define IDS_MESSAGE_AVS                 35352
 
 // Next default values for new objects
 // 
