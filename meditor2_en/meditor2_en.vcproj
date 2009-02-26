@@ -68,7 +68,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/NOENTRY"
+				AdditionalDependencies="AdvComboBoxR.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\MEditor2\lib"
 				IgnoreAllDefaultLibraries="true"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"

@@ -13,6 +13,7 @@ class CMConfig;
 #endif
 #include "XListCtrl.h" 
 #include "afxwin.h"
+#include "AdvCombo\AdvComboBox.h"
 /////////////////////////////////////////////////////////////////////////////
 // CMAudioPage dialog
 
@@ -46,8 +47,8 @@ public:
 protected:
 // Dialog Data
 	enum { IDD = IDD_AUDIO_DIALOG };
-	CComboBox	m_channels;
-	CComboBox	 m_audio;
+	CAdvComboBoxMod	m_channels;
+	CAdvComboBoxMod	 m_audio;
 	CString	m_audio_delay;
 	CString m_alang;
 	CString	m_volume;
@@ -69,6 +70,23 @@ protected:
 	void FillListCtrl(CXListCtrl * pList);
 	void InitListCtrl(CXListCtrl * pList);
 
+	CString use;
+	CString nam;
+	CString opt;
+	CString inf;
+	CString str_af1;
+	CString str_af2;
+	CString str_vn1;
+	CString str_vn2;
+	CString str_st1;
+	CString str_st2;
+	CString str_re1;
+	CString str_re2;
+	CString str_eq1;
+	CString str_eq2;
+
+	CStringArray m_str_audio;
+	CStringArray m_str_channels;
 
 // Overrides
 	// ClassWizard generated virtual function overrides

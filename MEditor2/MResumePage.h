@@ -47,6 +47,10 @@ protected:
 	static int m_nColWidths[];
 	void InitListCtrl(CXListCtrl * pList);
 
+	CString no;
+	CString time;
+	CString file;
+	CString nol;
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();

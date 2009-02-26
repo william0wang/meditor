@@ -16,6 +16,7 @@ class CMConfig;
 #endif
 #include "XListCtrl.h"
 #include "afxwin.h"
+#include "AdvCombo\AdvComboBox.h"
 
 enum codecs_ini
 {
@@ -76,6 +77,16 @@ protected:
 	CString m_program_dir;
 	int m_last_extract;
 
+	CString use1;
+	CString pr1;
+	CString use;
+	CString name;
+	CString op;
+	CString inf;
+
+	CStringArray m_str_avlist;
+	CStringArray m_str_codecs;
+
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMDecodePage)
@@ -103,7 +114,7 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-	CComboBox m_codecs;
+	CAdvComboBoxMod m_codecs;
 };
 
 //{{AFX_INSERT_LOCATION}}

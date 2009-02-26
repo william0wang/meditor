@@ -31,12 +31,79 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_str_low = ResStr(IDS_AUDIO_RELOW);
 	m_str_int = ResStr(IDS_AUDIO_REINT);
 	m_str_foa = ResStr(IDS_AUDIO_REFOA);
+	use = ResStr(IDS_PLAYER_USE);
+	nam = ResStr(IDS_PLAYER_FNAME);
+	opt = ResStr(IDS_PLAYER_OPTION);
+	inf = ResStr(IDS_PLAYER_FINFO);
+
+
+	str_af1 = ResStr(IDS_AUDIO_ADV);
+	str_af2 = ResStr(IDS_AUDIO_ADV_INFO);
+	str_vn1 = ResStr(IDS_AUDIO_VNL);
+	str_vn2 = ResStr(IDS_AUDIO_VNL_INFO);
+	str_st1 = ResStr(IDS_AUDIO_STM);
+	str_st2 = ResStr(IDS_AUDIO_STM_INFO);
+	str_re1 = ResStr(IDS_AUDIO_RE);
+	str_re2 = ResStr(IDS_AUDIO_RE_INFO);
+	str_eq1 = ResStr(IDS_AUDIO_EQ);
+	str_eq2 = ResStr(IDS_AUDIO_EQ_INFO);
+
+	m_str_audio.Add(ResStr(IDS_AUDIO_DS));
+	m_str_audio.Add(ResStr(IDS_AUDIO_WIN));
+	m_str_audio.Add(ResStr(IDS_AUDIO_FILE));
+	m_str_audio.Add(ResStr(IDS_AUDIO_NULL));
+
+	m_str_channels.Add(ResStr(IDS_RESUME_NORMAL));
+	m_str_channels.Add(_T("2.0") + ResStr(IDS_AUDIO_CHAN));
+	m_str_channels.Add(_T("4.0") + ResStr(IDS_AUDIO_CHAN));
+	m_str_channels.Add(_T("5.1") + ResStr(IDS_AUDIO_CHAN));
+
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFAT));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFH));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFF));
+
+	m_volnormal.Add(ResStr(IDS_AUDIO_RS));
+	m_volnormal.Add(ResStr(IDS_AUDIO_RM));
+
+	m_resample.Add(_T("8kHz ") + m_str_at);
+	m_resample.Add(_T("8kHz ") + m_str_low);
+	m_resample.Add(_T("8kHz ") + m_str_int);
+	m_resample.Add(_T("8kHz ") + m_str_foa);
+	m_resample.Add(_T("16kHz ") + m_str_at);
+	m_resample.Add(_T("16kHz ") + m_str_low);
+	m_resample.Add(_T("16kHz ") + m_str_int);
+	m_resample.Add(_T("16kHz ") + m_str_foa);
+	m_resample.Add(_T("22.05kHz ") + m_str_at);
+	m_resample.Add(_T("22.05kHz ") + m_str_low);
+	m_resample.Add(_T("22.05kHz ") + m_str_int);
+	m_resample.Add(_T("22.05kHz ") + m_str_foa);
+	m_resample.Add(_T("32kHz ") + m_str_at);
+	m_resample.Add(_T("32kHz ") + m_str_low);
+	m_resample.Add(_T("32kHz ") + m_str_int);
+	m_resample.Add(_T("32kHz ") + m_str_foa);
+	m_resample.Add(_T("44.1kHz ") + m_str_at);
+	m_resample.Add(_T("44.1kHz ") + m_str_low);
+	m_resample.Add(_T("44.1kHz ") + m_str_int);
+	m_resample.Add(_T("44.1kHz ") + m_str_foa);
+	m_resample.Add(_T("48kHz ") + m_str_at);
+	m_resample.Add(_T("48kHz ") + m_str_low);
+	m_resample.Add(_T("48kHz ") + m_str_int);
+	m_resample.Add(_T("48kHz ") + m_str_foa);
+	m_resample.Add(_T("64kHz ") + m_str_at);
+	m_resample.Add(_T("64kHz ") + m_str_low);
+	m_resample.Add(_T("64kHz ") + m_str_int);
+	m_resample.Add(_T("64kHz ") + m_str_foa);
+	m_resample.Add(_T("96kHz ") + m_str_at);
+	m_resample.Add(_T("96kHz ") + m_str_low);
+	m_resample.Add(_T("96kHz ") + m_str_int);
+	m_resample.Add(_T("96kHz ") + m_str_foa);
 }
 
 
 void CMAudioPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO_AUDIO, m_audio);
 	DDX_Control(pDX, IDC_COMBO_CHANNELS, m_channels);
 	DDX_Text(pDX, IDC_EDIT_AUDIODELAY, m_audio_delay);
 	DDV_MaxChars(pDX, m_audio_delay, 9);
@@ -48,7 +115,6 @@ void CMAudioPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_AUDIO, m_List);
 	DDX_Slider(pDX, IDC_SLIDER_VOLNORM, m_volnorm_s);
 	DDX_Slider(pDX, IDC_SLIDER_VOLUME, m_volume_s);
-	DDX_Control(pDX, IDC_COMBO_AUDIO, m_audio);
 	DDX_Text(pDX, IDC_EDIT_ALANG, m_alang);
 }
 
@@ -89,10 +155,6 @@ void CMAudioPage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	CString use = ResStr(IDS_PLAYER_USE);
-	CString nam = ResStr(IDS_PLAYER_FNAME);
-	CString opt = ResStr(IDS_PLAYER_OPTION);
-	CString inf = ResStr(IDS_PLAYER_FINFO);
 	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(nam.GetBuffer())
 		,_tcsdup(opt.GetBuffer()) ,  _tcsdup(inf.GetBuffer()),  NULL };
 	use.ReleaseBuffer();
@@ -158,81 +220,37 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->DeleteAllItems();
 
 	// insert the items and subitems into the list
-	m_adv_af.RemoveAll();
-	m_volnormal.RemoveAll();
-	m_equalizer.RemoveAll();
-	m_resample.RemoveAll();
-
-	m_adv_af.Add(ResStr(IDS_AUDIO_AFAT));
-	m_adv_af.Add(ResStr(IDS_AUDIO_AFH));
-	m_adv_af.Add(ResStr(IDS_AUDIO_AFF));
-
-	m_volnormal.Add(ResStr(IDS_AUDIO_RS));
-	m_volnormal.Add(ResStr(IDS_AUDIO_RM));
-
-	m_resample.Add(_T("8kHz ") + m_str_at);
-	m_resample.Add(_T("8kHz ") + m_str_low);
-	m_resample.Add(_T("8kHz ") + m_str_int);
-	m_resample.Add(_T("8kHz ") + m_str_foa);
-	m_resample.Add(_T("16kHz ") + m_str_at);
-	m_resample.Add(_T("16kHz ") + m_str_low);
-	m_resample.Add(_T("16kHz ") + m_str_int);
-	m_resample.Add(_T("16kHz ") + m_str_foa);
-	m_resample.Add(_T("22.05kHz ") + m_str_at);
-	m_resample.Add(_T("22.05kHz ") + m_str_low);
-	m_resample.Add(_T("22.05kHz ") + m_str_int);
-	m_resample.Add(_T("22.05kHz ") + m_str_foa);
-	m_resample.Add(_T("32kHz ") + m_str_at);
-	m_resample.Add(_T("32kHz ") + m_str_low);
-	m_resample.Add(_T("32kHz ") + m_str_int);
-	m_resample.Add(_T("32kHz ") + m_str_foa);
-	m_resample.Add(_T("44.1kHz ") + m_str_at);
-	m_resample.Add(_T("44.1kHz ") + m_str_low);
-	m_resample.Add(_T("44.1kHz ") + m_str_int);
-	m_resample.Add(_T("44.1kHz ") + m_str_foa);
-	m_resample.Add(_T("48kHz ") + m_str_at);
-	m_resample.Add(_T("48kHz ") + m_str_low);
-	m_resample.Add(_T("48kHz ") + m_str_int);
-	m_resample.Add(_T("48kHz ") + m_str_foa);
-	m_resample.Add(_T("64kHz ") + m_str_at);
-	m_resample.Add(_T("64kHz ") + m_str_low);
-	m_resample.Add(_T("64kHz ") + m_str_int);
-	m_resample.Add(_T("64kHz ") + m_str_foa);
-	m_resample.Add(_T("96kHz ") + m_str_at);
-	m_resample.Add(_T("96kHz ") + m_str_low);
-	m_resample.Add(_T("96kHz ") + m_str_int);
-	m_resample.Add(_T("96kHz ") + m_str_foa);
 
 	pList->InsertItem(adv_af, _T(""));
 	pList->SetCheckbox(adv_af, 0, 0);
-	pList->SetItemText(adv_af, 1, ResStr(IDS_AUDIO_ADV));
+	pList->SetItemText(adv_af, 1, str_af1);
 	pList->SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
-	pList->SetItemText(adv_af, 3, ResStr(IDS_AUDIO_ADV_INFO));
+	pList->SetItemText(adv_af, 3, str_af2);
 
 	pList->InsertItem(volnormal, _T(""));
 	pList->SetCheckbox(volnormal, 0, 0);
-	pList->SetItemText(volnormal, 1, ResStr(IDS_AUDIO_VNL));
+	pList->SetItemText(volnormal, 1, str_vn1);
 	pList->SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
-	pList->SetItemText(volnormal, 3, ResStr(IDS_AUDIO_VNL_INFO));
+	pList->SetItemText(volnormal, 3, str_vn2);
 
 	pList->InsertItem(scaletempo, _T(""));
 	pList->SetCheckbox(scaletempo, 0, 0);
-	pList->SetItemText(scaletempo, 1, ResStr(IDS_AUDIO_STM));
+	pList->SetItemText(scaletempo, 1, str_st1);
 	pList->SetItemText(scaletempo, 2, _T(""));
-	pList->SetItemText(scaletempo, 3, ResStr(IDS_AUDIO_STM_INFO));
+	pList->SetItemText(scaletempo, 3, str_st2);
 	
 	pList->InsertItem(resample, _T(""));
 	pList->SetCheckbox(resample, 0, 0);
-	pList->SetItemText(resample, 1, ResStr(IDS_AUDIO_RE));
+	pList->SetItemText(resample, 1, str_re1);
 	pList->SetComboBox(resample, 2, TRUE,  &m_resample,  5,  16,  FALSE);
-	pList->SetItemText(resample, 3, ResStr(IDS_AUDIO_RE_INFO));
+	pList->SetItemText(resample, 3, str_re2);
 	
 	pList->InsertItem(equalizer, _T(""));
 	pList->SetCheckbox(equalizer, 0, 0);
-	pList->SetItemText(equalizer, 1, ResStr(IDS_AUDIO_EQ));
+	pList->SetItemText(equalizer, 1, str_eq1);
 	pList->SetItemText(equalizer, 2, _T("0:0:0:0:0:0:0:0:0:0"));
 	pList->SetEdit(equalizer, 2);
-	pList->SetItemText(equalizer, 3, ResStr(IDS_AUDIO_EQ_INFO));
+	pList->SetItemText(equalizer, 3, str_eq2);
 
 
 	pList->UnlockWindowUpdate();	// ***** unlock window updates *****
@@ -290,23 +308,19 @@ BOOL CMAudioPage::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
-	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);
 
 	m_volnorm_c.SetRange(10,100);
 	m_volnorm_c.SetPos(0);
 	
-	m_audio.AddString(ResStr(IDS_AUDIO_DS));
-	m_audio.AddString(ResStr(IDS_AUDIO_WIN));
-	m_audio.AddString(ResStr(IDS_AUDIO_FILE));
-	m_audio.AddString(ResStr(IDS_AUDIO_NULL));
+	for(int i = 0; i < m_str_audio.GetCount(); i++)
+		m_audio.AddString(m_str_audio[i]);
 	m_audio.SetCurSel(dsound);
 
-	m_channels.AddString(ResStr(IDS_RESUME_NORMAL));
-	m_channels.AddString(_T("2.0") + ResStr(IDS_AUDIO_CHAN));
-	m_channels.AddString(_T("4.0") + ResStr(IDS_AUDIO_CHAN));
-	m_channels.AddString(_T("5.1") + ResStr(IDS_AUDIO_CHAN));
+	for(int i = 0; i < m_str_channels.GetCount(); i++)
+		m_channels.AddString(m_str_channels[i]);
 	m_channels.SetCurSel(ch_auto);
 
 	InitFromConfig();
@@ -557,9 +571,9 @@ void CMAudioPage::SaveConfig()
 	if(m_List.GetCheckbox(adv_af, 0))
 	{
 		CString str = m_List.GetItemText(adv_af, 2);
-		if(str == ResStr(IDS_AUDIO_AFAT))
+		if(str == m_adv_af[0])
 			m_cfg->SetValue(_T("af-adv"), _T("force=0"));
-		else if(str == ResStr(IDS_AUDIO_AFH))
+		else if(str == m_adv_af[1])
 			m_cfg->SetValue(_T("af-adv"), _T("force=1"));
 		else
 			m_cfg->SetValue(_T("af-adv"), _T("force=2"));
@@ -571,7 +585,7 @@ void CMAudioPage::SaveConfig()
 	if(m_List.GetCheckbox(volnormal, 0))
 	{
 		CString str= m_List.GetItemText(volnormal, 2);
-		if(str == ResStr(IDS_AUDIO_RM))
+		if(str == m_volnormal[1])
 			af_str +=  _T("volnorm=2,");
 		else
 			af_str +=  _T("volnorm,");

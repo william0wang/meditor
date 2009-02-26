@@ -167,19 +167,55 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	CString i_str = ResStr(IDS_TAB_INPUT);
 	CString s_str = ResStr(IDS_TAB_ASSOS);
 
-	m_TabSheet.AddPage(  p_str, &m_player, IDD_PLAYER_DIALOG);
-	m_TabSheet.AddPage(  v_str , &m_video, IDD_VIDEO_DIALOG);
-	m_TabSheet.AddPage(  a_str , &m_audio, IDD_AUDIO_DIALOG);
-	m_TabSheet.AddPage(  sub_str , &m_subtitle, IDD_OSD_DIALOG);
-	m_TabSheet.AddPage( d_str , &m_decode, IDD_DECODE_DIALOG);
-	m_TabSheet.AddPage( r_str , &m_resume, IDD_RESUME_DIALOG);
-	m_TabSheet.AddPage( o_str , &m_other, IDD_OTHER_DIALOG);
-	m_TabSheet.AddPage( f_str , &m_profile, IDD_PROFILE_DIALOG);
-	m_TabSheet.AddPage( i_str , &m_Input, IDD_INPUT_DIALOG);
-	m_TabSheet.AddPage( s_str , &m_assos, IDD_ASSOS_DIALOG);
+	int PlayerPage = IDD_PLAYER_DIALOG;
+	int VideoPage = IDD_VIDEO_DIALOG;
+	int AudioPage = IDD_AUDIO_DIALOG;
+	int SubtitlePage = IDD_SUBTITLE_DIALOG;
+	int DecodePage = IDD_DECODE_DIALOG;
+	int ResumePage = IDD_RESUME_DIALOG;
+	int OtherPage = IDD_OTHER_DIALOG;
+	int ProfilePage = IDD_PROFILE_DIALOG;
+	int InputPage = IDD_INPUT_DIALOG;
+	int AssosPage = IDD_ASSOS_DIALOG;
+	if(theApp.AppLanguage == 2){
+		PlayerPage = IDD_PLAYER_DIALOG_EN;
+		VideoPage = IDD_VIDEO_DIALOG_EN;
+		AudioPage = IDD_AUDIO_DIALOG_EN;
+		SubtitlePage = IDD_SUBTITLE_DIALOG_EN;
+		DecodePage = IDD_DECODE_DIALOG_EN;
+		ResumePage = IDD_RESUME_DIALOG_EN;
+		OtherPage = IDD_OTHER_DIALOG_EN;
+		ProfilePage = IDD_PROFILE_DIALOG_EN;
+		InputPage = IDD_INPUT_DIALOG_EN;
+		AssosPage = IDD_ASSOS_DIALOG_EN;
+	} else if (theApp.AppLanguage == 3 && theApp.AppLanguage == 4) {
+		PlayerPage = IDD_PLAYER_DIALOG_TC;
+		VideoPage = IDD_VIDEO_DIALOG_TC;
+		AudioPage = IDD_AUDIO_DIALOG_TC;
+		SubtitlePage = IDD_SUBTITLE_DIALOG_TC;
+		DecodePage = IDD_DECODE_DIALOG_TC;
+		ResumePage = IDD_RESUME_DIALOG_TC;
+		OtherPage = IDD_OTHER_DIALOG_TC;
+		ProfilePage = IDD_PROFILE_DIALOG_TC;
+		InputPage = IDD_INPUT_DIALOG_TC;
+		AssosPage = IDD_ASSOS_DIALOG_TC;
+	}
+	if(theApp.hResourceHandleOld)
+		AfxSetResourceHandle(theApp.hResourceHandleOld);
+	m_TabSheet.AddPage(  p_str, &m_player, PlayerPage);
+	m_TabSheet.AddPage(  v_str , &m_video, VideoPage);
+	m_TabSheet.AddPage(  a_str , &m_audio, AudioPage);
+	m_TabSheet.AddPage(  sub_str , &m_subtitle, SubtitlePage);
+	m_TabSheet.AddPage( d_str , &m_decode, DecodePage);
+	m_TabSheet.AddPage( r_str , &m_resume, ResumePage);
+	m_TabSheet.AddPage( o_str , &m_other, OtherPage);
+	m_TabSheet.AddPage( f_str , &m_profile, ProfilePage);
+	m_TabSheet.AddPage( i_str , &m_Input, InputPage);
+	m_TabSheet.AddPage( s_str , &m_assos, AssosPage);
 	m_TabSheet.Show();
+	if(theApp.hResourceHandleMod)
+		AfxSetResourceHandle(theApp.hResourceHandleMod);
 	
-
 	int value_i;
 	if(m_config.GetValue_Integer(_T("meditor_last_page"),value_i,true))
 	{

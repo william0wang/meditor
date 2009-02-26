@@ -24,7 +24,6 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	, m_dr(FALSE)
 	, m_vista_fs(TRUE)
 {
-	//{{AFX_DATA_INIT(CMVideoPage)
 	m_noflash = TRUE;
 	m_forcepbo = FALSE;
 	m_color = _T("0xffffff");
@@ -39,19 +38,104 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_keepaspect = TRUE;
 	m_framedrop = FALSE;
 	m_idx = FALSE;
-	//}}AFX_DATA_INIT
+
+	m_color_b.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_b.TrackSelection= TRUE;
+	m_color_b.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_b.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	use = ResStr(IDS_PLAYER_USE);
+	nam = ResStr(IDS_PLAYER_FNAME);
+	opt = ResStr(IDS_PLAYER_OPTION);
+	inf = ResStr(IDS_PLAYER_FINFO);
+
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA1));	
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA2));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA3));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA4));
+
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD1));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD2));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD3));
+	m_deinterlacing.Add(_T("FFmpeg"));
+	m_deinterlacing.Add(_T("lowpass5"));
+
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB1));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB2));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB3));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB4));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB5));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB6));
+
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOD3D));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO1));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL4));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL2));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VONV));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOATI));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL6));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL0));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO3));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO4));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO5));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO6));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO7));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO8));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO9));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VO10));
+
+	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX1));
+	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX2));
+	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX3));
+	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX4));
+
+	m_str_vet = ResStr(IDS_VIDEO_EXPIT);
+	m_str_cot = ResStr(IDS_VIDEO_CROIT);
+
+	m_str_vf.Add(ResStr(IDS_VIDEO_SST));
+	m_str_vf.Add(ResStr(IDS_VIDEO_SSTI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ASS));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ASSI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_EXP));
+	m_str_vf.Add(ResStr(IDS_VIDEO_EXPI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ASP));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ASPI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_EQ2));
+	m_str_vf.Add(ResStr(IDS_VIDEO_EQ2I));
+	m_str_vf.Add(ResStr(IDS_VIDEO_HUE));
+	m_str_vf.Add(ResStr(IDS_VIDEO_HUEI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_FLP));
+	m_str_vf.Add(ResStr(IDS_VIDEO_FLPI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ROT));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ROTI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_CRO));
+	m_str_vf.Add(ResStr(IDS_VIDEO_CROI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_DEI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_DEII));
+	m_str_vf.Add(ResStr(IDS_VIDEO_DEB));
+	m_str_vf.Add(ResStr(IDS_VIDEO_DEBI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_DER));
+	m_str_vf.Add(ResStr(IDS_VIDEO_DERI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_TNO));
+	m_str_vf.Add(ResStr(IDS_VIDEO_TNOI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ATL));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ATLI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_OTH));
+	m_str_vf.Add(ResStr(IDS_VIDEO_OTHI));
+
 }
 
 
 void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO_VO, m_vo);
 	DDX_Control(pDX, IDC_COMBO_MXCOLOR, m_mxcolor);
 	DDX_Control(pDX, IDC_SLIDER_SATURATIONS, m_sc);
 	DDX_Control(pDX, IDC_SLIDER_HUE, m_hc);
 	DDX_Control(pDX, IDC_SLIDER_CONTRAST, m_cc);
 	DDX_Control(pDX, IDC_SLIDER_BRINGHTNESS, m_bc);
-	DDX_Control(pDX, IDC_COMBO_VO, m_vo);
 	DDX_Check(pDX, IDC_CHECK_FLASH, m_noflash);
 	DDX_Check(pDX, IDC_CHECK_OSD, m_forcepbo);
 	DDX_Text(pDX, IDC_EDIT_COLOR, m_color);
@@ -110,10 +194,6 @@ void CMVideoPage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	CString use = ResStr(IDS_PLAYER_USE);
-	CString nam = ResStr(IDS_PLAYER_FNAME);
-	CString opt = ResStr(IDS_PLAYER_OPTION);
-	CString inf = ResStr(IDS_PLAYER_FINFO);
 	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(nam.GetBuffer())
 		,_tcsdup(opt.GetBuffer()) ,  _tcsdup(inf.GetBuffer()),  NULL };
 	use.ReleaseBuffer();
@@ -180,123 +260,103 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 	pList->DeleteAllItems();
 
 	// insert the items and subitems into the list
-	m_rotate.RemoveAll();
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA1));	
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA2));
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA3));
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA4));
-	
-	m_deinterlacing.RemoveAll();
-	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD1));
-	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD2));
-	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD3));
-	m_deinterlacing.Add(_T("FFmpeg"));
-	m_deinterlacing.Add(_T("lowpass5"));
-	
-	m_deblocking.RemoveAll();
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB1));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB2));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB3));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB4));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB5));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB6));
+
 
 	pList->InsertItem(screenshot, _T(""));
 	pList->SetCheckbox(screenshot, 0, 0);
-	pList->SetItemText(screenshot, 1, ResStr(IDS_VIDEO_SST));
+	pList->SetItemText(screenshot, 1, m_str_vf[screenshot*2]);
 	pList->SetItemText(screenshot, 2, _T(""));
 	pList->SetEdit(screenshot, 2);
-	pList->SetItemText(screenshot, 3,ResStr(IDS_VIDEO_SSTI));
-	
+	pList->SetItemText(screenshot, 3,m_str_vf[screenshot*2 + 1]);
+
 	pList->InsertItem(ass, _T(""));
 	pList->SetCheckbox(ass, 0, 0);
-	pList->SetItemText(ass, 1, ResStr(IDS_VIDEO_ASS));
+	pList->SetItemText(ass, 1, m_str_vf[ass*2]);
 	pList->SetItemText(ass, 2, _T(""));
-	pList->SetItemText(ass, 3, ResStr(IDS_VIDEO_ASSI));
+	pList->SetItemText(ass, 3, m_str_vf[ass*2 + 1]);
 
 	pList->InsertItem(expand, _T(""));
 	pList->SetCheckbox(expand, 0, 0);
-	pList->SetItemText(expand, 1,ResStr(IDS_VIDEO_EXP));
+	pList->SetItemText(expand, 1,m_str_vf[expand*2]);
 	pList->SetItemText(expand, 2, _T(":::::4/3"));
 	pList->SetEdit(expand, 2);
-	pList->SetItemText(expand, 3, ResStr(IDS_VIDEO_EXPI));
-	pList->SetItemToolTipText(expand, 2, ResStr(IDS_VIDEO_EXPIT));
-	
+	pList->SetItemText(expand, 3, m_str_vf[expand*2 + 1]);
+	pList->SetItemToolTipText(expand, 2, m_str_vet);
+
 	pList->InsertItem(aspect, _T(""));
 	pList->SetCheckbox(aspect, 0, 0);
-	pList->SetItemText(aspect, 1, ResStr(IDS_VIDEO_ASP));
+	pList->SetItemText(aspect, 1, m_str_vf[aspect*2]);
 	pList->SetItemText(aspect, 2, _T("4:3"));
 	pList->SetEdit(aspect, 2);
-	pList->SetItemText(aspect, 3, ResStr(IDS_VIDEO_ASPI));
+	pList->SetItemText(aspect, 3, m_str_vf[aspect*2 + 1]);
 
 	pList->InsertItem(eq2, _T(""));
 	pList->SetCheckbox(eq2, 0, 0);
-	pList->SetItemText(eq2, 1, ResStr(IDS_VIDEO_EQ2));
+	pList->SetItemText(eq2, 1, m_str_vf[eq2*2]);
 	pList->SetItemText(eq2, 2, _T(""));
-	pList->SetItemText(eq2, 3, ResStr(IDS_VIDEO_EQ2I));
-	
+	pList->SetItemText(eq2, 3, m_str_vf[eq2*2 + 1]);
+
 	pList->InsertItem(hue, _T(""));
 	pList->SetCheckbox(hue, 0, 0);
-	pList->SetItemText(hue, 1, ResStr(IDS_VIDEO_HUE));
-	pList->SetItemText(hue, 3, ResStr(IDS_VIDEO_HUEI));
-	
+	pList->SetItemText(hue, 1, m_str_vf[hue*2]);
+	pList->SetItemText(hue, 3, m_str_vf[hue*2 + 1]);
+
 	pList->InsertItem(flip, _T(""));
 	pList->SetCheckbox(flip, 0, 0);
-	pList->SetItemText(flip, 1, ResStr(IDS_VIDEO_FLP));
+	pList->SetItemText(flip, 1, m_str_vf[flip*2]);
 	pList->SetItemText(flip, 2, _T(""));
-	pList->SetItemText(flip, 3, ResStr(IDS_VIDEO_FLPI));
-	
+	pList->SetItemText(flip, 3, m_str_vf[flip*2 + 1]);
+
 	pList->InsertItem(rotate, _T(""));
 	pList->SetCheckbox(rotate, 0, 0);
-	pList->SetItemText(rotate, 1, ResStr(IDS_VIDEO_ROT));
+	pList->SetItemText(rotate, 1, m_str_vf[rotate*2]);
 	pList->SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
-	pList->SetItemText(rotate, 3, ResStr(IDS_VIDEO_ROTI));
-	
+	pList->SetItemText(rotate, 3, m_str_vf[rotate*2 + 1]);
+
 	pList->InsertItem(crop, _T(""));
 	pList->SetCheckbox(crop, 0, 0);
-	pList->SetItemText(crop, 1, ResStr(IDS_VIDEO_CRO));
+	pList->SetItemText(crop, 1, m_str_vf[crop*2]);
 	pList->SetItemText(crop, 2, _T("640:480"));
 	pList->SetEdit(crop, 2);
-	pList->SetItemText(crop, 3, ResStr(IDS_VIDEO_CROI));
-	pList->SetItemToolTipText(crop, 2, ResStr(IDS_VIDEO_CROIT));
-	
+	pList->SetItemText(crop, 3, m_str_vf[crop*2 + 1]);
+	pList->SetItemToolTipText(crop, 2, m_str_cot);
+
 	pList->InsertItem(deinterlacing, _T(""));
 	pList->SetCheckbox(deinterlacing, 0, 0);
-	pList->SetItemText(deinterlacing, 1, ResStr(IDS_VIDEO_DEI));
+	pList->SetItemText(deinterlacing, 1, m_str_vf[deinterlacing*2]);
 	pList->SetComboBox(deinterlacing, 2, TRUE,  &m_deinterlacing,  5,  0,  FALSE);
-	pList->SetItemText(deinterlacing, 3, ResStr(IDS_VIDEO_DEII));
-	
+	pList->SetItemText(deinterlacing, 3, m_str_vf[deinterlacing*2 + 1]);
+
 	pList->InsertItem(deblocking, _T(""));
 	pList->SetCheckbox(deblocking, 0, 0);
-	pList->SetItemText(deblocking, 1, ResStr(IDS_VIDEO_DEB));
+	pList->SetItemText(deblocking, 1, m_str_vf[deblocking*2]);
 	pList->SetComboBox(deblocking, 2, TRUE,  &m_deblocking,  6,  0,  FALSE);
-	pList->SetItemText(deblocking, 3, ResStr(IDS_VIDEO_DEBI));
-	
+	pList->SetItemText(deblocking, 3, m_str_vf[deblocking*2 + 1]);
+
 	pList->InsertItem(dering, _T(""));
 	pList->SetCheckbox(dering, 0, 0);
-	pList->SetItemText(dering, 1, ResStr(IDS_VIDEO_DER));
+	pList->SetItemText(dering, 1, m_str_vf[dering*2]);
 	pList->SetItemText(dering, 2, _T(""));
-	pList->SetItemText(dering, 3, ResStr(IDS_VIDEO_DERI));
-	
+	pList->SetItemText(dering, 3, m_str_vf[dering*2 + 1]);
+
 	pList->InsertItem(tmpnoise, _T(""));
 	pList->SetCheckbox(tmpnoise, 0, 0);
-	pList->SetItemText(tmpnoise, 1, ResStr(IDS_VIDEO_TNO));
+	pList->SetItemText(tmpnoise, 1, m_str_vf[tmpnoise*2]);
 	pList->SetItemText(tmpnoise, 2, _T(""));
-	pList->SetItemText(tmpnoise, 3, ResStr(IDS_VIDEO_TNOI));
-	
+	pList->SetItemText(tmpnoise, 3, m_str_vf[tmpnoise*2 + 1]);
+
 	pList->InsertItem(autolevels, _T(""));
 	pList->SetCheckbox(autolevels, 0, 0);
-	pList->SetItemText(autolevels, 1, ResStr(IDS_VIDEO_ATL));
+	pList->SetItemText(autolevels, 1, m_str_vf[autolevels*2]);
 	pList->SetItemText(autolevels, 2, _T(""));
-	pList->SetItemText(autolevels, 3, ResStr(IDS_VIDEO_ATLI));
+	pList->SetItemText(autolevels, 3, m_str_vf[autolevels*2 + 1]);
 
 	pList->InsertItem(vf_other, _T(""));
 	pList->SetCheckbox(vf_other, 0, 0);
-	pList->SetItemText(vf_other, 1, ResStr(IDS_VIDEO_OTH));
+	pList->SetItemText(vf_other, 1, m_str_vf[vf_other*2]);
 	pList->SetItemText(vf_other, 2, _T(""));
 	pList->SetEdit(vf_other, 2);
-	pList->SetItemText(vf_other, 3, ResStr(IDS_VIDEO_OTHI));
-
+	pList->SetItemText(vf_other, 3, m_str_vf[vf_other*2 + 1]);
 	pList->UnlockWindowUpdate();
 }
 
@@ -305,7 +365,7 @@ BOOL CMVideoPage::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
-	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_List.EnableToolTips(TRUE);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);
@@ -321,29 +381,12 @@ BOOL CMVideoPage::OnInitDialog()
 	m_brightness_s = 100;
 	m_gamma_s = 10;
 
-	m_vo.AddString(ResStr(IDS_VIDEO_VOD3D));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO1));
-	m_vo.AddString(ResStr(IDS_VIDEO_VOGL));
-	m_vo.AddString(ResStr(IDS_VIDEO_VOGL4));
-	m_vo.AddString(ResStr(IDS_VIDEO_VOGL2));
-	m_vo.AddString(ResStr(IDS_VIDEO_VONV));
-	m_vo.AddString(ResStr(IDS_VIDEO_VOATI));
-	m_vo.AddString(ResStr(IDS_VIDEO_VOGL6));
-	m_vo.AddString(ResStr(IDS_VIDEO_VOGL0));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO3));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO4));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO5));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO6));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO7));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO8));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO9));
-	m_vo.AddString(ResStr(IDS_VIDEO_VO10));
+	for(int i = 0; i < m_vo_str.GetCount(); i++)
+		m_vo.AddString(m_vo_str[i]);
 	m_vo.SetCurSel(directx);
 	
-	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX1));
-	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX2));
-	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX3));
-	m_mxcolor.AddString(ResStr(IDS_VIDEO_MX4));
+	for(int i = 0; i < m_mxcolor_str.GetCount(); i++)
+		m_mxcolor.AddString(m_mxcolor_str[i]);
 	m_mxcolor.SetCurSel(mx_g);
 	
 	InitFromConfig();
@@ -352,10 +395,6 @@ BOOL CMVideoPage::OnInitDialog()
 	int g = _tcstoul(m_color.Right(4).Left(2), 0, 16);
 	int r = _tcstoul(m_color.Right(6).Left(2), 0, 16);
 	m_color_b.Color = RGB(r,g,b);
-	m_color_b.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
-	m_color_b.TrackSelection= TRUE;
-	m_color_b.CustomText= ResStr(IDS_VIDEO_COLMORE);
-	m_color_b.DefaultText = ResStr(IDS_VIDEO_COLAT);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -1197,7 +1236,6 @@ void CMVideoPage::SaveConfig()
 		m_cfg->RemoveValue(_T("autoexpand"));
 		m_cfg->RemoveValue(_T("cofing_expand"),true);
 	}
-
 	
 	if(m_List.GetCheckbox(rotate, 0))
 	{

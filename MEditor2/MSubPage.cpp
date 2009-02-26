@@ -52,6 +52,58 @@ CMSubPage::CMSubPage(CWnd* pParent /*=NULL*/)
 	m_str_no = ResStr(IDS_PLAYER_NONE);
 	m_str_nco = ResStr(IDS_SUB_NORMAL_COL);
 
+	m_color_pri.Color = RGB(255,255,255);
+	m_color_pri.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_pri.TrackSelection= TRUE;
+	m_color_pri.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_pri.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_color_sec.Color = RGB(0,0,0);
+	m_color_sec.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_sec.TrackSelection= TRUE;
+	m_color_sec.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_sec.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_color_out.Color = RGB(0,0,0);
+	m_color_out.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_out.TrackSelection= TRUE;
+	m_color_out.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_out.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_color_bak.Color = RGB(0,0,0);
+	m_color_bak.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
+	m_color_bak.TrackSelection= TRUE;
+	m_color_bak.CustomText= ResStr(IDS_VIDEO_COLMORE);
+	m_color_bak.DefaultText = ResStr(IDS_VIDEO_COLAT);
+
+	m_fuzziness_str.Add(ResStr(IDS_SUB_FUZZ1));
+	m_fuzziness_str.Add(ResStr(IDS_SUB_FUZZ2));
+	m_fuzziness_str.Add(ResStr(IDS_SUB_FUZZ3));
+	m_align_str.Add(ResStr(IDS_SUB_ALIG1));
+	m_align_str.Add(ResStr(IDS_SUB_ALIG2));
+	m_align_str.Add(ResStr(IDS_SUB_ALIG3));
+
+	m_autoscale_str.Add(ResStr(IDS_SUB_SCAL1));
+	m_autoscale_str.Add(ResStr(IDS_SUB_SCAL2));
+	m_autoscale_str.Add(ResStr(IDS_SUB_SCAL3));
+	m_autoscale_str.Add(ResStr(IDS_SUB_SCAL4));
+
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_NOTIME));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T1));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T2));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T3));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T4));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T5));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T6));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T7));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T8));
+	m_osdtime_str.Add(ResStr(IDS_PLAYER_T9));
+
+	m_osdmode_str.Add(ResStr(IDS_PLAYER_NORMAL_MODE));
+	m_osdmode_str.Add(ResStr(IDS_PLAYER_SHOWTIME));
+	m_osdmode_str.Add(ResStr(IDS_PLAYER_SHOWREMAIN));
+	m_osdmode_str.Add(ResStr(IDS_PLAYER_NOOSD));
+
 }
 
 CMSubPage::~CMSubPage()
@@ -67,30 +119,30 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_F2, m_font2_c);
 	DDX_Control(pDX, IDC_COMBO_F1, m_font_c);
 	DDX_Control(pDX, IDC_COMBO_SIZE, m_size);
+	DDX_Control(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand);
+	DDX_Control(pDX, IDC_COMBO_OSDFONT, m_osd_font_c);
+	DDX_Control(pDX, IDC_COMBO_OSD_SIZE, m_osdsize);
+	DDX_Control(pDX, IDC_COMBO_OSDMODE, m_osdmode);
+	DDX_Control(pDX, IDC_COMBO_OSD_TIME, m_osdtime);
+	DDX_AMCBString(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand_s);
+	DDX_AMCBString(pDX, IDC_COMBO_OSDFONT, m_osd_font);
+	DDX_AMCBString(pDX, IDC_COMBO_OSD_SIZE, m_osdsize_s);
+	DDX_AMCBString(pDX, IDC_COMBO_F1, m_font);
+	DDX_AMCBString(pDX, IDC_COMBO_F2, m_font2);
+	DDX_AMCBString(pDX, IDC_COMBO_SIZE, m_size_s);
 	DDX_Check(pDX, IDC_CHECK_DVDSUB, m_dvdsub);
 	DDX_Check(pDX, IDC_CHECK_ASS, m_ass);
 	DDX_Text(pDX, IDC_EDIT_SUBDELAY, m_sub_delay);
 	DDV_MaxChars(pDX, m_sub_delay, 9);
 	DDX_Text(pDX, IDC_EDIT_ERROR, m_sub_error);
 	DDV_MaxChars(pDX, m_sub_error, 3);
-	DDX_CBString(pDX, IDC_COMBO_F1, m_font);
-	DDX_CBString(pDX, IDC_COMBO_F2, m_font2);
-	DDX_CBString(pDX, IDC_COMBO_SIZE, m_size_s);
 	DDV_MaxChars(pDX, m_size_s, 3);
 	DDX_Text(pDX, IDC_EDIT_SUBPOS, m_subpos);
 	DDV_MaxChars(pDX, m_subpos, 3);
 	DDX_Text(pDX, IDC_EDIT_SLANG, m_slang);
 	DDX_Text(pDX, IDC_EDIT_SUBCP, m_subcp);
 	DDX_Check(pDX, IDC_CHECK_AUTOSUB, m_noautosub);
-	DDX_Control(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand);
-	DDX_CBString(pDX, IDC_COMBO_ASSEXPAND, m_ass_expand_s);
-	DDX_Control(pDX, IDC_COMBO_OSDFONT, m_osd_font_c);
-	DDX_CBString(pDX, IDC_COMBO_OSDFONT, m_osd_font);
-	DDX_Control(pDX, IDC_COMBO_OSD_SIZE, m_osdsize);
-	DDX_CBString(pDX, IDC_COMBO_OSD_SIZE, m_osdsize_s);
 	DDV_MaxChars(pDX, m_osdsize_s, 3);
-	DDX_Control(pDX, IDC_COMBO_OSDMODE, m_osdmode);
-	DDX_Control(pDX, IDC_COMBO_OSD_TIME, m_osdtime);
 	DDX_Check(pDX, IDC_CHECK_PERCENT, m_osdpercent);
 	DDX_Control(pDX, IDC_BUTTON_COLORP, m_color_pri);
 	DDX_Control(pDX, IDC_BUTTON_COLORS, m_color_sec);
@@ -117,8 +169,6 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_FONTCONFIG, m_fontconfig);
 	DDX_Check(pDX, IDC_CHECK_B, m_bold);
 	DDX_Check(pDX, IDC_CHECK_I, m_italic);
-	//DDX_Control(pDX, IDC_COMBO_SYSFONT, m_sysfont);
-	//DDX_CBString(pDX, IDC_COMBO_SYSFONT, m_sysfont_s);
 	DDX_Text(pDX, IDC_EDIT_FSCALE, m_ass_font_scale);
 }
 
@@ -134,9 +184,8 @@ BOOL CMSubPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ1));
-	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ2));
-	m_fuzziness.AddString(ResStr(IDS_SUB_FUZZ3));
+	for(int i = 0; i < m_fuzziness_str.GetCount(); i++)
+		m_fuzziness.AddString(m_fuzziness_str[i]);
 	m_fuzziness.SetCurSel(name);
 
 	m_ass_expand.AddString(m_str_no);
@@ -147,15 +196,12 @@ BOOL CMSubPage::OnInitDialog()
 	m_ass_expand.AddString(_T("16:9"));
 	m_ass_expand_s = m_str_at;
 
-	m_align.AddString(ResStr(IDS_SUB_ALIG1));
-	m_align.AddString(ResStr(IDS_SUB_ALIG2));
-	m_align.AddString(ResStr(IDS_SUB_ALIG3));
+	for(int i = 0; i < m_align_str.GetCount(); i++)
+		m_align.AddString(m_align_str[i]);
 	m_align.SetCurSel(center);
 
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL1));
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL2));
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL3));
-	m_autoscale.AddString(ResStr(IDS_SUB_SCAL4));
+	for(int i = 0; i < m_autoscale_str.GetCount(); i++)
+		m_autoscale.AddString(m_autoscale_str[i]);
 	m_autoscale.SetCurSel(diagonal);
 
 	m_size.AddString(_T("2"));
@@ -176,22 +222,12 @@ BOOL CMSubPage::OnInitDialog()
 	m_osdsize.AddString(_T("5"));
 	m_osdsize_s = _T("3");
 
-	m_osdtime.AddString(ResStr(IDS_PLAYER_NOTIME));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T1));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T2));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T3));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T4));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T5));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T6));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T7));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T8));
-	m_osdtime.AddString(ResStr(IDS_PLAYER_T9));
+	for(int i = 0; i < m_osdtime_str.GetCount(); i++)
+		m_osdtime.AddString(m_osdtime_str[i]);
 	m_osdtime.SetCurSel(time_none);
 
-	m_osdmode.AddString(ResStr(IDS_PLAYER_NORMAL_MODE));
-	m_osdmode.AddString(ResStr(IDS_PLAYER_SHOWTIME));
-	m_osdmode.AddString(ResStr(IDS_PLAYER_SHOWREMAIN));
-	m_osdmode.AddString(ResStr(IDS_PLAYER_NOOSD));
+	for(int i = 0; i < m_osdmode_str.GetCount(); i++)
+		m_osdmode.AddString(m_osdmode_str[i]);
 	m_osdmode.SetCurSel(osd_normal);
 
 	TCHAR szCurPath[MAX_PATH + 1];
@@ -219,63 +255,12 @@ BOOL CMSubPage::OnInitDialog()
 			m_osd_font_c.AddString(str);
 		}
 	}
-	//if(finder.FindFile(_T("*.ttc"),0))
-	//{
-	//	while(finder.FindNextFile())
-	//	{
-	//		m_font_c.AddString(finder.GetFileName());
-	//		m_font2_c.AddString(finder.GetFileName());
-	//		m_osd_font_c.AddString(finder.GetFileName());
-	//	}
-	//	CString str = finder.GetFileName();
-	//	if(str.GetLength() > 1)
-	//	{
-	//		m_font_c.AddString(str);
-	//		m_font2_c.AddString(str);
-	//		m_osd_font_c.AddString(str);
-	//	}
-	//}
 	::SetCurrentDirectory(szCurPath);
 	m_font2_c.AddString(_T(""));
 	m_font = _T("simhei.ttf");
 	m_osd_font = _T("simhei.ttf");
 
-	m_color_pri.Color = RGB(255,255,255);
-	m_color_pri.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
-	m_color_pri.TrackSelection= TRUE;
-	m_color_pri.CustomText= ResStr(IDS_VIDEO_COLMORE);
-	m_color_pri.DefaultText = ResStr(IDS_VIDEO_COLAT);
-
-	m_color_sec.Color = RGB(0,0,0);
-	m_color_sec.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
-	m_color_sec.TrackSelection= TRUE;
-	m_color_sec.CustomText= ResStr(IDS_VIDEO_COLMORE);
-	m_color_sec.DefaultText = ResStr(IDS_VIDEO_COLAT);
-
-	m_color_out.Color = RGB(0,0,0);
-	m_color_out.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
-	m_color_out.TrackSelection= TRUE;
-	m_color_out.CustomText= ResStr(IDS_VIDEO_COLMORE);
-	m_color_out.DefaultText = ResStr(IDS_VIDEO_COLAT);
-
-	m_color_bak.Color = RGB(0,0,0);
-	m_color_bak.DefaultColor =  ::GetSysColor(COLOR_APPWORKSPACE);
-	m_color_bak.TrackSelection= TRUE;
-	m_color_bak.CustomText= ResStr(IDS_VIDEO_COLMORE);
-	m_color_bak.DefaultText = ResStr(IDS_VIDEO_COLAT);
-
-	//m_sysfont.FillFontList();
-	//m_sysfont_s = _T("黑体");
-
 	InitFromConfig();
-
-	//if (m_fontconfig)
-	//{
-	//	m_font_c.EnableWindow(FALSE);
-	//	m_font2_c.EnableWindow(FALSE);
-	//}
-	//else
-	//	m_sysfont.EnableWindow(FALSE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

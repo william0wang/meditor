@@ -23,6 +23,10 @@ public:
 	public:
 	virtual BOOL InitInstance();
 
+	HMODULE		hResourceHandleOld;
+	HMODULE		hResourceHandleMod;
+	int			AppLanguage;
+
 // й╣ож
 
 	DECLARE_MESSAGE_MAP()

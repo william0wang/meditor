@@ -153,6 +153,118 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_skey.Add(_T("JOY_BTN1"),ResStr(IDS_INPUT_J2));
 	m_skey.Add(_T("JOY_BTN2"),ResStr(IDS_INPUT_J3));
 	m_skey.Add(_T("JOY_BTN3"),ResStr(IDS_INPUT_J4));
+
+	cmd = ResStr(IDS_INPUT_CMD);
+	inf = ResStr(IDS_DECODE_INF);
+	val	 = ResStr(IDS_INPUT_VAL);
+	key = ResStr(IDS_INPUT_KEY);
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_ADD)+ResStr(IDS_INPUT_SUBSZ));
+	m_str_list.Add(ResStr(IDS_INPUT_ADD)+_T(" 0.1"));
+	m_str_list.Add(_T("c / C"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_DEC)+ResStr(IDS_INPUT_SUBSZ));
+	m_str_list.Add(ResStr(IDS_INPUT_DEC)+_T(" 0.1"));
+	m_str_list.Add(_T("v / V"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_LOOP));
+	m_str_list.Add(ResStr(IDS_INPUT_LOOPIF));
+	m_str_list.Add(_T("b / B"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_RESIZE));
+	m_str_list.Add(ResStr(IDS_INPUT_RESIZE));
+	m_str_list.Add(ResStr(IDS_INPUT_RIGHT) + _T(" Ctrl + 1~9"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_POS));
+	m_str_list.Add(ResStr(IDS_INPUT_POSIF));
+	m_str_list.Add(ResStr(IDS_INPUT_LEFT) + _T(" Ctrl + 1~9"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_FS));
+	m_str_list.Add(_T(""));
+	m_str_list.Add(_T("Alt + ")+ ResStr(IDS_INPUT_ENTER));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_SYS));
+	m_str_list.Add(_T(""));
+	m_str_list.Add(_T("Alt + H/S"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_DVDDIR));
+	m_str_list.Add(_T(""));
+	m_str_list.Add(_T("Ctrl + ")+ ResStr(IDS_INPUT_DVDDIR2));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_DVDSEL));
+	m_str_list.Add(_T(""));
+	m_str_list.Add(_T("Ctrl + ")+ ResStr(IDS_INPUT_ENTER));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_DVDROOT));
+	m_str_list.Add(_T(""));
+	m_str_list.Add(_T("Ctrl + Home"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_DVDPRE));
+	m_str_list.Add(_T(""));
+	m_str_list.Add(_T("Ctrl + End"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_FSR));
+	m_str_list.Add(ResStr(IDS_INPUT_FSRIF));
+	m_str_list.Add(ResStr(IDS_INPUT_RC));
+
+	str_input_no = ResStr(IDS_INPUT_SETNONE);
+	str_input = ResStr(IDS_INPUT_SET);
+
+
+	m_str_input.Add(ResStr(IDS_INPUT_SEEK));
+	m_str_input.Add(ResStr(IDS_INPUT_SUBT));
+	m_str_input.Add(ResStr(IDS_INPUT_PTUS));
+	m_str_input.Add(ResStr(IDS_INPUT_PTS));
+	m_str_input.Add(ResStr(IDS_INPUT_ALTS));
+	m_str_input.Add(ResStr(IDS_INPUT_PANS));
+	m_str_input.Add(ResStr(IDS_INPUT_PAUS));
+	m_str_input.Add(ResStr(IDS_INPUT_SCRS));
+	m_str_input.Add(ResStr(IDS_INPUT_KEEP));
+	m_str_input.Add(ResStr(IDS_INPUT_FRAD));
+	m_str_input.Add(ResStr(IDS_INPUT_OSD));
+	m_str_input.Add(ResStr(IDS_INPUT_QUIT));
+	m_str_input.Add(ResStr(IDS_INPUT_MUTE));
+
+	m_str_input.Add(ResStr(IDS_INPUT_SWIA));
+	m_str_input.Add(ResStr(IDS_INPUT_SWIF));
+	m_str_input.Add(ResStr(IDS_INPUT_CHAP));
+	m_str_input.Add(ResStr(IDS_INPUT_TITLE));
+	m_str_input.Add(ResStr(IDS_INPUT_ANGLE));
+
+	m_str_input.Add(ResStr(IDS_INPUT_SUBS));
+	m_str_input.Add(ResStr(IDS_INPUT_SUBA));
+	m_str_input.Add(ResStr(IDS_INPUT_SWIV));
+	m_str_input.Add(ResStr(IDS_INPUT_VOFS));
+	m_str_input.Add(ResStr(IDS_INPUT_VOOT));
+	m_str_input.Add(ResStr(IDS_INPUT_RELO));
+	m_str_input.Add(ResStr(IDS_INPUT_FRAS));
+	m_str_input.Add(ResStr(IDS_INPUT_SPES));
+	m_str_input.Add(ResStr(IDS_INPUT_SPEI));
+	m_str_input.Add(ResStr(IDS_INPUT_BALA));
+
+	m_str_input.Add(ResStr(IDS_INPUT_VOLU));
+	m_str_input.Add(ResStr(IDS_INPUT_SUBP));
+	m_str_input.Add(ResStr(IDS_INPUT_CONT));
+	m_str_input.Add(ResStr(IDS_INPUT_BRIG));
+	m_str_input.Add(ResStr(IDS_INPUT_SATU));
+	m_str_input.Add(ResStr(IDS_INPUT_GAMM));
+	m_str_input.Add(ResStr(IDS_INPUT_HUE));
+
+	m_str_input.Add(ResStr(IDS_INPUT_AUDD));
+	m_str_input.Add(ResStr(IDS_INPUT_SUBD));
+
 	m_readonly_number = 0;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -192,10 +304,6 @@ void CMInputPage::InitListCtrl(CXListCtrl * pList)
 	pList->GetWindowRect(&rect);
 
 	int w = rect.Width() - 2;
-	CString cmd = ResStr(IDS_INPUT_CMD);
-	CString inf = ResStr(IDS_DECODE_INF);
-	CString val	 = ResStr(IDS_INPUT_VAL);
-	CString key = ResStr(IDS_INPUT_KEY);
 
 	TCHAR *	lpszHeaders[] = {_tcsdup(cmd.GetBuffer()),_tcsdup(inf.GetBuffer())
 		, _tcsdup(val.GetBuffer()), _tcsdup(key.GetBuffer()), NULL };
@@ -264,77 +372,13 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 	CString str = _T("");
 
 	int index = 0;
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1,ResStr(IDS_INPUT_ADD)+ResStr(IDS_INPUT_SUBSZ),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2,ResStr(IDS_INPUT_ADD)+_T(" 0.1"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("c / C"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DEC)+ResStr(IDS_INPUT_SUBSZ),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_DEC)+_T(" 0.1"),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("v / V"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_LOOP),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_LOOPIF),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("b / B"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1,ResStr(IDS_INPUT_RESIZE),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2,ResStr(IDS_INPUT_SIZEIF),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3,ResStr(IDS_INPUT_RIGHT) + _T(" Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1,ResStr(IDS_INPUT_POS),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2,ResStr(IDS_INPUT_POSIF),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3,ResStr(IDS_INPUT_LEFT)+ _T(" Ctrl + 1~9"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_FS),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Alt + ")+ ResStr(IDS_INPUT_ENTER),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_SYS),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Alt + H/S"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDDIR),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Ctrl + ")+ ResStr(IDS_INPUT_DVDDIR2),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDSEL),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Ctrl + ")+ ResStr(IDS_INPUT_ENTER),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDROOT),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Ctrl + Home"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INNER),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_DVDPRE),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, _T(""),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, _T("Ctrl + End"),RGB(0,0,0),RGB(200,255,200));
-	++index;
-
-	m_List.InsertItem(index, ResStr(IDS_INPUT_INMOS),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 1, ResStr(IDS_INPUT_FSR),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 2, ResStr(IDS_INPUT_FSRIF),RGB(0,0,0),RGB(200,255,200));
-	m_List.SetItemText(index, 3, ResStr(IDS_INPUT_RC),RGB(0,0,0),RGB(200,255,200));
-	++index;
+	for(; index < 12; index++)
+	{
+		m_List.InsertItem(index, m_str_list[index*4],RGB(0,0,0),RGB(200,255,200));
+		m_List.SetItemText(index, 1,m_str_list[index*4 + 1],RGB(0,0,0),RGB(200,255,200));
+		m_List.SetItemText(index, 2,m_str_list[index*4 + 2],RGB(0,0,0),RGB(200,255,200));
+		m_List.SetItemText(index, 3,m_str_list[index*4 + 3],RGB(0,0,0),RGB(200,255,200));
+	}
 
 	m_readonly_number = index;
 
@@ -426,7 +470,7 @@ void CMInputPage::LoadInputConfig()
 	}
 	if(m_inputs.GetSize() < 1)
 	{
-		if(MessageBox(ResStr(IDS_INPUT_SETNONE),ResStr(IDS_INPUT_SET),MB_OKCANCEL|MB_TOPMOST) != IDOK)
+		if(MessageBox(str_input_no,str_input,MB_OKCANCEL|MB_TOPMOST) != IDOK)
 			return;
 		ExtractResource(MAKEINTRESOURCE(IDZ_INPUT),TEXT("INPUT_INI")
 			,m_program_dir + _T("input.ini"),true,true,_T("input.ini"));
@@ -502,83 +546,83 @@ void CMInputPage::GetCmdInfo(CString cmd ,CString &info)
 {
 	info = _T("");
 	if(cmd == _T("seek"))
-		info = ResStr(IDS_INPUT_SEEK);
+		info = m_str_input[0];
 	else if(cmd == _T("sub_step"))
-		info = ResStr(IDS_INPUT_SUBT);
+		info = m_str_input[1];
 	else if(cmd == _T("pt_up_step"))
-		info = ResStr(IDS_INPUT_PTUS);
+		info = m_str_input[2];
 	else if(cmd == _T("pt_step"))
-		info = ResStr(IDS_INPUT_PTS);
+		info = m_str_input[3];
 	else if(cmd == _T("alt_src_step"))
-		info = ResStr(IDS_INPUT_ALTS);
+		info = m_str_input[4];
 	else if(cmd == _T("panscan"))
-		info = ResStr(IDS_INPUT_PANS);
+		info = m_str_input[5];
 	else if(cmd == _T("pause"))
-		info = ResStr(IDS_INPUT_PAUS);
+		info = m_str_input[6];
 	else if(cmd == _T("screenshot"))
-		info = ResStr(IDS_INPUT_SCRS);
+		info = m_str_input[7];
 	else if(cmd == _T("keep_aspect"))
-		info = ResStr(IDS_INPUT_KEEP);
+		info = m_str_input[8];
 	else if(cmd == _T("frame_drop"))
-		info = ResStr(IDS_INPUT_FRAD);
+		info = m_str_input[9];
 	else if(cmd == _T("osd"))
-		info = ResStr(IDS_INPUT_OSD);
+		info = m_str_input[10];
 	else if(cmd == _T("quit"))
-		info = ResStr(IDS_INPUT_QUIT);
+		info = m_str_input[11];
 	else if(cmd == _T("mute"))
-		info = ResStr(IDS_INPUT_MUTE);
+		info = m_str_input[12];
 
 	else if(cmd == _T("switch_audio"))
-		info = ResStr(IDS_INPUT_SWIA);
+		info = m_str_input[13];
 	else if(cmd == _T("switch_font"))
-		info = ResStr(IDS_INPUT_SWIF);
+		info = m_str_input[14];
 	else if(cmd == _T("seek_chapter"))
-		info = ResStr(IDS_INPUT_CHAP);
+		info = m_str_input[15];
 	else if(cmd == _T("switch_title"))
-		info = ResStr(IDS_INPUT_TITLE);
+		info = m_str_input[16];
 	else if(cmd == _T("switch_angle"))
-		info = ResStr(IDS_INPUT_ANGLE);
+		info = m_str_input[17];
 
 	else if(cmd == _T("sub_select"))
-		info = ResStr(IDS_INPUT_SUBS);
+		info = m_str_input[18];
 	else if(cmd == _T("sub_alignment"))
-		info = ResStr(IDS_INPUT_SUBA);
+		info = m_str_input[19];
 	else if(cmd == _T("switch_view"))
-		info = ResStr(IDS_INPUT_SWIV);
+		info = m_str_input[20];
 	else if(cmd == _T("vo_fullscreen"))
-		info = ResStr(IDS_INPUT_VOFS);
+		info = m_str_input[21];
 	else if(cmd == _T("vo_ontop"))
-		info = ResStr(IDS_INPUT_VOOT);
+		info = m_str_input[22];
 	else if(cmd == _T("reload"))
-		info = ResStr(IDS_INPUT_RELO);
+		info = m_str_input[23];
 	else if(cmd == _T("frame_step"))
-		info = ResStr(IDS_INPUT_FRAS);
+		info = m_str_input[24];
 	else if(cmd == _T("speed_set"))
-		info = ResStr(IDS_INPUT_SPES);
+		info = m_str_input[25];
 	else if(cmd == _T("speed_incr"))
-		info = ResStr(IDS_INPUT_SPEI);
+		info = m_str_input[26];
 	else if(cmd == _T("balance"))
-		info = ResStr(IDS_INPUT_BALA);
+		info = m_str_input[27];
 
 	else if(cmd == _T("volume"))
-		info = ResStr(IDS_INPUT_VOLU);
+		info = m_str_input[28];
 	else if(cmd == _T("sub_pos"))
-		info = ResStr(IDS_INPUT_SUBP);
+		info = m_str_input[29];
 	else if(cmd == _T("contrast"))
-		info = ResStr(IDS_INPUT_CONT);
+		info = m_str_input[30];
 	else if(cmd == _T("brightness"))
-		info = ResStr(IDS_INPUT_BRIG);
+		info = m_str_input[31];
 	else if(cmd == _T("saturation"))
-		info = ResStr(IDS_INPUT_SATU);
+		info = m_str_input[32];
 	else if(cmd == _T("gamma"))
-		info = ResStr(IDS_INPUT_GAMM);
+		info = m_str_input[33];
 	else if(cmd == _T("hue"))
-		info = ResStr(IDS_INPUT_HUE);
+		info = m_str_input[34];
 
 	else if(cmd == _T("audio_delay"))
-		info = ResStr(IDS_INPUT_AUDD);
+		info = m_str_input[35];
 	else if(cmd == _T("sub_delay"))
-		info = ResStr(IDS_INPUT_SUBD);
+		info = m_str_input[36];
 
 }
 

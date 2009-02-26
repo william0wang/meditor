@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ColorButton.h"
-//#include "FontComboBox.h"
 #include "afxwin.h"
+#include "AdvCombo\AdvComboBox.h"
 
 // CMSubPage 对话框
 enum align
@@ -66,16 +66,17 @@ public:
 	void SetLower();
 
 protected:
-	CComboBox	m_autoscale;
-	CComboBox	m_align;
-	CComboBox	m_fuzziness;
-	CComboBox	m_font2_c;
-	CComboBox	m_font_c;
-	CComboBox	m_size;
-	CComboBox	m_osd_font_c;
-	CComboBox	 m_osdtime;
-	CComboBox	 m_osdsize;
-	CComboBox	 m_osdmode;
+	CAdvComboBoxMod	m_autoscale;
+	CAdvComboBoxMod	m_align;
+	CAdvComboBoxMod	m_fuzziness;
+	CAdvComboBoxMod	m_font2_c;
+	CAdvComboBoxMod	m_font_c;
+	CAdvComboBoxMod	m_size;
+	CAdvComboBoxMod	m_osd_font_c;
+	CAdvComboBoxMod	m_osdtime;
+	CAdvComboBoxMod	m_osdsize;
+	CAdvComboBoxMod	m_osdmode;
+	CAdvComboBoxMod	m_ass_expand;
 	CString	m_osd_font;
 	CString	m_osdsize_s;
 	BOOL	m_dvdsub;
@@ -90,7 +91,6 @@ protected:
 	CString	m_subcp;
 	BOOL m_ass_use_margins;
 	BOOL m_noautosub;
-	CComboBox m_ass_expand;
 	CString m_ass_expand_s;
 	CString	m_str_at;
 	CString	m_str_nco;
@@ -108,6 +108,11 @@ protected:
 	int m_colseca;
 	int m_colouta;
 	int m_colbaka;
+	CStringArray m_fuzziness_str;
+	CStringArray m_align_str;
+	CStringArray m_autoscale_str;
+	CStringArray m_osdtime_str;
+	CStringArray m_osdmode_str;
 
 // 对话框数据
 	enum { IDD = IDD_SUBTITLE_DIALOG };
@@ -128,8 +133,6 @@ public:
 	BOOL m_bold;
 	BOOL m_italic;
 	CMShowInfoDlg *info;
-	//CFontComboBox m_sysfont;
-	//CString m_sysfont_s;
 	void SetInfoDlg(CMShowInfoDlg *infoDlg);
 	void ShowInfo(int type);
 	afx_msg void OnBnClickedCheckFontconfig();

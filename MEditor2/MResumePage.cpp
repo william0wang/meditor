@@ -15,6 +15,10 @@ CMResumePage::CMResumePage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMResumePage::IDD, pParent)
 	, m_auto_resume(FALSE)
 {
+	no = ResStr(IDS_RESUME_NO);
+	time = ResStr(IDS_RESUME_TIME);
+	file = ResStr(IDS_RESUME_FILE);
+	nol = ResStr(IDS_RESUME_NORMAL);
 	m_maxnum = _T("10");
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -67,9 +71,6 @@ void CMResumePage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	CString no = ResStr(IDS_RESUME_NO);
-	CString time = ResStr(IDS_RESUME_TIME);
-	CString file = ResStr(IDS_RESUME_FILE);
 	TCHAR *	lpszHeaders[] = { _tcsdup(no.GetBuffer()) , _tcsdup(time.GetBuffer()) , _tcsdup(file.GetBuffer()) , NULL };
 	no.ReleaseBuffer();
 	time.ReleaseBuffer();
@@ -128,7 +129,7 @@ BOOL CMResumePage::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_list.EnableToolTips(TRUE);
 	InitListCtrl(&m_list);
 
@@ -173,7 +174,7 @@ BOOL CMResumePage::OnInitDialog()
 			m_cfg->GetValue_String(_T("TXTSub"),reinfo[0].TXTSub,true);
 			m_cfg->GetValue_String(_T("SubPos"),reinfo[0].SubPos,true);
 			m_cfg->GetValue_String(_T("Filename"),reinfo[0].Filename,true);
-			m_list.InsertItem(0, ResStr(IDS_RESUME_NORMAL));
+			m_list.InsertItem(0, nol);
 			m_list.SetItemText(0, 1, reinfo[0].Time);
 			m_list.SetItemText(0, 2,reinfo[0].Filename);
 			m_number = 0;

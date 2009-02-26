@@ -121,6 +121,28 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_str_skip3 = ResStr(IDS_DECODE_SKIP3);
 	m_str_skip4 = ResStr(IDS_DECODE_SKIP4);
 	m_str_skip5 = ResStr(IDS_DECODE_SKIP5);
+
+	use1 = ResStr(IDS_PLAYER_USE);
+	pr1 = ResStr(IDS_DECODE_PR);
+	use = ResStr(IDS_PLAYER_USE);
+	name = ResStr(IDS_DECODE_NAME);
+	op = ResStr(IDS_PLAYER_OPTION);
+	inf = ResStr(IDS_DECODE_INF);
+
+	m_str_avlist.Add(ResStr(IDS_DECODE_SKIPLOOP));
+	m_str_avlist.Add(ResStr(IDS_DECODE_SKIPLOOP_INFO));
+	m_str_avlist.Add(ResStr(IDS_DECODE_SKIPFRAME));
+	m_str_avlist.Add(ResStr(IDS_DECODE_SKIPFRAME_INFO));
+	m_str_avlist.Add(ResStr(IDS_DECODE_XY));
+	m_str_avlist.Add(ResStr(IDS_DECODE_XY_INFO));
+	m_str_avlist.Add(ResStr(IDS_DECODE_LOW));
+	m_str_avlist.Add(ResStr(IDS_DECODE_LOW_INFO));
+	m_str_avlist.Add(ResStr(IDS_DECODE_THREADS));
+	m_str_avlist.Add(ResStr(IDS_DECODE_THREADS_INFO));
+
+	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE1));
+	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE2));
+	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE3));
 }
 
 
@@ -162,11 +184,9 @@ void CMDecodePage::InitListCtrl(CXListCtrl * pList)
 	CRect rect;
 	pList->GetWindowRect(&rect);
 	int w = rect.Width() - 2;
-	CString use = ResStr(IDS_PLAYER_USE);
-	CString pr = ResStr(IDS_DECODE_PR);
-	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(pr.GetBuffer()), NULL };
-	use.ReleaseBuffer();
-	pr.ReleaseBuffer();
+	TCHAR *	lpszHeaders[] = { _tcsdup(use1.GetBuffer()) ,  _tcsdup(pr1.GetBuffer()), NULL };
+	use1.ReleaseBuffer();
+	pr1.ReleaseBuffer();
 	int i;
 	int total_cx = 0;
 	LV_COLUMN lvcolumn;
@@ -232,10 +252,6 @@ void CMDecodePage::InitListCtrlAV(CXListCtrl * pList)
 	CRect rect;
 	pList->GetWindowRect(&rect);
 	int w = rect.Width() - 2;
-	CString use = ResStr(IDS_PLAYER_USE);
-	CString name = ResStr(IDS_DECODE_NAME);
-	CString op = ResStr(IDS_PLAYER_OPTION);
-	CString inf = ResStr(IDS_DECODE_INF);
 	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(name.GetBuffer())
          ,_tcsdup(op.GetBuffer()) ,  _tcsdup(inf.GetBuffer()), NULL };
 	use.ReleaseBuffer();
@@ -296,60 +312,36 @@ void CMDecodePage::FillListCtrlAV(CXListCtrl * pList)
 	
 	pList->InsertItem(skiploopfilter, _T(""));
 	pList->SetCheckbox(skiploopfilter, 0, 0);
-	pList->SetItemText(skiploopfilter, 1, ResStr(IDS_DECODE_SKIPLOOP));
+	pList->SetItemText(skiploopfilter, 1, m_str_avlist[skiploopfilter*2]);
 	pList->SetComboBox(skiploopfilter, 2, TRUE,  &m_skip,  5,  4,  FALSE);
-	pList->SetItemText(skiploopfilter, 3, ResStr(IDS_DECODE_SKIPLOOP_INFO));
+	pList->SetItemText(skiploopfilter, 3, m_str_avlist[skiploopfilter*2 + 1]);
 	
 	pList->InsertItem(skipframe, _T(""));
 	pList->SetCheckbox(skipframe, 0, 0);
-	pList->SetItemText(skipframe, 1, ResStr(IDS_DECODE_SKIPFRAME));
+	pList->SetItemText(skipframe, 1, m_str_avlist[skipframe*2]);
 	pList->SetComboBox(skipframe, 2, TRUE,  &m_skip,  5,  0,  FALSE);
-	pList->SetItemText(skipframe, 3, ResStr(IDS_DECODE_SKIPFRAME_INFO));
+	pList->SetItemText(skipframe, 3, m_str_avlist[skipframe*2 + 1]);
 
-//	pList->InsertItem(fast, _T(""));
-//	pList->SetCheckbox(fast, 0, 0);
-//	pList->SetItemText(fast, 1, _T("非标准速度优化"));
-//	pList->SetItemText(fast, 2, _T(""));
-//	pList->SetItemText(fast, 3, _T("仅用于MPEG-2、MPEG-4和H.264"));
-//	
-//	pList->InsertItem(gray, _T(""));
-//	pList->SetCheckbox(gray, 0, 0);
-//	pList->SetItemText(gray, 1, _T("只灰度图像解码"));
-//	pList->SetItemText(gray, 2, _T(""));
-//	pList->SetItemText(gray, 3, _T("比彩色解码快一点"));
-//	
-//	pList->InsertItem(sb, _T(""));
-//	pList->SetCheckbox(sb, 0, 0);
-//	pList->SetItemText(sb, 1, _T("跳过宏块底部的制定行数"));
-//	pList->SetItemText(sb, 2, _T(""));
-//	pList->SetItemText(sb, 3, _T("仅用于 MPEG-2"));
-//	
-//	pList->InsertItem(st, _T(""));
-//	pList->SetCheckbox(st, 0, 0);
-//	pList->SetItemText(st, 1, _T("跳过宏块顶部的制定行数"));
-//	pList->SetItemText(st, 2, _T(""));
-//	pList->SetItemText(st, 3, _T("仅用于 MPEG-2"));
-	
 	pList->InsertItem(xy, _T(""));
 	pList->SetCheckbox(xy, 0, 0);
-	pList->SetItemText(xy, 1, ResStr(IDS_DECODE_XY));
+	pList->SetItemText(xy, 1, m_str_avlist[xy*2]);
 	pList->SetItemText(xy, 2, _T("720"));
 	pList->SetEdit(xy, 2);
-	pList->SetItemText(xy, 3,ResStr(IDS_DECODE_XY_INFO));
+	pList->SetItemText(xy, 3,m_str_avlist[xy*2 + 1]);
 	
 	pList->InsertItem(lowres, _T(""));
 	pList->SetCheckbox(lowres, 0, 0);
-	pList->SetItemText(lowres, 1, ResStr(IDS_DECODE_LOW));
+	pList->SetItemText(lowres, 1, m_str_avlist[lowres*2]);
 	pList->SetItemText(lowres, 2, _T("1,1281"));
 	pList->SetEdit(lowres, 2);
-	pList->SetItemText(lowres, 3, ResStr(IDS_DECODE_LOW_INFO));
+	pList->SetItemText(lowres, 3, m_str_avlist[lowres*2 + 1]);
 
 	pList->InsertItem(threads, _T(""));
 	pList->SetCheckbox(threads, 0, 0);
-	pList->SetItemText(threads, 1, ResStr(IDS_DECODE_THREADS));
+	pList->SetItemText(threads, 1, m_str_avlist[threads*2]);
 	pList->SetItemText(threads, 2, _T("2"));
 	pList->SetEdit(threads, 2);
-	pList->SetItemText(threads, 3, ResStr(IDS_DECODE_THREADS_INFO));
+	pList->SetItemText(threads, 3, m_str_avlist[threads*2 + 1]);
 
 	pList->UnlockWindowUpdate();
 }
@@ -359,23 +351,22 @@ BOOL CMDecodePage::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
-	m_vlist.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_vlist.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_vlist.EnableToolTips(TRUE);
 	InitListCtrl(&m_vlist);
 	FillListCtrl(&m_vlist);
 	
-	m_alist.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_alist.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_alist.EnableToolTips(TRUE);
 	InitListCtrl(&m_alist);
 	
-	m_avlist.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_avlist.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_avlist.EnableToolTips(TRUE);
 	InitListCtrlAV(&m_avlist);
 	FillListCtrlAV(&m_avlist);
 
-	m_codecs.AddString(ResStr(IDS_DECODE_CODEFILE1));
-	m_codecs.AddString(ResStr(IDS_DECODE_CODEFILE2));
-	m_codecs.AddString(ResStr(IDS_DECODE_CODEFILE3));
+	for(int i = 0; i < m_str_codecs.GetCount(); i++)
+		m_codecs.AddString(m_str_codecs[i]);
 	m_codecs.SetCurSel(inner);
 	
 	InitFromConfig();

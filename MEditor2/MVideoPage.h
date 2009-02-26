@@ -15,6 +15,7 @@
 #include "XListCtrl.h"
 #include "ColorButton.h"
 #include "afxcmn.h"
+#include "AdvCombo\AdvComboBox.h"
 
 enum Filters
 {
@@ -101,12 +102,12 @@ public:
 protected:
 // Dialog Data
 	enum { IDD = IDD_VIDEO_DIALOG };
-	CComboBox	m_mxcolor;
+	CAdvComboBoxMod	m_vo;
+	CAdvComboBoxMod	m_mxcolor;
 	CSliderCtrl	m_sc;
 	CSliderCtrl	m_hc;
 	CSliderCtrl	m_cc;
 	CSliderCtrl	m_bc;
-	CComboBox	m_vo;
 	BOOL	m_noflash;
 	BOOL	m_forcepbo;
 	CString	m_color;
@@ -129,7 +130,17 @@ protected:
 	CStringArray m_rotate;
 	CStringArray m_deinterlacing;
 	CStringArray m_deblocking;
-	
+	CStringArray m_vo_str;
+	CStringArray m_mxcolor_str;
+	CStringArray m_str_vf;
+
+	CString use;
+	CString nam;
+	CString opt;
+	CString inf;
+	CString m_str_vet;
+	CString m_str_cot;
+
 	CColorButton m_color_b;
 	CXListCtrl m_List;
 	static int m_nColWidths[];

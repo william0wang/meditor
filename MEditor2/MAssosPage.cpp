@@ -88,7 +88,12 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 
 	m_have_icons = false;
 	m_special = false;
-	
+
+	ass = ResStr(IDS_ASSOS_ASSOS);
+	ex = ResStr(IDS_ASSOS_EX);
+	inf = ResStr(IDS_ASSOS_INF);
+	tp = ResStr(IDS_ASSOS_TYP);
+
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
@@ -141,10 +146,6 @@ void CMAssosPage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	CString ass = ResStr(IDS_ASSOS_ASSOS);
-	CString ex = ResStr(IDS_ASSOS_EX);
-	CString inf = ResStr(IDS_ASSOS_INF);
-	CString tp = ResStr(IDS_ASSOS_TYP);
 	TCHAR *	lpszHeaders[] = { _tcsdup(ass.GetBuffer()) ,  _tcsdup(ex.GetBuffer()) 
 		,  _tcsdup(inf.GetBuffer()) ,  _tcsdup(tp.GetBuffer()) , NULL };
 	ass.ReleaseBuffer();
@@ -295,7 +296,7 @@ BOOL CMAssosPage::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);
 

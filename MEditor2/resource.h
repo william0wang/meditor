@@ -41,6 +41,27 @@
 #define IDD_PROFILE_DIALOG              190
 #define IDD_OSD_DIALOG                  191
 #define IDD_SUBTITLE_DIALOG             191
+#define IDD_PLAYER_DIALOG_EN            192
+#define IDD_PLAYER_DIALOG_TC            193
+#define IDD_ASSOS_DIALOG_EN             194
+#define IDD_AUDIO_DIALOG_EN             195
+#define IDD_DECODE_DIALOG_EN            196
+#define IDD_INPUT_DIALOG_EN             197
+#define IDD_OTHER_DIALOG_EN             198
+#define IDD_PROFILE_DIALOG_EN           199
+#define IDD_RESUME_DIALOG_EN            200
+#define IDD_SUBTITLE_DIALOG_EN          201
+#define IDD_VIDEO_DIALOG_EN             202
+#define IDD_VIDEO_DIALOG_TC             203
+#define IDD_SUBTITLE_DIALOG1            204
+#define IDD_SUBTITLE_DIALOG_TC          204
+#define IDD_RESUME_DIALOG_TC            205
+#define IDD_PROFILE_DIALOG_TC           206
+#define IDD_OTHER_DIALOG_TC             207
+#define IDD_INPUT_DIALOG_TC             208
+#define IDD_AUDIO_DIALOG_TC             209
+#define IDD_ASSOS_DIALOG_TC             210
+#define IDD_DECODE_DIALOG_TC            211
 #define IDC_TAB1                        1000
 #define IDC_LIST_INPUT                  1001
 #define IDC_APPLY                       1004
@@ -646,7 +667,6 @@
 #define IDS_AUDIO_STM                   35349
 #define IDS_AUDIO_STM_INFO              35350
 #define IDS_ASSOS_AVS                   35351
-#define IDS_ASSOS_AVS2                  35352
 #define IDS_MESSAGE_AVS                 35352
 
 // Next default values for new objects
@@ -655,7 +675,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        183
 #define _APS_NEXT_COMMAND_VALUE         32828
-#define _APS_NEXT_CONTROL_VALUE         1149
+#define _APS_NEXT_CONTROL_VALUE         1150
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

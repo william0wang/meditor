@@ -43,7 +43,6 @@ CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	, m_disable_xptoolbars(FALSE)
 	, m_disable_xpwindow(FALSE)
 	, m_screensaver(FALSE)
-	, m_theme(FALSE)
 {
 	//{{AFX_DATA_INIT(CMOtherPage)
 	m_other = _T("");
@@ -79,7 +78,6 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_XPTOOLBARS, m_disable_xptoolbars);
 	DDX_Check(pDX, IDC_CHECK_XPWINDOW, m_disable_xpwindow);
 	DDX_Check(pDX, IDC_CHECK_SCREENSAVER, m_screensaver);
-	DDX_Check(pDX, IDC_CHECK_THEME, m_theme);
 	DDX_Check(pDX, IDC_CHECK_INFO, m_info_html);
 }
 
@@ -172,8 +170,6 @@ BOOL CMOtherPage::OnInitDialog()
 		m_mpc_c.EnableWindow(TRUE);
 		m_mpc = TRUE;
 	}
-	if(IsFileExist(m_program + _T(".manifest")))
-		m_theme = TRUE;
 
 	UpdateData(FALSE);
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -187,13 +183,11 @@ void CMOtherPage::SetNormal()
 	m_disable_xpwindow = FALSE;
 	m_screensaver = FALSE;
 	m_info_html = FALSE;
-	m_theme = FALSE;
 }
 
 void CMOtherPage::SetHigh()
 {
 	SetNormal();
-	m_theme = TRUE;
 }
 
 void CMOtherPage::SetLower()
@@ -262,10 +256,6 @@ void CMOtherPage::SaveConfig()
 	else
 		m_cfg->SetValue_Other(_T(""));
 
-	if(m_theme)
-		ExtractResource(TEXT("IDR_MANIFESTX"),MAKEINTRESOURCE(RT_MANIFEST),m_program + _T(".manifest"),false);
-	else
-		DeleteFile(m_program + _T(".manifest"));
 }
 
 BOOL CMOtherPage::PreTranslateMessage(MSG* pMsg) 

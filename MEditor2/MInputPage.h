@@ -32,6 +32,15 @@ protected:
 	CMKeyList m_skey;
 	CString m_program_dir;
 	CString m_str_none;
+
+	CString cmd;
+	CString inf;
+	CString val;
+	CString key;
+	CString str_input_no;
+	CString str_input;
+	CStringArray m_str_list;
+	CStringArray m_str_input;
 	CMInputList m_inputs;
 	int CheckMute();
 	int GetKeyNumber(CString Key);

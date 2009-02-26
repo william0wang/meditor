@@ -66,6 +66,115 @@ CMProfilePage::CMProfilePage(CWnd* pParent /*=NULL*/)
 	m_str_int = ResStr(IDS_AUDIO_REINT);
 	m_str_foa = ResStr(IDS_AUDIO_REFOA);
 	m_str_nco = ResStr(IDS_SUB_NORMAL_COL);
+	use = ResStr(IDS_PLAYER_USE);
+	nam = ResStr(IDS_DECODE_NAME);
+	opt = ResStr(IDS_PLAYER_OPTION);
+	inf = ResStr(IDS_DECODE_INF);
+	m_str_vet = ResStr(IDS_VIDEO_EXPIT);
+	m_str_cot = ResStr(IDS_VIDEO_CROIT);
+
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFAT));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFH));
+	m_adv_af.Add(ResStr(IDS_AUDIO_AFF));
+
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA1));	
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA2));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA3));
+	m_rotate.Add(ResStr(IDS_VIDEO_ROTA4));
+
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD1));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD2));
+	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD3));
+	m_deinterlacing.Add(_T("FFmpeg"));
+	m_deinterlacing.Add(_T("lowpass5"));
+
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB1));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB2));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB3));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB4));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB5));
+	m_deblocking.Add(ResStr(IDS_VIDEO_DB6));
+
+
+	m_volnormal.Add(ResStr(IDS_AUDIO_RS));
+	m_volnormal.Add(ResStr(IDS_AUDIO_RM));
+
+	m_resample.Add(_T("8kHz ") + m_str_at);
+	m_resample.Add(_T("8kHz ") + m_str_low);
+	m_resample.Add(_T("8kHz ") + m_str_int);
+	m_resample.Add(_T("8kHz ") + m_str_foa);
+	m_resample.Add(_T("16kHz ") + m_str_at);
+	m_resample.Add(_T("16kHz ") + m_str_low);
+	m_resample.Add(_T("16kHz ") + m_str_int);
+	m_resample.Add(_T("16kHz ") + m_str_foa);
+	m_resample.Add(_T("22.05kHz ") + m_str_at);
+	m_resample.Add(_T("22.05kHz ") + m_str_low);
+	m_resample.Add(_T("22.05kHz ") + m_str_int);
+	m_resample.Add(_T("22.05kHz ") + m_str_foa);
+	m_resample.Add(_T("32kHz ") + m_str_at);
+	m_resample.Add(_T("32kHz ") + m_str_low);
+	m_resample.Add(_T("32kHz ") + m_str_int);
+	m_resample.Add(_T("32kHz ") + m_str_foa);
+	m_resample.Add(_T("44.1kHz ") + m_str_at);
+	m_resample.Add(_T("44.1kHz ") + m_str_low);
+	m_resample.Add(_T("44.1kHz ") + m_str_int);
+	m_resample.Add(_T("44.1kHz ") + m_str_foa);
+	m_resample.Add(_T("48kHz ") + m_str_at);
+	m_resample.Add(_T("48kHz ") + m_str_low);
+	m_resample.Add(_T("48kHz ") + m_str_int);
+	m_resample.Add(_T("48kHz ") + m_str_foa);
+	m_resample.Add(_T("64kHz ") + m_str_at);
+	m_resample.Add(_T("64kHz ") + m_str_low);
+	m_resample.Add(_T("64kHz ") + m_str_int);
+	m_resample.Add(_T("64kHz ") + m_str_foa);
+	m_resample.Add(_T("96kHz ") + m_str_at);
+	m_resample.Add(_T("96kHz ") + m_str_low);
+	m_resample.Add(_T("96kHz ") + m_str_int);
+	m_resample.Add(_T("96kHz ") + m_str_foa);
+
+	m_str_profile.Add(ResStr(IDS_PROFILE_FLV));
+	m_str_profile.Add(ResStr(IDS_PROFILE_FLV_INFO));
+	m_str_profile.Add(ResStr(IDS_PROFILE_SLN));
+	m_str_profile.Add(ResStr(IDS_PROFILE_SLN_INFO));
+	m_str_profile.Add(ResStr(IDS_PROFILE_ALN));
+	m_str_profile.Add(ResStr(IDS_PROFILE_ALN_INFO));
+	m_str_profile.Add(ResStr(IDS_AUDIO_ADV));
+	m_str_profile.Add(ResStr(IDS_AUDIO_ADV_INFO));
+	m_str_profile.Add(ResStr(IDS_VIDEO_SST));
+	m_str_profile.Add(ResStr(IDS_VIDEO_SSTI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ASS));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ASSI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_EXP));
+	m_str_profile.Add(ResStr(IDS_VIDEO_EXPI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ASP));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ASPI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_EQ2));
+	m_str_profile.Add(ResStr(IDS_VIDEO_EQ2I));
+	m_str_profile.Add(ResStr(IDS_VIDEO_HUE));
+	m_str_profile.Add(ResStr(IDS_VIDEO_HUEI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_FLP));
+	m_str_profile.Add(ResStr(IDS_VIDEO_FLPI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ROT));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ROTI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_CRO));
+	m_str_profile.Add(ResStr(IDS_VIDEO_CROI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_DEI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_DEII));
+	m_str_profile.Add(ResStr(IDS_VIDEO_DEB));
+	m_str_profile.Add(ResStr(IDS_VIDEO_DEBI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_DER));
+	m_str_profile.Add(ResStr(IDS_VIDEO_DERI));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ATL));
+	m_str_profile.Add(ResStr(IDS_VIDEO_ATLI));
+	m_str_profile.Add(ResStr(IDS_AUDIO_VNL));
+	m_str_profile.Add(ResStr(IDS_AUDIO_VNL_INFO));
+	m_str_profile.Add(ResStr(IDS_AUDIO_RE));
+	m_str_profile.Add(ResStr(IDS_AUDIO_RE_INFO));
+	m_str_profile.Add(ResStr(IDS_AUDIO_EQ));
+	m_str_profile.Add(ResStr(IDS_AUDIO_EQ_INFO));
+	m_str_profile.Add(ResStr(IDS_AUDIO_DELAY));
+	m_str_profile.Add(ResStr(IDS_AUDIO_DELAY_INFO));
+
 }
 
 CMProfilePage::~CMProfilePage()
@@ -77,7 +186,7 @@ void CMProfilePage::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_PROFILE, m_List);
 	DDX_Control(pDX, IDC_COMBO_EXTENSINO, m_profile_list);
-	DDX_CBString(pDX, IDC_COMBO_EXTENSINO, m_profile);
+	DDX_AMCBString(pDX, IDC_COMBO_EXTENSINO, m_profile);
 }
 
 
@@ -103,10 +212,6 @@ void CMProfilePage::InitListCtrl(CXListCtrl * pList)
 
 	int w = rect.Width() - 2;
 
-	CString use = ResStr(IDS_PLAYER_USE);
-	CString nam = ResStr(IDS_DECODE_NAME);
-	CString opt = ResStr(IDS_PLAYER_OPTION);
-	CString inf = ResStr(IDS_DECODE_INF);
 	TCHAR *	lpszHeaders[] = { _tcsdup(use.GetBuffer()) ,  _tcsdup(nam.GetBuffer())
 		,_tcsdup(opt.GetBuffer()) ,  _tcsdup(inf.GetBuffer()),  NULL };
 	use.ReleaseBuffer();
@@ -173,202 +278,138 @@ void CMProfilePage::FillListCtrl(CXListCtrl * pList)
 	// insert the items and subitems into the list
 	pList->InsertItem(flvsync, _T(""));
 	pList->SetCheckbox(flvsync, 0, 0);
-	pList->SetItemText(flvsync, 1, ResStr(IDS_PROFILE_FLV));
+	pList->SetItemText(flvsync, 1, m_str_profile[flvsync*2]);
 	pList->SetItemText(flvsync, 2, _T(""));
-	pList->SetItemText(flvsync, 3, ResStr(IDS_PROFILE_FLV_INFO));
+	pList->SetItemText(flvsync, 3, m_str_profile[flvsync*2 + 1]);
 
 	pList->InsertItem(slang, _T(""));
 	pList->SetCheckbox(slang, 0, 0);
-	pList->SetItemText(slang, 1, ResStr(IDS_PROFILE_SLN));
+	pList->SetItemText(slang, 1, m_str_profile[slang*2]);
 	pList->SetItemText(slang, 2, _T("zh,ch,tw"));
 	pList->SetEdit(slang, 2);
-	pList->SetItemText(slang, 3, ResStr(IDS_PROFILE_SLN_INFO));
+	pList->SetItemText(slang, 3, m_str_profile[slang*2 + 1]);
 
 	pList->InsertItem(alang, _T(""));
 	pList->SetCheckbox(alang, 0, 0);
-	pList->SetItemText(alang, 1, ResStr(IDS_PROFILE_ALN));
+	pList->SetItemText(alang, 1, m_str_profile[alang*2]);
 	pList->SetItemText(alang, 2, _T("zh,ch,tw"));
 	pList->SetEdit(alang, 2);
-	pList->SetItemText(alang, 3, ResStr(IDS_PROFILE_ALN_INFO));
-	
-	m_adv_af.RemoveAll();
-	m_adv_af.Add(ResStr(IDS_AUDIO_AFAT));
-	m_adv_af.Add(ResStr(IDS_AUDIO_AFH));
-	m_adv_af.Add(ResStr(IDS_AUDIO_AFF));
+	pList->SetItemText(alang, 3, m_str_profile[alang*2 + 1]);
 
 	pList->InsertItem(adv_af, _T(""));
 	pList->SetCheckbox(adv_af, 0, 0);
-	pList->SetItemText(adv_af, 1, ResStr(IDS_AUDIO_ADV));
+	pList->SetItemText(adv_af, 1, m_str_profile[adv_af*2]);
 	pList->SetComboBox(adv_af, 2, TRUE,  &m_adv_af,  5,  1,  FALSE);
-	pList->SetItemText(adv_af, 3, ResStr(IDS_AUDIO_ADV_INFO));
-
-	m_rotate.RemoveAll();
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA1));	
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA2));
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA3));
-	m_rotate.Add(ResStr(IDS_VIDEO_ROTA4));
-	
-	m_deinterlacing.RemoveAll();
-	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD1));
-	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD2));
-	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD3));
-	m_deinterlacing.Add(_T("FFmpeg"));
-	m_deinterlacing.Add(_T("lowpass5"));
-	
-	m_deblocking.RemoveAll();
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB1));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB2));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB3));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB4));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB5));
-	m_deblocking.Add(ResStr(IDS_VIDEO_DB6));
+	pList->SetItemText(adv_af, 3, m_str_profile[adv_af*2 + 1]);
 
 	pList->InsertItem(screenshot, _T(""));
 	pList->SetCheckbox(screenshot, 0, 0);
-	pList->SetItemText(screenshot, 1, ResStr(IDS_VIDEO_SST));
+	pList->SetItemText(screenshot, 1, m_str_profile[screenshot*2]);
 	pList->SetItemText(screenshot, 2, _T(""));
-	pList->SetItemText(screenshot, 3,ResStr(IDS_VIDEO_SSTI));
-	
+	pList->SetItemText(screenshot, 3, m_str_profile[screenshot*2 + 1]);
+
 	pList->InsertItem(ass, _T(""));
 	pList->SetCheckbox(ass, 0, 0);
-	pList->SetItemText(ass, 1, ResStr(IDS_VIDEO_ASS));
+	pList->SetItemText(ass, 1, m_str_profile[ass*2]);
 	pList->SetItemText(ass, 2, _T(""));
-	pList->SetItemText(ass, 3, ResStr(IDS_VIDEO_ASSI));
+	pList->SetItemText(ass, 3, m_str_profile[ass*2 + 1]);
 
 	pList->InsertItem(expand, _T(""));
 	pList->SetCheckbox(expand, 0, 0);
-	pList->SetItemText(expand, 1,ResStr(IDS_VIDEO_EXP));
+	pList->SetItemText(expand, 1,m_str_profile[expand*2]);
 	pList->SetItemText(expand, 2, _T(":::::4/3"));
 	pList->SetEdit(expand, 2);
-	pList->SetItemText(expand, 3, ResStr(IDS_VIDEO_EXPI));
-	pList->SetItemToolTipText(expand, 2, ResStr(IDS_VIDEO_EXPIT));
-	
+	pList->SetItemText(expand, 3, m_str_profile[expand*2 + 1]);
+	pList->SetItemToolTipText(expand, 2, m_str_vet);
+
 	pList->InsertItem(aspect, _T(""));
 	pList->SetCheckbox(aspect, 0, 0);
-	pList->SetItemText(aspect, 1, ResStr(IDS_VIDEO_ASP));
+	pList->SetItemText(aspect, 1, m_str_profile[aspect*2]);
 	pList->SetItemText(aspect, 2, _T("4:3"));
 	pList->SetEdit(aspect, 2);
-	pList->SetItemText(aspect, 3, ResStr(IDS_VIDEO_ASPI));
+	pList->SetItemText(aspect, 3, m_str_profile[aspect*2 + 1]);
 
 	pList->InsertItem(eq2, _T(""));
 	pList->SetCheckbox(eq2, 0, 0);
-	pList->SetItemText(eq2, 1, ResStr(IDS_VIDEO_EQ2));
+	pList->SetItemText(eq2, 1, m_str_profile[eq2*2]);
 	pList->SetItemText(eq2, 2, _T(""));
-	pList->SetItemText(eq2, 3, ResStr(IDS_VIDEO_EQ2I));
-	
+	pList->SetItemText(eq2, 3, m_str_profile[eq2*2 + 1]);
+
 	pList->InsertItem(hue, _T(""));
 	pList->SetCheckbox(hue, 0, 0);
-	pList->SetItemText(hue, 1, ResStr(IDS_VIDEO_HUE));
-	pList->SetItemText(hue, 3, ResStr(IDS_VIDEO_HUEI));
-	
+	pList->SetItemText(hue, 1, m_str_profile[hue*2]);
+	pList->SetItemText(hue, 3, m_str_profile[hue*2 + 1]);
+
 	pList->InsertItem(flip, _T(""));
 	pList->SetCheckbox(flip, 0, 0);
-	pList->SetItemText(flip, 1, ResStr(IDS_VIDEO_FLP));
+	pList->SetItemText(flip, 1, m_str_profile[flip*2]);
 	pList->SetItemText(flip, 2, _T(""));
-	pList->SetItemText(flip, 3, ResStr(IDS_VIDEO_FLPI));
-	
+	pList->SetItemText(flip, 3, m_str_profile[flip*2 + 1]);
+
 	pList->InsertItem(rotate, _T(""));
 	pList->SetCheckbox(rotate, 0, 0);
-	pList->SetItemText(rotate, 1, ResStr(IDS_VIDEO_ROT));
+	pList->SetItemText(rotate, 1, m_str_profile[rotate*2]);
 	pList->SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
-	pList->SetItemText(rotate, 3, ResStr(IDS_VIDEO_ROTI));
-	
+	pList->SetItemText(rotate, 3, m_str_profile[rotate*2 + 1]);
+
 	pList->InsertItem(crop, _T(""));
 	pList->SetCheckbox(crop, 0, 0);
-	pList->SetItemText(crop, 1, ResStr(IDS_VIDEO_CRO));
+	pList->SetItemText(crop, 1, m_str_profile[crop*2]);
 	pList->SetItemText(crop, 2, _T("640:480"));
 	pList->SetEdit(crop, 2);
-	pList->SetItemText(crop, 3, ResStr(IDS_VIDEO_CROI));
-	pList->SetItemToolTipText(crop, 2, ResStr(IDS_VIDEO_CROIT));
-	
+	pList->SetItemText(crop, 3, m_str_profile[crop*2 + 1]);
+	pList->SetItemToolTipText(crop, 2, m_str_cot);
+
 	pList->InsertItem(deinterlacing, _T(""));
 	pList->SetCheckbox(deinterlacing, 0, 0);
-	pList->SetItemText(deinterlacing, 1, ResStr(IDS_VIDEO_DEI));
+	pList->SetItemText(deinterlacing, 1, m_str_profile[deinterlacing*2]);
 	pList->SetComboBox(deinterlacing, 2, TRUE,  &m_deinterlacing,  5,  0,  FALSE);
-	pList->SetItemText(deinterlacing, 3, ResStr(IDS_VIDEO_DEII));
-	
+	pList->SetItemText(deinterlacing, 3, m_str_profile[deinterlacing*2 + 1]);
+
 	pList->InsertItem(deblocking, _T(""));
 	pList->SetCheckbox(deblocking, 0, 0);
-	pList->SetItemText(deblocking, 1, ResStr(IDS_VIDEO_DEB));
+	pList->SetItemText(deblocking, 1, m_str_profile[deblocking*2]);
 	pList->SetComboBox(deblocking, 2, TRUE,  &m_deblocking,  6,  0,  FALSE);
-	pList->SetItemText(deblocking, 3, ResStr(IDS_VIDEO_DEBI));
-	
+	pList->SetItemText(deblocking, 3, m_str_profile[deblocking*2 + 1]);
+
 	pList->InsertItem(dering, _T(""));
 	pList->SetCheckbox(dering, 0, 0);
-	pList->SetItemText(dering, 1, ResStr(IDS_VIDEO_DER));
+	pList->SetItemText(dering, 1, m_str_profile[dering*2]);
 	pList->SetItemText(dering, 2, _T(""));
-	pList->SetItemText(dering, 3, ResStr(IDS_VIDEO_DERI));
-	
+	pList->SetItemText(dering, 3, m_str_profile[dering*2 + 1]);
+
 	pList->InsertItem(autolevels, _T(""));
 	pList->SetCheckbox(autolevels, 0, 0);
-	pList->SetItemText(autolevels, 1, ResStr(IDS_VIDEO_ATL));
+	pList->SetItemText(autolevels, 1, m_str_profile[autolevels*2]);
 	pList->SetItemText(autolevels, 2, _T(""));
-	pList->SetItemText(autolevels, 3, ResStr(IDS_VIDEO_ATLI));
-
-	m_volnormal.RemoveAll();
-	m_resample.RemoveAll();
-
-	m_volnormal.Add(ResStr(IDS_AUDIO_RS));
-	m_volnormal.Add(ResStr(IDS_AUDIO_RM));
-
-	m_resample.Add(_T("8kHz ") + m_str_at);
-	m_resample.Add(_T("8kHz ") + m_str_low);
-	m_resample.Add(_T("8kHz ") + m_str_int);
-	m_resample.Add(_T("8kHz ") + m_str_foa);
-	m_resample.Add(_T("16kHz ") + m_str_at);
-	m_resample.Add(_T("16kHz ") + m_str_low);
-	m_resample.Add(_T("16kHz ") + m_str_int);
-	m_resample.Add(_T("16kHz ") + m_str_foa);
-	m_resample.Add(_T("22.05kHz ") + m_str_at);
-	m_resample.Add(_T("22.05kHz ") + m_str_low);
-	m_resample.Add(_T("22.05kHz ") + m_str_int);
-	m_resample.Add(_T("22.05kHz ") + m_str_foa);
-	m_resample.Add(_T("32kHz ") + m_str_at);
-	m_resample.Add(_T("32kHz ") + m_str_low);
-	m_resample.Add(_T("32kHz ") + m_str_int);
-	m_resample.Add(_T("32kHz ") + m_str_foa);
-	m_resample.Add(_T("44.1kHz ") + m_str_at);
-	m_resample.Add(_T("44.1kHz ") + m_str_low);
-	m_resample.Add(_T("44.1kHz ") + m_str_int);
-	m_resample.Add(_T("44.1kHz ") + m_str_foa);
-	m_resample.Add(_T("48kHz ") + m_str_at);
-	m_resample.Add(_T("48kHz ") + m_str_low);
-	m_resample.Add(_T("48kHz ") + m_str_int);
-	m_resample.Add(_T("48kHz ") + m_str_foa);
-	m_resample.Add(_T("64kHz ") + m_str_at);
-	m_resample.Add(_T("64kHz ") + m_str_low);
-	m_resample.Add(_T("64kHz ") + m_str_int);
-	m_resample.Add(_T("64kHz ") + m_str_foa);
-	m_resample.Add(_T("96kHz ") + m_str_at);
-	m_resample.Add(_T("96kHz ") + m_str_low);
-	m_resample.Add(_T("96kHz ") + m_str_int);
-	m_resample.Add(_T("96kHz ") + m_str_foa);
+	pList->SetItemText(autolevels, 3, m_str_profile[autolevels*2 + 1]);
 
 	pList->InsertItem(volnormal, _T(""));
 	pList->SetCheckbox(volnormal, 0, 0);
-	pList->SetItemText(volnormal, 1, ResStr(IDS_AUDIO_VNL));
+	pList->SetItemText(volnormal, 1, m_str_profile[volnormal*2]);
 	pList->SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  0,  FALSE);
-	pList->SetItemText(volnormal, 3, ResStr(IDS_AUDIO_VNL_INFO));
+	pList->SetItemText(volnormal, 3, m_str_profile[volnormal*2 + 1]);
 
 	pList->InsertItem(resample, _T(""));
 	pList->SetCheckbox(resample, 0, 0);
-	pList->SetItemText(resample, 1, ResStr(IDS_AUDIO_RE));
+	pList->SetItemText(resample, 1, m_str_profile[resample*2]);
 	pList->SetComboBox(resample, 2, TRUE,  &m_resample,  5,  16,  FALSE);
-	pList->SetItemText(resample, 3, ResStr(IDS_AUDIO_RE_INFO));
-	
+	pList->SetItemText(resample, 3, m_str_profile[resample*2 + 1]);
+
 	pList->InsertItem(equalizer, _T(""));
 	pList->SetCheckbox(equalizer, 0, 0);
-	pList->SetItemText(equalizer, 1, ResStr(IDS_AUDIO_EQ));
+	pList->SetItemText(equalizer, 1, m_str_profile[equalizer*2]);
 	pList->SetItemText(equalizer, 2, _T("0:0:0:0:0:0:0:0:0:0"));
 	pList->SetEdit(equalizer, 2);
-	pList->SetItemText(equalizer, 3, ResStr(IDS_AUDIO_EQ_INFO));
+	pList->SetItemText(equalizer, 3, m_str_profile[equalizer*2 + 1]);
 
 	pList->InsertItem(audiodelay, _T(""));
 	pList->SetCheckbox(audiodelay, 0, 0);
-	pList->SetItemText(audiodelay, 1, ResStr(IDS_AUDIO_DELAY));
+	pList->SetItemText(audiodelay, 1, m_str_profile[audiodelay*2]);
 	pList->SetItemText(audiodelay, 2, _T(""));
 	pList->SetEdit(audiodelay, 2);
-	pList->SetItemText(audiodelay, 3, ResStr(IDS_AUDIO_DELAY_INFO));
+	pList->SetItemText(audiodelay, 3, m_str_profile[audiodelay*2 + 1]);
+
 	pList->UnlockWindowUpdate();
 }
 
@@ -377,7 +418,7 @@ BOOL CMProfilePage::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_List.EnableToolTips(TRUE);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);

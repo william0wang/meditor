@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zDecD.lib  Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zDecD.lib AdvComboBoxD.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateManifest="false"
@@ -155,7 +155,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zdecR.lib AdvComboBoxR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateManifest="true"
@@ -364,50 +364,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\CDXGraph.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ColorButton.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ColourPopup.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\explorer_html.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\FontComboBox.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MAssosPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MAudioPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MConfig.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MDecodePage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MDSPlayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MediaInfoDlg.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\MEditor2.cpp"
 				>
 			</File>
@@ -416,63 +372,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MFlashPlayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MInputList.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MInputPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MLinkDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MOtherPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MPlayerPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MPlayList.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\MProfileDlg.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MProfilePage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MResumePage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MShared.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\MShowInfoDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MSubPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MVideoPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Reg.cpp"
 				>
 			</File>
 			<File
@@ -515,10 +419,118 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\TabSheet.cpp"
+			<Filter
+				Name="Page"
 				>
-			</File>
+				<File
+					RelativePath=".\MAssosPage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MAudioPage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MDecodePage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MInputPage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MOtherPage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MPlayerPage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MProfilePage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MResumePage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MSubPage.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MVideoPage.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Other"
+				>
+				<File
+					RelativePath=".\CDXGraph.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ColorButton.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ColourPopup.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\explorer_html.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\FontComboBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MDSPlayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MediaInfoDlg.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MFlashPlayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MLinkDlg.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MPlayList.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Share"
+				>
+				<File
+					RelativePath=".\MConfig.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MInputList.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MShared.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Reg.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TabSheet.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="资源文件"
@@ -563,50 +575,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			>
 			<File
-				RelativePath=".\CDXGraph.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ColorButton.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ColourPopup.h"
-				>
-			</File>
-			<File
-				RelativePath=".\explorer_html.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FontComboBox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MAssosPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MAudioPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MConfig.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MDecodePage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MDSPlayer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MediaInfoDlg.h"
-				>
-			</File>
-			<File
 				RelativePath=".\MEditor2.h"
 				>
 			</File>
@@ -615,63 +583,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MFlashPlayer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MInputList.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MInputPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MLinkDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MOtherPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MPlayerPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MPlayList.h"
-				>
-			</File>
-			<File
 				RelativePath=".\MProfileDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MProfilePage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MResumePage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MShared.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MShowInfoDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MSubPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MVideoPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Reg.h"
 				>
 			</File>
 			<File
@@ -679,21 +591,133 @@
 				>
 			</File>
 			<File
-				RelativePath=".\shockwaveflash.h"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TabSheet.h"
 				>
 			</File>
 			<File
 				RelativePath=".\targetver.h"
 				>
 			</File>
+			<Filter
+				Name="Page"
+				>
+				<File
+					RelativePath=".\MAssosPage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MAudioPage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MDecodePage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MInputPage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MOtherPage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MPlayerPage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MProfilePage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MResumePage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MSubPage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MVideoPage.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Other"
+				>
+				<File
+					RelativePath=".\CDXGraph.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ColorButton.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ColourPopup.h"
+					>
+				</File>
+				<File
+					RelativePath=".\explorer_html.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FontComboBox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MDSPlayer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MediaInfoDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MFlashPlayer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MLinkDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MPlayList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MShowInfoDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\shockwaveflash.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Share"
+				>
+				<File
+					RelativePath=".\MConfig.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MInputList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MShared.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Reg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TabSheet.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

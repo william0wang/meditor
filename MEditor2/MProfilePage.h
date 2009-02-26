@@ -7,6 +7,7 @@
 #endif
 #include "XListCtrl.h"
 #include "afxwin.h"
+#include "AdvCombo\AdvComboBox.h"
 class CMConfig;
 
 class CMProfilePage : public CDialog
@@ -37,6 +38,13 @@ protected:
 	CString	m_str_int;
 	CString	m_str_foa;
 	CString	m_str_nco;
+	CString use;
+	CString nam;
+	CString opt;
+	CString inf;
+	CString m_str_vet;
+	CString m_str_cot;
+	CStringArray m_str_profile;
 	static int m_nColWidths[];
 	void InitListCtrl(CXListCtrl * pList);
 	void FillListCtrl(CXListCtrl * pList);
@@ -49,7 +57,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	CComboBox m_profile_list;
+	CAdvComboBoxMod m_profile_list;
 	CString m_profile;
 	afx_msg void OnCbnSelchangeComboExtensino();
 	afx_msg void OnBnClickedDel();

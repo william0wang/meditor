@@ -27,8 +27,9 @@ END_MESSAGE_MAP()
 
 CMEditor2App::CMEditor2App()
 {
-	// TODO: 在此处添加构造代码，
-	// 将所有重要的初始化放置在 InitInstance 中
+	hResourceHandleOld = NULL;
+	hResourceHandleMod = NULL;
+	AppLanguage = 0;
 }
 
 
@@ -150,50 +151,41 @@ BOOL CMEditor2App::InitInstance()
 
 		if(langfile_tc || langfile_en)
 		{
-			int lang = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
-			if(lang == 0)
+			AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
+			if(AppLanguage == 0)
 			{
 				LANGID   _SysLangId   =   GetSystemDefaultLangID();
 				if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
 				{
 					if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
-						lang = 1;		//Simplified Chinese GBK
+						AppLanguage = 1;		//Simplified Chinese GBK
 					else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
-						lang = 4;		//Traditional Chinese Big5
+						AppLanguage = 4;		//Traditional Chinese Big5
 					else
-						lang = 3;		//ANSI
+						AppLanguage = 3;		//ANSI
 				}
 				else
-					lang = 2;			//ANSI
+					AppLanguage = 2;			//ANSI
 			}
 
-			if(lang == 2 && langfile_en)
-			{
-				LPCTSTR  strSatellite;
+			CString strSatellite = _T("");
+			if(AppLanguage == 2 && langfile_en) {
 				if(langfile_en == 1)
 					strSatellite = program_dir + _T("meditor2.en.dll");
 				else
 					strSatellite = program_dir + _T("codecs\\meditor2.en.dll");
-				if (strSatellite)
-				{
-					HMODULE		hMod = LoadLibrary (strSatellite);
-					if (hMod)
-						AfxSetResourceHandle(hMod);
-				}
-			}
-			else if(langfile_tc && (lang == 3 || lang == 4))
-			{
-				LPCTSTR  strSatellite;
+			} else if(langfile_tc && (AppLanguage == 3 || AppLanguage == 4)) {
 				if(langfile_tc == 1)
 					strSatellite = program_dir + _T("meditor2.tc.dll");
 				else
 					strSatellite = program_dir + _T("codecs\\meditor2.tc.dll");
-				if (strSatellite)
-				{
-					HMODULE		hMod = LoadLibrary (strSatellite);
-					if (hMod)
-						AfxSetResourceHandle(hMod);
-				}
+			}
+			if (strSatellite.GetLength() > 2)
+			{
+				hResourceHandleOld = AfxGetResourceHandle();
+				hResourceHandleMod = LoadLibrary (strSatellite);
+				if (hResourceHandleMod)
+					AfxSetResourceHandle(hResourceHandleMod);
 			}
 		}
 		CMEditor2Dlg dlg;

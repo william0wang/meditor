@@ -58,6 +58,11 @@ protected:
 	CString m_str_ds;
 	CString m_str_v;
 	CString m_str_a;
+	CString ass;
+	CString ex;
+	CString inf;
+	CString tp;
+
 	bool m_have_icons;
 	bool m_special;
 	int m_default_num;

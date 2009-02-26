@@ -13,6 +13,7 @@
 
 class CMConfig;
 class CMShowInfoDlg;
+#include "AdvCombo\AdvComboBox.h"
 
 enum language
 {
@@ -96,20 +97,20 @@ public:
 	void SetLower();
 
 	enum { IDD = IDD_PLAYER_DIALOG };
+	CAdvComboBoxMod	m_autoplay;
+	CAdvComboBoxMod	m_systray;
+	CAdvComboBoxMod	m_switchview;
+	CAdvComboBoxMod	m_cache;
+	CAdvComboBoxMod	m_colorkey;
+	CAdvComboBoxMod m_autosync;
+	CAdvComboBoxMod	m_language;
+	CAdvComboBoxMod	m_log;
+	CAdvComboBoxMod m_loop;
+	CAdvComboBoxMod m_monitor;
+	CAdvComboBoxMod m_ontop;
+	CAdvComboBoxMod m_priority;
 	CEdit	m_fuzziness;
-	CComboBox	m_autoplay;
-	CComboBox	m_systray;
 	CButton	m_button_c;
-	CComboBox	m_switchview;
-	CComboBox	m_cache;
-	CComboBox	m_colorkey;
-	CComboBox m_autosync;
-	CComboBox	 m_language;
-	CComboBox	 m_log;
-	CComboBox m_loop;
-	CComboBox m_monitor;
-	CComboBox m_ontop;
-	CComboBox m_priority;
 	BOOL	m_control;
 	BOOL	m_framedrop;
 	BOOL	m_fullscreen;
@@ -140,6 +141,15 @@ public:
 	CString	m_auto_fuzziness;
 	CMShowInfoDlg *info;
 
+	CStringArray m_str_language;
+	CStringArray m_str_ontop;
+	CStringArray m_str_autosync;
+	CStringArray m_str_priority;
+	CStringArray m_str_loop;
+	CStringArray m_str_log;
+	CStringArray m_str_switchview;
+	CStringArray m_str_systray;
+	CStringArray m_str_autoplay;
 
 // Overrides
 	// ClassWizard generated virtual function overrides

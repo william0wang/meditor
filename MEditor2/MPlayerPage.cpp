@@ -30,7 +30,6 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_filename(TRUE)
 {
 	m_cfg = NULL;
-	//{{AFX_DATA_INIT(CMPlayerPage)
 	m_control = TRUE;
 	m_fullscreen = FALSE;
 	m_guithread = FALSE;
@@ -50,17 +49,67 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_conf = FALSE;
 	m_button = FALSE;
 	m_auto_fuzziness = _T("1");
-	//}}AFX_DATA_INIT
+
+	m_auto_s = ResStr(IDS_PLAYER_AUTO);
+	m_no_s = ResStr(IDS_PLAYER_NO);
+
+	m_str_language.Add(ResStr(IDS_PLAYER_AUTOSEL));
+	m_str_language.Add(_T("简体中文"));
+	m_str_language.Add(_T("English"));
+	m_str_language.Add(_T("繁體中文"));
+	m_str_language.Add(_T("繁體中文 BIG5"));
+
+	m_str_ontop.Add(ResStr(IDS_PLAYER_NONE));
+	m_str_ontop.Add(ResStr(IDS_PLAYER_ALLWAYS));
+	m_str_ontop.Add(ResStr(IDS_PLAYER_PLAYING));
+
+	m_str_autosync.Add(ResStr(IDS_PLAYER_AS_NO));
+	m_str_autosync.Add(ResStr(IDS_PLAYER_AS_NORMAL));
+	m_str_autosync.Add(ResStr(IDS_PLAYER_AS_FAST));
+	m_str_autosync.Add(ResStr(IDS_PLAYER_AS_FLV));
+	m_str_autosync.Add(ResStr(IDS_PLAYER_AS_FLVEX));
+	m_str_autosync.Add(ResStr(IDS_PLAYER_AS_AVI));
+
+	m_str_priority.Add(m_auto_s);
+	m_str_priority.Add(ResStr(IDS_PLAYER_PREALTIME));
+	m_str_priority.Add(ResStr(IDS_PLAYER_PHIGH));
+	m_str_priority.Add(ResStr(IDS_PLAYER_PHNORMAL));
+	m_str_priority.Add(ResStr(IDS_PLAYER_PNORMAL));
+	m_str_priority.Add(ResStr(IDS_PLAYER_PLNORMAL));
+	m_str_priority.Add(ResStr(IDS_PLAYER_PIDLE));
+
+	m_str_loop.Add(ResStr(IDS_PLAYER_NONE));
+	m_str_loop.Add(ResStr(IDS_PLAYER_FILE));
+	m_str_loop.Add(ResStr(IDS_PLAYER_LIST));
+
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG_NO));
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG));
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG_V1));
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG_V2));
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG_V3));
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG_V4));
+	m_str_log.Add(ResStr(IDS_PLAYER_LOG_V5));
+
+	m_str_switchview.Add(ResStr(IDS_PLAYER_HIDE_NO));
+	m_str_switchview.Add(ResStr(IDS_PLAYER_HIDE_M));
+	m_str_switchview.Add(ResStr(IDS_PLAYER_HIDE_A));
+
+	m_str_systray.Add(ResStr(IDS_PLAYER_TASK));
+	m_str_systray.Add(ResStr(IDS_PLAYER_TRAY));
+	m_str_systray.Add(ResStr(IDS_PLAYER_TRAYSTOP));
+
+	m_str_autoplay.Add(ResStr(IDS_PLAYER_NOUSE));
+	m_str_autoplay.Add(m_auto_s);
+	m_str_autoplay.Add(ResStr(IDS_PLAYER_EX));
+
 }
 
 void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMPlayerPage)
-	DDX_Control(pDX, IDC_EDIT_FUZZINESS, m_fuzziness);
 	DDX_Control(pDX, IDC_COMBO_AUTOPLAY, m_autoplay);
 	DDX_Control(pDX, IDC_COMBO_SYSTRAY, m_systray);
-	DDX_Control(pDX, IDC_CHECK_BUTTON, m_button_c);
 	DDX_Control(pDX, IDC_COMBO_VIEW, m_switchview);
 	DDX_Control(pDX, IDC_COMBO_CACHE, m_cache);
 	DDX_Control(pDX, IDC_COMBO_COLORKEY, m_colorkey);
@@ -71,6 +120,10 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MONITOR, m_monitor);
 	DDX_Control(pDX, IDC_COMBO_ONTOP, m_ontop);
 	DDX_Control(pDX, IDC_COMBO_PRIORITY, m_priority);
+	DDX_AMCBString(pDX, IDC_COMBO_MONITOR, m_monitor_s);
+	DDX_AMCBString(pDX, IDC_COMBO_COLORKEY, m_colorkey_s);
+	DDX_Control(pDX, IDC_EDIT_FUZZINESS, m_fuzziness);
+	DDX_Control(pDX, IDC_CHECK_BUTTON, m_button_c);
 	DDX_Check(pDX, IDC_CHECK_CTRL, m_control);
 	DDX_Check(pDX, IDC_CHECK_FULLSCREEN, m_fullscreen);
 	DDX_Check(pDX, IDC_CHECK_GUITHREAD, m_guithread);
@@ -83,10 +136,8 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_END, m_end);
 	DDX_Text(pDX, IDC_EDIT_PNG, m_png);
 	DDX_Text(pDX, IDC_EDIT_START, m_start);
-	DDX_CBString(pDX, IDC_COMBO_MONITOR, m_monitor_s);
 	DDX_Check(pDX, IDC_CHECK_QUIET, m_quiet);
 	DDX_Check(pDX, IDC_CHECK_DOUBLE, m_double);
-	DDX_CBString(pDX, IDC_COMBO_COLORKEY, m_colorkey_s);
 	DDX_Check(pDX, IDC_CHECK_CONF, m_conf);
 	DDX_Check(pDX, IDC_CHECK_BUTTON, m_button);
 	DDX_Text(pDX, IDC_EDIT_FUZZINESS, m_auto_fuzziness);
@@ -110,7 +161,6 @@ BEGIN_MESSAGE_MAP(CMPlayerPage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_DVD, OnButtonDvd)
 	ON_BN_CLICKED(IDC_CHECK_CTRL, OnCheckCtrl)
 	ON_CBN_SELCHANGE(IDC_COMBO_AUTOPLAY, OnSelchangeAutoplay)
-	//ON_BN_CLICKED(IDC_CHECK_BOOST, &CMPlayerPage::OnBnClickedCheckBoost)
 	ON_BN_CLICKED(IDC_BUTTON_DEF, &CMPlayerPage::OnBnClickedButtonDef)
 END_MESSAGE_MAP()
 
@@ -153,14 +203,9 @@ BOOL CMPlayerPage::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
-	m_auto_s = ResStr(IDS_PLAYER_AUTO);
-	m_no_s = ResStr(IDS_PLAYER_NO);
-    
-	m_language.AddString(ResStr(IDS_PLAYER_AUTOSEL));
-	m_language.AddString(_T("简体中文"));
-	m_language.AddString(_T("English"));
-	m_language.AddString(_T("繁體中文"));
-	m_language.AddString(_T("繁體中文 BIG5"));
+
+	for(int i = 0; i < m_str_language.GetCount(); i++)
+		m_language.AddString(m_str_language[i]);
 	m_language.SetCurSel(lang_auto);
 
 	m_cache.AddString(m_auto_s);
@@ -172,36 +217,25 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_cache.AddString(_T("16 M"));
 	m_cache.AddString(_T("32 M"));
 	m_cache.SetCurSel(0);
-	
-	m_ontop.AddString(ResStr(IDS_PLAYER_NONE));
-	m_ontop.AddString(ResStr(IDS_PLAYER_ALLWAYS));
-	m_ontop.AddString(ResStr(IDS_PLAYER_PLAYING));
+
+	for(int i = 0; i < m_str_ontop.GetCount(); i++)
+		m_ontop.AddString(m_str_ontop[i]);
 	m_ontop.SetCurSel(top_none);
 
 	m_colorkey.AddString(m_no_s);
 	m_colorkey.AddString(_T("0x101010"));
 	m_colorkey_s = _T("0x101010");
 
-	m_autosync.AddString(ResStr(IDS_PLAYER_AS_NO));
-	m_autosync.AddString(ResStr(IDS_PLAYER_AS_NORMAL));
-	m_autosync.AddString(ResStr(IDS_PLAYER_AS_FAST));
-	m_autosync.AddString(ResStr(IDS_PLAYER_AS_FLV));
-	m_autosync.AddString(ResStr(IDS_PLAYER_AS_FLVEX));
-	m_autosync.AddString(ResStr(IDS_PLAYER_AS_AVI));
+	for(int i = 0; i < m_str_autosync.GetCount(); i++)
+		m_autosync.AddString(m_str_autosync[i]);
 	m_autosync.SetCurSel(sync_none);
 
-	m_priority.AddString(m_auto_s);
-	m_priority.AddString(ResStr(IDS_PLAYER_PREALTIME));
-	m_priority.AddString(ResStr(IDS_PLAYER_PHIGH));
-	m_priority.AddString(ResStr(IDS_PLAYER_PHNORMAL));
-	m_priority.AddString(ResStr(IDS_PLAYER_PNORMAL));
-	m_priority.AddString(ResStr(IDS_PLAYER_PLNORMAL));
-	m_priority.AddString(ResStr(IDS_PLAYER_PIDLE));
+	for(int i = 0; i < m_str_priority.GetCount(); i++)
+		m_priority.AddString(m_str_priority[i]);
 	m_priority.SetCurSel(prio_auto);
 
-	m_loop.AddString(ResStr(IDS_PLAYER_NONE));
-	m_loop.AddString(ResStr(IDS_PLAYER_FILE));
-	m_loop.AddString(ResStr(IDS_PLAYER_LIST));
+	for(int i = 0; i < m_str_loop.GetCount(); i++)
+		m_loop.AddString(m_str_loop[i]);
 	m_loop.SetCurSel(loop_none);
 
 	m_monitor.AddString(m_auto_s);
@@ -210,28 +244,20 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_monitor.AddString(_T("16:9"));
 	m_monitor_s = m_auto_s;
 
-	m_log.AddString(ResStr(IDS_PLAYER_LOG_NO));
-	m_log.AddString(ResStr(IDS_PLAYER_LOG));
-	m_log.AddString(ResStr(IDS_PLAYER_LOG_V1));
-	m_log.AddString(ResStr(IDS_PLAYER_LOG_V2));
-	m_log.AddString(ResStr(IDS_PLAYER_LOG_V3));
-	m_log.AddString(ResStr(IDS_PLAYER_LOG_V4));
-	m_log.AddString(ResStr(IDS_PLAYER_LOG_V5));
+	for(int i = 0; i < m_str_log.GetCount(); i++)
+		m_log.AddString(m_str_log[i]);
 	m_log.SetCurSel(log_none);
-	
-	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_NO));
-	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_M));
-	m_switchview.AddString(ResStr(IDS_PLAYER_HIDE_A));
+
+	for(int i = 0; i < m_str_switchview.GetCount(); i++)
+		m_switchview.AddString(m_str_switchview[i]);
 	m_switchview.SetCurSel(switch_none);
 	
-	m_systray.AddString(ResStr(IDS_PLAYER_TASK));
-	m_systray.AddString(ResStr(IDS_PLAYER_TRAY));
-	m_systray.AddString(ResStr(IDS_PLAYER_TRAYSTOP));
+	for(int i = 0; i < m_str_systray.GetCount(); i++)
+		m_systray.AddString(m_str_systray[i]);
 	m_systray.SetCurSel(sys_task);
 	
-	m_autoplay.AddString(ResStr(IDS_PLAYER_NOUSE));
-	m_autoplay.AddString(m_auto_s);
-	m_autoplay.AddString(ResStr(IDS_PLAYER_EX));
+	for(int i = 0; i < m_str_autoplay.GetCount(); i++)
+		m_autoplay.AddString(m_str_autoplay[i]);
 	m_autoplay.SetCurSel(auto_ex);
 
 	InitFromConfig();
