@@ -238,6 +238,9 @@ BOOL CMSubPage::OnInitDialog()
 
 	::SetCurrentDirectory(szFontPath);
 
+	m_font_c.SetDefaultVisibleItems(20);
+	m_font2_c.SetDefaultVisibleItems(18);
+	m_osd_font_c.SetDefaultVisibleItems(10);
 	CFileFind finder;
 	if(finder.FindFile(_T("*.ttf"),0))
 	{
@@ -556,6 +559,14 @@ void CMSubPage::InitFromConfig()
 			}
 		}
 	}
+
+	int fontid = m_font_c.FindStringExact(0, m_font);
+	if(fontid >= 0)	m_font_c.SetCurSel(fontid);
+	fontid = m_font2_c.FindStringExact(0, m_font2);
+	if(fontid >= 0)	m_font2_c.SetCurSel(fontid);
+	fontid = m_osd_font_c.FindStringExact(0, m_osd_font);
+	if(fontid >= 0)	m_osd_font_c.SetCurSel(fontid);
+
 	UpdateData(FALSE);
 }
 
@@ -854,17 +865,6 @@ void CMSubPage::OnBnClickedCheckFontconfig()
 	UpdateData(TRUE);
 	if (m_fontconfig)
 		ShowInfo(type_boost);
-	//{
-	//	m_font_c.EnableWindow(FALSE);
-	//	m_font2_c.EnableWindow(FALSE);
-	//	m_sysfont.EnableWindow(TRUE);
-	//}
-	//else
-	//{
-	//	m_font_c.EnableWindow(TRUE);
-	//	m_font2_c.EnableWindow(TRUE);
-	//	m_sysfont.EnableWindow(FALSE);
-	//}
 }
 
 void CMSubPage::SetInfoDlg(CMShowInfoDlg *infoDlg)

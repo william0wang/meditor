@@ -513,7 +513,7 @@ BOOL CVisualStylesXP::UseVisualStyles()
 		FreeLibrary(hinstDll);
 	}
 
-	if( dvi.dwMajorVersion == 6 && dvi.dwMinorVersion == 0 )
+	if( dvi.dwMajorVersion == 6 && dvi.dwMinorVersion >= 0 )
 	{
 		bUse = TRUE;
 		return IsAppThemed() && m_hThemeDll; // No need to test HTHEME, but...

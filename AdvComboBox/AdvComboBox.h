@@ -213,6 +213,7 @@ private:
 	BOOL m_bAutoAppend;
 	bool m_bDropButtonHot;
 	bool m_bTrackMouseLeave;
+	bool m_bVistaStyle;
 
 	int m_nDefaultDropItems; // Number of items to be shown when dropwindow first shown.
 

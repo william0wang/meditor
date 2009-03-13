@@ -499,6 +499,10 @@ void CMOtherPage::OnRadioMeditor()
 }
 void CMOtherPage::OnBnClickedButtonLink()
 {
+#ifndef UNICODE
+	MessageBox(_T("9x版无法使用此功能！"));
+	return;
+#else
 	CMLinkDlg dlg;
 	if(dlg.DoModal() == IDOK)
 	{
@@ -696,6 +700,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 			CoUninitialize();
 		}
 	}
+#endif
 }
 
 void CMOtherPage::OnBnClickedButtonAvs()

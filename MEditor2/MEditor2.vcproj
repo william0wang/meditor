@@ -242,9 +242,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecR.lib  Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zdecR.lib AdvComboBoxRA.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
+				GenerateManifest="false"
+				UACExecutionLevel="0"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -325,7 +327,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecD.lib  Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zdecD.lib AdvComboBoxDA.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"

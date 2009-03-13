@@ -1000,7 +1000,7 @@ void CMAssosPage::ApplyChange(bool quiet)
 		LPBYTE   SetContent_S;
 		BYTE   content[256];
 		RegOpenKeyEx(HKEY_CURRENT_USER,_T("Control   Panel\\Desktop\\WindowMetrics"),0,KEY_READ,&hKey);
-		RegQueryValueExW(hKey,_T("Shell   Icon   Size")	,NULL,&dwType,content,&dwLength);
+		RegQueryValueEx(hKey,_T("Shell   Icon   Size")	,NULL,&dwType,content,&dwLength);
 		RegCloseKey(hKey);
 
 		SetContent_S=LPBYTE("21");

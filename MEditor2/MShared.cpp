@@ -218,8 +218,8 @@ bool UnRarFile(CString fn, CString Path)
 
 	struct RAROpenArchiveDataEx ArchiveDataEx;
 	memset(&ArchiveDataEx, 0, sizeof(ArchiveDataEx));
-#ifdef UNICODE
 	int len = 0;
+#ifdef UNICODE
 	ArchiveDataEx.ArcNameW = (LPTSTR)(LPCTSTR)fn;
 	char *fnA = UnicodeToLocal( fn, len);
 	ArchiveDataEx.ArcName = fnA;

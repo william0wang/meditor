@@ -63,6 +63,13 @@ CAdvComboBoxMod::CAdvComboBoxMod( BOOL bInst )
 	m_dwACBStyle |= ACBS_STANDARD;
 
 	m_pFont = NULL;
+	m_bVistaStyle = false;
+	OSVERSIONINFO version;
+	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	if(GetVersionEx(&version)) {
+		if(version.dwMajorVersion >= 6)
+			m_bVistaStyle = true;
+	}
 }
 
 
@@ -303,7 +310,6 @@ int CAdvComboBoxMod::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		m_pFont->CreateFontIndirect(&logFont);
 		SetFont( m_pFont );
 	}
-	
 	return 0;
 }
 
@@ -485,6 +491,10 @@ void CAdvComboBoxMod::OnPaint()
 
 	bThemeActive = g_xpStyle.UseVisualStyles();
 
+	int CpDropdownType = CP_DROPDOWNBUTTON;
+	if( m_bVistaStyle && (GetStyle() & CBS_DROPDOWN) && !(GetStyle() & CBS_SIMPLE) )
+		CpDropdownType = CP_DROPDOWNBUTTONRIGHT;
+
 	HTHEME hTheme = NULL;
 	if( bThemeActive )
 		hTheme = g_xpStyle.OpenThemeData( m_hWnd, L"COMBOBOX" );
@@ -508,7 +518,7 @@ void CAdvComboBoxMod::OnPaint()
 	{
 		if( bThemeActive )
 		{
-			hr = g_xpStyle.DrawThemeBackground( hTheme, dc.m_hDC, CP_DROPDOWNBUTTON, nDropBtnThemeStyle, &m_rcDropButton, NULL);
+			hr = g_xpStyle.DrawThemeBackground( hTheme, dc.m_hDC, CpDropdownType, nDropBtnThemeStyle, &m_rcDropButton, NULL);
 		}
 		else
 		{
@@ -560,7 +570,7 @@ void CAdvComboBoxMod::OnPaint()
 
 			dc.SelectObject( &oldBorderPen );
 			// Button
-			hr = g_xpStyle.DrawThemeBackground( hTheme, dc.m_hDC, CP_DROPDOWNBUTTON, nDropBtnThemeStyle, &m_rcDropButton, NULL);
+			hr = g_xpStyle.DrawThemeBackground( hTheme, dc.m_hDC, CpDropdownType, nDropBtnThemeStyle, &m_rcDropButton, NULL);
 		}
 		else
 		{
