@@ -109,8 +109,8 @@ public:
 	CAdvComboBoxMod m_monitor;
 	CAdvComboBoxMod m_ontop;
 	CAdvComboBoxMod m_priority;
+	CAdvComboBoxMod m_ctrlbar;
 	CEdit	m_fuzziness;
-	CButton	m_button_c;
 	BOOL	m_control;
 	BOOL	m_framedrop;
 	BOOL	m_fullscreen;
@@ -120,12 +120,20 @@ public:
 	BOOL	m_quit;
 	BOOL	m_show;
 	BOOL	m_url;
-	BOOL m_htimer;
-	BOOL m_rightmenu;
-	BOOL m_gui_high;
-	BOOL m_fixedvo;
-	BOOL m_reload;
-	BOOL m_no_dvdnav;
+	BOOL	m_htimer;
+	BOOL	m_rightmenu;
+	BOOL	m_gui_high;
+	BOOL	m_fixedvo;
+	BOOL	m_reload;
+	BOOL	m_no_dvdnav;
+	BOOL	m_quiet;
+	BOOL	m_double;
+	BOOL	m_conf;
+	BOOL	m_filename;
+	CString	m_ctrlbar_s;
+	CString	m_colorkey_s;
+	CString m_def;
+	CString	m_auto_fuzziness;
 	CString	m_dvd;
 	CString	m_end;
 	CString	m_png;
@@ -133,12 +141,6 @@ public:
 	CString	m_monitor_s;
 	CString	m_auto_s;
 	CString	m_no_s;
-	BOOL	m_quiet;
-	BOOL	m_double;
-	CString	m_colorkey_s;
-	BOOL	m_conf;
-	BOOL	m_button;
-	CString	m_auto_fuzziness;
 	CMShowInfoDlg *info;
 
 	CStringArray m_str_language;
@@ -171,17 +173,11 @@ protected:
 	afx_msg void OnButtonPng();
 	afx_msg void OnButtonDvd();
 	virtual BOOL OnInitDialog();
-	afx_msg void OnCheckCtrl();
 	afx_msg void OnSelchangeAutoplay();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-	//afx_msg void OnBnClickedCheckBoost();
 	afx_msg void OnBnClickedButtonDef();
-	CString m_def;
-	BOOL m_status;
-	BOOL m_filename;
-	CButton m_status_c;
 };
 
 //{{AFX_INSERT_LOCATION}}

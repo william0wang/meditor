@@ -26,11 +26,9 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_reload(FALSE)
 	, m_no_dvdnav(FALSE)
 	, m_def(_T(""))
-	, m_status(FALSE)
 	, m_filename(TRUE)
 {
 	m_cfg = NULL;
-	m_control = TRUE;
 	m_fullscreen = FALSE;
 	m_guithread = FALSE;
 	m_menu = TRUE;
@@ -47,7 +45,6 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_double = TRUE;
 	m_colorkey_s = _T("");
 	m_conf = FALSE;
-	m_button = FALSE;
 	m_auto_fuzziness = _T("1");
 
 	m_auto_s = ResStr(IDS_PLAYER_AUTO);
@@ -120,11 +117,11 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MONITOR, m_monitor);
 	DDX_Control(pDX, IDC_COMBO_ONTOP, m_ontop);
 	DDX_Control(pDX, IDC_COMBO_PRIORITY, m_priority);
+	DDX_Control(pDX, IDC_COMBO_CTRLBAR, m_ctrlbar);
 	DDX_AMCBString(pDX, IDC_COMBO_MONITOR, m_monitor_s);
 	DDX_AMCBString(pDX, IDC_COMBO_COLORKEY, m_colorkey_s);
+	DDX_AMCBString(pDX, IDC_COMBO_CTRLBAR, m_ctrlbar_s);
 	DDX_Control(pDX, IDC_EDIT_FUZZINESS, m_fuzziness);
-	DDX_Control(pDX, IDC_CHECK_BUTTON, m_button_c);
-	DDX_Check(pDX, IDC_CHECK_CTRL, m_control);
 	DDX_Check(pDX, IDC_CHECK_FULLSCREEN, m_fullscreen);
 	DDX_Check(pDX, IDC_CHECK_GUITHREAD, m_guithread);
 	DDX_Check(pDX, IDC_CHECK_MENU, m_menu);
@@ -139,7 +136,6 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_QUIET, m_quiet);
 	DDX_Check(pDX, IDC_CHECK_DOUBLE, m_double);
 	DDX_Check(pDX, IDC_CHECK_CONF, m_conf);
-	DDX_Check(pDX, IDC_CHECK_BUTTON, m_button);
 	DDX_Text(pDX, IDC_EDIT_FUZZINESS, m_auto_fuzziness);
 	DDV_MaxChars(pDX, m_auto_fuzziness, 3);
 	//}}AFX_DATA_MAP
@@ -150,16 +146,13 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_RELOAD, m_reload);
 	DDX_Check(pDX, IDC_CHECK_DVDNAV, m_no_dvdnav);
 	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
-	DDX_Check(pDX, IDC_CHECK_STATUS, m_status);
 	DDX_Check(pDX, IDC_CHECK_TITLE, m_filename);
-	DDX_Control(pDX, IDC_CHECK_STATUS, m_status_c);
 }
 
 
 BEGIN_MESSAGE_MAP(CMPlayerPage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_PNG, OnButtonPng)
 	ON_BN_CLICKED(IDC_BUTTON_DVD, OnButtonDvd)
-	ON_BN_CLICKED(IDC_CHECK_CTRL, OnCheckCtrl)
 	ON_CBN_SELCHANGE(IDC_COMBO_AUTOPLAY, OnSelchangeAutoplay)
 	ON_BN_CLICKED(IDC_BUTTON_DEF, &CMPlayerPage::OnBnClickedButtonDef)
 END_MESSAGE_MAP()
@@ -244,6 +237,36 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_monitor.AddString(_T("16:9"));
 	m_monitor_s = m_auto_s;
 
+	CString m_skin_dir;
+	TCHAR szCurPath[MAX_PATH + 1];
+	TCHAR szFilePath[MAX_PATH + 1];
+	::GetCurrentDirectory(MAX_PATH,szCurPath);
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	m_skin_dir.Format(_T("%sskin"),szFilePath);
+	::SetCurrentDirectory(m_skin_dir);
+	m_ctrlbar.AddString(m_no_s);
+
+	CFileFind finder;
+	if(finder.FindFile(_T("*.*"),0))
+	{
+		while(finder.FindNextFile())
+		{
+			if(finder.IsDirectory() && !finder.IsDots())
+				m_ctrlbar.AddString(finder.GetFileName());
+		}
+		CString str = finder.GetFileName();
+		if(finder.IsDirectory() && !finder.IsDots() && str.GetLength() > 1) {
+			m_ctrlbar.AddString(str);
+		}
+	}
+	::SetCurrentDirectory(szCurPath);
+	int indexCtrl = m_ctrlbar.FindStringExact(0,_T("default"));
+	if(indexCtrl > 0)
+		m_ctrlbar.SetCurSel(indexCtrl);
+	else
+		m_ctrlbar.SetCurSel(0);
+
 	for(int i = 0; i < m_str_log.GetCount(); i++)
 		m_log.AddString(m_str_log[i]);
 	m_log.SetCurSel(log_none);
@@ -272,9 +295,7 @@ void CMPlayerPage::SetNormal()
 	m_fixedvo = TRUE;
 	m_reload = FALSE;
 	m_no_dvdnav = FALSE;
-	m_control = TRUE;
 	m_menu = TRUE;
-	m_button = TRUE;
 	m_fullscreen = FALSE;
 	m_guithread = TRUE;
 	m_oneplayer = FALSE;
@@ -498,32 +519,19 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_menu = FALSE;
 	}
-	if(m_cfg->GetValue_Boolean(_T("show_playbar"),value_b,true))
-	{
-		if(value_b)
-			m_button = TRUE;
-		else
-			m_button = FALSE;
-	}
-	if(m_cfg->GetValue_Boolean(_T("show_statusbar"),value_b,true))
-	{
-		if(value_b)
-			m_status = TRUE;
-		else
-			m_status = FALSE;
-	}
 	if(m_cfg->GetValue_Boolean(_T("show_controlbar"),value_b,true))
 	{
-		if(value_b)
-			m_control = TRUE;
-		else
-		{
-			m_control = FALSE;
-			m_button = FALSE;
-			m_status = FALSE;
-			m_button_c.EnableWindow(FALSE);
-			m_status_c.EnableWindow(FALSE);
+		if(value_b) {
+			if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
+				int index = m_ctrlbar.FindStringExact(0, value_s);
+				if(index > 0) m_ctrlbar.SetCurSel(index);
+			}
+		} else {
+			m_ctrlbar.SetCurSel(0);
 		}
+	} else if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
+		int index = m_ctrlbar.FindStringExact(0, value_s);
+		if(index > 0) m_ctrlbar.SetCurSel(index);
 	}
 	if(m_cfg->GetValue_Boolean(_T("one_player"),value_b,true))
 	{
@@ -717,6 +725,11 @@ void CMPlayerPage::InitFromConfig()
 		m_cfg->RemoveValue(_T("ScreenShot_DIR"), true);
 	}
 
+	if(m_cfg->GetValue_String(_T("skin"),value_s,true))
+	{
+
+	}
+
 	UpdateData(FALSE);
 }
 
@@ -812,20 +825,12 @@ void CMPlayerPage::SaveConfig()
 	else
 		m_cfg->SetValue(_T("show_menubar") ,_T("0") , true , ex_gui);
 
-	if(m_control)
+	int indexCtrl = m_ctrlbar.GetCurSel();
+	if(indexCtrl > 0) {
 		m_cfg->RemoveValue(_T("show_controlbar") , true);
-	else
+		m_cfg->SetValue(_T("skin"), m_ctrlbar_s, true, ex_gui);
+	} else
 		m_cfg->SetValue(_T("show_controlbar"),_T("0") ,true ,ex_gui);
-	
-	if(m_button)
-		m_cfg->SetValue(_T("show_playbar") ,_T("1") , true , ex_gui);
-	else
-		m_cfg->RemoveValue(_T("show_playbar") ,true);
-
-	if(m_status)
-		m_cfg->SetValue(_T("show_statusbar") ,_T("1") , true,ex_gui);
-	else
-		m_cfg->RemoveValue(_T("show_statusbar"), true );
 	
 	if(m_oneplayer)
 		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_setting);
@@ -1142,19 +1147,6 @@ BOOL CMPlayerPage::PreTranslateMessage(MSG* pMsg)
 	return CDialog::PreTranslateMessage(pMsg);
 }
 
-void CMPlayerPage::OnCheckCtrl() 
-{
-	// TODO: Add your control notification handler code here
-	UpdateData(TRUE);
-	if(m_control) {
-		m_button_c.EnableWindow(TRUE);
-		m_status_c.EnableWindow(TRUE);
-	} else {
-		m_button_c.EnableWindow(FALSE);
-		m_status_c.EnableWindow(FALSE);
-	}
-}
-
 void CMPlayerPage::OnSelchangeAutoplay() 
 {
 	// TODO: Add your control notification handler code here
@@ -1164,13 +1156,6 @@ void CMPlayerPage::OnSelchangeAutoplay()
 		m_fuzziness.EnableWindow(FALSE);
 	UpdateData(FALSE);
 }
-
-//void CMPlayerPage::OnBnClickedCheckBoost()
-//{
-//	UpdateData(TRUE);
-//	if(!m_fixedvo)
-//		ShowInfo(type_boost);
-//}
 
 void CMPlayerPage::OnBnClickedButtonDef()
 {

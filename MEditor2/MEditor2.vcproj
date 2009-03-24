@@ -246,18 +246,23 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateManifest="false"
+				ManifestFile=""
+				EnableUAC="true"
 				UACExecutionLevel="0"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
+				AllowIsolation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
 			/>
 			<Tool
 				Name="VCManifestTool"
+				UseUnicodeResponseFiles="false"
+				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"

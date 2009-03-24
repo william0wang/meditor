@@ -708,7 +708,7 @@ void CMVideoPage::InitFromConfig()
 		}
 		else if(m_cfg->GetValue_String(_T("cofing_expand"),value_sub,true))
 			m_List.SetItemText(expand, 2,value_sub);
-			
+
 		if(m_cfg->GetSubValue(value_s,_T("crop"), value_sub))
 		{
 			m_List.SetCheckbox(crop, 0, 1);

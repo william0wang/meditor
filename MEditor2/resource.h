@@ -53,7 +53,6 @@
 #define IDD_SUBTITLE_DIALOG_EN          201
 #define IDD_VIDEO_DIALOG_EN             202
 #define IDD_VIDEO_DIALOG_TC             203
-#define IDD_SUBTITLE_DIALOG1            204
 #define IDD_SUBTITLE_DIALOG_TC          204
 #define IDD_RESUME_DIALOG_TC            205
 #define IDD_PROFILE_DIALOG_TC           206
@@ -155,6 +154,8 @@
 #define IDC_EDIT_SUBCP                  1053
 #define IDC_SLIDER_GAMMA                1053
 #define IDC_CHECK_STATUS                1053
+#define IDC_COMBO_AUTOPLAY2             1053
+#define IDC_COMBO_CTRLBAR               1053
 #define IDC_EDIT_GAMMA                  1054
 #define IDC_EDIT_ALANG                  1054
 #define IDC_CHECK_DVDNAV                1054
