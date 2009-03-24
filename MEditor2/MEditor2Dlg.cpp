@@ -188,7 +188,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		ProfilePage = IDD_PROFILE_DIALOG_EN;
 		InputPage = IDD_INPUT_DIALOG_EN;
 		AssosPage = IDD_ASSOS_DIALOG_EN;
-	} else if (theApp.AppLanguage == 3 && theApp.AppLanguage == 4) {
+	} else if (theApp.AppLanguage == 3 || theApp.AppLanguage == 4) {
 		PlayerPage = IDD_PLAYER_DIALOG_TC;
 		VideoPage = IDD_VIDEO_DIALOG_TC;
 		AudioPage = IDD_AUDIO_DIALOG_TC;
