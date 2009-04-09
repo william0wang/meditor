@@ -417,7 +417,6 @@ void CMVideoPage::SetNormal()
 	m_saturation_s = 100;
 	m_brightness_s = 100;
 	m_gamma_s = 10;
-	m_vo.SetCurSel(directx);
 	m_mxcolor.SetCurSel(mx_g);
 
 	m_List.SetCheckbox(screenshot, 0, 1);
@@ -447,7 +446,6 @@ void CMVideoPage::SetNormal()
 void CMVideoPage::SetHigh()
 {
 	SetNormal();
-	m_vo.SetCurSel(gl);
 	m_List.SetCheckbox(eq2, 0, 1);
 	m_List.SetCheckbox(hue, 0, 1);
 }
