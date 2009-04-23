@@ -1184,7 +1184,7 @@ BEGIN
             VALUE "OriginalFilename", "MEditor2.exe"
             VALUE "ProductName", "MPlayer Ê×Ñ¡Ïî"
             VALUE "ProductVersion", "2.0.1.0"
-            VALUE "SpecialBuild", "2008.08.04"
+            VALUE "SpecialBuild", "2009.04.25"
         END
     END
     BLOCK "VarFileInfo"

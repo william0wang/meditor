@@ -1064,7 +1064,7 @@ void CMVideoPage::SaveConfig()
 		m_List.SetCheckbox(expand, 0, 0);
 	}
 
-	if(m_brightness_s != 100 && vvo == directx)
+	if(m_brightness_s != 100 && (vvo == directx || vvo == direct3d))
 		m_List.SetCheckbox(eq2, 0 ,1);
 	int veq = m_List.GetCheckbox(eq2, 0);
 	int vhue = m_List.GetCheckbox(hue, 0);
@@ -1083,7 +1083,7 @@ void CMVideoPage::SaveConfig()
 
 	if(veq || (vvo >= gl && vvo <= gl2) || use_coreavc)
 	{
-		if(vvo == directx)
+		if(vvo == directx || vvo == direct3d)
 		{
 			if(veq)
 			{
@@ -1148,7 +1148,7 @@ void CMVideoPage::SaveConfig()
 	}
 	else
 	{
-		if(vvo == directx)
+		if(vvo == directx || vvo == direct3d)
 		{
 			if(m_contrast_s != 100)
 			{
@@ -1188,7 +1188,7 @@ void CMVideoPage::SaveConfig()
 	
 	if(vhue || (vvo >= gl && vvo <= gl2))
 	{
-		if(vvo == directx && vhue)
+		if((vvo == directx || vvo == direct3d) && vhue)
 		{
 			vf_str += _T("hue,");
 		}
