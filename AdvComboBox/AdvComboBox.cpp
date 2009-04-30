@@ -618,7 +618,7 @@ void CAdvComboBoxMod::OnPaint()
 		}
 		else
 		{
-			dc.FillSolidRect( rcText, bWndEnabled ? ::GetSysColor(COLOR_HIGHLIGHTTEXT) : clrDisabledBkg );
+			dc.FillSolidRect( rcText, bWndEnabled ? ::GetSysColor(COLOR_WINDOW/*COLOR_HIGHLIGHTTEXT*/) : clrDisabledBkg );
 			clrOldTextColor = dc.SetTextColor( bWndEnabled ? ::GetSysColor(COLOR_BTNTEXT) : clrDisabledText );
 			dc.DrawText( m_strEdit.c_str(), &rcText, DT_SINGLELINE|DT_VCENTER);
 		}
