@@ -118,6 +118,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_ONTOP, m_ontop);
 	DDX_Control(pDX, IDC_COMBO_PRIORITY, m_priority);
 	DDX_Control(pDX, IDC_COMBO_CTRLBAR, m_ctrlbar);
+	DDX_Control(pDX, IDC_COMBO_ALPHA, m_alpha);
 	DDX_AMCBString(pDX, IDC_COMBO_MONITOR, m_monitor_s);
 	DDX_AMCBString(pDX, IDC_COMBO_COLORKEY, m_colorkey_s);
 	DDX_AMCBString(pDX, IDC_COMBO_CTRLBAR, m_ctrlbar_s);
@@ -236,6 +237,15 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_monitor.AddString(_T("8:5"));
 	m_monitor.AddString(_T("16:9"));
 	m_monitor_s = m_auto_s;
+
+	m_alpha.AddString(m_no_s);
+	CString tmp;
+	for (int i = 1; i < 256; i++)
+	{
+		tmp.Format(_T("%d"), i);
+		m_alpha.AddString(tmp);
+	}
+	m_alpha.SetCurSel(0);
 
 	CString m_skin_dir;
 	TCHAR szCurPath[MAX_PATH + 1];
@@ -634,6 +644,11 @@ void CMPlayerPage::InitFromConfig()
 		default:
 			m_language.SetCurSel(lang_auto);
 		}
+	}
+	if(m_cfg->GetValue_Integer(_T("controlbar_alpha"),value_i,true))
+	{
+		if(value_i > 0 && value_i < 256)
+			m_alpha.SetCurSel(value_i);
 	}
 	if(m_cfg->GetValue_Integer(_T("end_pos"),value_i,true))
 	{
@@ -1042,6 +1057,16 @@ void CMPlayerPage::SaveConfig()
 	default:
 		m_cfg->SetValue(_T("Language"),_T("0") ,true ,ex_option);
 	}
+
+	int valpha = m_alpha.GetCurSel();
+	if(valpha > 0)
+	{
+		CString tmp;
+		tmp.Format(_T("%d"), valpha);
+		m_cfg->SetValue(_T("controlbar_alpha"), tmp, true, ex_gui);
+	}
+	else
+		m_cfg->RemoveValue(_T("controlbar_alpha"), true);
 	
 	int vloop = m_loop.GetCurSel();
 	switch (vloop)

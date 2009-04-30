@@ -168,6 +168,8 @@
 #define IDC_CHECK_BOOST2                1057
 #define IDC_CHECK_GUI                   1057
 #define IDC_COMBO_F2                    1058
+#define IDC_COMBO_CTRLBAR2              1058
+#define IDC_COMBO_ALPHA                 1058
 #define IDC_COMBO_VO                    1060
 #define IDC_CHECK_SOFT                  1061
 #define IDC_COMBO_MXCOLOR               1062

@@ -110,6 +110,7 @@ public:
 	CAdvComboBoxMod m_ontop;
 	CAdvComboBoxMod m_priority;
 	CAdvComboBoxMod m_ctrlbar;
+	CAdvComboBoxMod m_alpha;
 	CEdit	m_fuzziness;
 	BOOL	m_control;
 	BOOL	m_framedrop;
