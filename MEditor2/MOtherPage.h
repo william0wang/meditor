@@ -78,8 +78,6 @@ public:
 	afx_msg void OnBnClickedButtonLink();
 	CButton m_mpc_c;
 	BOOL m_mpc;
-	BOOL m_disable_xptoolbars;
-	BOOL m_disable_xpwindow;
 	BOOL m_screensaver;
 	BOOL m_info_html;
 	afx_msg void OnBnClickedButtonAvs();

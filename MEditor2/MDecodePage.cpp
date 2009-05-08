@@ -37,20 +37,21 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("ffh264"));
 	m_vdecode.Add(_T("ffodivx"));
 	m_vdecode.Add(_T("ffwv1f"));
+	m_vdecode.Add(_T("camtasia"));
 	m_vdecode.Add(_T("xvid"));
 	m_vdecode.Add(_T("divx4vfw"));
 	m_vdecode.Add(_T("divxds"));
 	m_vdecode.Add(_T("divx"));
 	m_vdecode.Add(_T("mpeg4ds"));
 	m_vdecode.Add(_T("mpeg4"));
-	m_vdecode.Add(_T("wmv10dmo"));
+	m_vdecode.Add(_T("wmv11dmo"));
 	m_vdecode.Add(_T("wmv9dmo"));
 	m_vdecode.Add(_T("wmvdmo"));
 	m_vdecode.Add(_T("wmv8"));
 	m_vdecode.Add(_T("wmv7"));
+	m_vdecode.Add(_T("wmvvc1dmo"));
 	m_vdecode.Add(_T("wms10dmod"));
 	m_vdecode.Add(_T("wmsdmod"));
-	m_vdecode.Add(_T("wmvvc1dmo"));
 	m_vdecode.Add(_T("wmvadmo"));
 	m_vdecode.Add(_T("rv3040win"));
 	m_vdecode.Add(_T("rv20winrp10"));
@@ -407,6 +408,9 @@ void CMDecodePage::InitFromConfig()
 	int value_i;
 	CString value_s;
 	CString value_sub;
+
+	m_cfg->GetValue_Integer(_T("auto_threads"),value_i,true);
+
 	if(m_cfg->GetValue_Integer(_T("cofing_codecs"),value_i,true))
 	{
 		switch(value_i)
@@ -423,7 +427,7 @@ void CMDecodePage::InitFromConfig()
 		}
 	}
 	else
-			m_codecs.SetCurSel(inner);
+		m_codecs.SetCurSel(inner);
 	
 	m_vlist.LockWindowUpdate();
 	m_alist.LockWindowUpdate();

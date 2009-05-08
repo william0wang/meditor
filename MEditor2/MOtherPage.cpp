@@ -40,8 +40,6 @@ CheckReal:
 CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMOtherPage::IDD, pParent)
 	, m_mpc(FALSE)
-	, m_disable_xptoolbars(FALSE)
-	, m_disable_xpwindow(FALSE)
 	, m_screensaver(FALSE)
 {
 	//{{AFX_DATA_INIT(CMOtherPage)
@@ -75,8 +73,6 @@ void CMOtherPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_DONLINE, m_unrealreg);
 	DDX_Control(pDX, IDC_CHECK_MPC, m_mpc_c);
 	DDX_Check(pDX, IDC_CHECK_MPC, m_mpc);
-	DDX_Check(pDX, IDC_CHECK_XPTOOLBARS, m_disable_xptoolbars);
-	DDX_Check(pDX, IDC_CHECK_XPWINDOW, m_disable_xpwindow);
 	DDX_Check(pDX, IDC_CHECK_SCREENSAVER, m_screensaver);
 	DDX_Check(pDX, IDC_CHECK_INFO, m_info_html);
 }
@@ -137,20 +133,6 @@ BOOL CMOtherPage::OnInitDialog()
 			else
 				m_info_html = FALSE;
 		}
-		if(m_cfg->GetValue_Boolean(_T("disable_xptoolbars"),value_b,true))
-		{
-			if(value_b)
-				m_disable_xptoolbars = TRUE;
-			else
-				m_disable_xptoolbars = FALSE;
-		}
-		if(m_cfg->GetValue_Boolean(_T("disable_xpwindow"),value_b,true))
-		{
-			if(value_b)
-				m_disable_xpwindow = TRUE;
-			else
-				m_disable_xpwindow = FALSE;
-		}
 		if(m_cfg->GetValue_Boolean(_T("disable_screensaver"),value_b,true))
 		{
 			if(!value_b)
@@ -179,8 +161,6 @@ BOOL CMOtherPage::OnInitDialog()
 void CMOtherPage::SetNormal()
 {
 	m_other = _T("");
-	m_disable_xptoolbars = FALSE;
-	m_disable_xpwindow = FALSE;
 	m_screensaver = FALSE;
 	m_info_html = FALSE;
 }
@@ -193,8 +173,6 @@ void CMOtherPage::SetHigh()
 void CMOtherPage::SetLower()
 {
 	SetNormal();
-	m_disable_xptoolbars = TRUE;
-	m_disable_xpwindow = TRUE;
 }
 
 void CMOtherPage::SaveConfig()
@@ -231,16 +209,6 @@ void CMOtherPage::SaveConfig()
 		m_cfg->SetValue(_T("info_to_html"),_T("1"),true,ex_setting);
 	else	
 		m_cfg->RemoveValue(_T("info_to_html"),true);
-
-	if(m_disable_xpwindow)
-		m_cfg->SetValue(_T("disable_xpwindow"),_T("1"),true,ex_theme);
-	else	
-		m_cfg->RemoveValue(_T("disable_xpwindow"),true);
-
-	if(m_disable_xptoolbars)
-		m_cfg->SetValue(_T("disable_xptoolbars"),_T("1"),true,ex_theme);
-	else	
-		m_cfg->RemoveValue(_T("disable_xptoolbars"),true);
 
 	if(m_screensaver)
 		m_cfg->SetValue(_T("disable_screensaver"),_T("0"),true,ex_sysinfo);
