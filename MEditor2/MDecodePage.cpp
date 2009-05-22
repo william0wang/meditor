@@ -7,6 +7,7 @@
 #include "MConfig.h"
 #include "reg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -19,6 +20,7 @@ static char THIS_FILE[] = __FILE__;
 
 CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMDecodePage::IDD, pParent)
+	, m_auto_threads(TRUE)
 {
 	//{{AFX_DATA_INIT(CMDecodePage)
 	//}}AFX_DATA_INIT
@@ -156,6 +158,7 @@ void CMDecodePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_AC, m_alist);
 	DDX_Control(pDX, IDC_LIST_AVCODEC, m_avlist);
 	DDX_Control(pDX, IDC_COMBO_CODECS, m_codecs);
+	DDX_Check(pDX, IDC_CHECK_THREAD, m_auto_threads);
 }
 
 
@@ -409,7 +412,10 @@ void CMDecodePage::InitFromConfig()
 	CString value_s;
 	CString value_sub;
 
-	m_cfg->GetValue_Integer(_T("auto_threads"),value_i,true);
+	if(m_cfg->GetValue_Integer(_T("auto_threads"),value_i,true))
+	{
+		m_auto_threads = value_i;
+	}
 
 	if(m_cfg->GetValue_Integer(_T("cofing_codecs"),value_i,true))
 	{
@@ -659,7 +665,12 @@ void CMDecodePage::SaveConfig()
 		m_last_extract = inner;
 		break;
 	}
-	
+
+	if(m_auto_threads)
+		m_cfg->RemoveValue(_T("auto_threads"), true);
+	else
+		m_cfg->SetValue(_T("auto_threads"), _T("0"), true , ex_option);
+
 	m_vlist.LockWindowUpdate();
 	m_alist.LockWindowUpdate();
 	m_avlist.LockWindowUpdate();
@@ -684,7 +695,8 @@ void CMDecodePage::SaveConfig()
 		m_cfg->SetValue(_T("cofing_vc"),  vc_str_meditor,true , ex_meditor);
 	else
 		m_cfg->RemoveValue(_T("cofing_vc"),true);
-	
+
+
 	CString ac_str = _T("");
 	CString ac_str_meditor = _T("");
 	for(int j = 0; j < m_alist.GetItemCount() ; j ++)
@@ -953,3 +965,4 @@ BOOL CMDecodePage::PreTranslateMessage(MSG* pMsg)
 	}
 	return CDialog::PreTranslateMessage(pMsg);
 }
+

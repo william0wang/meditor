@@ -168,7 +168,6 @@
 #define IDC_CHECK_BOOST2                1057
 #define IDC_CHECK_GUI                   1057
 #define IDC_COMBO_F2                    1058
-#define IDC_COMBO_CTRLBAR2              1058
 #define IDC_COMBO_ALPHA                 1058
 #define IDC_COMBO_VO                    1060
 #define IDC_CHECK_SOFT                  1061
@@ -274,6 +273,7 @@
 #define IDC_CHECK_FONTCONFIG            1148
 #define IDC_CHECK_B                     1149
 #define IDC_CHECK_I                     1150
+#define IDC_CHECK_THREAD                1150
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -678,7 +678,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        183
 #define _APS_NEXT_COMMAND_VALUE         32828
-#define _APS_NEXT_CONTROL_VALUE         1150
+#define _APS_NEXT_CONTROL_VALUE         1151
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

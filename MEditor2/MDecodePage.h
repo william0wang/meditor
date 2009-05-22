@@ -56,6 +56,7 @@ public:
 	enum { IDD = IDD_DECODE_DIALOG };
 	//}}AFX_DATA
 protected:
+	CAdvComboBoxMod m_codecs;
 	CXListCtrl m_vlist;
 	CXListCtrl m_alist;
 	CXListCtrl m_avlist;
@@ -87,6 +88,8 @@ protected:
 	CStringArray m_str_avlist;
 	CStringArray m_str_codecs;
 
+	BOOL m_auto_threads;
+
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMDecodePage)
@@ -113,8 +116,6 @@ protected:
 	afx_msg void OnButtonDown2();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-public:
-	CAdvComboBoxMod m_codecs;
 };
 
 //{{AFX_INSERT_LOCATION}}
