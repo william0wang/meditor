@@ -534,7 +534,18 @@ void CMPlayerPage::InitFromConfig()
 		if(value_b) {
 			if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
 				int index = m_ctrlbar.FindStringExact(0, value_s);
-				if(index > 0) m_ctrlbar.SetCurSel(index);
+				if(index < 0)
+					index = m_ctrlbar.FindStringExact(0, _T("default"));
+				if(index > 0)
+					m_ctrlbar.SetCurSel(index);
+				else
+					m_ctrlbar.SetCurSel(0);
+			} else {
+				int index = m_ctrlbar.FindStringExact(0,  _T("default"));
+				if(index > 0)
+					m_ctrlbar.SetCurSel(index);
+				else
+					m_ctrlbar.SetCurSel(0);
 			}
 		} else {
 			m_ctrlbar.SetCurSel(0);

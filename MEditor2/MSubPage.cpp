@@ -242,7 +242,7 @@ BOOL CMSubPage::OnInitDialog()
 	m_font2_c.SetDefaultVisibleItems(18);
 	m_osd_font_c.SetDefaultVisibleItems(10);
 	CFileFind finder;
-	if(finder.FindFile(_T("*.ttf"),0))
+	if(finder.FindFile(_T("*.tt?"),0))
 	{
 		while(finder.FindNextFile())
 		{
