@@ -5,6 +5,7 @@
 #endif
 #include "XListCtrl.h" 
 #include "afxwin.h"
+#include "AdvCombo\AdvComboBox.h"
 class CMConfig;
 
 // CMAssosPage ¶Ô»°¿ò
@@ -43,6 +44,7 @@ protected:
 	bool AssosTypeIner(CString type, CString info, CString icons, bool Assos = true, bool isflash = true);
 	bool AssosType(CString type, CString info, CString icons, bool isplaylist, bool Assos = true);
 	AssList m_alist;
+	CAdvComboBoxMod	m_micons;
 	CXListCtrl m_List;
 	CStringArray m_sa;
 	CStringArray m_stv;
@@ -51,7 +53,9 @@ protected:
 	CStringArray m_stl;
 	CString m_player_exe;
 	CString m_mpc_exe;
+	CString m_icons_org;
 	CString m_icons_dll;
+	CString	m_micons_str;
 	CString m_program_dir;
 	CString m_str_list;
 	CString m_str_flash;
@@ -63,6 +67,7 @@ protected:
 	CString inf;
 	CString tp;
 
+	bool m_dll_getted;
 	bool m_have_icons;
 	bool m_special;
 	int m_default_num;

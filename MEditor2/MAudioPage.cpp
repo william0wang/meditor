@@ -258,7 +258,6 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 
 void CMAudioPage::OnReleasedcaptureSliderVolume(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	m_volume.Format(_T("%d"),m_volume_s);
 	UpdateData(FALSE);
@@ -267,7 +266,6 @@ void CMAudioPage::OnReleasedcaptureSliderVolume(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CMAudioPage::OnChangeEditVolume() 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	int x = _ttoi(m_volume);
 	if(x >= 0 && x <= 100)
@@ -282,7 +280,6 @@ void CMAudioPage::OnChangeEditVolume()
 void CMAudioPage::OnChangeEditVolnorm() 
 {
 	
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	int x = _ttoi(m_volnorm);
 	if(x >= 100 && x <= 1000)
@@ -296,7 +293,6 @@ void CMAudioPage::OnChangeEditVolnorm()
 
 void CMAudioPage::OnReleasedcaptureSliderVolnorm(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	m_volnorm.Format(_T("%d"),m_volnorm_s * 10);
 	UpdateData(FALSE);
@@ -306,8 +302,7 @@ void CMAudioPage::OnReleasedcaptureSliderVolnorm(NMHDR* pNMHDR, LRESULT* pResult
 BOOL CMAudioPage::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
+
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);
@@ -681,8 +676,6 @@ void CMAudioPage::SaveConfig()
 	
 BOOL CMAudioPage::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
-	
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:

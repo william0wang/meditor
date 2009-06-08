@@ -41,10 +41,11 @@ CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMOtherPage::IDD, pParent)
 	, m_mpc(FALSE)
 	, m_screensaver(FALSE)
+	, m_info_html(FALSE)
+	, m_last_page(FALSE)
 {
 	//{{AFX_DATA_INIT(CMOtherPage)
 	m_other = _T("");
-	m_last_page = FALSE;
 	m_video = _T("");
 	m_audio = _T("");
 	m_one = FALSE;
@@ -100,8 +101,7 @@ END_MESSAGE_MAP()
 BOOL CMOtherPage::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
+
 	m_mplayer.SetCheck(1);
 	if(m_cfg)
 	{
@@ -228,14 +228,11 @@ void CMOtherPage::SaveConfig()
 
 BOOL CMOtherPage::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
-	
 	return CDialog::PreTranslateMessage(pMsg);
 }
 
 void CMOtherPage::OnButtonAudio() 
 {
-	// TODO: Add your control notification handler code here
 	
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
@@ -255,7 +252,6 @@ void CMOtherPage::OnButtonAudio()
 
 void CMOtherPage::OnButtonClean() 
 {
-	// TODO: Add your control notification handler code here
 	m_video = _T("");
 	m_audio = _T("");
 	UpdateData(FALSE);
@@ -263,7 +259,6 @@ void CMOtherPage::OnButtonClean()
 
 void CMOtherPage::OnButtonPlay() 
 {
-	// TODO: Add your control notification handler code here
 	
 	UpdateData(TRUE);
 	if(m_video == _T("") || m_audio == _T(""))
@@ -283,7 +278,6 @@ void CMOtherPage::OnButtonPlay()
 
 void CMOtherPage::OnButtonVideo() 
 {
-	// TODO: Add your control notification handler code here
 	
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
@@ -307,7 +301,6 @@ void CMOtherPage::OnButtonVideo()
 
 void CMOtherPage::OnButtonFlash() 
 {
-	// TODO: Add your control notification handler code here
 	CString m_program;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -317,7 +310,6 @@ void CMOtherPage::OnButtonFlash()
 
 void CMOtherPage::OnButtonMedia() 
 {
-	// TODO: Add your control notification handler code here
 	CString m_program;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -339,7 +331,6 @@ bool CMOtherPage::CheckRealOnline()
 
 void CMOtherPage::OnButtonOnline() 
 {
-	// TODO: Add your control notification handler code here
 	if(CheckRealOnline())
 	{
 		if(MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL) != IDOK)
@@ -411,7 +402,6 @@ void CMOtherPage::OnButtonOnline()
 
 void CMOtherPage::OnButtonDonline() 
 {
-	// TODO: Add your control notification handler code here
 	if(!CheckRealOnline())
 	{
 		MessageBox(ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE));
@@ -456,13 +446,11 @@ void CMOtherPage::OnButtonDonline()
 
 void CMOtherPage::OnRadioMplayer() 
 {
-	// TODO: Add your control notification handler code here
 	m_meditor.SetCheck(0);
 }
 
 void CMOtherPage::OnRadioMeditor() 
 {
-	// TODO: Add your control notification handler code here
 	m_mplayer.SetCheck(0);
 }
 void CMOtherPage::OnBnClickedButtonLink()

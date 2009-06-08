@@ -36,7 +36,6 @@ END_MESSAGE_MAP()
 
 void CMProfileDlg::OnBnClickedOk()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	int cur = m_plist.GetCurSel();
 	m_plist.GetLBText(cur , m_profile_add);
 	OnOK();

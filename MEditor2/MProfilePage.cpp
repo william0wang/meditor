@@ -417,7 +417,6 @@ BOOL CMProfilePage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_List.EnableToolTips(TRUE);
 	InitListCtrl(&m_List);

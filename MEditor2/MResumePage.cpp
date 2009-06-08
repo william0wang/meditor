@@ -128,7 +128,6 @@ BOOL CMResumePage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
 	m_list.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_list.EnableToolTips(TRUE);
 	InitListCtrl(&m_list);
@@ -211,7 +210,6 @@ BOOL CMResumePage::OnInitDialog()
 
 BOOL CMResumePage::PreTranslateMessage(MSG* pMsg)
 {
-	// TODO: 在此添加专用代码和/或调用基类
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
@@ -226,7 +224,6 @@ BOOL CMResumePage::PreTranslateMessage(MSG* pMsg)
 
 void CMResumePage::OnBnClickedButtonPlay()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	int cur = m_list.GetCurSel();
 	if(cur < 0)
 		return;
@@ -254,7 +251,6 @@ void CMResumePage::OnBnClickedButtonPlay()
 
 void CMResumePage::OnBnClickedButtonUp()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	int cur = m_list.GetCurSel();
 	if(cur <= 0)
 		return;
@@ -270,7 +266,6 @@ void CMResumePage::OnBnClickedButtonUp()
 
 void CMResumePage::OnBnClickedButtonDown()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	int cur = m_list.GetCurSel();
 	if(cur < 0 || cur >= m_list.GetItemCount() - 1)
 		return;
@@ -286,7 +281,6 @@ void CMResumePage::OnBnClickedButtonDown()
 
 void CMResumePage::OnBnClickedButtonDel()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	int cur = m_list.GetCurSel();
 	if(cur < 0)
 		return;
@@ -302,7 +296,6 @@ void CMResumePage::OnBnClickedButtonDel()
 
 void CMResumePage::OnBnClickedButtonCla()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	m_number = -1;
 	m_list.DeleteAllItems();
 }

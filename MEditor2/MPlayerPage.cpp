@@ -177,7 +177,6 @@ void CMPlayerPage::OnButtonPng()
 
 void CMPlayerPage::OnButtonDvd() 
 {
-	// TODO: Add your control notification handler code here
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	
@@ -195,8 +194,6 @@ void CMPlayerPage::OnButtonDvd()
 BOOL CMPlayerPage::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
 
 	for(int i = 0; i < m_str_language.GetCount(); i++)
 		m_language.AddString(m_str_language[i]);
@@ -276,6 +273,7 @@ BOOL CMPlayerPage::OnInitDialog()
 		m_ctrlbar.SetCurSel(indexCtrl);
 	else
 		m_ctrlbar.SetCurSel(0);
+	m_ctrlbar.UpdateData(FALSE);
 
 	for(int i = 0; i < m_str_log.GetCount(); i++)
 		m_log.AddString(m_str_log[i]);
@@ -550,6 +548,7 @@ void CMPlayerPage::InitFromConfig()
 		} else {
 			m_ctrlbar.SetCurSel(0);
 		}
+		m_ctrlbar.UpdateData(FALSE);
 	} else if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
 		int index = m_ctrlbar.FindStringExact(0, value_s);
 		if(index > 0) m_ctrlbar.SetCurSel(index);
@@ -1185,7 +1184,6 @@ BOOL CMPlayerPage::PreTranslateMessage(MSG* pMsg)
 
 void CMPlayerPage::OnSelchangeAutoplay() 
 {
-	// TODO: Add your control notification handler code here
 	if(m_autoplay.GetCurSel() == auto_ex)
 		m_fuzziness.EnableWindow(TRUE);
 	else

@@ -81,7 +81,6 @@ void CMFlashPlayer::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	
-	// TODO: Add your message handler code here
 	if (IsIconic())
 	{
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
@@ -117,8 +116,7 @@ END_EVENTSINK_MAP()
 void CMFlashPlayer::OnSize(UINT nType, int cx, int cy) 
 {
 	CDialog::OnSize(nType, cx, cy);
-	
-	// TODO: Add your message handler code here
+
 	if(m_inited)
 	{
 		if(!m_fs)
@@ -137,8 +135,7 @@ void CMFlashPlayer::OnSize(UINT nType, int cx, int cy)
 BOOL CMFlashPlayer::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
+
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 	m_control.SetRange(0,100);
@@ -176,7 +173,6 @@ void CMFlashPlayer::IninFileName(CString filename)
 
 void CMFlashPlayer::OnFlashOpen() 
 {
-	// TODO: Add your command handler code here
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
 	CFileDialog dlg(TRUE,NULL,NULL,OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT
@@ -199,7 +195,6 @@ void CMFlashPlayer::OnFlashOpen()
 
 void CMFlashPlayer::OnDropFiles(HDROP hDropInfo)
 {
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
     TCHAR szFileName[MAX_PATH];
     int iFileNumber;
     // 得到拖拽操作中的文件个数
@@ -220,7 +215,6 @@ void CMFlashPlayer::OnDropFiles(HDROP hDropInfo)
 
 void CMFlashPlayer::OnTimer(UINT nIDEvent) 
 {
-	// TODO: Add your message handler code here and/or call default
 	if(nIDEvent == TIMER_HIDE_CURSOR)
 	{
 			while(ShowCursor(FALSE)>=0);
@@ -243,7 +237,6 @@ void CMFlashPlayer::OnTimer(UINT nIDEvent)
 
 void CMFlashPlayer::OnReleasedcaptureSliderControl(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	bool playing = false;
 	if(m_flash.IsPlaying())
 		playing = true;
@@ -271,26 +264,22 @@ void CMFlashPlayer::PlayFile(bool init)
 
 void CMFlashPlayer::OnMplaylist() 
 {
-	// TODO: Add your command handler code here
 	m_list->ReFlashList();
 	m_list->ShowWindow(SW_SHOW);
 }
 
 void CMFlashPlayer::OnPlay()
 {
-	// TODO: Add your command handler code here
 	m_flash.Play();
 }
 
 void CMFlashPlayer::OnStop()
 {
-	// TODO: Add your command handler code here
 	m_flash.Stop();
 }
 
 void CMFlashPlayer::OnNext() 
 {
-	// TODO: Add your command handler code here
 	if(m_playlist.GetSize() <= 1)
 		return;
 	if( m_current < m_playlist.GetSize() - 1)
@@ -302,7 +291,6 @@ void CMFlashPlayer::OnNext()
 
 void CMFlashPlayer::OnPre()
 {
-	// TODO: Add your command handler code here
 	if(m_playlist.GetSize() <= 1)
 		return;
 	if(m_current <= 0)
@@ -414,24 +402,20 @@ LONG CMFlashPlayer::OnCmdKeyDown(UINT lParam, LONG wParam)
 
 void CMFlashPlayer::OnProgressflash(long percentDone) 
 {
-	// TODO: Add your control notification handler code here
 }
 
 void CMFlashPlayer::OnFlashCall(LPCTSTR request) 
 {
-	// TODO: Add your control notification handler code here
 
 }
 
 void CMFlashPlayer::OnOnReadyStateChange(long newState) 
 {
-	// TODO: Add your control notification handler code here
 	now_state = newState;
 }
 
 void CMFlashPlayer::OnFSCommand(LPCTSTR command, LPCTSTR args) 
 {
-	// TODO: Add your control notification handler code here
 }
 
 bool CMFlashPlayer::GetKeyCommand(LONG KeyNumber,CString &cmd, CString &value)
@@ -693,9 +677,7 @@ bool CMFlashPlayer::AnalyseLine(CString line, CString &key, CString &cmd, CStrin
 }
 
 BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg) 
-{
-	// TODO: Add your specialized code here and/or call the base class
-	
+{	
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
@@ -751,7 +733,6 @@ BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg)
 
 void CMFlashPlayer::OnRmenu() 
 {
-	// TODO: Add your command handler code here
 	m_rmenu = !m_rmenu;
 	if(m_menu)
 	{
@@ -806,8 +787,6 @@ void CMFlashPlayer::FullScreen(bool init)
 
 void CMFlashPlayer::OnMouseMove(UINT nFlags, CPoint point) 
 {
-	// TODO: Add your message handler code here and/or call default
-
 	CDialog::OnMouseMove(nFlags, point);
 }
 

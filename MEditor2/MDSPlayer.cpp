@@ -155,7 +155,6 @@ HCURSOR CMDSPlayer::OnQueryDragIcon()
 
 void CMDSPlayer::OnNMReleasedcaptureSliderCtrl(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	// TODO: 在此添加控件通知处理程序代码
 	if(m_FilterGraph)
 	{
 		double length = 0;
@@ -658,8 +657,6 @@ LONG CMDSPlayer::OnCmdKeyDown(UINT lParam, LONG wParam)
 
 BOOL CMDSPlayer::PreTranslateMessage(MSG* pMsg)
 {
-	// TODO: 在此添加专用代码和/或调用基类
-
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:

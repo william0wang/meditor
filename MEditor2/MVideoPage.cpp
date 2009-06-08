@@ -363,8 +363,7 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 BOOL CMVideoPage::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
+
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_List.EnableToolTips(TRUE);
 	InitListCtrl(&m_List);
@@ -1332,7 +1331,6 @@ void CMVideoPage::SaveConfig()
 
 void CMVideoPage::OnReleasedcaptureSliderBringhtness(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	m_brightness.Format(_T("%d"),m_brightness_s - 100);
 	UpdateData(FALSE);
@@ -1341,7 +1339,6 @@ void CMVideoPage::OnReleasedcaptureSliderBringhtness(NMHDR* pNMHDR, LRESULT* pRe
 
 void CMVideoPage::OnReleasedcaptureSliderContrast(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	m_contrast.Format(_T("%d"),m_contrast_s - 100);
 	UpdateData(FALSE);
@@ -1351,7 +1348,6 @@ void CMVideoPage::OnReleasedcaptureSliderContrast(NMHDR* pNMHDR, LRESULT* pResul
 
 void CMVideoPage::OnReleasedcaptureSliderHue(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	m_hue.Format(_T("%d"),m_hue_s - 100);
 	UpdateData(FALSE);
@@ -1361,7 +1357,6 @@ void CMVideoPage::OnReleasedcaptureSliderHue(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CMVideoPage::OnReleasedcaptureSliderSaturations(NMHDR* pNMHDR, LRESULT* pResult) 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	m_saturation.Format(_T("%d"),m_saturation_s - 100);
 	UpdateData(FALSE);
@@ -1371,7 +1366,6 @@ void CMVideoPage::OnReleasedcaptureSliderSaturations(NMHDR* pNMHDR, LRESULT* pRe
 
 void CMVideoPage::OnChangeEditBringhtness() 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	int x = _ttoi(m_brightness);
 	if(x >= -100 && x <= 100)
@@ -1386,7 +1380,6 @@ void CMVideoPage::OnChangeEditBringhtness()
 void CMVideoPage::OnChangeEditContrast() 
 {
 	
-	// TODO: Add your control notification handler code here
 		UpdateData(TRUE);
 	int x = _ttoi(m_contrast);
 	if(x >= -100 && x <= 100)
@@ -1400,7 +1393,6 @@ void CMVideoPage::OnChangeEditContrast()
 
 void CMVideoPage::OnChangeEditHue() 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	int x = _ttoi(m_hue);
 	if(x >= -100 && x <= 100)
@@ -1415,7 +1407,6 @@ void CMVideoPage::OnChangeEditHue()
 
 void CMVideoPage::OnChangeEditSaturations() 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 	int x = _ttoi(m_saturation);
 	if(x >= -100 && x <= 100)
@@ -1438,8 +1429,6 @@ LONG CMVideoPage::OnSelChange(UINT /*lParam*/, LONG /*wParam*/)
 
 BOOL CMVideoPage::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
-	
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
@@ -1454,7 +1443,6 @@ BOOL CMVideoPage::PreTranslateMessage(MSG* pMsg)
 
 void CMVideoPage::OnNMReleasedcaptureSliderGamma(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	// TODO: 在此添加控件通知处理程序代码
 	UpdateData(TRUE);
 	m_gamma.Format(_T("%0.1f"),(double)m_gamma_s / 10.0);
 	UpdateData(FALSE);

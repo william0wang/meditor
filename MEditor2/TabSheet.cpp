@@ -123,7 +123,6 @@ int CTabSheet::GetCurSel()
 
 void CTabSheet::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
 {
-	// TODO: Add your message handler code here and/or call default
 	if(nChar == VK_RETURN)
 	{
 		SetCurSel(GetCurSel());

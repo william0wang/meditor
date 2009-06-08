@@ -353,8 +353,7 @@ void CMDecodePage::FillListCtrlAV(CXListCtrl * pList)
 BOOL CMDecodePage::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
+
 	m_vlist.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	m_vlist.EnableToolTips(TRUE);
 	InitListCtrl(&m_vlist);
@@ -801,7 +800,6 @@ void CMDecodePage::SaveConfig()
 
 void CMDecodePage::OnButtonAdd() 
 {
-	// TODO: Add your control notification handler code here
 	m_vlist.LockWindowUpdate();
 	int size = m_vlist.GetItemCount();
 	m_vlist.InsertItem(size, _T(""));
@@ -812,7 +810,6 @@ void CMDecodePage::OnButtonAdd()
 
 void CMDecodePage::OnButtonDel() 
 {
-	// TODO: Add your control notification handler code here
 	m_vlist.LockWindowUpdate();
 	int nItem = m_vlist.GetCurSel();
 	if(nItem >= 0)
@@ -822,7 +819,6 @@ void CMDecodePage::OnButtonDel()
 
 void CMDecodePage::OnButtonUp() 
 {
-	// TODO: Add your control notification handler code here
 	m_vlist.LockWindowUpdate();
 	int nItem = m_vlist.GetCurSel();
 	if(nItem >= 1)
@@ -849,7 +845,6 @@ void CMDecodePage::OnButtonUp()
 
 void CMDecodePage::OnButtonDown() 
 {
-	// TODO: Add your control notification handler code here
 	m_vlist.LockWindowUpdate();
 	int size = m_vlist.GetItemCount() - 1;
 	int nItem = m_vlist.GetCurSel();
@@ -877,7 +872,6 @@ void CMDecodePage::OnButtonDown()
 
 void CMDecodePage::OnButtonAdd2() 
 {
-	// TODO: Add your control notification handler code here
 	m_alist.LockWindowUpdate();
 	int size = m_alist.GetItemCount();
 	m_alist.InsertItem(size, _T(""));
@@ -888,7 +882,6 @@ void CMDecodePage::OnButtonAdd2()
 
 void CMDecodePage::OnButtonDel2() 
 {
-	// TODO: Add your control notification handler code here
 	m_alist.LockWindowUpdate();
 	int nItem = m_alist.GetCurSel();
 	if(nItem >= 0)
@@ -898,7 +891,6 @@ void CMDecodePage::OnButtonDel2()
 
 void CMDecodePage::OnButtonUp2() 
 {
-	// TODO: Add your control notification handler code here
 	m_alist.LockWindowUpdate();
 	int nItem = m_alist.GetCurSel();
 	if(nItem >= 1)
@@ -925,7 +917,6 @@ void CMDecodePage::OnButtonUp2()
 
 void CMDecodePage::OnButtonDown2() 
 {
-	// TODO: Add your control notification handler code here
 	m_alist.LockWindowUpdate();
 	int size = m_alist.GetItemCount() - 1;
 	int nItem = m_alist.GetCurSel();
@@ -953,7 +944,6 @@ void CMDecodePage::OnButtonDown2()
 
 BOOL CMDecodePage::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:

@@ -136,7 +136,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-	// TODO: 在此添加额外的初始化代码
 
 	SetWindowText(ResStr(IDS_PLAYER_NAME) + _T("    "));
 	m_config.LoadConfig(m_program_dir + _T("mplayer.ini"));
@@ -326,7 +325,6 @@ bool CMEditor2Dlg::SaveAll()
 
 void CMEditor2Dlg::OnBnClickedApply()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	m_pos = 0;
 	m_progress_apply.SetRange(0,20);
 	m_progress_apply.SetPos(m_pos);
@@ -337,7 +335,6 @@ void CMEditor2Dlg::OnBnClickedApply()
 
 void CMEditor2Dlg::OnBnClickedOk()
 {
-	// TODO: 在此添加控件通知处理程序代码
 	if(! SaveAll())
 		return;
 	m_assos.ApplyChange(true);
@@ -373,7 +370,6 @@ void CMEditor2Dlg::OnBnClickedHelp()
 
 void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	m_pos++;
 	if(m_pos <= 20)
 		m_progress_apply.SetPos(m_pos);
@@ -387,7 +383,6 @@ void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
 
 BOOL CMEditor2Dlg::DestroyWindow()
 {
-	// TODO: 在此添加专用代码和/或调用基类
 	if(gUniqueEvent)
 		CloseHandle(gUniqueEvent);
 
@@ -438,28 +433,24 @@ void CMEditor2Dlg::OnLower()
 
 void CMEditor2Dlg::OnMplayerIni()
 {
-	// TODO: 在此添加命令处理程序代码
 	if(IsFileExist(m_program_dir + _T("mplayer.ini")))
 		ShellExecute(0, _T("open"), m_program_dir +_T("mplayer.ini"), NULL, NULL, SW_SHOW);
 }
 
 void CMEditor2Dlg::OnInputIni()
 {
-	// TODO: 在此添加命令处理程序代码
 	if(IsFileExist(m_program_dir + _T("input.ini")))
 		ShellExecute(0, _T("open"), m_program_dir +_T("input.ini"), NULL, NULL, SW_SHOW);
 }
 
 void CMEditor2Dlg::OnKkIni()
 {
-	// TODO: 在此添加命令处理程序代码
 	if(IsFileExist(m_program_dir + _T("kk.ini")))
 		ShellExecute(0, _T("open"), m_program_dir +_T("kk.ini"), NULL, NULL, SW_SHOW);
 }
 
 void CMEditor2Dlg::OnLogTxt()
 {
-	// TODO: 在此添加命令处理程序代码
 	if(IsFileExist(m_program_dir + _T("log.txt")))
 		ShellExecute(0, _T("open"), m_program_dir +_T("log.txt"), NULL, NULL, SW_SHOW);
 }

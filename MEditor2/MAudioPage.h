@@ -48,7 +48,7 @@ protected:
 // Dialog Data
 	enum { IDD = IDD_AUDIO_DIALOG };
 	CAdvComboBoxMod	m_channels;
-	CAdvComboBoxMod	 m_audio;
+	CAdvComboBoxMod	m_audio;
 	CString	m_audio_delay;
 	CString m_alang;
 	CString	m_volume;

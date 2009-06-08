@@ -52,7 +52,6 @@ END_MESSAGE_MAP()
 
 void CMPlayList::OnDropFiles(HDROP hDropInfo)
 {
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
     TCHAR szFileName[MAX_PATH];
     int iFileNumber;
     // 得到拖拽操作中的文件个数
@@ -71,8 +70,7 @@ void CMPlayList::OnDropFiles(HDROP hDropInfo)
 BOOL CMPlayList::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
-	// TODO: Add extra initialization here
+
 	m_Dlist.SetHorizontalExtent(1000);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -92,7 +90,6 @@ void CMPlayList::ReFlashList()
 
 void CMPlayList::OnButtonAdd() 
 {
-	// TODO: Add your control notification handler code here
 	
 	TCHAR szFilePath[MAX_PATH + 1];
 	::GetCurrentDirectory(MAX_PATH,szFilePath);
@@ -123,7 +120,6 @@ void CMPlayList::OnButtonAdd()
 
 void CMPlayList::OnButtonDel() 
 {
-	// TODO: Add your control notification handler code here
 	int cr = m_Dlist.GetCurSel();
 	if(cr < 0)
 		return;
@@ -144,7 +140,6 @@ void CMPlayList::OnButtonDel()
 
 void CMPlayList::OnButtonClean() 
 {
-	// TODO: Add your control notification handler code here
 	for(int i = m_Dlist.GetCount() - 1; i >= 0 ; i--)
 	{
 		m_Dlist.DeleteString(i);
@@ -154,7 +149,6 @@ void CMPlayList::OnButtonClean()
 
 BOOL CMPlayList::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
@@ -171,7 +165,6 @@ BOOL CMPlayList::PreTranslateMessage(MSG* pMsg)
 
 void CMPlayList::OnDblclkPlaylist() 
 {
-	// TODO: Add your control notification handler code here
 	int cr = m_Dlist.GetCurSel();
 	if(cr >= 0 && m_pParent)
 		m_pParent->SendMessage(PLS_SELCHANGE, (WPARAM) cr, 0);
@@ -179,7 +172,6 @@ void CMPlayList::OnDblclkPlaylist()
 
 void CMPlayList::OnButtonUp() 
 {
-	// TODO: Add your control notification handler code here
 	int cr = m_Dlist.GetCurSel();
 	if(cr > 0)
 	{
@@ -200,7 +192,6 @@ void CMPlayList::OnButtonUp()
 
 void CMPlayList::OnButtonDown() 
 {
-	// TODO: Add your control notification handler code here
 	int cr = m_Dlist.GetCurSel();
 	if(cr < m_Dlist.GetCount() - 1)
 	{

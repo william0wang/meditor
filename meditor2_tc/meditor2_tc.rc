@@ -572,16 +572,16 @@ BEGIN
     IDS_VIDEO_DB4           "精確的垂直方向"
     IDS_VIDEO_DB5           "水平/垂直方向"
     IDS_VIDEO_DB6           "精確水平/垂直方向"
-    IDS_VIDEO_VO1           "DirectX(推薦)"
-    IDS_VIDEO_VOGL          "OpenGL(推薦)"
+    IDS_VIDEO_VO1           "DirectX(Win2K/XP)"
+    IDS_VIDEO_VOGL          "OpenGL(Win2K/XP/Vista)"
     IDS_VIDEO_VO3           "OpenGL第2代"
-    IDS_VIDEO_VO4           "矩陣特效(黑客帝國特效)"
-    IDS_VIDEO_VO5           "矩陣特效(低解析度)"
+    IDS_VIDEO_VO4           "矩陣特效 (黑客帝國特效)"
+    IDS_VIDEO_VO5           "矩陣特效 (低解析度)"
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_VIDEO_VO6           "矩陣特效(高解析度)"
+    IDS_VIDEO_VO6           "矩陣特效 (高解析度)"
     IDS_VIDEO_VO7           "輸出每幀到JPG圖片"
     IDS_VIDEO_VO8           "輸出每幀到PNG圖片"
     IDS_VIDEO_VO9           "輸出視頻到RAW檔案(大)"
@@ -785,7 +785,7 @@ BEGIN
     IDS_DECODE_THREADS_INFO "1~8线程解碼(可能導致錯誤，請慎用)"
     IDS_AUDIO_DELAY         "音頻延遲"
     IDS_AUDIO_DELAY_INFO    "音頻延遲  單位:秒"
-    IDS_VIDEO_VOD3D         "Direct3D"
+    IDS_VIDEO_VOD3D         "Direct3D(XP/Vista/Win7)"
     IDS_AUDIO_STM           "變速但聲調不變"
     IDS_AUDIO_STM_INFO      "改變播放速度時不改變聲調只改變音頻的節奏"
     IDS_ASSOS_AVS           "AviSynth 腳本"

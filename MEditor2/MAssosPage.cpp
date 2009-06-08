@@ -86,6 +86,7 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_sa.Add(m_str_flash);
 	m_sa.Add(m_str_ds);
 
+	m_dll_getted = false;
 	m_have_icons = false;
 	m_special = false;
 
@@ -98,9 +99,10 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
-	
-	m_icons_dll = m_program_dir + _T("micons.dll");
-	m_player_exe = m_program_dir + _T("mplayer.exe");	
+
+	m_icons_dll = _T("micons.dll");
+	m_icons_org = m_program_dir + _T("micons.dll");
+	m_player_exe = m_program_dir + _T("mplayer.exe");
 }
 
 CMAssosPage::~CMAssosPage()
@@ -110,6 +112,8 @@ CMAssosPage::~CMAssosPage()
 void CMAssosPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO_MICONS, m_micons);
+	DDX_AMCBString(pDX, IDC_COMBO_MICONS, m_micons_str);
 	DDX_Control(pDX, IDC_LIST_ASSOS, m_List);
 	DDX_Check(pDX, IDC_CHECK_RMENU, m_rightmenu);
 	DDX_Check(pDX, IDC_CHECK_RMENU2, m_rightmenu2);
@@ -295,13 +299,35 @@ BOOL CMAssosPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// TODO:  在此添加额外的初始化
+	m_micons.AddString(_T("micons.dll"));
+	m_micons.SetCurSel(0);
+
+	CString m_skin_dir = m_program_dir + _T("skin");
+	TCHAR szCurPath[MAX_PATH + 1];
+	::GetCurrentDirectory(MAX_PATH,szCurPath);
+	::SetCurrentDirectory(m_skin_dir);
+	CFileFind finder;
+	if(finder.FindFile(_T("micons*.dll"),0))
+	{
+		while(finder.FindNextFile())
+			m_micons.AddString(finder.GetFileName());
+		CString str = finder.GetFileName();
+		if(str.GetLength() > 1) {
+			m_micons.AddString(str);
+		}
+	}
+	::SetCurrentDirectory(szCurPath);
+
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);
 
+	int index = m_micons.FindStringExact(0, m_icons_dll);
+	if(index > 0)
+		m_micons.SetCurSel(index);
+
 	m_mpc_exe = m_program_dir + _T("tools\\mplayerc.exe");
-	if( IsFileExist(m_mpc_exe))
+	if(IsFileExist(m_mpc_exe))
 	{
 		m_mpc_c.EnableWindow(TRUE);
 		m_mpc = TRUE;
@@ -569,10 +595,25 @@ void CMAssosPage::SaveConfig()
 
 bool CMAssosPage::IsAssosed(CString type)
 {
-	CReg reg;
+	CReg reg, reg1;
+	TCHAR dll[256], *sp;
 	CString regstr = _T("mplayer.") + type;
 	if(reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
+	{
+		if(!m_dll_getted)
+		{
+			m_dll_getted = true;
+			regstr = _T("mplayer.") + type + _T("\\DefaultIcon");
+			if(reg1.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
+			{
+				_tcsncpy_s(dll, 255, _tcsrchr(reg1.content, _T('\\')) + 1, _TRUNCATE);
+				sp = _tcschr(dll, _T(','));
+				if(sp) sp[0] = 0;
+				m_icons_dll = dll;
+			}
+		}
 		return true;
+	}
 	return false;
 }
 
@@ -598,7 +639,7 @@ bool CMAssosPage::AssosType(CString type, CString info, CString icons, bool ispl
 		if(IsFileExist(_T("icons\\")  +type +_T(".ico")))
 			Content = m_program_dir +_T("icons\\") +type +_T(".ico");
 		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
-			Content = m_program_dir +_T("micons.dll,") + icons;
+			Content = m_icons_dll +_T(",") + icons;
 		else
 			Content =  m_player_exe + _T(",0");
 		reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content);
@@ -729,7 +770,7 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 		else if(isflash)
 			Content =  m_player_exe + _T(",1");
 		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
-			Content = m_program_dir +_T("micons.dll,") + icons;
+			Content = m_icons_dll +_T(",") + icons;
 		else
 			Content =  m_player_exe + _T(",2");
 		reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content);
@@ -818,29 +859,6 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 	return true;
 }
 
-AssList::AssList()
-{
-	m_type.RemoveAll();
-	m_info.RemoveAll();
-	m_class.RemoveAll();
-	m_icon.RemoveAll();
-}
-void AssList::RemoveAll()
-{
-	m_type.RemoveAll();
-	m_info.RemoveAll();
-	m_class.RemoveAll();
-	m_icon.RemoveAll();
-}
-
-void AssList::Add(CString type, CString info, CString classes, CString icon)
-{
-	m_type.Add(type);
-	m_info.Add(info);
-	m_class.Add(classes);
-	m_icon.Add(icon);
-}
-
 void CMAssosPage::OnBnClickedAssos()
 {
 	ApplyChange();
@@ -925,6 +943,16 @@ void CMAssosPage::ApplyChange(bool quiet)
 			MessageBox(ResStr(IDS_PLAYER_SAMEDIR));
 		return;
 	}
+	int index = m_micons.GetCurSel();
+	if(index > 0)
+	{
+		m_icons_dll = m_program_dir + _T("skin\\") + m_micons_str;
+		if(!IsFileExist(m_icons_dll))
+			m_icons_dll = m_icons_org;
+	}
+	else
+		m_icons_dll = m_icons_org;
+
 	CString type, info, icon ,classes;
 	bool checked, isplaylist , isflash, isdshow;
 	//m_olist.RemoveAll();
@@ -1019,9 +1047,7 @@ void CMAssosPage::ApplyChange(bool quiet)
 }
 
 BOOL CMAssosPage::PreTranslateMessage(MSG* pMsg) 
-{
-	// TODO: Add your specialized code here and/or call the base class
-	
+{	
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
@@ -1032,4 +1058,27 @@ BOOL CMAssosPage::PreTranslateMessage(MSG* pMsg)
 		}
 	}
 	return CDialog::PreTranslateMessage(pMsg);
+}
+
+AssList::AssList()
+{
+	m_type.RemoveAll();
+	m_info.RemoveAll();
+	m_class.RemoveAll();
+	m_icon.RemoveAll();
+}
+void AssList::RemoveAll()
+{
+	m_type.RemoveAll();
+	m_info.RemoveAll();
+	m_class.RemoveAll();
+	m_icon.RemoveAll();
+}
+
+void AssList::Add(CString type, CString info, CString classes, CString icon)
+{
+	m_type.Add(type);
+	m_info.Add(info);
+	m_class.Add(classes);
+	m_icon.Add(icon);
 }

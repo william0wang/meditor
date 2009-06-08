@@ -443,7 +443,6 @@ BOOL CMInputPage::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	LoadInputConfig();
-	// TODO:  在此添加额外的初始化
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT);
 	InitListCtrl(&m_List);
 	FillListCtrl(&m_List);
@@ -675,8 +674,6 @@ bool CMInputPage::AnalyseLine(CString line, CString &key, CString &cmd, CString 
 
 BOOL CMInputPage::PreTranslateMessage(MSG* pMsg) 
 {
-	// TODO: Add your specialized code here and/or call the base class
-	
 	switch(pMsg->message)
 	{
 	case   WM_KEYDOWN:
