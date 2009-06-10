@@ -268,11 +268,14 @@ BOOL CMPlayerPage::OnInitDialog()
 		}
 	}
 	::SetCurrentDirectory(szCurPath);
-	int indexCtrl = m_ctrlbar.FindStringExact(0,_T("default"));
-	if(indexCtrl > 0)
+	int indexCtrl = m_ctrlbar.FindStringExact(0, _T("default"));
+	if(indexCtrl > 0) {
 		m_ctrlbar.SetCurSel(indexCtrl);
-	else
+		m_ctrlbar_s = _T("default");
+	} else {
 		m_ctrlbar.SetCurSel(0);
+		m_ctrlbar_s = m_no_s;
+	}
 	m_ctrlbar.UpdateData(FALSE);
 
 	for(int i = 0; i < m_str_log.GetCount(); i++)
@@ -532,26 +535,46 @@ void CMPlayerPage::InitFromConfig()
 		if(value_b) {
 			if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
 				int index = m_ctrlbar.FindStringExact(0, value_s);
-				if(index < 0)
-					index = m_ctrlbar.FindStringExact(0, _T("default"));
-				if(index > 0)
+				if(index < 0) {
+					value_s = _T("default");
+					index = m_ctrlbar.FindStringExact(0, value_s);
+				}
+				if(index > 0) {
 					m_ctrlbar.SetCurSel(index);
-				else
+					m_ctrlbar_s = value_s;
+				} else
 					m_ctrlbar.SetCurSel(0);
 			} else {
 				int index = m_ctrlbar.FindStringExact(0,  _T("default"));
-				if(index > 0)
+				if(index > 0) {
 					m_ctrlbar.SetCurSel(index);
-				else
+					m_ctrlbar_s = _T("default");
+				} else {
 					m_ctrlbar.SetCurSel(0);
+					m_ctrlbar_s = m_no_s;
+				}
 			}
 		} else {
 			m_ctrlbar.SetCurSel(0);
+			m_ctrlbar_s = m_no_s;
 		}
 		m_ctrlbar.UpdateData(FALSE);
 	} else if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
 		int index = m_ctrlbar.FindStringExact(0, value_s);
-		if(index > 0) m_ctrlbar.SetCurSel(index);
+		if(index > 0) {
+			m_ctrlbar.SetCurSel(index);
+			m_ctrlbar_s = value_s;
+		} else {
+			index = m_ctrlbar.FindStringExact(0,  _T("default"));
+			if(index > 0) {
+				m_ctrlbar.SetCurSel(index);
+				m_ctrlbar_s = _T("default");
+			} else {
+				m_ctrlbar.SetCurSel(0);
+				m_ctrlbar_s = m_no_s;
+			}
+		}
+		m_ctrlbar.UpdateData(FALSE);
 	}
 	if(m_cfg->GetValue_Boolean(_T("one_player"),value_b,true))
 	{
@@ -760,8 +783,8 @@ void CMPlayerPage::InitFromConfig()
 
 void CMPlayerPage::SaveConfig()
 {
-	if(!m_cfg)
-		return;
+	if(!m_cfg) return;
+
 	UpdateData(TRUE);
 
 	if(m_fixedvo)
@@ -856,7 +879,7 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("skin"), m_ctrlbar_s, true, ex_gui);
 	} else
 		m_cfg->SetValue(_T("show_controlbar"),_T("0") ,true ,ex_gui);
-	
+
 	if(m_oneplayer)
 		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_setting);
 	else
