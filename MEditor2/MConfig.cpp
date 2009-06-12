@@ -74,10 +74,14 @@ void CMConfigData::SetValue(CString name, CString value, bool changed)
 	{
 		if(m_config.name[i] == name)
 		{
-			m_config.value[i] = value;
-			if(changed)
-				m_config.state[i] = 2;
-			finded = true;
+			if(name == _T("vf-add") || name == _T("af-add")) {
+				m_config.value[i] += _T(",") + value;
+			} else {
+				m_config.value[i] = value;
+				if(changed)
+					m_config.state[i] = 2;
+				finded = true;
+			}
 			break;
 		}
 	}

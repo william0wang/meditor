@@ -92,18 +92,18 @@
 		#ifdef _UNICODE
 			#ifdef _DEBUG
 				#pragma comment(lib,"XListCtrlSSDU.lib")
-				#pragma message("Automatically linking with XListCtrlSSDU.lib")
+				//#pragma message("Automatically linking with XListCtrlSSDU.lib")
 			#else
 				#pragma comment(lib,"XListCtrlSSRU.lib")
-				#pragma message("Automatically linking with XListCtrlSSRU.lib")
+				//#pragma message("Automatically linking with XListCtrlSSRU.lib")
 			#endif
 		#else
 			#ifdef _DEBUG
 				#pragma comment(lib,"XListCtrlSSDA.lib")
-				#pragma message("Automatically linking with XListCtrlSSDA.lib")
+				//#pragma message("Automatically linking with XListCtrlSSDA.lib")
 			#else
 				#pragma comment(lib,"XListCtrlSSRA.lib")
-				#pragma message("Automatically linking with XListCtrlSSRA.lib")
+				//#pragma message("Automatically linking with XListCtrlSSRA.lib")
 			#endif
 		#endif
 	#else

@@ -54,11 +54,11 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_rotate.Add(ResStr(IDS_VIDEO_ROTA3));
 	m_rotate.Add(ResStr(IDS_VIDEO_ROTA4));
 
+	m_deinterlacing.Add(_T("lowpass5"));
 	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD1));
 	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD2));
 	m_deinterlacing.Add(ResStr(IDS_VIDEO_VD3));
 	m_deinterlacing.Add(_T("FFmpeg"));
-	m_deinterlacing.Add(_T("lowpass5"));
 
 	m_deblocking.Add(ResStr(IDS_VIDEO_DB1));
 	m_deblocking.Add(ResStr(IDS_VIDEO_DB2));
@@ -125,7 +125,6 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_str_vf.Add(ResStr(IDS_VIDEO_OTHI));
 
 }
-
 
 void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 {
@@ -639,10 +638,17 @@ void CMVideoPage::InitFromConfig()
 		m_List.SetCheckbox(aspect, 0, 1);
 		m_List.SetItemText(aspect, 2,value_s);
 	}
-	if(m_cfg->GetValue_String(_T("vf"),value_s))
+
+	if(m_cfg->GetValue_String(_T("vf"),value_s) || m_cfg->GetValue_String(_T("vf-add"), value_s))
 	{
 		CString value_vf = value_s;
-		if(m_cfg->HaveSubValue(value_s,_T("ass")))
+
+		if(m_cfg->GetValue_String(_T("vf-add"), value_s) && value_vf != value_s) {
+			value_vf += _T(",") + value_s;
+			value_s = value_vf;
+		}
+
+		if(m_cfg->HaveSubValue(value_s, _T("ass")))
 		{
 			m_List.SetCheckbox(ass, 0, 1);
 			RemoveSubValue(value_vf , _T("ass"));
@@ -997,20 +1003,6 @@ void CMVideoPage::SaveConfig()
 	default:
 		m_cfg->SetValue(_T("vo") ,_T("directx"));
 	}
-	CString vf_str = _T("");
-	if(m_List.GetCheckbox(ass, 0))
-		vf_str += _T("ass,");
-
-	CString str_screenshot = m_List.GetItemText(screenshot, 2);
-	str_screenshot.TrimLeft(_T(" "));
-	str_screenshot.TrimRight(_T(" "));
-	if(m_List.GetCheckbox(screenshot, 0))
-	{
-		if(str_screenshot.GetLength() == 1 && IsDigit(str_screenshot))
-			vf_str += _T("screenshot=") + str_screenshot + _T(",");
-		else
-			vf_str += _T("screenshot,");
-	}
 
 	bool use_coreavc = false;
 	if(! m_cfg->IsRemoved(_T("vc")))
@@ -1063,8 +1055,21 @@ void CMVideoPage::SaveConfig()
 		m_List.SetCheckbox(expand, 0, 0);
 	}
 
-	if(m_brightness_s != 100 && (vvo == directx || vvo == direct3d))
-		m_List.SetCheckbox(eq2, 0 ,1);
+	CString vf_str = _T("");
+	if(m_List.GetCheckbox(ass, 0))
+		vf_str += _T("ass,");
+
+	CString str_screenshot = m_List.GetItemText(screenshot, 2);
+	str_screenshot.TrimLeft(_T(" "));
+	str_screenshot.TrimRight(_T(" "));
+	if(m_List.GetCheckbox(screenshot, 0))
+	{
+		if(str_screenshot.GetLength() == 1 && IsDigit(str_screenshot))
+			vf_str += _T("screenshot=") + str_screenshot + _T(",");
+		else
+			vf_str += _T("screenshot,");
+	}
+
 	int veq = m_List.GetCheckbox(eq2, 0);
 	int vhue = m_List.GetCheckbox(hue, 0);
 	CString value;
@@ -1080,134 +1085,45 @@ void CMVideoPage::SaveConfig()
 	m_cfg->RemoveValue(_T("saturation"));
 	m_cfg->RemoveValue(_T("hue"));
 
-	if(veq || (vvo >= gl && vvo <= gl2) || use_coreavc)
+	if(use_coreavc && use_expand && vvo >= direct3d && vvo <= gl2)
 	{
-		if(vvo == directx || vvo == direct3d)
-		{
-			if(veq)
-			{
-				if(m_gamma_s == 10)
-					vf_str += _T("eq2,");
-				else
-					vf_str += _T("eq2=") + m_gamma + _T(",");
-			}
-			else if(use_coreavc)
-			{
-				vf_str += _T("eq2,");
-				ShowInfo(type_coreavc);
-				m_List.SetCheckbox(eq2, 0 , 1);
-			}
-		}
-		else if(veq)
-		{
-			if(m_gamma_s == 10)
-			{
-				if(use_coreavc && use_expand)
-				{
-					vf_str += _T("eq2,");
-					ShowInfo(type_coreavc);
-					m_List.SetCheckbox(eq2, 0 , 1);
-				}
-				else
-					m_cfg->SetValue(_T("cofing_eq2"), _T("1") ,true ,ex_meditor);
-			}
-			else
-				vf_str += _T("eq2=") + m_gamma + _T(",");
-		}
-		else
-		{
-			if(use_coreavc && use_expand)
-			{
-				vf_str += _T("eq2,");
-				ShowInfo(type_coreavc);
-				m_List.SetCheckbox(eq2, 0 , 1);
-			}
-			if(m_gamma_s != 10)
-			{
-				value.Format(_T("%d") , m_gamma_s);
-				m_cfg->SetValue(_T("cofing_gamma"), value, true , ex_meditor);
-			}
-		}
-
-		if(m_brightness_s != 100)
-		{
-			value.Format(_T("%d") , m_brightness_s - 100);
-			m_cfg->SetValue(_T("brightness"), value);
-		}
-		if(m_contrast_s != 100)
-		{
-			value.Format(_T("%d") , m_contrast_s - 100);
-			m_cfg->SetValue(_T("contrast"), value);
-		}
-		if(m_saturation_s != 100)
-		{
-			value.Format(_T("%d") , m_saturation_s - 100);
-			m_cfg->SetValue(_T("saturation"), value);
-		}
+		vf_str += _T("eq2,");
+		ShowInfo(type_coreavc);
+		m_List.SetCheckbox(eq2, 0 , 1);
+		veq = true;
 	}
-	else
-	{
-		if(vvo == directx || vvo == direct3d)
-		{
-			if(m_contrast_s != 100)
-			{
-				value.Format(_T("%d") , m_contrast_s - 100);
-				m_cfg->SetValue(_T("contrast"), value);
-			}
-			if(m_saturation_s != 100)
-			{
-				value.Format(_T("%d") , m_saturation_s - 100);
-				m_cfg->SetValue(_T("saturation"), value);
-			}
-		}
-		else
-		{
-			if(m_contrast_s != 100)
-			{
-				value.Format(_T("%d") , m_contrast_s - 100);
-				m_cfg->SetValue(_T("cofing_contrast"), value, true , ex_meditor);
-			}
-			if(m_saturation_s != 100)
-			{
-				value.Format(_T("%d") , m_saturation_s - 100);
-				m_cfg->SetValue(_T("cofing_saturation"), value, true , ex_meditor);
-			}
-		}
-		if(m_brightness_s != 100)
-		{
-			value.Format(_T("%d") , m_brightness_s - 100);
-			m_cfg->SetValue(_T("cofing_brightness"), value , true , ex_meditor);
-		}
+
+	if(m_brightness_s != 100) {
+		value.Format(_T("%d") , m_brightness_s - 100);
+		m_cfg->SetValue(_T("brightness"), value);
+	}
+	if(m_contrast_s != 100) {
+		value.Format(_T("%d") , m_contrast_s - 100);
+		m_cfg->SetValue(_T("contrast"), value);
+	}
+	if(m_saturation_s != 100) {
+		value.Format(_T("%d") , m_saturation_s - 100);
+		m_cfg->SetValue(_T("saturation"), value);
+	}
+	if(m_hue_s != 100) {
+		value.Format(_T("%d") , m_hue_s - 100);
+		m_cfg->SetValue(_T("hue"), value);
+	}
+
+	if(veq) {
 		if(m_gamma_s != 10)
-		{
+			vf_str += _T("eq2=") + m_gamma + _T(",");
+		else if(vvo < gl || vvo > gl2)
+			vf_str += _T("eq2,");
+	} else {
+		if(m_gamma_s != 10) {
 			value.Format(_T("%d") , m_gamma_s);
 			m_cfg->SetValue(_T("cofing_gamma"), value, true , ex_meditor);
 		}
 	}
-	
-	if(vhue || (vvo >= gl && vvo <= gl2))
-	{
-		if((vvo == directx || vvo == direct3d) && vhue)
-		{
-			vf_str += _T("hue,");
-		}
-		else if(vhue)
-			m_cfg->SetValue(_T("cofing_use_hue"), _T("1") ,true ,ex_meditor);
 
-		if(m_hue_s != 100)
-		{
-			value.Format(_T("%d") , m_hue_s - 100);
-			m_cfg->SetValue(_T("hue"), value);
-		}
-	}
-	else
-	{
-		if(m_hue_s != 100)
-		{
-			value.Format(_T("%d") , m_hue_s - 100);
-			m_cfg->SetValue(_T("cofing_hue"), value , true , ex_meditor);
-		}
-	}
+	if(vhue && (vvo < gl || vvo > gl2))
+		vf_str += _T("hue,");
 
 	CString str_expand = m_List.GetItemText(expand, 2);
 	str_expand.TrimLeft(_T(" "));
@@ -1260,7 +1176,6 @@ void CMVideoPage::SaveConfig()
 		m_cfg->SetValue(_T("cofing_crop"),  str_crop, true , ex_meditor);
 	else
 		m_cfg->RemoveValue(_T("cofing_crop"),true);
-
 
 	int vdi = m_List.GetCheckbox(deinterlacing, 0);
 	int vdb = m_List.GetCheckbox(deblocking, 0);
@@ -1322,9 +1237,10 @@ void CMVideoPage::SaveConfig()
 	}
 
 	vf_str.TrimRight(_T(","));
-	if(vf_str.GetLength() > 1)
+	if(vf_str.GetLength() > 1) {
+		m_cfg->RemoveValue(_T("vf-add"));
 		m_cfg->SetValue(_T("vf"),  vf_str);
-	else
+	} else
 		m_cfg->RemoveValue(_T("vf"));
 	m_List.UnlockWindowUpdate();
 }

@@ -38,11 +38,11 @@ enum Filters
 
 enum Deinterlacing
 {
+	di_l5,
 	di_lb,
 	di_ci,
 	di_md,
 	di_fd,
-	di_l5,
 	di_yadif
 };
 

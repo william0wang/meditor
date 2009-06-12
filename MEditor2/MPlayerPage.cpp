@@ -884,7 +884,7 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_setting);
 	else
 		m_cfg->RemoveValue(_T("one_player"),true);
-	
+
 	if(m_quit)
 		m_cfg->RemoveValue(_T("always_quit"), true);
 	else

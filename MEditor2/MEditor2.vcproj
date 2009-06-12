@@ -378,54 +378,6 @@
 				RelativePath=".\MEditor2Dlg.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\MProfileDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MShowInfoDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\shockwaveflash.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug Unicode|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release Unicode|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
 			<Filter
 				Name="Page"
 				>
@@ -513,6 +465,54 @@
 					RelativePath=".\MPlayList.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\MProfileDlg.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MShowInfoDlg.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\shockwaveflash.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\stdafx.cpp"
+					>
+					<FileConfiguration
+						Name="Debug Unicode|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Unicode|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+				</File>
 			</Filter>
 			<Filter
 				Name="Share"
@@ -587,22 +587,6 @@
 			</File>
 			<File
 				RelativePath=".\MEditor2Dlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MProfileDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\targetver.h"
 				>
 			</File>
 			<Filter
@@ -693,11 +677,27 @@
 					>
 				</File>
 				<File
+					RelativePath=".\MProfileDlg.h"
+					>
+				</File>
+				<File
 					RelativePath=".\MShowInfoDlg.h"
 					>
 				</File>
 				<File
+					RelativePath=".\resource.h"
+					>
+				</File>
+				<File
 					RelativePath=".\shockwaveflash.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stdafx.h"
+					>
+				</File>
+				<File
+					RelativePath=".\targetver.h"
 					>
 				</File>
 			</Filter>
