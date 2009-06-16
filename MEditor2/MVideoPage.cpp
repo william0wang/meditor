@@ -1223,6 +1223,7 @@ void CMVideoPage::SaveConfig()
 		if(val)
 			vf_str += _T("al/");
 		vf_str.TrimRight(_T("/"));
+		vf_str += _T(",");
 	}
 	int bvf_other = m_List.GetCheckbox(vf_other, 0);
 	if(bvf_other)

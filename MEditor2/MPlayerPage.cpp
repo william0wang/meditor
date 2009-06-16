@@ -27,6 +27,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_no_dvdnav(FALSE)
 	, m_def(_T(""))
 	, m_filename(TRUE)
+	, m_console(FALSE)
 {
 	m_cfg = NULL;
 	m_fullscreen = FALSE;
@@ -148,6 +149,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_DVDNAV, m_no_dvdnav);
 	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
 	DDX_Check(pDX, IDC_CHECK_TITLE, m_filename);
+	DDX_Check(pDX, IDC_CHECK_CONSOLE, m_console);
 }
 
 
@@ -260,7 +262,7 @@ BOOL CMPlayerPage::OnInitDialog()
 		while(finder.FindNextFile())
 		{
 			if(finder.IsDirectory() && !finder.IsDots())
-				m_ctrlbar.AddString(finder.GetFileName());
+				m_ctrlbar.AddString(finder.GetFileName().MakeLower());
 		}
 		CString str = finder.GetFileName();
 		if(finder.IsDirectory() && !finder.IsDots() && str.GetLength() > 1) {
@@ -590,10 +592,11 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_quit = FALSE;
 	}
-	if(m_cfg->GetValue_Boolean(_T("log"),value_b,true))
+	if(m_cfg->GetValue_Integer(_T("log"),value_i,true))
 	{
-		if(value_b)
+		if(value_i)
 		{
+			if(value_i == 2) m_console = TRUE;
 			if(m_cfg->GetValue_Integer(_T("v"),value_i))
 			{
 				switch (value_i)
@@ -1001,9 +1004,12 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->RemoveValue(_T("end_pos"), true);
 	
 	int vlog = m_log.GetCurSel();
-	if(vlog != log_none)
+	if(vlog != log_none || m_console)
 	{
-		m_cfg->SetValue(_T("log") ,_T("1") , true , ex_option);
+		if(m_console)
+			m_cfg->SetValue(_T("log") ,_T("2") , true , ex_option);
+		else
+			m_cfg->SetValue(_T("log") ,_T("1") , true , ex_option);
 		switch (vlog)
 		{
 		case log_v1:

@@ -179,6 +179,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonDef();
+	BOOL m_console;
 };
 
 //{{AFX_INSERT_LOCATION}}

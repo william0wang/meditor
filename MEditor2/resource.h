@@ -142,6 +142,8 @@
 #define IDC_LIST_AUDIO                  1049
 #define IDC_SLIDER_SATURATIONS          1049
 #define IDC_CHECK_BUTTON                1049
+#define IDC_CHECK_CLO                   1049
+#define IDC_CHECK_CONSOLE               1049
 #define IDC_COMBO_AUDIO                 1050
 #define IDC_EDIT_SATURATIONS            1050
 #define IDC_COMBO_SYSTRAY               1050
