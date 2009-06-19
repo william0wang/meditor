@@ -112,6 +112,7 @@
 #define IDC_CHECK_CTRL                  1039
 #define IDC_CHECK_HIDE                  1039
 #define IDC_CHECK_ASS_MARGINS           1039
+#define IDC_CHECK_NOSKIN                1039
 #define IDC_EDIT_ERROR                  1040
 #define IDC_CHECK_SYS                   1040
 #define IDC_BUTTON_DEF                  1040
@@ -142,7 +143,6 @@
 #define IDC_LIST_AUDIO                  1049
 #define IDC_SLIDER_SATURATIONS          1049
 #define IDC_CHECK_BUTTON                1049
-#define IDC_CHECK_CLO                   1049
 #define IDC_CHECK_CONSOLE               1049
 #define IDC_COMBO_AUDIO                 1050
 #define IDC_EDIT_SATURATIONS            1050

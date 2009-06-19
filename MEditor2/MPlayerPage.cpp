@@ -28,6 +28,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_def(_T(""))
 	, m_filename(TRUE)
 	, m_console(FALSE)
+	, m_noskin(FALSE)
 {
 	m_cfg = NULL;
 	m_fullscreen = FALSE;
@@ -150,6 +151,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
 	DDX_Check(pDX, IDC_CHECK_TITLE, m_filename);
 	DDX_Check(pDX, IDC_CHECK_CONSOLE, m_console);
+	DDX_Check(pDX, IDC_CHECK_NOSKIN, m_noskin);
 }
 
 
@@ -474,6 +476,13 @@ void CMPlayerPage::InitFromConfig()
 			m_fixedvo = TRUE;
 		else
 			m_fixedvo = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("skinned_player"),value_b,true))
+	{
+		if(!value_b)
+			m_noskin = TRUE;
+		else
+			m_noskin = FALSE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("gui_thread"),value_b,true))
 	{
@@ -835,6 +844,11 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("urlcp"),_T("GBK"));
 	else
 		m_cfg->RemoveValue(_T("urlcp"));
+
+	if(m_noskin)
+		m_cfg->SetValue(_T("skinned_player") ,_T("0") , true , ex_gui);
+	else
+		m_cfg->RemoveValue(_T("skinned_player"),true);
 
 	if(m_guithread)
 		m_cfg->SetValue(_T("gui_thread") ,_T("1") , true , ex_option);

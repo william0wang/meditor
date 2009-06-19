@@ -180,6 +180,7 @@ protected:
 public:
 	afx_msg void OnBnClickedButtonDef();
 	BOOL m_console;
+	BOOL m_noskin;
 };
 
 //{{AFX_INSERT_LOCATION}}
