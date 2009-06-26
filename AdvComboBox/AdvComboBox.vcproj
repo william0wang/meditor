@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bulid\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="2"
@@ -81,8 +81,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bulid\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrlAdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="2"
@@ -145,8 +145,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug Unicode|Win32"
-			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bulid\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="1"
@@ -208,8 +208,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release Unicode|Win32"
-			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bulid\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="1"

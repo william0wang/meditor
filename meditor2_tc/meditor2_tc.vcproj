@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release Unicode|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\Bulid_tc"
+			OutputDirectory="$(SolutionDir)\Bin"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\meditor2_tc"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			CharacterSet="1"

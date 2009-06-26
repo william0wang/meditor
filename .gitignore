@@ -1,0 +1,28 @@
+*~
+*.a
+*.ncb
+*.suo
+*.diff
+*.lib
+*.dll*
+*.exe
+*.obj
+*.pdb
+*.idb
+*.dep
+*.mo
+*.o
+*.ncb
+*.suo
+*.aps
+*.user
+*.pc
+*.pot
+*.so*
+*.swp
+.svn
+Bin
+Debug
+Release
+Debug Unicode
+Release Unicode

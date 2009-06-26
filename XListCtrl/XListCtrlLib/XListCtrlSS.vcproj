@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug Unicode|Win32"
-			OutputDirectory=".\Debug_Unicode"
-			IntermediateDirectory=".\Debug_Unicode"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -51,9 +51,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\Debug_Unicode/XListCtrlSS.pch"
-				AssemblerListingLocation=".\Debug_Unicode/"
-				ObjectFile=".\Debug_Unicode/"
-				ProgramDataBaseFileName=".\Debug_Unicode/"
+				AssemblerListingLocation=""
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\vc90.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -71,7 +71,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="Debug_Unicode\XListCtrlSSDU.lib"
+				OutputFile="$(OutDir)\$(ProjectName)DU.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -83,21 +83,21 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug_Unicode/XListCtrlSS.bsc"
+				OutputFile="$(OutDir)/$(ProjectName).bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying file..."
-				CommandLine="mkdir ..\bin 2&gt; nul&#x0D;&#x0A;copy $(Outdir)\$(TargetName).lib ..\bin 1&gt; nul&#x0D;&#x0A;"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release Unicode|Win32"
-			OutputDirectory=".\Release_Unicode"
-			IntermediateDirectory=".\Release_Unicode"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -129,10 +129,10 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\Release_Unicode/XListCtrlSS.pch"
-				AssemblerListingLocation=".\Release_Unicode/"
-				ObjectFile=".\Release_Unicode/"
-				ProgramDataBaseFileName=".\Release_Unicode/"
+				PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+				AssemblerListingLocation=""
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\vc90.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 			/>
@@ -149,7 +149,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="Release_Unicode\XListCtrlSSRU.lib"
+				OutputFile="$(OutDir)\$(ProjectName)RU.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -161,21 +161,21 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release_Unicode/XListCtrlSS.bsc"
+				OutputFile="$(OutDir)/$(ProjectName).bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying file..."
-				CommandLine="mkdir ..\bin 2&gt; nul&#x0D;&#x0A;copy $(Outdir)\$(TargetName).lib ..\bin 1&gt; nul&#x0D;&#x0A;"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -208,9 +208,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\Release/XListCtrlSS.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
+				AssemblerListingLocation=""
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\vc90.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 			/>
@@ -227,7 +227,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="Release\XListCtrlSSRA.lib"
+				OutputFile="$(OutDir)\$(ProjectName)RA.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -239,21 +239,21 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/XListCtrlSS.bsc"
+				OutputFile="$(OutDir)/$(ProjectName).bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying file..."
-				CommandLine="mkdir ..\bin 2&gt; nul&#x0D;&#x0A;copy $(Outdir)\$(TargetName).lib ..\bin 1&gt; nul&#x0D;&#x0A;"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -285,9 +285,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\Debug/XListCtrlSS.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				AssemblerListingLocation=""
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\vc90.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -305,7 +305,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="Debug\XListCtrlSSDA.lib"
+				OutputFile="$(OutDir)\$(ProjectName)DA.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -317,15 +317,15 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/XListCtrlSS.bsc"
+				OutputFile="$(OutDir)/$(ProjectName).bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying file..."
-				CommandLine="mkdir ..\bin 2&gt; nul&#x0D;&#x0A;copy $(Outdir)\$(TargetName).lib ..\bin 1&gt; nul&#x0D;&#x0A;"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
