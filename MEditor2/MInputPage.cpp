@@ -114,6 +114,8 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_skey.Add(_T("$"),_T("$"));
 	m_skey.Add(_T("%"),_T("%"));
 	m_skey.Add(_T("^"),_T("^"));
+	m_skey.Add(_T("`"),_T("`"));
+	m_skey.Add(_T("~"),_T("~"));
 	m_skey.Add(_T("&"),_T("&"));
 	m_skey.Add(_T("("),_T("("));
 	m_skey.Add(_T(")"),_T(")"));
