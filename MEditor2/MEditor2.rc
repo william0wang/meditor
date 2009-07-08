@@ -1964,7 +1964,7 @@ BEGIN
     IDS_VIDEO_EQ2           "亮度/对比度/饱和度/伽玛"
     IDS_VIDEO_EQ2I          "提供亮度/对比度/饱和度/伽玛调节能力"
     IDS_VIDEO_HUE           "色度调节"
-    IDS_VIDEO_HUEI          "为DirectX等输出提供色度调节能力"
+    IDS_VIDEO_HUEI          "为DirectX/Direct3D输出提供色度调节能力"
     IDS_VIDEO_FLP           "翻转影片"
     IDS_VIDEO_FLPI          "翻转图像使其上下颠倒"
     IDS_VIDEO_ROT           "旋转影片"
@@ -2146,6 +2146,8 @@ BEGIN
     IDS_AUDIO_STM_INFO      "改变播放速度时不改变声调只改变音频的节奏"
     IDS_ASSOS_AVS           "AviSynth 脚本"
     IDS_MESSAGE_AVS         "安装成功！"
+    IDS_VIDEO_SCA           "缩放滤镜"
+    IDS_VIDEO_SCAI          "缩放视频到指定宽度与高度，高度为-3时为按比例缩放"
 END
 
 #endif    // 中文(中华人民共和国) resources

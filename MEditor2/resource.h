@@ -674,6 +674,9 @@
 #define IDS_AUDIO_STM_INFO              35350
 #define IDS_ASSOS_AVS                   35351
 #define IDS_MESSAGE_AVS                 35352
+#define IDS_VIDEO_SCA                   35353
+#define IDS_VIDEO_CROI2                 35354
+#define IDS_VIDEO_SCAI                  35354
 
 // Next default values for new objects
 // 

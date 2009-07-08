@@ -105,12 +105,10 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_str_vf.Add(ResStr(IDS_VIDEO_EQ2I));
 	m_str_vf.Add(ResStr(IDS_VIDEO_HUE));
 	m_str_vf.Add(ResStr(IDS_VIDEO_HUEI));
-	m_str_vf.Add(ResStr(IDS_VIDEO_FLP));
-	m_str_vf.Add(ResStr(IDS_VIDEO_FLPI));
-	m_str_vf.Add(ResStr(IDS_VIDEO_ROT));
-	m_str_vf.Add(ResStr(IDS_VIDEO_ROTI));
 	m_str_vf.Add(ResStr(IDS_VIDEO_CRO));
 	m_str_vf.Add(ResStr(IDS_VIDEO_CROI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_SCA));
+	m_str_vf.Add(ResStr(IDS_VIDEO_SCAI));
 	m_str_vf.Add(ResStr(IDS_VIDEO_DEI));
 	m_str_vf.Add(ResStr(IDS_VIDEO_DEII));
 	m_str_vf.Add(ResStr(IDS_VIDEO_DEB));
@@ -119,6 +117,10 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_str_vf.Add(ResStr(IDS_VIDEO_DERI));
 	m_str_vf.Add(ResStr(IDS_VIDEO_TNO));
 	m_str_vf.Add(ResStr(IDS_VIDEO_TNOI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_FLP));
+	m_str_vf.Add(ResStr(IDS_VIDEO_FLPI));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ROT));
+	m_str_vf.Add(ResStr(IDS_VIDEO_ROTI));
 	m_str_vf.Add(ResStr(IDS_VIDEO_ATL));
 	m_str_vf.Add(ResStr(IDS_VIDEO_ATLI));
 	m_str_vf.Add(ResStr(IDS_VIDEO_OTH));
@@ -300,18 +302,6 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetItemText(hue, 1, m_str_vf[hue*2]);
 	pList->SetItemText(hue, 3, m_str_vf[hue*2 + 1]);
 
-	pList->InsertItem(flip, _T(""));
-	pList->SetCheckbox(flip, 0, 0);
-	pList->SetItemText(flip, 1, m_str_vf[flip*2]);
-	pList->SetItemText(flip, 2, _T(""));
-	pList->SetItemText(flip, 3, m_str_vf[flip*2 + 1]);
-
-	pList->InsertItem(rotate, _T(""));
-	pList->SetCheckbox(rotate, 0, 0);
-	pList->SetItemText(rotate, 1, m_str_vf[rotate*2]);
-	pList->SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
-	pList->SetItemText(rotate, 3, m_str_vf[rotate*2 + 1]);
-
 	pList->InsertItem(crop, _T(""));
 	pList->SetCheckbox(crop, 0, 0);
 	pList->SetItemText(crop, 1, m_str_vf[crop*2]);
@@ -319,6 +309,13 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetEdit(crop, 2);
 	pList->SetItemText(crop, 3, m_str_vf[crop*2 + 1]);
 	pList->SetItemToolTipText(crop, 2, m_str_cot);
+
+	pList->InsertItem(scale, _T(""));
+	pList->SetCheckbox(scale, 0, 0);
+	pList->SetItemText(scale, 1, m_str_vf[scale*2]);
+	pList->SetItemText(scale, 2, _T("640:-3"));
+	pList->SetEdit(scale, 2);
+	pList->SetItemText(scale, 3, m_str_vf[scale*2 + 1]);
 
 	pList->InsertItem(deinterlacing, _T(""));
 	pList->SetCheckbox(deinterlacing, 0, 0);
@@ -343,6 +340,18 @@ void CMVideoPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetItemText(tmpnoise, 1, m_str_vf[tmpnoise*2]);
 	pList->SetItemText(tmpnoise, 2, _T(""));
 	pList->SetItemText(tmpnoise, 3, m_str_vf[tmpnoise*2 + 1]);
+
+	pList->InsertItem(flip, _T(""));
+	pList->SetCheckbox(flip, 0, 0);
+	pList->SetItemText(flip, 1, m_str_vf[flip*2]);
+	pList->SetItemText(flip, 2, _T(""));
+	pList->SetItemText(flip, 3, m_str_vf[flip*2 + 1]);
+
+	pList->InsertItem(rotate, _T(""));
+	pList->SetCheckbox(rotate, 0, 0);
+	pList->SetItemText(rotate, 1, m_str_vf[rotate*2]);
+	pList->SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
+	pList->SetItemText(rotate, 3, m_str_vf[rotate*2 + 1]);
 
 	pList->InsertItem(autolevels, _T(""));
 	pList->SetCheckbox(autolevels, 0, 0);
@@ -430,6 +439,8 @@ void CMVideoPage::SetNormal()
 	m_List.SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
 	m_List.SetCheckbox(crop, 0, 0);
 	m_List.SetItemText(crop, 2, _T("640:480"));
+	m_List.SetCheckbox(scale, 0, 0);
+	m_List.SetItemText(scale, 2, _T("640:-3"));
 	m_List.SetCheckbox(deinterlacing, 0, 0);
 	m_List.SetComboBox(deinterlacing, 2, TRUE,  &m_deinterlacing,  5,  0,  FALSE);
 	m_List.SetCheckbox(deblocking, 0, 0);
@@ -720,7 +731,16 @@ void CMVideoPage::InitFromConfig()
 		}
 		else if(m_cfg->GetValue_String(_T("cofing_crop"),value_sub,true))
 			m_List.SetItemText(crop, 2,value_sub);
-		
+
+		if(m_cfg->GetSubValue(value_s,_T("scale"), value_sub))
+		{
+			m_List.SetCheckbox(scale, 0, 1);
+			m_List.SetItemText(scale, 2,value_sub);
+			RemoveSubValue(value_vf , _T("scale"));
+		}
+		else if(m_cfg->GetValue_String(_T("cofing_scale"),value_sub,true))
+			m_List.SetItemText(scale, 2,value_sub);
+
 		if(m_cfg->HaveSubValue(value_s,_T("rotate")))
 		{
 			m_List.SetCheckbox(rotate, 0, 1);
@@ -836,6 +856,8 @@ void CMVideoPage::InitFromConfig()
 			m_List.SetItemText(expand, 2,value_s);
 		if(m_cfg->GetValue_String(_T("cofing_crop"),value_s,true))
 			m_List.SetItemText(crop, 2,value_s);
+		if(m_cfg->GetValue_String(_T("cofing_scale"),value_s,true))
+			m_List.SetItemText(scale, 2,value_s);
 	}
 	m_List.UnlockWindowUpdate();
 	UpdateData(FALSE);
@@ -1070,6 +1092,55 @@ void CMVideoPage::SaveConfig()
 			vf_str += _T("screenshot,");
 	}
 
+	int vdi = m_List.GetCheckbox(deinterlacing, 0);
+	int vdb = m_List.GetCheckbox(deblocking, 0);
+	int vdr = m_List.GetCheckbox(dering, 0);
+	int vtn = m_List.GetCheckbox(tmpnoise, 0);
+	int val = m_List.GetCheckbox(autolevels, 0);
+
+	if( vdi || vdb || vdr || vtn || val)
+	{
+		vf_str += _T("pp=");
+		if(vdi)
+		{
+			CString str = m_List.GetItemText(deinterlacing, 2);
+			if(str == ResStr(IDS_VIDEO_VD2))
+				vf_str += _T("ci/");
+			else if(str == ResStr(IDS_VIDEO_VD3))
+				vf_str += _T("md/");
+			else if(str == _T("FFmpeg"))
+				vf_str += _T("fd/");
+			else if(str == _T("lowpass5"))
+				vf_str += _T("l5/");
+			else
+				vf_str += _T("lb/");
+		}
+		if(vdb)
+		{
+			CString str = m_List.GetItemText(deblocking, 2);
+			if(str == ResStr(IDS_VIDEO_DB2))
+				vf_str += _T("vb/");
+			else if(str == ResStr(IDS_VIDEO_DB3))
+				vf_str += _T("ha/");
+			else if(str == ResStr(IDS_VIDEO_DB4))
+				vf_str += _T("va/");
+			else if(str == ResStr(IDS_VIDEO_DB5))
+				vf_str += _T("hb/vb/");
+			else if(str == ResStr(IDS_VIDEO_DB6))
+				vf_str += _T("ha/va/");
+			else
+				vf_str += _T("hb/");
+		}
+		if(vdr)
+			vf_str += _T("dr/");
+		if(vtn)
+			vf_str += _T("tn/");
+		if(val)
+			vf_str += _T("al/");
+		vf_str.TrimRight(_T("/"));
+		vf_str += _T(",");
+	}
+
 	int veq = m_List.GetCheckbox(eq2, 0);
 	int vhue = m_List.GetCheckbox(hue, 0);
 	CString value;
@@ -1149,20 +1220,7 @@ void CMVideoPage::SaveConfig()
 		m_cfg->RemoveValue(_T("autoexpand"));
 		m_cfg->RemoveValue(_T("cofing_expand"),true);
 	}
-	
-	if(m_List.GetCheckbox(rotate, 0))
-	{
-		CString str = m_List.GetItemText(rotate, 2);
-		if(str == ResStr(IDS_VIDEO_ROTA2))
-			vf_str += _T("rotate=1,") ;
-		else if(str == ResStr(IDS_VIDEO_ROTA3))
-			vf_str += _T("rotate=2,") ;
-		else if(str == ResStr(IDS_VIDEO_ROTA4))
-			vf_str += _T("rotate=3,") ;
-		else
-			vf_str += _T("rotate,") ;
-	}
-	
+
 	CString str_crop = m_List.GetItemText(crop, 2);
 	str_crop.TrimLeft(_T(" "));
 	str_crop.TrimRight(_T(" "));
@@ -1177,54 +1235,33 @@ void CMVideoPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("cofing_crop"),true);
 
-	int vdi = m_List.GetCheckbox(deinterlacing, 0);
-	int vdb = m_List.GetCheckbox(deblocking, 0);
-	int vdr = m_List.GetCheckbox(dering, 0);
-	int vtn = m_List.GetCheckbox(tmpnoise, 0);
-	int val = m_List.GetCheckbox(autolevels, 0);
-	
-	if( vdi || vdb || vdr || vtn || val)
+	CString str_scale = m_List.GetItemText(scale, 2);
+	str_scale.TrimLeft(_T(" "));
+	str_scale.TrimRight(_T(" "));
+	if(m_List.GetCheckbox(scale, 0))
 	{
-		vf_str += _T("pp=");
-		if(vdi)
-		{
-			CString str = m_List.GetItemText(deinterlacing, 2);
-			if(str == ResStr(IDS_VIDEO_VD2))
-				vf_str += _T("ci/");
-			else if(str == ResStr(IDS_VIDEO_VD3))
-				vf_str += _T("md/");
-			else if(str == _T("FFmpeg"))
-				vf_str += _T("fd/");
-			else if(str == _T("lowpass5"))
-				vf_str += _T("l5/");
-			else
-				vf_str += _T("lb/");
-		}
-		if(vdb)
-		{
-			CString str = m_List.GetItemText(deblocking, 2);
-			if(str == ResStr(IDS_VIDEO_DB2))
-				vf_str += _T("vb/");
-			else if(str == ResStr(IDS_VIDEO_DB3))
-				vf_str += _T("ha/");
-			else if(str == ResStr(IDS_VIDEO_DB4))
-				vf_str += _T("va/");
-			else if(str == ResStr(IDS_VIDEO_DB5))
-				vf_str += _T("hb/vb/");
-			else if(str == ResStr(IDS_VIDEO_DB6))
-				vf_str += _T("ha/va/");
-			else
-				vf_str += _T("hb/");
-		}
-		if(vdr)
-			vf_str += _T("dr/");
-		if(vtn)
-			vf_str += _T("tn/");
-		if(val)
-			vf_str += _T("al/");
-		vf_str.TrimRight(_T("/"));
-		vf_str += _T(",");
+		if(str_scale.GetLength() > 0)
+			vf_str += _T("scale=") + str_scale + _T(",");
+		m_cfg->RemoveValue(_T("cofing_scale"),true);
 	}
+	else if(str_scale.GetLength() > 0 && str_scale != _T("640:-3"))
+		m_cfg->SetValue(_T("cofing_scale"),  str_scale, true , ex_meditor);
+	else
+		m_cfg->RemoveValue(_T("cofing_scale"),true);
+
+	if(m_List.GetCheckbox(rotate, 0))
+	{
+		CString str = m_List.GetItemText(rotate, 2);
+		if(str == ResStr(IDS_VIDEO_ROTA2))
+			vf_str += _T("rotate=1,") ;
+		else if(str == ResStr(IDS_VIDEO_ROTA3))
+			vf_str += _T("rotate=2,") ;
+		else if(str == ResStr(IDS_VIDEO_ROTA4))
+			vf_str += _T("rotate=3,") ;
+		else
+			vf_str += _T("rotate,") ;
+	}
+
 	int bvf_other = m_List.GetCheckbox(vf_other, 0);
 	if(bvf_other)
 	{

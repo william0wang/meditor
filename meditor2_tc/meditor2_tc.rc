@@ -79,7 +79,7 @@ IDR_MAINFRAME           ICON                    "res\\MEditor2.ico"
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "關于 MPlayer 首選項"
+CAPTION "關於 MPlayer 首選項"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,18,18
@@ -135,11 +135,11 @@ END
 
 IDD_DIALOG_INFO DIALOGEX 0, 0, 193, 76
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "提示信息"
+CAPTION "提示資訊"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "確定",IDOK,140,55,46,14
-    CONTROL         "不再顯示此提示信息",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,101,10
+    CONTROL         "不再顯示此提示資訊",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,101,10
     LTEXT           "",IDC_STATIC_INFO,27,7,139,44
 END
 
@@ -243,7 +243,7 @@ BEGIN
     POPUP "檔案"
     BEGIN
         MENUITEM "保存",                          IDC_APPLY
-        MENUITEM "重置所有提示信息",                    IDC_RESETINFO
+        MENUITEM "重置所有提示資訊",                    IDC_RESETINFO
         MENUITEM SEPARATOR
         MENUITEM "退出",                          IDCANCEL
     END
@@ -258,16 +258,16 @@ BEGIN
         MENUITEM "mplayer.ini",                 ID_MPLAYER_INI
         MENUITEM "input.ini",                   ID_INPUT_INI
         MENUITEM "kk.ini",                      ID_KK_INI
-        MENUITEM "日志檔案",                        ID_LOG_TXT
+        MENUITEM "日誌檔案",                        ID_LOG_TXT
     END
     POPUP "說明"
     BEGIN
         MENUITEM "主頁",                          IDC_GOTOHOME
         MENUITEM "說明檔案",                        IDC_SHOWHELP
-        MENUITEM "更新日志",                        IDC_SHOWLOG
+        MENUITEM "更新日誌",                        IDC_SHOWLOG
         MENUITEM "FAQ",                         IDC_SHOWFAQ
         MENUITEM SEPARATOR
-        MENUITEM "關于",                          IDM_ABOUT
+        MENUITEM "關於",                          IDM_ABOUT
     END
 END
 
@@ -345,7 +345,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_ABOUTBOX            "關于 MEditor2(&A)..."
+    IDS_ABOUTBOX            "關於 MEditor2(&A)..."
 END
 
 STRINGTABLE 
@@ -356,7 +356,7 @@ BEGIN
     IDS_TAB_AUDIO           "音頻"
     IDS_TAB_DECODE          "解碼器"
     IDS_TAB_RESUME          "我的最愛"
-    IDS_TAB_OTHER           "其它"
+    IDS_TAB_OTHER           "其他"
     IDS_TAB_INPUT           "快捷鍵"
     IDS_TAB_ASSOS           "檔案關聯"
 END
@@ -368,7 +368,7 @@ BEGIN
     IDS_RESUME_NO           "序號"
     IDS_RESUME_TIME         "時間 /秒"
     IDS_RESUME_FILE         "檔案名"
-    IDS_PLAYER_SAMEDIR      "請與 mplayer.exe 放在相同目錄中使用本程序!"
+    IDS_PLAYER_SAMEDIR      "請與 mplayer.exe 放在相同目錄中使用本程式!"
     IDS_ASSOS_LIST          "播放列表"
     IDS_ASSOS_V             "視頻檔案"
     IDS_ASSOS_A             "音頻檔案"
@@ -396,9 +396,9 @@ BEGIN
     IDS_PLAYER_AS_AVI       "AVI 修正模式"
     IDS_PLAYER_PREALTIME    "實時(不推薦)"
     IDS_PLAYER_PHIGH        "高"
-    IDS_PLAYER_PHNORMAL     "高于標準"
+    IDS_PLAYER_PHNORMAL     "高於標準"
     IDS_PLAYER_PNORMAL      "標準"
-    IDS_PLAYER_PLNORMAL     "低于標準(不推薦)"
+    IDS_PLAYER_PLNORMAL     "低於標準(不推薦)"
 END
 
 STRINGTABLE 
@@ -406,13 +406,13 @@ BEGIN
     IDS_PLAYER_PIDLE        "空閑(不推薦)"
     IDS_PLAYER_FILE         "單檔案"
     IDS_PLAYER_LIST         "播放列表"
-    IDS_PLAYER_LOG_NO       "不記錄日志"
-    IDS_PLAYER_LOG          "簡單日志"
-    IDS_PLAYER_LOG_V1       "詳細日志(v=1)"
-    IDS_PLAYER_LOG_V2       "詳細日志(v=2)"
-    IDS_PLAYER_LOG_V3       "詳細日志(v=3)"
-    IDS_PLAYER_LOG_V4       "詳細日志(v=4)"
-    IDS_PLAYER_LOG_V5       "詳細日志(v=5)"
+    IDS_PLAYER_LOG_NO       "不記錄日誌"
+    IDS_PLAYER_LOG          "簡單日誌"
+    IDS_PLAYER_LOG_V1       "詳細日誌(v=1)"
+    IDS_PLAYER_LOG_V2       "詳細日誌(v=2)"
+    IDS_PLAYER_LOG_V3       "詳細日誌(v=3)"
+    IDS_PLAYER_LOG_V4       "詳細日誌(v=4)"
+    IDS_PLAYER_LOG_V5       "詳細日誌(v=5)"
     IDS_PLAYER_HIDE_NO      "不隱藏"
     IDS_PLAYER_HIDE_M       "手動隱藏"
     IDS_PLAYER_HIDE_A       "自動隱藏"
@@ -432,11 +432,11 @@ BEGIN
     IDS_PLAYER_T9           "無播放資訊 時:分 (24)"
     IDS_PLAYER_NORMAL_MODE  "預設模式"
     IDS_PLAYER_SHOWTIME     "顯示播放時間"
-    IDS_PLAYER_SHOWREMAIN   "顯示剩余時間"
+    IDS_PLAYER_SHOWREMAIN   "顯示剩餘時間"
     IDS_PLAYER_NOOSD        "不顯示OSD"
     IDS_PLAYER_TASK         "任務列"
     IDS_PLAYER_TRAY         "系統托盤"
-    IDS_PLAYER_TRAYSTOP     "托盤并暫停"
+    IDS_PLAYER_TRAYSTOP     "托盤並暫停"
     IDS_PLAYER_NOUSE        "不使用"
     IDS_PLAYER_EX           "增強"
 END
@@ -445,7 +445,7 @@ STRINGTABLE
 BEGIN
     IDS_ASSOS_AVI           "視頻剪輯"
     IDS_ASSOS_CT            "動畫檔案"
-    IDS_ASSOS_INPUT         "請錄入副檔名和說明并選擇類型"
+    IDS_ASSOS_INPUT         "請錄入副檔名和說明並選擇類型"
     IDS_ASSOS_AS            "檔案關聯"
     IDS_ASSOS_DEL           "不能移除預設格式!"
     IDS_PLAYER_USE          "使用"
@@ -486,11 +486,11 @@ BEGIN
     IDS_DECODE_CODEFILE2    "外置預設的解碼器配置檔案"
     IDS_DECODE_CODEFILE3    "CoreAVC 優先的解碼器配置"
     IDS_DECODE_SKIPLOOP     "跳過回圈過濾器"
-    IDS_DECODE_SKIPLOOP_INFO "(僅用于H.264)提供大的提速且不損失品質"
+    IDS_DECODE_SKIPLOOP_INFO "(僅用於H.264)提供大的提速且不損失品質"
     IDS_DECODE_SKIPFRAME    "跳過解碼幀"
     IDS_DECODE_SKIPFRAME_INFO "大的提速, 但是有時有痙攣或糟糕的映象"
     IDS_DECODE_XY           "縮放映象"
-    IDS_DECODE_XY_INFO      "設置映象寬度,并保持高寬比(硬體縮放)"
+    IDS_DECODE_XY_INFO      "設置映象寬度,並保持高寬比(硬體縮放)"
     IDS_DECODE_LOW          "以較低的解析度解碼"
     IDS_DECODE_LOW_INFO     "MPEG-2大幅提速，但常常導致難看的映象)"
     IDS_PLAYER_FNAME        "濾鏡名"
@@ -532,7 +532,7 @@ BEGIN
     IDS_AUDIO_VNL_INFO      "沒有失真的最大音量"
     IDS_AUDIO_RE            "音頻重采樣"
     IDS_AUDIO_RE_INFO       "改變音頻流的采樣(速/頻)率"
-    IDS_AUDIO_EQ            "10波段8度均衡器"
+    IDS_AUDIO_EQ            "10波段8度等化器"
     IDS_AUDIO_EQ_INFO       "各頻率波段的增益分貝(-12~12)"
     IDS_AUDIO_CHAN          "聲道"
     IDS_AUDIO_DS            "DirectSound (推薦)"
@@ -544,7 +544,7 @@ BEGIN
     IDS_AUDIO_FILE          "輸出到PCM/Wave檔案"
     IDS_AUDIO_NULL          "無音頻輸出"
     IDS_AUDIO_ADV           "高級音頻過濾器"
-    IDS_AUDIO_ADV_INFO      "優化音頻回放精度(同步)或速度"
+    IDS_AUDIO_ADV_INFO      "優化音頻重播精度(同步)或速度"
     IDS_SUB_FUZZ1           "精確匹配"
     IDS_SUB_FUZZ2           "所有包含名稱的字幕"
     IDS_SUB_FUZZ3           "當前目錄的所有字幕"
@@ -555,27 +555,27 @@ BEGIN
     IDS_SUB_SCAL2           "高度成比例"
     IDS_SUB_SCAL3           "寬度成比例"
     IDS_SUB_SCAL4           "對角線成比例"
-    IDS_VIDEO_ROTA1         "順時針90度并翻轉"
+    IDS_VIDEO_ROTA1         "順時針90度並翻轉"
     IDS_VIDEO_ROTA2         "順時針90度"
 END
 
 STRINGTABLE 
 BEGIN
     IDS_VIDEO_ROTA3         "逆時針90度"
-    IDS_VIDEO_ROTA4         "逆時針90度并翻轉"
+    IDS_VIDEO_ROTA4         "逆時針90度並翻轉"
     IDS_VIDEO_VD1           "線性混合(Linear blend)"
     IDS_VIDEO_VD2           "立方插值(Cubic interpolating)"
     IDS_VIDEO_VD3           "中位數(Median)"
-    IDS_VIDEO_DB1           "水平方向"
+    IDS_VIDEO_DB1           "水準方向"
     IDS_VIDEO_DB2           "垂直方向"
-    IDS_VIDEO_DB3           "精確的水平方向"
+    IDS_VIDEO_DB3           "精確的水準方向"
     IDS_VIDEO_DB4           "精確的垂直方向"
-    IDS_VIDEO_DB5           "水平/垂直方向"
-    IDS_VIDEO_DB6           "精確水平/垂直方向"
+    IDS_VIDEO_DB5           "水準/垂直方向"
+    IDS_VIDEO_DB6           "精確水準/垂直方向"
     IDS_VIDEO_VO1           "DirectX(Win2K/XP)"
     IDS_VIDEO_VOGL          "OpenGL(Win2K/XP/Vista)"
     IDS_VIDEO_VO3           "OpenGL第2代"
-    IDS_VIDEO_VO4           "矩陣特效 (黑客帝國特效)"
+    IDS_VIDEO_VO4           "矩陣特效 (駭客帝國特效)"
     IDS_VIDEO_VO5           "矩陣特效 (低解析度)"
 END
 
@@ -593,7 +593,7 @@ BEGIN
     IDS_VIDEO_COLMORE       "更多顏色..."
     IDS_VIDEO_COLAT         "自動"
     IDS_VIDEO_SST           "截圖濾鏡"
-    IDS_VIDEO_SSTI          "壓縮等級0~9，開啟濾鏡后不用時不占用資源"
+    IDS_VIDEO_SSTI          "壓縮等級0~9，開啟濾鏡後不用時不佔用資源"
     IDS_VIDEO_ASS           "截屏中渲染字幕"
     IDS_VIDEO_ASSI          "截屏內容將包含SSA/ASS字幕"
     IDS_VIDEO_EXP           "解析度擴展"
@@ -608,13 +608,13 @@ BEGIN
     IDS_VIDEO_EQ2           "亮度/對比度/飽和度/伽瑪"
     IDS_VIDEO_EQ2I          "提供亮度/對比度/飽和度/伽瑪調節能力"
     IDS_VIDEO_HUE           "色度調節"
-    IDS_VIDEO_HUEI          "為DirectX等驅動提供色度調節能力"
+    IDS_VIDEO_HUEI          "為DirectX/Direct3D輸出提供色度調節能力"
     IDS_VIDEO_FLP           "翻轉影片"
     IDS_VIDEO_FLPI          "翻轉映象使其上下顛倒"
     IDS_VIDEO_ROT           "旋轉影片"
-    IDS_VIDEO_ROTI          "以90度為單位旋轉映象并有選擇地將其翻轉"
+    IDS_VIDEO_ROTI          "以90度為單位旋轉映象並有選擇地將其翻轉"
     IDS_VIDEO_CRO           "切邊濾鏡"
-    IDS_VIDEO_CROI          "切割出映象的指定部分并丟棄其余部分"
+    IDS_VIDEO_CROI          "切割出映象的指定部分並丟棄其餘部分"
     IDS_VIDEO_CROIT         "寬度:高度:橫坐標:縱坐標(中心坐標為0:0)"
     IDS_VIDEO_DEI           "反隔行掃描濾鏡"
 END
@@ -630,7 +630,7 @@ BEGIN
     IDS_VIDEO_TNOI          "去除影片瞬時噪聲(tmpnoise)"
     IDS_VIDEO_ATL           "自動更正亮度/對比度"
     IDS_VIDEO_ATLI          "自動更正影片亮度/對比度(autolevels)"
-    IDS_VIDEO_OTH           "其它視頻濾鏡"
+    IDS_VIDEO_OTH           "其他視頻濾鏡"
     IDS_VIDEO_OTHI          "直接錄入視頻濾鏡參數"
     IDS_TAB_PROFILE         "配置集"
     IDS_PROFILE_FLV         "FLV/RM 同步"
@@ -646,8 +646,8 @@ BEGIN
     IDS_PROFILE_DEL         "確定要移除當前配置集 ?"
     IDS_PROFILE_DEL_INF     "移除配置集 "
     IDS_INFO_RELOAD         "在MPlayer中使用快捷鍵""F5""使設置立即生效，部分設置需要重啟 MPlayer。"
-    IDS_INFO_COREAVC        "DirectX 驅動下使用 CoreAVC 解碼器，并開啟分辨率擴展或ASS黑邊擴展后，將自動打開亮度調節濾鏡，以獲得更好的兼容性。"
-    IDS_INFO_ASSEXP         "打開SSA/ASS黑邊擴展后，將自動關閉分辨率擴展濾鏡。"
+    IDS_INFO_COREAVC        "DirectX 輸出下使用 CoreAVC 解碼器，並開啟解析度擴展或ASS黑邊擴展後，將自動打開亮度調節濾鏡，以獲得更好的相容性。"
+    IDS_INFO_ASSEXP         "打開SSA/ASS黑邊擴展後，將自動關閉解析度擴展濾鏡。"
     IDS_INPUT_NONE          "無快捷鍵"
     IDS_INPUT_RIGHT         "右"
     IDS_INPUT_LEFT          "左"
@@ -668,13 +668,13 @@ BEGIN
     IDS_INPUT_MC            "單擊中鍵"
     IDS_INPUT_MD            "雙擊中鍵"
     IDS_INPUT_WF            "向前滾動"
-    IDS_INPUT_WB            "向后滾動"
+    IDS_INPUT_WB            "向後滾動"
     IDS_INPUT_X1C           "單擊X1鍵"
     IDS_INPUT_X1D           "雙擊X1鍵"
     IDS_INPUT_X2C           "單擊X2鍵"
     IDS_INPUT_X2D           "雙擊X2鍵"
-    IDS_INPUT_RF            "按住右鍵并前滾"
-    IDS_INPUT_RB            "按住右鍵并后滾"
+    IDS_INPUT_RF            "按住右鍵並前滾"
+    IDS_INPUT_RB            "按住右鍵並後滾"
     IDS_INPUT_JL            "手柄－左"
     IDS_INPUT_JR            "手柄－右"
 END
@@ -764,7 +764,7 @@ BEGIN
     IDS_INPUT_CHAP          "上/下章節 (DVD/DVDNAV、MKV)"
     IDS_INPUT_ANGLE         "切換視角 (DVD/DVDNAV)"
     IDS_INPUT_TITLE         "上/下標題 (DVDNAV)"
-    IDS_INFO_BOOST          "初次使用或安裝新字體后，MPlayer需要更新字體緩存，可能需要幾分鐘時間請耐心等待。"
+    IDS_INFO_BOOST          "初次使用或安裝新字體後，MPlayer需要更新字體緩存，可能需要幾分鐘時間請耐心等待。"
     IDS_INPUT_DVDDIR        "DVD菜單移動選項"
     IDS_INPUT_DVDSEL        "DVD菜單選擇(播放)"
     IDS_INPUT_DVDROOT       "返回DVD根菜單"
@@ -781,8 +781,8 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_DECODE_THREADS      "多线程MPEG/H.264解碼"
-    IDS_DECODE_THREADS_INFO "1~8线程解碼(可能導致錯誤，請慎用)"
+    IDS_DECODE_THREADS      "多線程MPEG/H.264解碼"
+    IDS_DECODE_THREADS_INFO "1~8線程解碼(可能導致錯誤，請慎用)"
     IDS_AUDIO_DELAY         "音頻延遲"
     IDS_AUDIO_DELAY_INFO    "音頻延遲  單位:秒"
     IDS_VIDEO_VOD3D         "Direct3D(XP/Vista/Win7)"
@@ -790,6 +790,8 @@ BEGIN
     IDS_AUDIO_STM_INFO      "改變播放速度時不改變聲調只改變音頻的節奏"
     IDS_ASSOS_AVS           "AviSynth 腳本"
     IDS_MESSAGE_AVS         "安裝成功！"
+    IDS_VIDEO_SCA           "縮放濾鏡"
+    IDS_VIDEO_SCAI          "縮放視頻到指定寬度與高度，高度為-3時為按比例縮放"
 END
 
 #endif    // 中文(中华人民共和国) resources
