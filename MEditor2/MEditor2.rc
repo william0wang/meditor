@@ -147,7 +147,7 @@ BEGIN
     CONTROL         "使用高精度计时器",IDC_CHECK_HTIMER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,63,69,10
     CONTROL         "不使用DVD菜单支持",IDC_CHECK_DVDNAV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,49,73,10
     CONTROL         "打开新文件时刷新设置",IDC_CHECK_RELOAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,35,85,10
-    CONTROL         "锁定的视频驱动(推荐)",IDC_CHECK_BOOST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,21,81,10
+    CONTROL         "锁定的视频输出(推荐)",IDC_CHECK_BOOST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,21,81,10
     CONTROL         "提高窗口(GUI)优先级",IDC_CHECK_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,77,77,10
     LTEXT           "默认打开文件夹",IDC_STATIC,9,151,52,8
     EDITTEXT        IDC_EDIT_DEF,68,149,111,12,ES_AUTOHSCROLL
@@ -205,9 +205,9 @@ IDD_VIDEO_DIALOG DIALOGEX 0, 0, 350, 200
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    GROUPBOX        "OpenGL 驱动设置",IDC_STATIC,120,7,99,71
-    LTEXT           "驱动",IDC_STATIC,8,12,18,8
-    CONTROL         "开启显卡驱动加速",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,34,91,10
+    GROUPBOX        "OpenGL 输出设置",IDC_STATIC,120,7,99,71
+    LTEXT           "输出",IDC_STATIC,8,12,18,8
+    CONTROL         "开启显卡输出加速",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,34,91,10
     CONTROL         "全屏进度条不闪屏(推荐)",IDC_CHECK_FLASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,20,91,10
     LTEXT           "OSD颜色",IDC_STATIC,122,63,29,8
     EDITTEXT        IDC_EDIT_COLOR,152,61,38,12,ES_AUTOHSCROLL
@@ -253,7 +253,7 @@ BEGIN
     CONTROL         "Slider1",IDC_SLIDER_VOLNORM,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,29,53,133,10
     EDITTEXT        IDC_EDIT_VOLNORM,166,52,24,12,ES_AUTOHSCROLL
     LTEXT           "%",IDC_STATIC,193,54,13,8
-    LTEXT           "音频驱动",IDC_STATIC,11,20,30,8
+    LTEXT           "音频输出",IDC_STATIC,11,20,30,8
     GROUPBOX        "音频设置",IDC_STATIC,7,7,336,186
     CONTROL         "",IDC_LIST_AUDIO,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,72,336,121
     LTEXT           "声道",IDC_STATIC,213,20,17,8
@@ -283,7 +283,8 @@ BEGIN
     GROUPBOX        "音频解码器优先级",IDC_STATIC,177,24,166,90
     LTEXT           "解码器配置文件 (codecs.ini)",IDC_STATIC,7,9,91,8
     CONTROL         "",IDC_COMBO_CODECS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,100,7,104,12
-    CONTROL         "自动多线程解码",IDC_CHECK_THREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,248,9,90,10
+    CONTROL         "自动多线程解码",IDC_CHECK_THREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,223,9,69,10
+    PUSHBUTTON      "CoreAVC",IDC_BUTTON_COREAVC,300,7,43,14
 END
 
 IDD_OTHER_DIALOG DIALOGEX 0, 0, 350, 200
@@ -641,7 +642,7 @@ BEGIN
     CONTROL         "使用右鍵菜單代替快捷鍵",IDC_CHECK_RIGHTMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,91,92,10
     CONTROL         "不使用DVD菜單支持",IDC_CHECK_DVDNAV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,49,73,10
     CONTROL         "打開新文件時刷新設置",IDC_CHECK_RELOAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,35,81,10
-    CONTROL         "鎖定的視頻驅動(推薦)",IDC_CHECK_BOOST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,21,81,10
+    CONTROL         "鎖定的視頻輸出(推薦)",IDC_CHECK_BOOST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,21,81,10
     CONTROL         "提高視窗(GUI)優先級",IDC_CHECK_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,77,77,10
     LTEXT           "預設開啟檔案夾",IDC_STATIC,9,152,57,8
     EDITTEXT        IDC_EDIT_DEF,76,150,103,12,ES_AUTOHSCROLL
@@ -728,9 +729,10 @@ BEGIN
     GROUPBOX        "Decod Setting",IDC_STATIC,7,118,336,75
     CONTROL         "",IDC_LIST_AVCODEC,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,129,336,64
     GROUPBOX        "Audio Decoder Priority",IDC_STATIC,177,24,166,90
-    LTEXT           "Decod Configure File (codecs.ini)",IDC_STATIC,7,9,106,8
-    CONTROL         "",IDC_COMBO_CODECS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,115,7,104,12
-    CONTROL         "Automatic multi-threaded",IDC_CHECK_THREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,9,106,10
+    LTEXT           "Decode Configure File (codecs.ini)",IDC_STATIC,7,9,108,8
+    CONTROL         "",IDC_COMBO_CODECS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,117,7,104,12
+    CONTROL         "Auto multi-thread",IDC_CHECK_THREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,227,9,68,10
+    PUSHBUTTON      "CoreAVC",IDC_BUTTON_COREAVC,300,7,43,14
 END
 
 IDD_INPUT_DIALOG_EN DIALOGEX 0, 0, 350, 200
@@ -922,9 +924,9 @@ IDD_VIDEO_DIALOG_TC DIALOGEX 0, 0, 350, 200
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "OpenGL 驅動設置",IDC_STATIC,120,7,101,70
-    LTEXT           "驅動",IDC_STATIC,8,12,21,8
-    CONTROL         "開啟顯卡驅動加速",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,123,33,93,10
+    GROUPBOX        "OpenGL 輸出設置",IDC_STATIC,120,7,101,70
+    LTEXT           "輸出",IDC_STATIC,8,12,21,8
+    CONTROL         "開啟顯卡輸出加速",IDC_CHECK_OSD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,123,33,93,10
     CONTROL         "全螢幕進度條不閃屏(推薦)",IDC_CHECK_FLASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,123,20,91,10
     LTEXT           "OSD顏色",IDC_STATIC,123,61,29,8
     EDITTEXT        IDC_EDIT_COLOR,152,60,38,12,ES_AUTOHSCROLL
@@ -1114,7 +1116,7 @@ BEGIN
     CONTROL         "Slider1",IDC_SLIDER_VOLNORM,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,29,53,129,10
     EDITTEXT        IDC_EDIT_VOLNORM,166,52,24,12,ES_AUTOHSCROLL
     LTEXT           "%",IDC_STATIC,193,54,13,8
-    LTEXT           "音頻驅動",IDC_STATIC,11,20,30,8
+    LTEXT           "音頻輸出",IDC_STATIC,11,20,30,8
     GROUPBOX        "音頻設置",IDC_STATIC,7,7,336,186
     CONTROL         "",IDC_LIST_AUDIO,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,81,336,112
     LTEXT           "聲道",IDC_STATIC,213,20,17,8
@@ -1163,7 +1165,8 @@ BEGIN
     GROUPBOX        "音頻解碼器優先順序",IDC_STATIC,177,24,166,90
     LTEXT           "解碼器配置檔案 (codecs.ini)",IDC_STATIC,7,9,91,8
     CONTROL         "",IDC_COMBO_CODECS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,101,7,104,12
-    CONTROL         "自動多線程解碼",IDC_CHECK_THREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,248,9,90,10
+    CONTROL         "自動多線程解碼",IDC_CHECK_THREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,228,9,64,10
+    PUSHBUTTON      "CoreAVC",IDC_BUTTON_COREAVC,300,7,43,14
 END
 
 
@@ -1964,7 +1967,7 @@ BEGIN
     IDS_VIDEO_EQ2           "亮度/对比度/饱和度/伽玛"
     IDS_VIDEO_EQ2I          "提供亮度/对比度/饱和度/伽玛调节能力"
     IDS_VIDEO_HUE           "色度调节"
-    IDS_VIDEO_HUEI          "为DirectX等驱动提供色度调节能力"
+    IDS_VIDEO_HUEI          "为DirectX/Direct3D输出提供色度调节能力"
     IDS_VIDEO_FLP           "翻转影片"
     IDS_VIDEO_FLPI          "翻转图像使其上下颠倒"
     IDS_VIDEO_ROT           "旋转影片"
@@ -2002,7 +2005,7 @@ BEGIN
     IDS_PROFILE_DEL         "确定要删除当前配置集 ?"
     IDS_PROFILE_DEL_INF     "删除配置集 "
     IDS_INFO_RELOAD         "在MPlayer中使用快捷键""F5""使设置立即生效，部分设置需要重启 MPlayer。"
-    IDS_INFO_COREAVC        "DirectX 驱动下使用 CoreAVC 解码器，并开启分辨率扩展或ASS黑边扩展后，将自动打开亮度调节滤镜，以获得更好的兼容性。"
+    IDS_INFO_COREAVC        "DirectX 输出下使用 CoreAVC 解码器，并开启分辨率扩展或ASS黑边扩展后，将自动打开亮度调节滤镜，以获得更好的兼容性。"
     IDS_INFO_ASSEXP         "打开SSA/ASS黑边扩展后，将自动关闭分辨率扩展滤镜。"
     IDS_INPUT_NONE          "无快捷键"
     IDS_INPUT_RIGHT         "右"
@@ -2146,6 +2149,8 @@ BEGIN
     IDS_AUDIO_STM_INFO      "改变播放速度时不改变声调只改变音频的节奏"
     IDS_ASSOS_AVS           "AviSynth 脚本"
     IDS_MESSAGE_AVS         "安装成功！"
+    IDS_VIDEO_SCA           "缩放滤镜"
+    IDS_VIDEO_SCAI          "缩放视频到指定宽度与高度，高度为-3时为按比例缩放"
 END
 
 #endif    // 中文(中华人民共和国) resources

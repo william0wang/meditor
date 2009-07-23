@@ -791,6 +791,8 @@ BEGIN
     IDS_AUDIO_STM_INFO      "Scales audio tempo without altering pitch, optionally synced to playback speed"
     IDS_ASSOS_AVS           "AviSynth Script"
     IDS_MESSAGE_AVS         "Installed Successfully !"
+    IDS_VIDEO_SCA           "Scale"
+    IDS_VIDEO_SCAI          "Video scaling to the specified width and height，scaling by aspect when height set to -3"
 END
 
 #endif    // 中文(中华人民共和国) resources

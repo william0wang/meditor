@@ -25,13 +25,14 @@ enum Filters
 	aspect,
 	eq2,
 	hue,
-	flip,
-	rotate,
 	crop,
+	scale,
 	deinterlacing,
 	deblocking,
 	dering,
 	tmpnoise,
+	flip,
+	rotate,
 	autolevels,
 	vf_other
 };
