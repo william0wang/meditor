@@ -250,6 +250,7 @@
 #define IDC_CHECK8                      1126
 #define IDC_COMBO_EXTENSINO             1127
 #define IDC_BUTTON1                     1128
+#define IDC_BUTTON_COREAVC              1128
 #define IDC_BUTTON2                     1129
 #define IDC_LIST_PROFILE                1130
 #define IDC_COMBO1                      1131
@@ -675,7 +676,6 @@
 #define IDS_ASSOS_AVS                   35351
 #define IDS_MESSAGE_AVS                 35352
 #define IDS_VIDEO_SCA                   35353
-#define IDS_VIDEO_CROI2                 35354
 #define IDS_VIDEO_SCAI                  35354
 
 // Next default values for new objects

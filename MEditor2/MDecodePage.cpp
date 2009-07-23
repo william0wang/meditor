@@ -173,6 +173,7 @@ BEGIN_MESSAGE_MAP(CMDecodePage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_UP2, OnButtonUp2)
 	ON_BN_CLICKED(IDC_BUTTON_DOWN2, OnButtonDown2)
 	//}}AFX_MSG_MAP
+	ON_BN_CLICKED(IDC_BUTTON_COREAVC, &CMDecodePage::OnBnClickedButtonCoreavc)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -956,3 +957,19 @@ BOOL CMDecodePage::PreTranslateMessage(MSG* pMsg)
 	return CDialog::PreTranslateMessage(pMsg);
 }
 
+
+void CMDecodePage::OnBnClickedButtonCoreavc()
+{
+	TCHAR szFilePath[MAX_PATH + 1];
+	CString m_coreavc;
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	m_coreavc.Format(_T("%scodecs\\CoreAVCDecoder.ax"),szFilePath);
+
+	if (IsFileExist(m_coreavc))
+	{
+		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllUnregisterServer") , NULL, SW_HIDE);
+		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllRegisterServer") , NULL, SW_HIDE);
+		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",Configure") , NULL, SW_SHOW);
+	}
+}
