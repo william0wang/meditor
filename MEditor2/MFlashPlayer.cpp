@@ -139,6 +139,7 @@ BOOL CMFlashPlayer::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 	m_control.SetRange(0,100);
+	m_control.SetPageSize(5);
 	m_inited = true;
 	m_list = new CMPlayList(this);
 	m_list->m_playlist = &m_playlist;
@@ -680,8 +681,14 @@ BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg)
 {	
 	switch(pMsg->message)
 	{
+	case WM_SYSCHAR:
+		if (pMsg->wParam == 13)
+			FullScreen();
+		break;
 	case   WM_KEYDOWN:
 		SendMessage(CMD_KEYDOWN, CMD_KEY, pMsg->wParam );
+		if(pMsg->wParam == 13)
+			return TRUE;
 		break;
 	case   WM_LBUTTONDOWN:
 		POINT point;
