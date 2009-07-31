@@ -708,6 +708,8 @@ void CMPlayerPage::InitFromConfig()
 			else
 				m_loop.SetCurSel(loop_single);
 		}
+		else
+			m_loop.SetCurSel(loop_single);
 	}
 	if(m_cfg->GetValue_Integer(_T("autosync"),value_i))
 	{
