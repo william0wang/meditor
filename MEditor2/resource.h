@@ -123,6 +123,7 @@
 #define IDC_SLIDER_VOLUME               1042
 #define IDC_CHECK_FLASH                 1042
 #define IDC_EDIT_FSCALE                 1042
+#define IDC_CHECK_RTSEEK                1042
 #define IDC_EDIT_VOLUME                 1043
 #define IDC_SLIDER_BRINGHTNESS          1043
 #define IDC_CHECK_QUIET                 1043

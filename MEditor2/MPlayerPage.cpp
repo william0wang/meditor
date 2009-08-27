@@ -29,6 +29,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_filename(TRUE)
 	, m_console(FALSE)
 	, m_noskin(FALSE)
+	, m_seekrt(TRUE)
 {
 	m_cfg = NULL;
 	m_fullscreen = FALSE;
@@ -152,6 +153,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_TITLE, m_filename);
 	DDX_Check(pDX, IDC_CHECK_CONSOLE, m_console);
 	DDX_Check(pDX, IDC_CHECK_NOSKIN, m_noskin);
+	DDX_Check(pDX, IDC_CHECK_RTSEEK, m_seekrt);
 }
 
 
@@ -483,6 +485,13 @@ void CMPlayerPage::InitFromConfig()
 			m_noskin = TRUE;
 		else
 			m_noskin = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("seek_realtime"),value_b,true))
+	{
+		if(value_b)
+			m_seekrt = TRUE;
+		else
+			m_seekrt = FALSE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("gui_thread"),value_b,true))
 	{
@@ -871,6 +880,11 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("reload_when_open") ,_T("1") , true,ex_setting);
 	else
 		m_cfg->RemoveValue(_T("reload_when_open"), true );
+
+	if(m_seekrt)
+		m_cfg->RemoveValue(_T("seek_realtime"), true );
+	else
+		m_cfg->SetValue(_T("seek_realtime") ,_T("0") , true, ex_setting);
 
 	if(m_no_dvdnav)
 		m_cfg->SetValue(_T("no_dvdnav") ,_T("1") , true,ex_setting);
