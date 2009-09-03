@@ -1688,7 +1688,8 @@ END
 // CODECS_INI
 //
 
-IDZ_CODECS              CODECS_INI              "res\\codecs.7z"
+IDR_CODECS_NORMAL       CODECS_INI              "res\\codecs.conf"
+IDR_CODECS_COREAVC      CODECS_INI              "res\\codecs.coreavc.conf"
 
 /////////////////////////////////////////////////////////////////////////////
 //

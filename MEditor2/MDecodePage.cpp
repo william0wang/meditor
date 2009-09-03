@@ -647,16 +647,14 @@ void CMDecodePage::SaveConfig()
 	case external:
 		m_cfg->SetValue(_T("cofing_codecs"), _T("1"), true , ex_meditor);
 		if(m_last_extract !=  external)
-			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
-				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.conf"));
+			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_NORMAL),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
 		m_last_extract =  external;
 		break;
 	case coreavc:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("2") , true , ex_meditor);
 		if(m_last_extract !=  coreavc)
-			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
-				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.coreavc.conf"));
+			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVC),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
 		m_last_extract =  coreavc;
 		break;
 	default:
