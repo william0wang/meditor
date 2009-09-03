@@ -96,6 +96,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.Add(_T("ffpcmdaud"));
 	m_adecode.Add(_T("ffwmav1"));
 	m_adecode.Add(_T("ffwmav2"));
+	m_adecode.Add(_T("ffwmapro"));
 	m_adecode.Add(_T("ffmp3"));
 	m_adecode.Add(_T("ffmp3adu"));
 	m_adecode.Add(_T("ffmp2"));
