@@ -967,7 +967,7 @@ void CMDecodePage::OnBnClickedButtonCoreavc()
 
 	if (IsFileExist(m_coreavc))
 	{
-		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllUnregisterServer") , NULL, SW_HIDE);
+		//ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllUnregisterServer") , NULL, SW_HIDE);
 		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllRegisterServer") , NULL, SW_HIDE);
 		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",Configure") , NULL, SW_SHOW);
 	}
