@@ -181,6 +181,7 @@ public:
 	afx_msg void OnBnClickedButtonDef();
 	BOOL m_console;
 	BOOL m_noskin;
+	BOOL m_seekrt;
 };
 
 //{{AFX_INSERT_LOCATION}}

@@ -96,6 +96,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.Add(_T("ffpcmdaud"));
 	m_adecode.Add(_T("ffwmav1"));
 	m_adecode.Add(_T("ffwmav2"));
+	m_adecode.Add(_T("ffwmapro"));
 	m_adecode.Add(_T("ffmp3"));
 	m_adecode.Add(_T("ffmp3adu"));
 	m_adecode.Add(_T("ffmp2"));
@@ -647,16 +648,14 @@ void CMDecodePage::SaveConfig()
 	case external:
 		m_cfg->SetValue(_T("cofing_codecs"), _T("1"), true , ex_meditor);
 		if(m_last_extract !=  external)
-			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
-				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.conf"));
+			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_NORMAL),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
 		m_last_extract =  external;
 		break;
 	case coreavc:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("2") , true , ex_meditor);
 		if(m_last_extract !=  coreavc)
-			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS),TEXT("CODECS_INI")
-				,m_program_dir + _T("codecs.ini"),true,true,_T("codecs.coreavc.conf"));
+			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVC),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
 		m_last_extract =  coreavc;
 		break;
 	default:
@@ -968,7 +967,7 @@ void CMDecodePage::OnBnClickedButtonCoreavc()
 
 	if (IsFileExist(m_coreavc))
 	{
-		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllUnregisterServer") , NULL, SW_HIDE);
+		//ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllUnregisterServer") , NULL, SW_HIDE);
 		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",DllRegisterServer") , NULL, SW_HIDE);
 		ShellExecute(0, _T("open"), _T("rundll32.exe") , _T("\"") + m_coreavc + _T("\",Configure") , NULL, SW_SHOW);
 	}
