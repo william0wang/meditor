@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\7z"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\7z"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -99,7 +99,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\7z"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\7z"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"

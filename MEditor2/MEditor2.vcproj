@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug Unicode|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\meditor2"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			CharacterSet="1"
@@ -101,7 +101,7 @@
 		<Configuration
 			Name="Release Unicode|Win32"
 			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\meditor2"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			CharacterSet="1"
@@ -159,7 +159,7 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateManifest="true"
-				UACExecutionLevel="2"
+				UACExecutionLevel="0"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -191,7 +191,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\meditor2"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			CharacterSet="2"
@@ -283,7 +283,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\meditor2"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			CharacterSet="2"

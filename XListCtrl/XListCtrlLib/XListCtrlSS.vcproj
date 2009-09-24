@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug Unicode|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrl"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -90,14 +90,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release Unicode|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\XlistCtrl"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -168,14 +167,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrl"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -246,14 +244,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrl"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\XlistCtrl"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="1"
@@ -324,7 +321,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 		</Configuration>
