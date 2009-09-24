@@ -1,0 +1,302 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\massoc.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\massoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 massoc"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "massoc，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_ASSOS_DIALOG DIALOGEX 0, 0, 350, 205
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_ASSOS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,20,336,162
+    PUSHBUTTON      "添加",IDC_ADD,7,189,27,13
+    PUSHBUTTON      "全选",IDC_ALL,82,189,27,13
+    PUSHBUTTON      "不选",IDC_NONE,114,189,27,13
+    PUSHBUTTON      "视频",IDC_RECOMMAND,146,189,27,13
+    PUSHBUTTON      "删除",IDC_DEL,37,189,27,13
+    DEFPUSHBUTTON   "应用关联",IDC_ASSOS,300,188,43,14
+    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,7,68,10
+    LTEXT           "关联格式右键菜单:",IDC_STATIC,136,8,61,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,271,7,72,10
+    CONTROL         "DirectShow媒体文件关联到MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,8,7,114,10
+    LTEXT           "图标集:",IDC_STATIC,192,192,28,8
+    CONTROL         "",IDC_COMBO_MICONS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,223,190,60,12
+END
+
+IDD_ASSOS_DIALOG_TC DIALOGEX 0, 0, 351, 202
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_ASSOS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,20,337,162
+    PUSHBUTTON      "添加",IDC_ADD,7,186,29,13
+    PUSHBUTTON      "全選",IDC_ALL,80,186,29,13
+    PUSHBUTTON      "不選",IDC_NONE,112,186,29,13
+    PUSHBUTTON      "視頻",IDC_RECOMMAND,144,186,29,13
+    PUSHBUTTON      "移除",IDC_DEL,39,186,29,13
+    DEFPUSHBUTTON   "應用關聯",IDC_ASSOS,301,185,43,14
+    CONTROL         "使用 MPlayer 開啟",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,7,68,10
+    LTEXT           "關聯格式右鍵菜單:",IDC_STATIC,136,8,61,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,272,7,72,10
+    CONTROL         "DirectShow媒體檔案關聯到MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,8,7,114,10
+    LTEXT           "圖示集:",IDC_STATIC,193,189,28,8
+    CONTROL         "",IDC_COMBO_MICONS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,224,187,60,12
+END
+
+IDD_ASSOS_DIALOG_EN DIALOGEX 0, 0, 351, 206
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_ASSOS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,7,20,337,162
+    PUSHBUTTON      "Add",IDC_ADD,7,190,30,13
+    PUSHBUTTON      "All",IDC_ALL,83,190,30,13
+    PUSHBUTTON      "None",IDC_NONE,117,190,30,13
+    PUSHBUTTON      "Video",IDC_RECOMMAND,151,190,30,13
+    PUSHBUTTON      "Delete",IDC_DEL,39,190,30,13
+    DEFPUSHBUTTON   "Associate",IDC_ASSOS,300,189,44,14
+    CONTROL         "Open with MPlayer",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,7,73,10
+    LTEXT           "Right Menu:",IDC_STATIC,150,8,44,8
+    CONTROL         "Play in MPlayer",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,279,7,59,10
+    CONTROL         "DirectShow Media Associate to MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,8,7,125,10
+    LTEXT           "Icons:",IDC_STATIC,197,192,25,8
+    CONTROL         "",IDC_COMBO_MICONS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,225,191,60,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "massoc.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "massoc.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_ASSOS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 343
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 202
+    END
+
+    IDD_ASSOS_DIALOG_TC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 344
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 199
+    END
+
+    IDD_ASSOS_DIALOG_EN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 344
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 203
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_SAMEDIR      "请与 mplayer.exe 放在相同目录中使用本程序!"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_TAB_ASSOS           "文件关联"
+    IDS_ASSOS_AVI           "视频剪辑"
+    IDS_ASSOS_CT            "动画文件"
+    IDS_ASSOS_INPUT         "请输入扩展名和说明并选择类型"
+    IDS_ASSOS_AS            "文件关联"
+    IDS_ASSOS_DEL           "不能删除默认格式!"
+    IDS_PLAYER_USE          "使用"
+    IDS_ASSOS_OP            "打开"
+    IDS_ASSOS_PL            "播放"
+    IDS_ASSOS_ASSOS         "关联"
+    IDS_ASSOS_EX            "扩展名"
+    IDS_ASSOS_INF           "文件说明"
+    IDS_ASSOS_TYP           "类型"
+    IDS_ASSOS_LIST          "播放列表"
+    IDS_ASSOS_V             "视频文件"
+    IDS_ASSOS_A             "音频文件"
+    IDS_ASSOS_FLASH         "Flash动画"
+    IDS_ASSOS_DS            "DirectShow媒体文件"
+    IDS_ASSOS_MV            "移动视频文件"
+    IDS_ASSOS_MA            "移动音频文件"
+    IDS_ASSOS_LA            "无损音频文件"
+    IDS_ASSOS_LISTFILE      "播放列表文件"
+    IDS_ASSOS_MOV           "影片文件"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ASSOS_AVS           "AviSynth 脚本"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 massoc(&A)..."
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\massoc.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
