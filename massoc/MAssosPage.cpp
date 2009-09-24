@@ -385,6 +385,7 @@ BOOL CMAssosPage::OnInitDialog()
 	}
 	m_List.UnlockWindowUpdate();
 	UpdateData(FALSE);
+	::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

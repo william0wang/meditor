@@ -25,12 +25,12 @@ CheckReal:
 	checktime++;
 	Sleep(300);
 	if(This->CheckRealOnline())
-		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), 0);
+		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 	else
 	{
 		if(checktime < 5)
 			goto CheckReal;
-		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), 0);
+		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 	}
 
 	This->CheckRealThread = NULL;
@@ -263,12 +263,12 @@ void CMOtherPage::OnButtonPlay()
 	UpdateData(TRUE);
 	if(m_video == _T("") || m_audio == _T(""))
 	{
-		MessageBox(ResStr(IDS_OTHER_EMPTY));
+		MessageBox(ResStr(IDS_OTHER_EMPTY), NULL, MB_TOPMOST);
 		return;
 	}
 	if(!IsFileExist(m_program_dir + _T("mplayer.exe")))
 	{
-		MessageBox(ResStr(IDS_PLAYER_SAMEDIR));
+		MessageBox(ResStr(IDS_PLAYER_SAMEDIR), NULL, MB_TOPMOST);
 		return;
 	}
 	CString mpcmd;
@@ -333,7 +333,7 @@ void CMOtherPage::OnButtonOnline()
 {
 	if(CheckRealOnline())
 	{
-		if(MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL) != IDOK)
+		if(MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
 			return;
 	}
 	
@@ -373,7 +373,7 @@ void CMOtherPage::OnButtonOnline()
 		(!IsFileExist(m_dir + _T("codecs\\Real\\mloader.exe"))) ||
 		(!IsFileExist(m_dir + _T("codecs\\pncrt.dll"))))
 	{
-		MessageBox(ResStr(IDS_OTHER_REALFAILS),ResStr(IDS_OTHER_REALONLINE));
+		MessageBox(ResStr(IDS_OTHER_REALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 		return;
 	}
 
@@ -404,7 +404,7 @@ void CMOtherPage::OnButtonDonline()
 {
 	if(!CheckRealOnline())
 	{
-		MessageBox(ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE));
+		MessageBox(ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 		return;
 	}
 	UpdateData(TRUE);
@@ -426,7 +426,7 @@ void CMOtherPage::OnButtonDonline()
 		( !IsFileExist(m_sysdir + _T("rmoc3260.dll")) &&
 		!IsFileExist(m_dir + _T("codecs\\Real\\rmoc3260.dll")) ) )
 	{
-		MessageBox(ResStr(IDS_OTHER_UNREALFAIL),ResStr(IDS_OTHER_REALONLINE));
+		MessageBox(ResStr(IDS_OTHER_UNREALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 		return;
 	}
 	if(IsFileExist(m_sysdir + _T("rmoc3260.dll")))
@@ -439,9 +439,9 @@ void CMOtherPage::OnButtonDonline()
 	DeleteFile(m_dir +_T("unrealreg.inf"));
 	::SetCurrentDirectory(szCurPath);
 	if(!CheckRealOnline())
-		MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE));
+		MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 	else
-		MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE));
+		MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 }
 
 void CMOtherPage::OnRadioMplayer() 
@@ -711,5 +711,5 @@ void CMOtherPage::OnBnClickedButtonAvs()
 	Content = _T("Apartment");
 	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
 
-	MessageBox(ResStr(IDS_MESSAGE_AVS), _T("AviSynth(AVS)"));
+	MessageBox(ResStr(IDS_MESSAGE_AVS), _T("AviSynth(AVS)"), MB_TOPMOST);
 }
