@@ -4,7 +4,8 @@
 #include "stdafx.h"
 #include "massoc.h"
 #include "MShared.h"
-#include "MAssosPage.h"
+#include "MAssosDlg.h"
+#include "PreviewDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,26 +53,9 @@ BOOL CmassocApp::InitInstance()
 
 	AfxEnableControlContainer();
 
-	// 标准初始化
-	// 如果未使用这些功能并希望减小
-	// 最终可执行文件的大小，则应移除下列
-	// 不需要的特定初始化例程
-	// 更改用于存储设置的注册表项
-	// TODO: 应适当修改该字符串，
-	// 例如修改为公司或组织名
-	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
+	SetRegistryKey(_T("MEditor2 - Assoc"));
 
-	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Assoc"));
-	if(GetLastError() == ERROR_ALREADY_EXISTS) {
-		HWND hWnd = FindWindow(NULL, ResStr(IDS_TAB_ASSOS));
-		if(hWnd) {
-			HWND hWndChild = GetLastActivePopup(hWnd);
-			if (IsIconic(hWnd))
-				ShowWindow(hWnd, SW_RESTORE);
-			SetForegroundWindow(hWndChild);
-		}
-		return FALSE;
-	}
+	CString sCmdLine(this->m_lpCmdLine);
 
 	int langfile_tc = 0;
 	int langfile_en = 0;
@@ -112,6 +96,60 @@ BOOL CmassocApp::InitInstance()
 				AppLanguage = 2;			//ANSI
 		}
 
+	}
+
+	if(sCmdLine.Find(_T("--generate-preview")) >= 0) {
+
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Preview"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS)
+			return FALSE;
+
+		int offset = sCmdLine.Find(_T("--filename"));
+		if(offset < 0)
+			return FALSE;
+		offset = sCmdLine.Find(_T("\""), offset);
+		if(offset < 0)
+			return FALSE;
+		CString name = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+		name.Trim();
+		offset = name.Find(_T("\""));
+		if(offset <= 0)
+			return FALSE;
+		name = name.Left(offset);
+
+		offset = sCmdLine.Find(_T("--duration"));
+		if(offset < 0)
+			return FALSE;
+		CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 10);
+		len.Trim();
+		long time = _ttol(len);
+		if(time < 10)
+			return FALSE;
+
+		IDD = IDD_PREVIEW_DIALOG;
+		CString strSatellite = _T("");
+		if(AppLanguage == 2) {
+			IDD = IDD_PREVIEW_DIALOG_EN;
+		} else if(AppLanguage == 3 || AppLanguage == 4) {
+			IDD = IDD_PREVIEW_DIALOG_TC;
+		}
+
+
+		CPreviewDlg dlg;
+		dlg.m_filename = name;
+		dlg.ltime = time;
+		m_pMainWnd = &dlg;
+		dlg.DoModal();
+
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
+
+	} else {
+
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Assoc"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS)
+			return FALSE;
+
 		CString strSatellite = _T("");
 		if(AppLanguage == 2 && langfile_en) {
 			IDD = IDD_ASSOS_DIALOG_EN;
@@ -132,25 +170,21 @@ BOOL CmassocApp::InitInstance()
 			hResourceHandleOld = AfxGetResourceHandle();
 			hResourceHandleMod = LoadLibrary (strSatellite);
 		}
+
+		CMAssosPage dlg;
+		m_pMainWnd = &dlg;
+
+		INT_PTR nResponse = dlg.DoModal();
+		if (nResponse == IDOK)
+		{
+		}
+		else if (nResponse == IDCANCEL)
+		{
+		}
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
 	}
 
-	CMAssosPage dlg;
-	m_pMainWnd = &dlg;
-
-	INT_PTR nResponse = dlg.DoModal();
-	if (nResponse == IDOK)
-	{
-		// TODO: 在此放置处理何时用
-		//  “确定”来关闭对话框的代码
-	}
-	else if (nResponse == IDCANCEL)
-	{
-		// TODO: 在此放置处理何时用
-		//  “取消”来关闭对话框的代码
-	}
-
-	if(gUniqueEvent)
-		CloseHandle(gUniqueEvent);
 
 	// 由于对话框已关闭，所以将返回 FALSE 以便退出应用程序，
 	//  而不是启动应用程序的消息泵。

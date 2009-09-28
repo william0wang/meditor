@@ -2,8 +2,9 @@
 //
 #include "stdafx.h"
 #include "massoc.h"
+#include "shlwapi.h"
 #include "MShared.h"
-#include "MAssosPage.h"
+#include "MAssosDlg.h"
 #include "reg.h"
 
 

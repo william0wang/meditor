@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxD.lib"
+				AdditionalDependencies="AdvComboBoxD.lib CxImageD.lib jpegD.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../meditor2/lib"
 				UACExecutionLevel="2"
@@ -152,7 +152,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxR.lib"
+				AdditionalDependencies="AdvComboBoxR.lib CxImageR.lib jpegR.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../meditor2/lib"
 				UACExecutionLevel="2"
@@ -198,7 +198,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MAssosPage.cpp"
+				RelativePath=".\MAssosDlg.cpp"
 				>
 			</File>
 			<File
@@ -207,6 +207,14 @@
 			</File>
 			<File
 				RelativePath=".\MShared.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PreviewDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ProgressDlg.cpp"
 				>
 			</File>
 			<File
@@ -244,7 +252,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MAssosPage.h"
+				RelativePath=".\MAssosDlg.h"
 				>
 			</File>
 			<File
@@ -253,6 +261,14 @@
 			</File>
 			<File
 				RelativePath=".\MShared.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PreviewDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ProgressDlg.h"
 				>
 			</File>
 			<File
@@ -278,6 +294,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\logo.jpg"
+				>
+			</File>
+			<File
 				RelativePath=".\res\massoc.ico"
 				>
 			</File>
@@ -296,5 +316,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="massoc.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
