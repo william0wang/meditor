@@ -160,13 +160,31 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 			img.Load(jpg, CXIMAGE_FORMAT_JPG);
 			DeleteFile(jpg);
 			if(i == 0 && j == 0) {
+				CString time;
+				time.Format(_T("%02d:%02d:%02d"), ltime/3600,(ltime/60)%60,ltime%60);
+				TCHAR *Name = _tcsrchr(m_filename.GetBuffer(), _T('\\'));
+				m_filename.ReleaseBuffer();
+
+				double fsize = 0;
+				CFile fl;
+				if(fl.Open(m_filename, CFile::modeRead|CFile::shareDenyWrite)){
+					fsize = (double)(fl.GetLength()/1024/1024.0);
+					fl.Close();
+				}
 				he = img.GetHeight();
 				h = (he+10) * m_parti + 90;
 				full.Create(m_width, h, 24, CXIMAGE_FORMAT_JPG);
 				rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 0;
 				rgb.rgbReserved = 0;
 				full.MixFrom(logo, m_width - logo.GetWidth(), h - logo.GetHeight());
-				full.DrawString(NULL, 5, 22, m_filename, rgb, _T("MS Sans Serif"), -14, 600);
+				if(Name) ++Name;
+				full.DrawString(NULL, 10, 22, Name?Name:m_filename, rgb, _T("MS Sans Serif"), -14, 600);
+				full.DrawString(NULL, 10, 45, time, rgb, _T("MS Sans Serif"), -14, 600);
+				if(fsize > 0){
+					time.Format(_T("%.02f MB"), fsize);
+					full.DrawString(NULL, 10, 68, time, rgb, _T("MS Sans Serif"), -14, 600);
+				}
+
 			}
 			int left = 10+j*(re+10);
 			int right = (he+10)*(i+1)+80;
@@ -194,6 +212,7 @@ void CPreviewDlg::OnBnClickedButtonB()
 	TCHAR *p = _tcsrchr(Path, _T('\\'));
 	if(p) p[1] = 0;
 	Name = _tcsrchr(m_savename.GetBuffer(), _T('\\'));
+	m_savename.ReleaseBuffer();
 	if(Name) ++Name;
 
 	CFileDialog dlg(FALSE, _T("*.jpg"), Name,OFN_HIDEREADONLY, _T("JPEG File (*.jpg)|*.jpg||"));
