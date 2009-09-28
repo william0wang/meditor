@@ -53,6 +53,7 @@ protected:
 	CStringArray m_stf;
 	CStringArray m_sta;
 	CStringArray m_stl;
+	CString m_editor_exe;
 	CString m_player_exe;
 	CString m_mpc_exe;
 	CString m_icons_org;

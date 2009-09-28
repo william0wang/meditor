@@ -123,6 +123,9 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_icons_dll = _T("micons.dll");
 	m_icons_org = m_program_dir + _T("micons.dll");
 	m_player_exe = m_program_dir + _T("mplayer.exe");
+	m_editor_exe = m_program_dir + _T("meditor2.exe");
+	if(!IsFileExist(m_editor_exe))
+		m_editor_exe = m_program_dir + _T("meditor.exe");
 }
 
 CMAssosPage::~CMAssosPage()
@@ -771,10 +774,6 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 {
 	CReg reg;
 	CString SubKey, Name, Content;
-	CString m_player_exe;
-	TCHAR szFilePath[MAX_PATH + 1];
-	GetModuleFileName(NULL, szFilePath, MAX_PATH);
-	m_player_exe.Format(_T("%s"),szFilePath);
 	if(Assos)
 	{
 		SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\OpenWithProgids");
@@ -793,11 +792,11 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 		if(IsFileExist(_T("icons\\")  +type +_T(".ico")))
 			Content = m_program_dir +_T("icons\\") +type +_T(".ico");
 		else if(isflash)
-			Content =  m_player_exe + _T(",1");
+			Content =  m_editor_exe + _T(",1");
 		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
 			Content = m_icons_dll +_T(",") + icons;
 		else
-			Content =  m_player_exe + _T(",2");
+			Content =  m_editor_exe + _T(",2");
 		reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content);
 
 		SubKey =  _T("mplayer.") + type + _T("\\shell");
@@ -824,11 +823,11 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 
 		SubKey =  _T("mplayer.") + type + _T("\\shell\\open\\command");
 		if(isflash)
-			Content =  _T("\"") + m_player_exe +_T("\" --Open FlashPlayer \"%1\"");
+			Content =  _T("\"") + m_editor_exe +_T("\" --Open FlashPlayer \"%1\"");
 		else	if(m_mpc)
 			Content =  _T("\"") + m_mpc_exe +_T("\" \"%1\"");
 		else
-			Content =  _T("\"") + m_player_exe +_T("\" --Open MediaPlayer \"%1\"");
+			Content =  _T("\"") + m_editor_exe +_T("\" --Open MediaPlayer \"%1\"");
 		if(!reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name , Content))
 			return false;
 
@@ -1047,28 +1046,25 @@ void CMAssosPage::ApplyChange(bool quiet)
 	if(!quiet)
 	{
 		//Rebuild   Icon   Cache
-		HKEY   hKey;  
-		DWORD   dwType=REG_SZ;
-		DWORD   dwLength=256;
-		LPBYTE   SetContent_S;
-		BYTE   content[256];
-		RegOpenKeyEx(HKEY_CURRENT_USER,_T("Control   Panel\\Desktop\\WindowMetrics"),0,KEY_READ,&hKey);
-		RegQueryValueEx(hKey,_T("Shell   Icon   Size")	,NULL,&dwType,content,&dwLength);
-		RegCloseKey(hKey);
-
-		SetContent_S=LPBYTE("21");
-		RegOpenKeyEx(HKEY_CURRENT_USER , _T("Control   Panel\\Desktop\\WindowMetrics") ,0,KEY_WRITE,&hKey);
-		RegSetValueEx(hKey,_T("Shell   Icon   Size")	,NULL,REG_SZ,SetContent_S,CString(SetContent_S).GetLength());
-		RegCloseKey(hKey);
-		SendMessageTimeout(HWND_BROADCAST,WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS,0,SMTO_ABORTIFHUNG,500,NULL);
-		
-		SetContent_S=LPBYTE(content);
-		RegOpenKeyEx(HKEY_CURRENT_USER,_T("Control   Panel\\Desktop\\WindowMetrics"),0,KEY_WRITE,&hKey);
-		RegSetValueEx(hKey,_T("Shell   Icon   Size"),NULL,REG_SZ,SetContent_S,CString(SetContent_S).GetLength());
-		RegCloseKey(hKey);
-		SendMessageTimeout(HWND_BROADCAST,WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS,0,SMTO_ABORTIFHUNG,1500,NULL);
+		DWORD dwType = REG_SZ; 
+		TCHAR Content[MAX_PATH] = {0};
+		DWORD Contentsize = sizeof(Content) / sizeof(TCHAR); 
+		TCHAR RegPath[] = _T("Control Panel\\Desktop\\WindowMetrics");
+		TCHAR VauleName[] = _T("Shell Icon Size");
+		if(SHGetValue(HKEY_CURRENT_USER, RegPath, VauleName, &dwType, &Content, &Contentsize) == ERROR_SUCCESS)
+		{
+			TCHAR Contenttmp[] = _T("24");
+			Contentsize = sizeof(Contenttmp) / sizeof(TCHAR);
+			if (SHSetValue(HKEY_CURRENT_USER, RegPath, VauleName, REG_SZ, Contenttmp, Contentsize) == ERROR_SUCCESS)
+			{
+				SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 2000, NULL);
+				Contentsize = sizeof(Content) / sizeof(TCHAR);
+				if (SHSetValue(HKEY_CURRENT_USER, RegPath, VauleName, REG_SZ, Content, Contentsize) == ERROR_SUCCESS)
+					::PostMessage(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0);
+			}
+		}
 	}
-	SHChangeNotify(SHCNE_ASSOCCHANGED,   SHCNF_IDLIST|SHCNF_FLUSH,   0,   0);
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, 0, 0);
 }
 
 BOOL CMAssosPage::PreTranslateMessage(MSG* pMsg) 
