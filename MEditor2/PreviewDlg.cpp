@@ -112,7 +112,7 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
+	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
 		, m_player_exe, m_filename, resolution, time);
 
 	CreateProcess(NULL, cmd.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &procInfo);
@@ -121,6 +121,7 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	WaitForSingleObject(procInfo.hProcess, INFINITE);
 
 	cmd.Format(_T("./preview/preview_%02d.jpg"), index);
+
 	CopyFile(_T("./preview/00000003.jpg"), cmd,FALSE);
 	DeleteFile(_T("./preview/00000001.jpg"));
 	DeleteFile(_T("./preview/00000002.jpg"));

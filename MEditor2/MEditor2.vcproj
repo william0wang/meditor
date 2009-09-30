@@ -209,10 +209,6 @@
 				RelativePath=".\PreviewDlg.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\ProgressDlg.cpp"
-				>
-			</File>
 			<Filter
 				Name="Page"
 				>
@@ -420,10 +416,6 @@
 				RelativePath=".\PreviewDlg.h"
 				>
 			</File>
-			<File
-				RelativePath=".\ProgressDlg.h"
-				>
-			</File>
 			<Filter
 				Name="Page"
 				>
@@ -517,6 +509,14 @@
 				</File>
 				<File
 					RelativePath=".\MShowInfoDlg.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ProgressDlg.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ProgressDlg.h"
 					>
 				</File>
 				<File
