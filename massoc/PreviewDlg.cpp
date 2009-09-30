@@ -187,11 +187,13 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 
 			}
 			int left = 10+j*(re+10);
-			int right = (he+10)*(i+1)+80;
-			full.MixFrom(img, left, h - right);
-			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 255;
+			int top = (he+10)*(i+1)+80;
+			full.MixFrom(img, left, h - top);
 			jpg.Format(_T("%02d:%02d:%02d"), nowt/3600,(nowt/60)%60,nowt%60);
-			full.DrawString(NULL, left, right, jpg, rgb, _T("MS Sans Serif"), -14, 600);
+			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 0;
+			full.DrawString(NULL, left+1, top+1, jpg, rgb, _T("MS Sans Serif"), -14, 600);
+			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 255;
+			full.DrawString(NULL, left, top, jpg, rgb, _T("MS Sans Serif"), -14, 600);
 			m_percent = (i*m_partj+j+1)*100/(m_parti*m_partj);
 			m_pdlg.m_progress.SetPos(m_percent);
 		}
