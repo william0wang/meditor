@@ -148,7 +148,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_resume.m_cfg = &m_config;
 	m_other.m_cfg = &m_config;
 	m_profile.m_cfg = &m_config;
-	m_assos.m_cfg = &m_config;
 	infoDlg.SetConfig(&m_config);
 
 	m_player.SetInfoDlg(&infoDlg);
@@ -303,7 +302,6 @@ bool CMEditor2Dlg::SaveAll()
 	m_audio.SaveConfig();
 	m_other.SaveConfig();
 	m_resume.SaveConfig();
-	m_assos.SaveConfig();
 	m_profile.SaveConfig();
 	bool value_b;
 	if(m_config.GetValue_Boolean(_T("meditor_last_page"),value_b,true))
@@ -337,7 +335,6 @@ void CMEditor2Dlg::OnBnClickedOk()
 {
 	if(! SaveAll())
 		return;
-	m_assos.ApplyChange(true);
 	OnOK();
 }
 

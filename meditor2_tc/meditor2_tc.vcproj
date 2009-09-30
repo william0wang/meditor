@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Release Unicode|Win32"
 			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\meditor2_tc"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2_tc"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			CharacterSet="1"

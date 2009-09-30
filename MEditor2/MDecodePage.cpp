@@ -27,6 +27,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.RemoveAll();
 	m_adecode.RemoveAll();
 	m_vdecode.Add(_T("coreavc"));
+	m_vdecode.Add(_T("coreavcwindows"));
 	m_vdecode.Add(_T("mpegpes"));
 	m_vdecode.Add(_T("mpeg12"));
 	m_vdecode.Add(_T("ffmpeg1"));

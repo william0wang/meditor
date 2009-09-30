@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\AdvCombobox"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="2"
@@ -82,7 +82,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\XlistCtrlAdvCombobox"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="2"
@@ -146,7 +146,7 @@
 		<Configuration
 			Name="Debug Unicode|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\AdvCombobox"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="1"
@@ -209,7 +209,7 @@
 		<Configuration
 			Name="Release Unicode|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\AdvCombobox"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
 			UseOfMFC="1"
 			CharacterSet="1"
