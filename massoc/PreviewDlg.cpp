@@ -124,7 +124,7 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	cmd.Format(_T("\"%s\" -noidle -autoplay 0 \"%s\" -vf scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
+	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
 		, m_player_exe, m_filename, resolution, time);
 
 	CreateProcess(NULL, cmd.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &procInfo);
