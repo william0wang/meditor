@@ -7,7 +7,6 @@
 #define IDS_ABOUTBOX                    101
 #define IDR_MAINFRAME                   128
 #define IDD_ASSOS_DIALOG                131
-#define IDR_LOGO                        134
 #define IDD_DIALOG1                     135
 #define IDD_ASSOS_DIALOG_EN             194
 #define IDD_ASSOS_DIALOG_TC             210
