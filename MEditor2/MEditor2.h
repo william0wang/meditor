@@ -26,6 +26,7 @@ public:
 	HMODULE		hResourceHandleOld;
 	HMODULE		hResourceHandleMod;
 	int			AppLanguage;
+	UINT		DialogIDD;
 
 // й╣ож
 

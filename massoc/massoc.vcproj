@@ -210,14 +210,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PreviewDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ProgressDlg.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Reg.cpp"
 				>
 			</File>
@@ -261,14 +253,6 @@
 			</File>
 			<File
 				RelativePath=".\MShared.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PreviewDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ProgressDlg.h"
 				>
 			</File>
 			<File

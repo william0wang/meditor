@@ -2,8 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "massoc.h"
-#include "MShared.h"
+#include "MEditor2.h"
 #include "PreviewDlg.h"
 #include "../CxImage/CxImage/ximage.h"
 
@@ -13,12 +12,6 @@ static DWORD WINAPI ProgressThread(LPVOID pParam)
 
 	This->m_pdlg.DoModal();
 
-	//while(This->m_percent < 100)
-	//{
-	//	m_pdlgm_pdlg.m_progress.SetPos(This->m_percent);
-	//}
-
-
 	return 0;
 }
 
@@ -26,9 +19,8 @@ static DWORD WINAPI ProgressThread(LPVOID pParam)
 
 IMPLEMENT_DYNAMIC(CPreviewDlg, CDialog)
 
-
 CPreviewDlg::CPreviewDlg(CWnd* pParent /*=NULL*/)
-: CDialog(theApp.IDD, pParent)
+	: CDialog(theApp.DialogIDD, pParent)
 	, m_time(0)
 	, m_parti(4)
 	, m_partj(4)
@@ -43,10 +35,6 @@ CPreviewDlg::CPreviewDlg(CWnd* pParent /*=NULL*/)
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
-
-	CString right = m_program_dir.Right(8);
-	if(right == _T("\\codecs\\"))
-		m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 7);
 	m_player_exe = m_program_dir + _T("mplayer.exe");
 }
 
@@ -65,11 +53,11 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_W, m_width);
 	DDV_MinMaxInt(pDX, m_width, 200, 1920);
 	DDX_Text(pDX, IDC_EDIT_SAVEFILE, m_savename);
+	DDX_Text(pDX, IDC_EDIT_T, m_time);
 	DDX_Check(pDX, IDC_CHECK_SHOW, m_show);
 	DDX_Control(pDX, IDC_SPIN_R, m_spinr);
 	DDX_Control(pDX, IDC_SPIN_V, m_spinv);
 	DDX_Control(pDX, IDC_SPIN_W, m_spinw);
-	DDX_Text(pDX, IDC_EDIT_T, m_time);
 }
 
 
