@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "massoc.h"
 #include "MShared.h"
+#include "AVS.h"
 #include "MAssosDlg.h"
 
 #ifdef _DEBUG
@@ -55,6 +56,22 @@ BOOL CmassocApp::InitInstance()
 	SetRegistryKey(_T("MEditor2 - Assoc"));
 
 	CString sCmdLine(this->m_lpCmdLine);
+
+	if(sCmdLine.Find(_T("--install-avs")) >= 0) {
+		int offset = sCmdLine.Find(_T("\""));
+		if(offset < 0)
+			return FALSE;
+		CString path = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+		path.Trim();
+		offset = path.Find(_T("\""));
+		if(offset <= 0)
+			return FALSE;
+		path = path.Left(offset);
+
+		CAVS avs;
+		avs.Install(path);
+		return FALSE;
+	}
 
 	int langfile_tc = 0;
 	int langfile_en = 0;

@@ -676,40 +676,14 @@ void CMOtherPage::OnBnClickedButtonAvs()
 
 	Decode7zFile(m_dir + _T("codecs\\AviSynth\\AviSynth.7z"), m_sysdir);
 
-	CReg reg;
-	CString SubKey, Name, Content;
+	CString massoc, cmd;
+	cmd.Format(_T("--install-avs \"%s\""), m_dir);
 
-	SubKey = _T("SOFTWARE\\AviSynth");
-	Name =  _T("plugindir2_5");
-	Content = m_dir + _T("codecs\\AviSynth\\plugins");
-	if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE,SubKey,Name))
-		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
-	else{
-		Content = reg.content;
-		if(!IsFileExist(Content + _T("\\DirectShowSource.dll")))
-			CopyFile(m_dir + _T("codecs\\AviSynth\\plugins\\DirectShowSource.dll")
-				, Content + _T("\\DirectShowSource.dll"), TRUE);
-	}
+	massoc = m_dir + _T("codecs\\massoc.exe");
+	if(!IsFileExist(massoc))
+		massoc = m_dir + _T("massoc.exe");
 
-	SubKey = _T("SOFTWARE\\AviSynth");
-	Name =  _T("");
-	Content = m_dir + _T("codecs\\AviSynth");
-	if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE,SubKey,Name))
-		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
-
-	SubKey =  _T("SOFTWARE\\Classes\\CLSID\\{E6D6B700-124D-11D4-86F3-DB80AFD98778}");
-	Name =  _T("");
-	Content = _T("AviSynth");
-	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
-
-	SubKey =  _T("SOFTWARE\\Classes\\CLSID\\{E6D6B700-124D-11D4-86F3-DB80AFD98778}\\InProcServer32");
-	Name =  _T("");
-	Content = _T("AviSynth.dll");
-	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
-
-	Name =  _T("ThreadingModel");
-	Content = _T("Apartment");
-	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name, Content);
+	ShellExecute(0, _T("open"), massoc, cmd, NULL, SW_HIDE);
 
 	MessageBox(ResStr(IDS_MESSAGE_AVS), _T("AviSynth(AVS)"), MB_TOPMOST);
 }
