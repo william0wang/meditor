@@ -1237,8 +1237,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,0
- PRODUCTVERSION 1,0,0,0
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -1254,12 +1254,12 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "FileDescription", "MPlayer Preferences"
-            VALUE "FileVersion", "2.0.1"
+            VALUE "FileVersion", "2.1.0.0"
             VALUE "InternalName", "meditor2.exe"
-            VALUE "LegalCopyright", "(C) william0wang"
+            VALUE "LegalCopyright", "(C) 2007-2009 william0wang"
             VALUE "OriginalFilename", "meditor2.exe"
             VALUE "ProductName", "MPlayer  Preferences"
-            VALUE "ProductVersion", "2.0.1.0"
+            VALUE "ProductVersion", "2.1.0.0"
             VALUE "SpecialBuild", "WW"
         END
     END
