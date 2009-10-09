@@ -6,33 +6,18 @@
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDR_MAINFRAME                   128
-#define IDD_PREVIEW_DIALOG              129
 #define IDD_ASSOS_DIALOG                131
-#define IDR_LOGO                        134
 #define IDD_DIALOG1                     135
-#define IDD_DIALOG_P                    135
+#define IDD_DIALOG_REAL                 136
+#define IDD_REAL_DIALOG                 136
 #define IDD_ASSOS_DIALOG_EN             194
 #define IDD_ASSOS_DIALOG_TC             210
-#define IDD_PREVIEW_DIALOG_EN           211
-#define IDD_PREVIEW_DIALOG_TC           212
-#define IDC_EDIT_FILE                   1000
-#define IDC_BUTTON_B                    1001
-#define IDC_EDIT_SAVEFILE               1002
-#define IDC_EDIT_R                      1004
-#define IDC_SPIN_R                      1005
 #define IDC_LIST_ASSOS                  1006
-#define IDC_EDIT_V                      1006
 #define IDC_ADD                         1007
-#define IDC_SPIN_V                      1007
 #define IDC_ALL                         1008
-#define IDC_EDIT_W                      1008
 #define IDC_NONE                        1009
-#define IDC_SPIN_W                      1009
 #define IDC_RECOMMAND                   1010
-#define IDC_CHECK_SHOW                  1010
 #define IDC_DEL                         1011
-#define IDC_EDIT_T                      1011
-#define IDC_PROGRESS                    1011
 #define IDC_ASSOS                       1012
 #define IDC_CHECK_RMENU                 1109
 #define IDC_CHECK_RMENU2                1110
@@ -68,7 +53,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
+#define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           101

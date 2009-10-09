@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "massoc.h"
+#include "meditor2.h"
 #include "ProgressDlg.h"
 
 

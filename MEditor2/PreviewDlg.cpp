@@ -2,8 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "massoc.h"
-#include "MShared.h"
+#include "MEditor2.h"
 #include "PreviewDlg.h"
 #include "../CxImage/CxImage/ximage.h"
 
@@ -13,12 +12,6 @@ static DWORD WINAPI ProgressThread(LPVOID pParam)
 
 	This->m_pdlg.DoModal();
 
-	//while(This->m_percent < 100)
-	//{
-	//	m_pdlgm_pdlg.m_progress.SetPos(This->m_percent);
-	//}
-
-
 	return 0;
 }
 
@@ -26,9 +19,8 @@ static DWORD WINAPI ProgressThread(LPVOID pParam)
 
 IMPLEMENT_DYNAMIC(CPreviewDlg, CDialog)
 
-
 CPreviewDlg::CPreviewDlg(CWnd* pParent /*=NULL*/)
-: CDialog(theApp.IDD, pParent)
+	: CDialog(theApp.DialogIDD, pParent)
 	, m_time(0)
 	, m_parti(4)
 	, m_partj(4)
@@ -43,10 +35,6 @@ CPreviewDlg::CPreviewDlg(CWnd* pParent /*=NULL*/)
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
-
-	CString right = m_program_dir.Right(8);
-	if(right == _T("\\codecs\\"))
-		m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 7);
 	m_player_exe = m_program_dir + _T("mplayer.exe");
 }
 
@@ -65,11 +53,11 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_W, m_width);
 	DDV_MinMaxInt(pDX, m_width, 200, 1920);
 	DDX_Text(pDX, IDC_EDIT_SAVEFILE, m_savename);
+	DDX_Text(pDX, IDC_EDIT_T, m_time);
 	DDX_Check(pDX, IDC_CHECK_SHOW, m_show);
 	DDX_Control(pDX, IDC_SPIN_R, m_spinr);
 	DDX_Control(pDX, IDC_SPIN_V, m_spinv);
 	DDX_Control(pDX, IDC_SPIN_W, m_spinw);
-	DDX_Text(pDX, IDC_EDIT_T, m_time);
 }
 
 
@@ -124,7 +112,7 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	cmd.Format(_T("\"%s\" -noidle -autoplay 0 \"%s\" -vf scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
+	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
 		, m_player_exe, m_filename, resolution, time);
 
 	CreateProcess(NULL, cmd.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &procInfo);
@@ -133,6 +121,7 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	WaitForSingleObject(procInfo.hProcess, INFINITE);
 
 	cmd.Format(_T("./preview/preview_%02d.jpg"), index);
+
 	CopyFile(_T("./preview/00000003.jpg"), cmd,FALSE);
 	DeleteFile(_T("./preview/00000001.jpg"));
 	DeleteFile(_T("./preview/00000002.jpg"));
@@ -187,11 +176,13 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 
 			}
 			int left = 10+j*(re+10);
-			int right = (he+10)*(i+1)+80;
-			full.MixFrom(img, left, h - right);
-			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 255;
+			int top = (he+10)*(i+1)+80;
+			full.MixFrom(img, left, h - top);
 			jpg.Format(_T("%02d:%02d:%02d"), nowt/3600,(nowt/60)%60,nowt%60);
-			full.DrawString(NULL, left, right, jpg, rgb, _T("MS Sans Serif"), -14, 600);
+			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 0;
+			full.DrawString(NULL, left+1, top+1, jpg, rgb, _T("MS Sans Serif"), -14, 600);
+			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 255;
+			full.DrawString(NULL, left, top, jpg, rgb, _T("MS Sans Serif"), -14, 600);
 			m_percent = (i*m_partj+j+1)*100/(m_parti*m_partj);
 			m_pdlg.m_progress.SetPos(m_percent);
 		}
