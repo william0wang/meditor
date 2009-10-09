@@ -8,6 +8,8 @@
 #define IDR_MAINFRAME                   128
 #define IDD_ASSOS_DIALOG                131
 #define IDD_DIALOG1                     135
+#define IDD_DIALOG_REAL                 136
+#define IDD_REAL_DIALOG                 136
 #define IDD_ASSOS_DIALOG_EN             194
 #define IDD_ASSOS_DIALOG_TC             210
 #define IDC_LIST_ASSOS                  1006
@@ -51,7 +53,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
+#define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           101

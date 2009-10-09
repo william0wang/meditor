@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RealDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Reg.cpp"
 				>
 			</File>
@@ -261,6 +265,10 @@
 			</File>
 			<File
 				RelativePath=".\MShared.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RealDlg.h"
 				>
 			</File>
 			<File

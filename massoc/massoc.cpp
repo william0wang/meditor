@@ -5,6 +5,7 @@
 #include "massoc.h"
 #include "MShared.h"
 #include "AVS.h"
+#include "RealDlg.h"
 #include "MAssosDlg.h"
 
 #ifdef _DEBUG
@@ -70,6 +71,19 @@ BOOL CmassocApp::InitInstance()
 
 		CAVS avs;
 		avs.Install(path);
+		return FALSE;
+	} else if(sCmdLine.Find(_T("--real-online")) >= 0)	{
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - RealOnline"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS)
+			return FALSE;
+
+		CRealDlg dlg;
+		m_pMainWnd = &dlg;
+		dlg.DoModal();
+
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
+
 		return FALSE;
 	}
 

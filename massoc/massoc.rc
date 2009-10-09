@@ -145,6 +145,13 @@ BEGIN
     CONTROL         "",IDC_COMBO_MICONS,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,225,191,60,12
 END
 
+IDD_REAL_DIALOG DIALOGEX 0, 0, 171, 0
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "MEditor2 - Real On Line Admin Tool"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -223,6 +230,11 @@ BEGIN
         RIGHTMARGIN, 344
         TOPMARGIN, 7
         BOTTOMMARGIN, 203
+    END
+
+    IDD_REAL_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 164
     END
 END
 #endif    // APSTUDIO_INVOKED

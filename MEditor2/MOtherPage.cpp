@@ -14,6 +14,10 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+#define WM_CHECKREAL        WM_USER + 101
+#define WM_REGREAL          WM_USER + 102
+#define WM_DREGREAL         WM_USER + 103
+
 /////////////////////////////////////////////////////////////////////////////
 // CMOtherPage dialog
 
@@ -26,10 +30,8 @@ CheckReal:
 	Sleep(300);
 	if(This->CheckRealOnline())
 		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-	else
-	{
-		if(checktime < 5)
-			goto CheckReal;
+	else {
+		if(checktime < 5) goto CheckReal;
 		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 	}
 
@@ -93,6 +95,7 @@ BEGIN_MESSAGE_MAP(CMOtherPage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_LINK, OnBnClickedButtonLink)
 	ON_WM_KEYDOWN()
 	ON_BN_CLICKED(IDC_BUTTON_AVS, &CMOtherPage::OnBnClickedButtonAvs)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -319,14 +322,39 @@ void CMOtherPage::OnButtonMedia()
 
 bool CMOtherPage::CheckRealOnline()
 {
-	CReg reg;
-	CString regstr = _T("CLSID\\{CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA}\\InprocServer32");
-	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
+	hWndMA = ::FindWindow(NULL, _T("MEditor2 - Real On Line Admin Tool"));
+
+	if(!hWndMA) {
+		int time = 0;
+		CString m_dir;
+		TCHAR szFilePath[MAX_PATH + 1];
+		GetModuleFileName(NULL, szFilePath, MAX_PATH);
+		(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+		m_dir.Format(_T("%s"),szFilePath);
+
+		CString massoc, cmd;
+		cmd.Format(_T("--real-online \"%s\""), m_dir);
+
+		massoc = m_dir + _T("codecs\\massoc.exe");
+		if(!IsFileExist(massoc))
+			massoc = m_dir + _T("massoc.exe");
+
+		ShellExecute(0, _T("open"), massoc, cmd, NULL, SW_HIDE);
+
+		while(!hWndMA && time < 30) {
+			Sleep(100);
+			hWndMA = ::FindWindow(NULL, _T("MEditor2 - Real On Line Admin Tool"));
+			++time;
+		}
+		if(!hWndMA) return true;
+	}
+
+	BOOL ret = ::SendMessage(hWndMA, WM_CHECKREAL, NULL, NULL);
+
+	if(ret == WM_DREGREAL)
 		return false;
-	CString regstr1 = _T("Software\\RealNetworks\\Preferences\\DT_Codecs");
-	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr1,_T("")))
-		return false;
-	return true;
+	else
+		return true;
 }
 
 void CMOtherPage::OnButtonOnline() 
@@ -686,4 +714,11 @@ void CMOtherPage::OnBnClickedButtonAvs()
 	ShellExecute(0, _T("open"), massoc, cmd, NULL, SW_HIDE);
 
 	MessageBox(ResStr(IDS_MESSAGE_AVS), _T("AviSynth(AVS)"), MB_TOPMOST);
+}
+
+void CMOtherPage::OnDestroy()
+{
+	CDialog::OnDestroy();
+
+	if(hWndMA) ::SendMessage(hWndMA, WM_CLOSE, NULL, NULL);
 }
