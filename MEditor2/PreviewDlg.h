@@ -1,5 +1,6 @@
 #pragma once
 #include "ProgressDlg.h"
+#include "AdvCombo\AdvComboBox.h"
 
 
 // CPreviewDlg 对话框
@@ -24,10 +25,16 @@ protected:
 
 	void GenerateThumbnails(CString ThumbName);
 
+	BOOL EnumerateFonts();
+	void AddFont(CString strName);
+
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
 public:
+	static BOOL CALLBACK AFX_EXPORT EnumFamScreenCallBackEx(
+		ENUMLOGFONTEX* pelf, NEWTEXTMETRICEX* /*lpntm*/, int FontType, 
+		LPVOID pThis);
 
 	int		m_percent;
 	int		m_parti;
@@ -38,10 +45,12 @@ public:
 	BOOL	m_show;
 	CString m_filename;
 	CString m_savename;
+	CString m_font;
 	CProgressDlg	m_pdlg;
 	CSpinButtonCtrl m_spinr;
 	CSpinButtonCtrl m_spinv;
 	CSpinButtonCtrl m_spinw;
+	CAdvComboBoxMod m_font_c;
 
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedOk();
