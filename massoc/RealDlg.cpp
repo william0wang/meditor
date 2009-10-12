@@ -61,10 +61,15 @@ LRESULT CRealDlg::OnNotifyCheck(WPARAM wParam, LPARAM lParam)
 {
 	CReg reg;
 	CString regstr = _T("CLSID\\{CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA}\\InprocServer32");
-	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
-		return WM_DREGREAL;
+	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T(""))) {
+		regstr = _T("SOFTWARE\\Classes\\CLSID\\{CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA}\\InprocServer32");
+		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE,regstr,_T("")))
+			return WM_DREGREAL;
+	}
 	CString regstr1 = _T("Software\\RealNetworks\\Preferences\\DT_Codecs");
-	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr1,_T("")))
+	if(!reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr1,_T(""))) {
+		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE,regstr1,_T("")))
 		return WM_DREGREAL;
+	}
 	return WM_REGREAL;
 }

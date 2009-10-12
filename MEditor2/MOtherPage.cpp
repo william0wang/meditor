@@ -414,6 +414,8 @@ void CMOtherPage::OnButtonOnline()
 	CopyFile(m_dir +_T("codecs\\pncrt.dll") , m_sysdir + _T("pncrt.dll") , TRUE);
 	CopyFile(m_dir +_T("codecs\\msvcp71.dll") , m_sysdir + _T("msvcp71.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\msvcr71.dll") , m_sysdir + _T("msvcr71.dll") , FALSE);
+	CopyFile(m_dir +_T("codecs\\Real\\pndx5016.dll") , m_sysdir + _T("pndx5016.dll") , FALSE);
+	CopyFile(m_dir +_T("codecs\\Real\\pndx5032.dll") , m_sysdir + _T("pndx5032.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\Real\\rmoc3260.dll") , m_sysdir + _T("rmoc3260.dll") , TRUE);
 	CopyFile(m_dir +_T("codecs\\Real\\realreg") , m_dir +_T("realreg.inf") , TRUE);
 	WinExec("rundll32.exe setupapi,InstallHinfSection DefaultInstall 128 .\\realreg.inf",SW_HIDE);
