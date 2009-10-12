@@ -369,7 +369,7 @@ void CMOtherPage::OnButtonOnline()
 		return;
 	UpdateData(TRUE);
 	TCHAR szFilePath[MAX_PATH + 1];
-	CString m_dir, m_sysdir;
+	CString m_dir, m_sysdir, m_prodir, m_datadir;
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_dir.Format(_T("%s"),szFilePath);
@@ -411,12 +411,36 @@ void CMOtherPage::OnButtonOnline()
 	TCHAR szSystemPath[MAX_PATH + 1];
 	::GetSystemDirectory(szSystemPath,MAX_PATH);
 	m_sysdir.Format(_T("%s\\"),szSystemPath);
+	SHGetSpecialFolderPath(NULL, szSystemPath, CSIDL_PROGRAM_FILES, FALSE);
+	m_prodir.Format(_T("%s\\"),szSystemPath);
+	SHGetSpecialFolderPath(NULL, szSystemPath, CSIDL_LOCAL_APPDATA, FALSE);
+	m_datadir.Format(_T("%s\\"),szSystemPath);
+
 	CopyFile(m_dir +_T("codecs\\pncrt.dll") , m_sysdir + _T("pncrt.dll") , TRUE);
 	CopyFile(m_dir +_T("codecs\\msvcp71.dll") , m_sysdir + _T("msvcp71.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\msvcr71.dll") , m_sysdir + _T("msvcr71.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\Real\\pndx5016.dll") , m_sysdir + _T("pndx5016.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\Real\\pndx5032.dll") , m_sysdir + _T("pndx5032.dll") , FALSE);
 	CopyFile(m_dir +_T("codecs\\Real\\rmoc3260.dll") , m_sysdir + _T("rmoc3260.dll") , TRUE);
+
+	//Firefox plugins
+	if(IsFileExist(m_prodir + _T("Mozilla Firefox"))) {
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nppl3260.xpt") , m_prodir + _T("Mozilla Firefox\\components\\nppl3260.xpt") , TRUE);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nsJSRealPlayerPlugin.xpt") , m_prodir + _T("Mozilla Firefox\\components\\nsJSRealPlayerPlugin.xpt") , TRUE);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nppl3260.dll") , m_prodir + _T("Mozilla Firefox\\plugins\\nppl3260.dll") , TRUE);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nprpjplug.dll") , m_prodir + _T("Mozilla Firefox\\plugins\\nprpjplug.dll") , TRUE);
+	}
+
+	//Chrome plugins
+	if(IsFileExist(m_datadir + _T("Google\\Chrome"))) {
+		if(!IsFileExist(m_datadir + _T("Google\\Chrome\\plugins")))
+			CreateDirectory(m_datadir + _T("Google\\Chrome\\plugins"), NULL);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nppl3260.xpt") , m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.xpt") , TRUE);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nsJSRealPlayerPlugin.xpt") , m_datadir + _T("Google\\Chrome\\plugins\\nsJSRealPlayerPlugin.xpt") , TRUE);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nppl3260.dll") , m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.dll") , TRUE);
+		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nprpjplug.dll") , m_datadir + _T("Google\\Chrome\\plugins\\nprpjplug.dll") , TRUE);
+	}
+
 	CopyFile(m_dir +_T("codecs\\Real\\realreg") , m_dir +_T("realreg.inf") , TRUE);
 	WinExec("rundll32.exe setupapi,InstallHinfSection DefaultInstall 128 .\\realreg.inf",SW_HIDE);
 	DeleteFile(m_dir +_T("realreg.inf"));
