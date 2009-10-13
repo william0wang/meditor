@@ -486,6 +486,13 @@ void CMProfilePage::CleanConfig()
 void CMProfilePage::SetCurConfig()
 {
 	int cur = m_profile_list.GetCurSel();
+	if(cur < 0) {
+		CleanConfig();
+		m_profile = _T("");
+		UpdateData(FALSE);
+		return;
+	}
+
 	CString curtype;
 	m_profile_list.GetLBText(cur , curtype);
 	m_pre_profile = curtype;
@@ -1040,12 +1047,16 @@ void CMProfilePage::SaveConfig()
 {
 	SavePreConfig();
 }
+
 void CMProfilePage::OnBnClickedDel()
 {
+	int cur = m_profile_list.GetCurSel();
+	if(cur < 0)
+		return;
+
 	if(MessageBox(ResStr(IDS_PROFILE_DEL),ResStr(IDS_PROFILE_DEL_INF),MB_OKCANCEL) != IDOK)
 		return;
 
-	int cur = m_profile_list.GetCurSel();
 	CString curtype;
 	m_profile_list.GetLBText(cur , curtype);
 	if(!m_cfg)
@@ -1053,6 +1064,7 @@ void CMProfilePage::OnBnClickedDel()
 	m_cfg->RemoveConfigSP(curtype);
 	m_pre_profile = _T("");
 	m_profile_list.DeleteString(cur);
+
 	m_profile_list.SetCurSel(0);
 	SetCurConfig();
 }
