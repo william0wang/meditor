@@ -17,7 +17,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug Unicode|Win32"
+			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2"
 			ConfigurationType="1"
@@ -99,7 +99,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Unicode|Win32"
+			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\Bin"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\meditor2"
 			ConfigurationType="1"
@@ -312,7 +312,7 @@
 					RelativePath=".\stdafx.cpp"
 					>
 					<FileConfiguration
-						Name="Debug Unicode|Win32"
+						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -320,7 +320,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Unicode|Win32"
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
