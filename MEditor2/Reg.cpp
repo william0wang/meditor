@@ -23,6 +23,8 @@ CReg::~CReg()
 bool CReg::ShowContent (struct HKEY__*ReRootKey,TCHAR *ReSubKey,TCHAR *ReValueName)
 {
 	bool result = false;
+	hKey = NULL;
+	dwLength = 256;
 	if(RegOpenKeyEx(ReRootKey,ReSubKey,0,KEY_READ,&hKey)==ERROR_SUCCESS)
 	{
 		if(RegQueryValueEx(hKey,ReValueName,NULL,&dwType,(unsigned char *)content,&dwLength) == ERROR_SUCCESS)

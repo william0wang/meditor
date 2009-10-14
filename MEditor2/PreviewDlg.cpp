@@ -58,6 +58,8 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SPIN_R, m_spinr);
 	DDX_Control(pDX, IDC_SPIN_V, m_spinv);
 	DDX_Control(pDX, IDC_SPIN_W, m_spinw);
+	DDX_Control(pDX, IDC_ACOMBO_FONT, m_font_c);
+	DDX_AMCBString(pDX, IDC_ACOMBO_FONT, m_font);
 }
 
 
@@ -92,6 +94,24 @@ BOOL CPreviewDlg::OnInitDialog()
 	if(p) p[0] = 0;
 
 	m_savename.Format(_T("%s Preview.jpg"), name);
+
+	m_font = _T("* MS Shell Dlg");
+	m_font_c.AddString(m_font);
+	m_font_c.SetCurSel(0);
+	EnumerateFonts();
+
+	CString font_def = _T("Î¢ÈíÑÅºÚ");
+	int index = m_font_c.FindStringExact(0, font_def);
+
+	if(index < 0) {
+		font_def = _T("consolas");
+		index = m_font_c.FindStringExact(0, font_def);
+	}
+
+	if(index > 0) {
+		m_font_c.SetCurSel(index);
+		m_font = font_def;
+	}
 
 	UpdateData(FALSE);
 
@@ -133,7 +153,17 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 {
 	int h = 0;
 	int he = 0;
-	RGBQUAD rgb;
+	HDC dc2;
+	RECT r;
+	HBITMAP bmp;
+	VOID *pbits32;
+	HBRUSH brush;
+	LOGFONT fontRect;
+
+	UpdateData(FALSE);
+
+	if(m_font_c.GetCurSel() == 0)
+		m_font = _T("MS Shell Dlg");
 
 	CxImage img, logo, full;
 	HRSRC hRsrc = FindResource(NULL, MAKEINTRESOURCE(IDR_LOGO), TEXT("LOGO"));
@@ -162,36 +192,70 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 				}
 				he = img.GetHeight();
 				h = (he+10) * m_parti + 90;
-				full.Create(m_width, h, 24, CXIMAGE_FORMAT_JPG);
-				rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 0;
-				rgb.rgbReserved = 0;
-				full.MixFrom(logo, m_width - logo.GetWidth(), h - logo.GetHeight());
+
+				BITMAPINFOHEADER RGB32BITSBITMAPINFO = {sizeof(BITMAPINFOHEADER),
+					m_width, h, 1, 32, BI_RGB, 0, 0, 0, 0, 0 };
+
+				dc2 = CreateCompatibleDC(NULL);
+
+				r.top = r.left = 0;
+				r.right = m_width;
+				r.bottom = h;
+
+				bmp = CreateDIBSection(dc2,(BITMAPINFO *)&RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, NULL, 0);
+
+				brush = CreateSolidBrush(RGB(234,234,234));
+				SelectObject(dc2, bmp);
+				FillRect(dc2, &r, brush);
+				DeleteObject(brush);
+
+				logo.Draw(dc2, m_width-10 - logo.GetWidth(), 20);
+
 				if(Name) ++Name;
-				full.DrawString(NULL, 10, 22, Name?Name:m_filename, rgb, _T("MS Sans Serif"), -14, 600);
-				full.DrawString(NULL, 10, 45, time, rgb, _T("MS Sans Serif"), -14, 600);
+
+				memset(&fontRect,0,sizeof(LOGFONT));
+				fontRect.lfHeight = -14;
+				fontRect.lfWeight = FW_BOLD;
+				_tcscpy_s(fontRect.lfFaceName, 32, m_font);
+
+				SelectObject(dc2, CreateFontIndirect(&fontRect));
+				SetBkMode(dc2, TRANSPARENT);
+				SetTextColor(dc2, RGB(0, 0, 0));
+
+				TextOut(dc2, 10, 12, Name?Name:m_filename, Name?_tcslen(Name):m_filename.GetLength());
+
+				TextOut(dc2, 10, 36, time, time.GetLength());
+
 				if(fsize > 0){
 					time.Format(_T("%.02f MB"), fsize);
-					full.DrawString(NULL, 10, 68, time, rgb, _T("MS Sans Serif"), -14, 600);
+					TextOut(dc2, 10, 60, time, time.GetLength());
 				}
 
 			}
 			int left = 10+j*(re+10);
-			int top = (he+10)*(i+1)+80;
-			full.MixFrom(img, left, h - top);
+			int top = (he+10)*i+90;
+
+			img.Draw(dc2, left, top);
+
 			jpg.Format(_T("%02d:%02d:%02d"), nowt/3600,(nowt/60)%60,nowt%60);
-			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 0;
-			full.DrawString(NULL, left+1, top+1, jpg, rgb, _T("MS Sans Serif"), -14, 600);
-			rgb.rgbBlue = rgb.rgbGreen = rgb.rgbRed = 255;
-			full.DrawString(NULL, left, top, jpg, rgb, _T("MS Sans Serif"), -14, 600);
+
+			SetBkMode(dc2, TRANSPARENT);
+			SetTextColor(dc2, RGB(0, 0, 0));
+			TextOut(dc2, left+3, top+3, jpg, jpg.GetLength());
+
+			SetBkMode(dc2, TRANSPARENT);
+			SetTextColor(dc2, RGB(255, 255, 255));
+			TextOut(dc2, left+2, top+2, jpg, jpg.GetLength());
 			m_percent = (i*m_partj+j+1)*100/(m_parti*m_partj);
 			m_pdlg.m_progress.SetPos(m_percent);
 		}
 	}
+
+	full.CreateFromHBITMAP(bmp);
 	m_pdlg.m_progress.SetPos(100);
 
 	full.Save(ThumbName, CXIMAGE_FORMAT_JPG);
-	if(!m_have_preview)
-		DeleteFolder(_T("./preview"));
+	if(!m_have_preview) DeleteFolder(_T("./preview"));
 
 }
 
@@ -239,3 +303,51 @@ void CPreviewDlg::OnBnClickedOk()
 	OnOK();
 }
 
+
+BOOL CPreviewDlg::EnumerateFonts()
+{
+	HDC hDC;
+
+	// Get screen fonts
+	hDC = ::GetWindowDC(NULL);
+
+	LOGFONT lf;
+
+	ZeroMemory(&lf,sizeof(lf));
+	lf.lfCharSet = DEFAULT_CHARSET;
+
+	if (!EnumFontFamiliesEx(
+		hDC,	// handle to device context
+		&lf,	// pointer to logical font information
+		(FONTENUMPROC)EnumFamScreenCallBackEx,	// pointer to callback function
+		(LPARAM) this,	// application-supplied data
+		(DWORD) 0))
+		return FALSE;
+
+	::ReleaseDC(NULL,hDC);	
+
+	return TRUE; // All's ok
+}
+
+BOOL CALLBACK AFX_EXPORT CPreviewDlg::EnumFamScreenCallBackEx(ENUMLOGFONTEX* pelf, 
+														  NEWTEXTMETRICEX* /*lpntm*/, int FontType, LPVOID pThis)
+
+{
+	// don't put in non-printer raster fonts
+	if (FontType & RASTER_FONTTYPE)
+		return 1;
+
+	if (!(FontType & TRUETYPE_FONTTYPE))
+		return 1;
+
+	((CPreviewDlg*)pThis)->AddFont(pelf->elfLogFont.lfFaceName);
+
+	return 1; // Call me back
+}
+
+void CPreviewDlg::AddFont(CString strName)
+{
+	if(m_font_c.FindStringExact(0,strName) > 0 || strName.Find(_T("@")) == 0)
+		return;
+	m_font_c.AddString(strName);
+}

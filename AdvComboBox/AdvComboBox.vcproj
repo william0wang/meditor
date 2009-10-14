@@ -17,7 +17,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug Unicode|Win32"
+			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
@@ -80,7 +80,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Unicode|Win32"
+			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\MEditor2\lib"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\AdvCombobox"
 			ConfigurationType="4"
@@ -172,7 +172,7 @@
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
-					Name="Debug Unicode|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -180,7 +180,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Unicode|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

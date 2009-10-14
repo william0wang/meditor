@@ -1044,24 +1044,22 @@ void CMAssosPage::ApplyChange(bool quiet)
 	}
 	m_List.UnlockWindowUpdate();
 
-	if(!quiet)
-	{
-		//Rebuild   Icon   Cache
+	if(!quiet) {
+		//Rebuild Icon Cache
+		CReg reg;
+		CString Content, ContentTemp;
 		DWORD dwType = REG_SZ; 
-		TCHAR Content[MAX_PATH] = {0};
-		DWORD Contentsize = sizeof(Content) / sizeof(TCHAR); 
-		TCHAR RegPath[] = _T("Control Panel\\Desktop\\WindowMetrics");
+		DWORD dSize = MAX_PATH;
+		TCHAR ContentOld[MAX_PATH] = {0};
+		TCHAR SubKey[] = _T("Control Panel\\Desktop\\WindowMetrics");
 		TCHAR VauleName[] = _T("Shell Icon Size");
-		if(SHGetValue(HKEY_CURRENT_USER, RegPath, VauleName, &dwType, &Content, &Contentsize) == ERROR_SUCCESS)
-		{
-			TCHAR Contenttmp[] = _T("24");
-			Contentsize = sizeof(Contenttmp) / sizeof(TCHAR);
-			if (SHSetValue(HKEY_CURRENT_USER, RegPath, VauleName, REG_SZ, Contenttmp, Contentsize) == ERROR_SUCCESS)
-			{
+		if(SHGetValue(HKEY_CURRENT_USER, SubKey, VauleName, &dwType, &ContentOld, &dSize) == ERROR_SUCCESS) {
+			Content = ContentOld;
+			ContentTemp = _T("24");
+			if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , ContentTemp)) {
 				SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 2000, NULL);
-				Contentsize = sizeof(Content) / sizeof(TCHAR);
-				if (SHSetValue(HKEY_CURRENT_USER, RegPath, VauleName, REG_SZ, Content, Contentsize) == ERROR_SUCCESS)
-					::PostMessage(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0);
+				if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , Content))
+					SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 2000, NULL);
 			}
 		}
 	}

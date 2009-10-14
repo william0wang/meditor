@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="massoc"
-	ProjectGUID="{06AC1BE3-C2A9-49B9-AB1C-AF4C1E0372DA}"
-	RootNamespace="massoc"
+	Name="mloader"
+	ProjectGUID="{DD13CE10-3177-46AA-92A6-AB7564E09968}"
+	RootNamespace="mloader"
 	Keyword="MFCProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -19,10 +19,10 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\loader"
 			ConfigurationType="1"
 			UseOfMFC="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -45,7 +45,6 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../meditor2/include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -68,10 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxD.lib CxImageD.lib jpegD.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../meditor2/lib"
-				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -101,10 +97,10 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\mloader"
 			ConfigurationType="1"
 			UseOfMFC="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -129,7 +125,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../meditor2/include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				MinimalRebuild="false"
 				RuntimeLibrary="0"
@@ -152,10 +147,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxR.lib CxImageR.lib jpegR.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../meditor2/lib"
-				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -194,31 +186,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\AVS.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\massoc.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MAssosDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MConfig.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MShared.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RealDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Reg.cpp"
+				RelativePath=".\mloader.cpp"
 				>
 			</File>
 			<File
@@ -248,35 +216,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\AVS.h"
+				RelativePath=".\mloader.h"
 				>
 			</File>
 			<File
-				RelativePath=".\massoc.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MAssosDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MConfig.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MShared.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RealDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Reg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Resource.h"
+				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
@@ -294,15 +238,15 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\res\massoc.ico"
+				RelativePath=".\res\mloader.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\massoc.rc"
+				RelativePath=".\mloader.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\res\massoc.rc2"
+				RelativePath=".\res\mloader.rc2"
 				>
 			</File>
 		</Filter>
@@ -312,9 +256,5 @@
 		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="RESOURCE_FILE"
-			Value="massoc.rc"
-		/>
 	</Globals>
 </VisualStudioProject>

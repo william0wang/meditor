@@ -296,6 +296,8 @@
 #define IDC_CHECK_I                     1150
 #define IDC_CHECK_THREAD                1150
 #define IDC_COMBO_MICONS                1151
+#define IDC_CUSTOM1                     1152
+#define IDC_ACOMBO_FONT                 1152
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -702,7 +704,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        185
 #define _APS_NEXT_COMMAND_VALUE         32828
-#define _APS_NEXT_CONTROL_VALUE         1152
+#define _APS_NEXT_CONTROL_VALUE         1153
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
