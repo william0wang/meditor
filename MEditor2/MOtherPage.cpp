@@ -359,14 +359,13 @@ bool CMOtherPage::CheckRealOnline()
 
 void CMOtherPage::OnButtonOnline() 
 {
-	if(CheckRealOnline())
-	{
-		if(MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
+	if(CheckRealOnline() &&
+		MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
 			return;
-	}
-	
+
 	if(CheckRealThread != NULL)
 		return;
+
 	UpdateData(TRUE);
 	TCHAR szFilePath[MAX_PATH + 1];
 	CString m_dir, m_sysdir, m_prodir, m_datadir;
@@ -405,48 +404,7 @@ void CMOtherPage::OnButtonOnline()
 		return;
 	}
 
-	TCHAR szCurPath[MAX_PATH + 1];
-	::GetCurrentDirectory(MAX_PATH,szCurPath);
-	::SetCurrentDirectory(szFilePath);
-	TCHAR szSystemPath[MAX_PATH + 1];
-	::GetSystemDirectory(szSystemPath,MAX_PATH);
-	m_sysdir.Format(_T("%s\\"),szSystemPath);
-	SHGetSpecialFolderPath(NULL, szSystemPath, CSIDL_PROGRAM_FILES, FALSE);
-	m_prodir.Format(_T("%s\\"),szSystemPath);
-	SHGetSpecialFolderPath(NULL, szSystemPath, CSIDL_LOCAL_APPDATA, FALSE);
-	m_datadir.Format(_T("%s\\"),szSystemPath);
-
-	CopyFile(m_dir +_T("codecs\\pncrt.dll") , m_sysdir + _T("pncrt.dll") , TRUE);
-	CopyFile(m_dir +_T("codecs\\msvcp71.dll") , m_sysdir + _T("msvcp71.dll") , FALSE);
-	CopyFile(m_dir +_T("codecs\\msvcr71.dll") , m_sysdir + _T("msvcr71.dll") , FALSE);
-	CopyFile(m_dir +_T("codecs\\Real\\pndx5016.dll") , m_sysdir + _T("pndx5016.dll") , FALSE);
-	CopyFile(m_dir +_T("codecs\\Real\\pndx5032.dll") , m_sysdir + _T("pndx5032.dll") , FALSE);
-	CopyFile(m_dir +_T("codecs\\Real\\rmoc3260.dll") , m_sysdir + _T("rmoc3260.dll") , TRUE);
-
-	//Firefox plugins
-	if(IsFileExist(m_prodir + _T("Mozilla Firefox"))) {
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nppl3260.xpt") , m_prodir + _T("Mozilla Firefox\\components\\nppl3260.xpt") , TRUE);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nsJSRealPlayerPlugin.xpt") , m_prodir + _T("Mozilla Firefox\\components\\nsJSRealPlayerPlugin.xpt") , TRUE);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nppl3260.dll") , m_prodir + _T("Mozilla Firefox\\plugins\\nppl3260.dll") , TRUE);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nprpjplug.dll") , m_prodir + _T("Mozilla Firefox\\plugins\\nprpjplug.dll") , TRUE);
-	}
-
-	//Chrome plugins
-	if(IsFileExist(m_datadir + _T("Google\\Chrome"))) {
-		if(!IsFileExist(m_datadir + _T("Google\\Chrome\\plugins")))
-			CreateDirectory(m_datadir + _T("Google\\Chrome\\plugins"), NULL);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nppl3260.xpt") , m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.xpt") , TRUE);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Components\\nsJSRealPlayerPlugin.xpt") , m_datadir + _T("Google\\Chrome\\plugins\\nsJSRealPlayerPlugin.xpt") , TRUE);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nppl3260.dll") , m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.dll") , TRUE);
-		CopyFile(m_dir +_T("codecs\\Real\\Browser\\Plugins\\nprpjplug.dll") , m_datadir + _T("Google\\Chrome\\plugins\\nprpjplug.dll") , TRUE);
-	}
-
-	CopyFile(m_dir +_T("codecs\\Real\\realreg") , m_dir +_T("realreg.inf") , TRUE);
-	WinExec("rundll32.exe setupapi,InstallHinfSection DefaultInstall 128 .\\realreg.inf",SW_HIDE);
-	DeleteFile(m_dir +_T("realreg.inf"));
-	ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /s \"")+ m_sysdir + _T("rmoc3260.dll\"") , NULL, SW_HIDE);
-	ShellExecute(0, _T("open"), _T("regedit") , _T(" /s \"")+ m_dir + _T("codecs\\Real\\aero\"") , NULL, SW_HIDE);
-	::SetCurrentDirectory(szCurPath);
+	BOOL ret = ::SendMessage(hWndMA, WM_REGREAL, NULL, NULL);
 
 	if(CheckRealThread == NULL)
 	{
@@ -468,9 +426,6 @@ void CMOtherPage::OnButtonDonline()
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_dir.Format(_T("%s"),szFilePath);
 
-	TCHAR szCurPath[MAX_PATH + 1];
-	::GetCurrentDirectory(MAX_PATH,szCurPath);
-	::SetCurrentDirectory(szFilePath);
 	CString m_sysdir;
 	TCHAR szSystemPath[MAX_PATH + 1];
 	::GetSystemDirectory(szSystemPath,MAX_PATH);
@@ -483,15 +438,9 @@ void CMOtherPage::OnButtonDonline()
 		MessageBox(ResStr(IDS_OTHER_UNREALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 		return;
 	}
-	if(IsFileExist(m_sysdir + _T("rmoc3260.dll")))
-		ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_sysdir + _T("rmoc3260.dll\"") , NULL, SW_HIDE);
-	else
-		ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_dir + _T("codecs\\Real\\rmoc3260.dll\"") , NULL, SW_HIDE);
-	DeleteFile(m_sysdir +_T("rmoc3260.dll"));
-	CopyFile(m_dir +_T("codecs\\Real\\unrealreg") , m_dir +_T("unrealreg.inf") , TRUE);
-	WinExec("rundll32.exe setupapi,InstallHinfSection DefaultInstall 128 .\\unrealreg.inf",SW_HIDE);
-	DeleteFile(m_dir +_T("unrealreg.inf"));
-	::SetCurrentDirectory(szCurPath);
+
+	BOOL ret = ::SendMessage(hWndMA, WM_DREGREAL, NULL, NULL);
+
 	if(!CheckRealOnline())
 		MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 	else
