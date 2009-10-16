@@ -23,8 +23,6 @@ public:
 	void SetNormal();
 	void SetHigh();
 	void SetLower();
-	bool CheckRealOnline();
-	CWinThread* CheckRealThread;
 // Dialog Data
 	//{{AFX_DATA(CMOtherPage)
 	enum { IDD = IDD_OTHER_DIALOG };

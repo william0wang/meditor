@@ -47,8 +47,16 @@
 #define IDS_ASSOS_EX                    35081
 #define IDS_ASSOS_INF                   35082
 #define IDS_ASSOS_TYP                   35083
+#define IDS_OTHER_REALONLINE            35084
+#define IDS_OTHER_REALOK                35085
+#define IDS_OTHER_REALFAIL              35086
+#define IDS_OTHER_REALAGAIN             35087
+#define IDS_OTHER_REALON                35088
+#define IDS_OTHER_REALFAILS             35089
+#define IDS_OTHER_UNREALFAIL            35090
+#define IDS_OTHER_UNREALOK              35091
+#define IDS_OTHER_UNREALFAILS           35092
 #define IDS_ASSOS_AVS                   35351
-
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED

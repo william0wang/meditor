@@ -283,6 +283,15 @@ END
 
 STRINGTABLE 
 BEGIN
+    IDS_OTHER_REALONLINE    "Real 在线支持"
+    IDS_OTHER_REALOK        "Real 在线支持注册成功 !"
+    IDS_OTHER_REALFAIL      "Real 在线支持注册失败，请重试 !"
+    IDS_OTHER_REALAGAIN     "Real 在线支持已注册，是否重新注册 ?"
+    IDS_OTHER_REALON        "Real 在线支持尚未注册 !"
+    IDS_OTHER_REALFAILS     "Real 在线支持注册失败，未找到需要的文件 !"
+    IDS_OTHER_UNREALFAIL    "Real 在线支持反注册失败，未找到需要的文件 !"
+    IDS_OTHER_UNREALOK      "Real 在线支持反注册成功 !"
+    IDS_OTHER_UNREALFAILS   "Real 在线支持反注册失败，请重试 !"
     IDS_ASSOS_AVS           "AviSynth 脚本"
 END
 
