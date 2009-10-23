@@ -140,6 +140,7 @@ public:
 	CString	m_png;
 	CString	m_start;
 	CString	m_monitor_s;
+	CString m_theme_s;
 	CString	m_auto_s;
 	CString	m_no_s;
 	CMShowInfoDlg *info;
@@ -182,6 +183,8 @@ public:
 	BOOL m_console;
 	BOOL m_noskin;
 	BOOL m_seekrt;
+	BOOL m_bskin;
+	BOOL m_ctlskin;
 };
 
 //{{AFX_INSERT_LOCATION}}

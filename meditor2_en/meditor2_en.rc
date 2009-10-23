@@ -793,6 +793,7 @@ BEGIN
     IDS_MESSAGE_AVS         "Installed Successfully !"
     IDS_VIDEO_SCA           "Scale"
     IDS_VIDEO_SCAI          "Video scaling to the specified width and height，scaling by aspect when height set to -3"
+    IDS_PLAYER_THEME        "System Theme"
 END
 
 #endif    // 中文(中华人民共和国) resources
