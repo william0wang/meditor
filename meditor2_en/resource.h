@@ -674,6 +674,7 @@
 #define IDS_MESSAGE_AVS                 35352
 #define IDS_VIDEO_SCA                   35353
 #define IDS_VIDEO_SCAI                  35354
+#define IDS_PLAYER_THEME                35355
 
 // Next default values for new objects
 // 

@@ -77,15 +77,15 @@ IDR_MAINFRAME           ICON                    "res\\MEditor2.ico"
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+IDD_ABOUTBOX DIALOGEX 0, 0, 181, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About MPlayer Preferences"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,18,18
-    LTEXT           "MPlayer Preferences v2.01",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) william0wang 2008",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    LTEXT           "MPlayer Preferences v2.1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2007-2009 william0wang",IDC_STATIC,42,26,132,8
+    DEFPUSHBUTTON   "OK",IDOK,124,41,50,14,WS_GROUP
 END
 
 IDD_MEDITOR2_DIALOG DIALOGEX 0, 0, 365, 239
@@ -168,12 +168,12 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "FileDescription", "MPlayer Preferences"
-            VALUE "FileVersion", "2.0.1"
+            VALUE "FileVersion", "2.1.0"
             VALUE "InternalName", "meditor2.en"
             VALUE "LegalCopyright", "(C) 2007-2009 william0wang"
             VALUE "OriginalFilename", "meditor2.en"
             VALUE "ProductName", "MPlayer Preferences"
-            VALUE "ProductVersion", "2.0.1.0"
+            VALUE "ProductVersion", "2.1.0.0"
             VALUE "SpecialBuild", "WW"
         END
     END
@@ -195,7 +195,7 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 163
+        RIGHTMARGIN, 174
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
@@ -793,6 +793,7 @@ BEGIN
     IDS_MESSAGE_AVS         "Installed Successfully !"
     IDS_VIDEO_SCA           "Scale"
     IDS_VIDEO_SCAI          "Video scaling to the specified width and height，scaling by aspect when height set to -3"
+    IDS_PLAYER_THEME        "System Theme"
 END
 
 #endif    // 中文(中华人民共和国) resources

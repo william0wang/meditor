@@ -28,8 +28,9 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_def(_T(""))
 	, m_filename(TRUE)
 	, m_console(FALSE)
-	, m_noskin(FALSE)
 	, m_seekrt(TRUE)
+	, m_bskin(TRUE)
+	, m_ctlskin(TRUE)
 {
 	m_cfg = NULL;
 	m_fullscreen = FALSE;
@@ -50,6 +51,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_conf = FALSE;
 	m_auto_fuzziness = _T("1");
 
+	m_theme_s = ResStr(IDS_PLAYER_THEME);
 	m_auto_s = ResStr(IDS_PLAYER_AUTO);
 	m_no_s = ResStr(IDS_PLAYER_NO);
 
@@ -152,8 +154,9 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_DEF, m_def);
 	DDX_Check(pDX, IDC_CHECK_TITLE, m_filename);
 	DDX_Check(pDX, IDC_CHECK_CONSOLE, m_console);
-	DDX_Check(pDX, IDC_CHECK_NOSKIN, m_noskin);
 	DDX_Check(pDX, IDC_CHECK_RTSEEK, m_seekrt);
+	DDX_Check(pDX, IDC_CHECK_BSKIN, m_bskin);
+	DDX_Check(pDX, IDC_CHECK_CTLSKIN, m_ctlskin);
 }
 
 
@@ -259,6 +262,7 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_skin_dir.Format(_T("%sskin"),szFilePath);
 	::SetCurrentDirectory(m_skin_dir);
 	m_ctrlbar.AddString(m_no_s);
+	m_ctrlbar.AddString(m_theme_s);
 
 	CFileFind finder;
 	if(finder.FindFile(_T("*.*"),0))
@@ -275,12 +279,12 @@ BOOL CMPlayerPage::OnInitDialog()
 	}
 	::SetCurrentDirectory(szCurPath);
 	int indexCtrl = m_ctrlbar.FindStringExact(0, _T("default"));
-	if(indexCtrl > 0) {
+	if(indexCtrl > 1) {
 		m_ctrlbar.SetCurSel(indexCtrl);
 		m_ctrlbar_s = _T("default");
 	} else {
-		m_ctrlbar.SetCurSel(0);
-		m_ctrlbar_s = m_no_s;
+		m_ctrlbar.SetCurSel(1);
+		m_ctrlbar_s = m_theme_s;
 	}
 	m_ctrlbar.UpdateData(FALSE);
 
@@ -482,9 +486,9 @@ void CMPlayerPage::InitFromConfig()
 	if(m_cfg->GetValue_Boolean(_T("skinned_player"),value_b,true))
 	{
 		if(!value_b)
-			m_noskin = TRUE;
+			m_bskin = FALSE;
 		else
-			m_noskin = FALSE;
+			m_bskin = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("seek_realtime"),value_b,true))
 	{
@@ -550,16 +554,28 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_menu = FALSE;
 	}
+
+	if(m_cfg->GetValue_Boolean(_T("skin_controlbar"),value_b,true))
+	{
+		if(!value_b)
+			m_ctlskin = FALSE;
+		else
+			m_ctlskin = TRUE;
+	}
+
 	if(m_cfg->GetValue_Boolean(_T("show_controlbar"),value_b,true))
 	{
 		if(value_b) {
-			if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
+			if(m_cfg->GetValue_String(_T("skin"),value_s,true)) {
 				int index = m_ctrlbar.FindStringExact(0, value_s);
 				if(index < 0) {
 					value_s = _T("default");
 					index = m_ctrlbar.FindStringExact(0, value_s);
 				}
-				if(index > 0) {
+				if(!m_ctlskin && value_s == _T("inner")) {
+					m_ctrlbar.SetCurSel(1);
+					m_ctrlbar_s = m_theme_s;
+				} else if(index > 0) {
 					m_ctrlbar.SetCurSel(index);
 					m_ctrlbar_s = value_s;
 				} else
@@ -581,7 +597,10 @@ void CMPlayerPage::InitFromConfig()
 		m_ctrlbar.UpdateData(FALSE);
 	} else if(m_cfg->GetValue_String(_T("skin"),value_s,true)){
 		int index = m_ctrlbar.FindStringExact(0, value_s);
-		if(index > 0) {
+		if(!m_ctlskin && value_s == _T("inner")) {
+			m_ctrlbar.SetCurSel(1);
+			m_ctrlbar_s = m_theme_s;
+		} else if(index > 0) {
 			m_ctrlbar.SetCurSel(index);
 			m_ctrlbar_s = value_s;
 		} else {
@@ -856,10 +875,15 @@ void CMPlayerPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("urlcp"));
 
-	if(m_noskin)
-		m_cfg->SetValue(_T("skinned_player") ,_T("0") , true , ex_gui);
-	else
+	if(m_bskin)
 		m_cfg->RemoveValue(_T("skinned_player"),true);
+	else
+		m_cfg->SetValue(_T("skinned_player") ,_T("0") , true , ex_gui);
+
+	if(m_ctlskin)
+		m_cfg->RemoveValue(_T("skin_controlbar"),true);
+	else
+		m_cfg->SetValue(_T("skin_controlbar") ,_T("0") , true , ex_gui);
 
 	if(m_guithread)
 		m_cfg->SetValue(_T("gui_thread") ,_T("1") , true , ex_option);
@@ -907,11 +931,17 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("show_menubar") ,_T("0") , true , ex_gui);
 
 	int indexCtrl = m_ctrlbar.GetCurSel();
-	if(indexCtrl > 0) {
+	if(indexCtrl > 1) {
 		m_cfg->RemoveValue(_T("show_controlbar") , true);
 		m_cfg->SetValue(_T("skin"), m_ctrlbar_s, true, ex_gui);
-	} else
+	} else if(indexCtrl == 1) {
+		m_cfg->RemoveValue(_T("show_controlbar") , true);
+		m_cfg->SetValue(_T("skin_controlbar"),_T("0") ,true ,ex_gui);
+		m_cfg->SetValue(_T("skinned_player") ,_T("0") , true , ex_gui);
+		m_cfg->SetValue(_T("skin"), _T("inner"), true, ex_gui);
+	} else {
 		m_cfg->SetValue(_T("show_controlbar"),_T("0") ,true ,ex_gui);
+	}
 
 	if(m_oneplayer)
 		m_cfg->SetValue(_T("one_player") ,_T("1") , true , ex_setting);

@@ -79,15 +79,15 @@ IDI_ICON_DS             ICON                    "res\\dshow.ico"
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+IDD_ABOUTBOX DIALOGEX 0, 0, 183, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "关于 MPlayer 首选项"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,18,18
-    LTEXT           "MPlayer 首选项 v2.01 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) william0wang 2008",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    LTEXT           "MPlayer 首选项 v2.1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2007-2009 william0wang",IDC_STATIC,42,27,134,8
+    DEFPUSHBUTTON   "确定",IDOK,126,41,50,14,WS_GROUP
 END
 
 IDD_MEDITOR2_DIALOG DIALOGEX 0, 0, 365, 239
@@ -170,8 +170,9 @@ BEGIN
     CONTROL         "",IDC_COMBO_ALPHA,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,71,33,42,12
     CONTROL         "",IDC_COMBO_CTRLBAR,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,27,20,86,12
     CONTROL         "显示控制台窗口(不使用日志文件)",IDC_CHECK_CONSOLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,220,188,114,10
-    CONTROL         "仅在控制栏使用皮肤",IDC_CHECK_NOSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,48,83,10
+    CONTROL         "边框皮肤",IDC_CHECK_BSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,48,46,10
     CONTROL         "进度条拖动实时响应",IDC_CHECK_RTSEEK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,61,83,10
+    CONTROL         "控制栏皮肤",IDC_CHECK_CTLSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,59,48,46,10
 END
 
 IDD_INPUT_DIALOG DIALOGEX 0, 0, 350, 200
@@ -586,8 +587,10 @@ BEGIN
     LTEXT           "Contralbar alpha",IDC_STATIC,9,36,60,8
     CONTROL         "",IDC_COMBO_ALPHA,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,65,35,41,12
     CONTROL         "",IDC_COMBO_CTRLBAR,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,26,21,80,12
-    CONTROL         "Only skined Contralbar",IDC_CHECK_NOSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,48,86,10
     CONTROL         "Dragging real-time response ",IDC_CHECK_RTSEEK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,61,102,10
+    CONTROL         "Border",IDC_CHECK_BSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,34,48,33,10
+    CONTROL         "Control",IDC_CHECK_CTLSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,71,48,36,10
+    LTEXT           "Skined",IDC_STATIC,9,49,22,8
 END
 
 IDD_PLAYER_DIALOG_TC DIALOGEX 0, 0, 350, 200
@@ -655,8 +658,9 @@ BEGIN
     LTEXT           "全屏控制欄透明度",IDC_STATIC,9,36,60,8
     CONTROL         "",IDC_COMBO_ALPHA,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,71,34,42,12
     CONTROL         "",IDC_COMBO_CTRLBAR,"AdvComboBoxCtrl",WS_TABSTOP | 0x3,27,20,86,12
-    CONTROL         "僅在控制欄使用皮膚",IDC_CHECK_NOSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,48,88,10
     CONTROL         "進度條拖動即時回應",IDC_CHECK_RTSEEK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,61,83,10
+    CONTROL         "邊框皮膚",IDC_CHECK_BSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,48,46,10
+    CONTROL         "控制欄皮膚",IDC_CHECK_CTLSKIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,59,48,46,10
 END
 
 IDD_ASSOS_DIALOG_EN DIALOGEX 0, 0, 350, 200
@@ -1256,7 +1260,7 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "FileDescription", "MPlayer Preferences"
-            VALUE "FileVersion", "2.1.0.0"
+            VALUE "FileVersion", "2.1.0"
             VALUE "InternalName", "meditor2.exe"
             VALUE "LegalCopyright", "(C) 2007-2009 william0wang"
             VALUE "OriginalFilename", "meditor2.exe"
@@ -1283,7 +1287,7 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 163
+        RIGHTMARGIN, 176
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
@@ -2251,6 +2255,7 @@ BEGIN
     IDS_MESSAGE_AVS         "安装成功！"
     IDS_VIDEO_SCA           "缩放滤镜"
     IDS_VIDEO_SCAI          "缩放视频到指定宽度与高度，高度为-3时为按比例缩放"
+    IDS_PLAYER_THEME        "系统主题"
 END
 
 #endif    // 中文(中华人民共和国) resources

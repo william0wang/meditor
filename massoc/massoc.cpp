@@ -72,19 +72,6 @@ BOOL CmassocApp::InitInstance()
 		CAVS avs;
 		avs.Install(path);
 		return FALSE;
-	} else if(sCmdLine.Find(_T("--real-online")) >= 0)	{
-		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - RealOnline"));
-		if(GetLastError() == ERROR_ALREADY_EXISTS)
-			return FALSE;
-
-		CRealDlg dlg;
-		m_pMainWnd = &dlg;
-		dlg.DoModal();
-
-		if(gUniqueEvent)
-			CloseHandle(gUniqueEvent);
-
-		return FALSE;
 	}
 
 	int langfile_tc = 0;
@@ -128,10 +115,6 @@ BOOL CmassocApp::InitInstance()
 
 	}
 
-	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Assoc"));
-	if(GetLastError() == ERROR_ALREADY_EXISTS)
-		return FALSE;
-
 	CString strSatellite = _T("");
 	if(AppLanguage == 2 && langfile_en) {
 		IDD = IDD_ASSOS_DIALOG_EN;
@@ -150,8 +133,29 @@ BOOL CmassocApp::InitInstance()
 	if (strSatellite.GetLength() > 2)
 	{
 		hResourceHandleOld = AfxGetResourceHandle();
-		hResourceHandleMod = LoadLibrary (strSatellite);
+		hResourceHandleMod = LoadLibrary(strSatellite);
 	}
+
+	if(sCmdLine.Find(_T("--real-online")) >= 0)	{
+
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - RealOnline"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS)
+			return FALSE;
+
+		CRealDlg dlg;
+		dlg.m_cmdline = sCmdLine;
+		m_pMainWnd = &dlg;
+		dlg.DoModal();
+
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
+
+		return FALSE;
+	}
+
+	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Assoc"));
+	if(GetLastError() == ERROR_ALREADY_EXISTS)
+		return FALSE;
 
 	CMAssosPage dlg;
 	m_pMainWnd = &dlg;

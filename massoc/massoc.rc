@@ -79,12 +79,12 @@ IDR_MAINFRAME           ICON                    "res\\massoc.ico"
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "关于 massoc"
+CAPTION "About msssoc"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
-    LTEXT           "massoc，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2009",IDC_STATIC,42,26,114,8
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    LTEXT           "massoc  v1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009 william0wang",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
 END
 
@@ -279,6 +279,19 @@ BEGIN
     IDS_ASSOS_EX            "扩展名"
     IDS_ASSOS_INF           "文件说明"
     IDS_ASSOS_TYP           "类型"
+    IDS_OTHER_REALONLINE    "Real 在线支持"
+    IDS_OTHER_REALOK        "Real 在线支持注册成功 !"
+    IDS_OTHER_REALFAIL      "Real 在线支持注册失败，请重试 !"
+    IDS_OTHER_REALAGAIN     "Real 在线支持已注册，是否重新注册 ?"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_OTHER_REALON        "Real 在线支持尚未注册 !"
+    IDS_OTHER_REALFAILS     "Real 在线支持注册失败，未找到需要的文件 !"
+    IDS_OTHER_UNREALFAIL    "Real 在线支持反注册失败，未找到需要的文件 !"
+    IDS_OTHER_UNREALOK      "Real 在线支持反注册成功 !"
+    IDS_OTHER_UNREALFAILS   "Real 在线支持反注册失败，请重试 !"
 END
 
 STRINGTABLE 

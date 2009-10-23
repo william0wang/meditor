@@ -14,30 +14,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define WM_CHECKREAL        WM_USER + 101
-#define WM_REGREAL          WM_USER + 102
-#define WM_DREGREAL         WM_USER + 103
-
 /////////////////////////////////////////////////////////////////////////////
 // CMOtherPage dialog
-
-UINT CheckThread(LPVOID pParam)
-{
-	CMOtherPage* This = (CMOtherPage *) pParam;
-	int checktime = 0;
-CheckReal:
-	checktime++;
-	Sleep(300);
-	if(This->CheckRealOnline())
-		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-	else {
-		if(checktime < 5) goto CheckReal;
-		MessageBox(This->m_hWnd , ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-	}
-
-	This->CheckRealThread = NULL;
-	return 0;
-}
 
 CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMOtherPage::IDD, pParent)
@@ -51,7 +29,6 @@ CMOtherPage::CMOtherPage(CWnd* pParent /*=NULL*/)
 	m_video = _T("");
 	m_audio = _T("");
 	m_one = FALSE;
-	CheckRealThread = NULL;
 	//}}AFX_DATA_INIT
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -320,70 +297,24 @@ void CMOtherPage::OnButtonMedia()
 	ShellExecute(0, _T("open"), m_program , _T(" --Open MediaPlayer"), NULL, SW_SHOW);
 }
 
-bool CMOtherPage::CheckRealOnline()
-{
-	hWndMA = ::FindWindow(NULL, _T("MEditor2 - Real On Line Admin Tool"));
-
-	if(!hWndMA) {
-		int time = 0;
-		CString m_dir;
-		TCHAR szFilePath[MAX_PATH + 1];
-		GetModuleFileName(NULL, szFilePath, MAX_PATH);
-		(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
-		m_dir.Format(_T("%s"),szFilePath);
-
-		CString massoc, cmd;
-		cmd.Format(_T("--real-online \"%s\""), m_dir);
-
-		massoc = m_dir + _T("codecs\\massoc.exe");
-		if(!IsFileExist(massoc))
-			massoc = m_dir + _T("massoc.exe");
-
-		ShellExecute(0, _T("open"), massoc, cmd, NULL, SW_HIDE);
-
-		while(!hWndMA && time < 30) {
-			Sleep(100);
-			hWndMA = ::FindWindow(NULL, _T("MEditor2 - Real On Line Admin Tool"));
-			++time;
-		}
-		if(!hWndMA) return true;
-	}
-
-	BOOL ret = ::SendMessage(hWndMA, WM_CHECKREAL, NULL, NULL);
-
-	if(ret == WM_DREGREAL)
-		return false;
-	else
-		return true;
-}
-
 void CMOtherPage::OnButtonOnline() 
 {
-	if(CheckRealOnline() &&
-		MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
-			return;
-
-	if(CheckRealThread != NULL)
-		return;
-
 	UpdateData(TRUE);
 	TCHAR szFilePath[MAX_PATH + 1];
-	CString m_dir, m_sysdir, m_prodir, m_datadir;
+	CString massoc, m_dir;
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_dir.Format(_T("%s"),szFilePath);
 
-	if(m_mplayer.GetCheck() == 1)
+	if(m_mplayer.GetCheck() == 1) {
 		DeleteFile(m_dir + _T("codecs\\Real\\mloader.ini"));
-	else
-	{
-		TCHAR szProgramPath[MAX_PATH + 1];
-		GetModuleFileName(NULL, szProgramPath, MAX_PATH);
+	} else {
 		CString cmd;
+		GetModuleFileName(NULL, szFilePath, MAX_PATH);
 		if(m_mpc)
 			cmd = m_mpc_exe;
 		else
-			cmd.Format(_T("%s --Open MediaPlayer"), szProgramPath);
+			cmd.Format(_T("%s --Open MediaPlayer"), szFilePath);
 		WritePrivateProfileString(_T("Command"), _T("Program_Path"),  cmd , m_dir + _T("codecs\\Real\\mloader.ini"));
 	}
 
@@ -404,47 +335,30 @@ void CMOtherPage::OnButtonOnline()
 		return;
 	}
 
-	BOOL ret = ::SendMessage(hWndMA, WM_REGREAL, NULL, NULL);
-
-	if(CheckRealThread == NULL)
-	{
-		CheckRealThread = AfxBeginThread(CheckThread,this);
-	}
+	massoc = m_dir + _T("codecs\\massoc.exe");
+	ShellExecute(0, _T("open"), massoc, _T("--real-online-reg"), NULL, SW_SHOW);
 }
 
 void CMOtherPage::OnButtonDonline() 
 {
-	if(!CheckRealOnline())
-	{
-		MessageBox(ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-		return;
-	}
-	UpdateData(TRUE);
+	CString massoc, m_dir, m_sysdir;
 	TCHAR szFilePath[MAX_PATH + 1];
-	CString m_dir;
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_dir.Format(_T("%s"),szFilePath);
 
-	CString m_sysdir;
-	TCHAR szSystemPath[MAX_PATH + 1];
-	::GetSystemDirectory(szSystemPath,MAX_PATH);
-	m_sysdir.Format(_T("%s\\"),szSystemPath);
-	
+	::GetSystemDirectory(szFilePath, MAX_PATH);
+	m_sysdir.Format(_T("%s\\"), szFilePath);
+
 	if( !IsFileExist(m_dir + _T("codecs\\Real\\unrealreg")) ||
-		( !IsFileExist(m_sysdir + _T("rmoc3260.dll")) &&
-		!IsFileExist(m_dir + _T("codecs\\Real\\rmoc3260.dll")) ) )
-	{
-		MessageBox(ResStr(IDS_OTHER_UNREALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-		return;
+		(!IsFileExist(m_sysdir + _T("rmoc3260.dll")) &&
+		!IsFileExist(m_dir + _T("codecs\\Real\\rmoc3260.dll")))) {
+			MessageBox(ResStr(IDS_OTHER_UNREALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+			return;
 	}
 
-	BOOL ret = ::SendMessage(hWndMA, WM_DREGREAL, NULL, NULL);
-
-	if(!CheckRealOnline())
-		MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-	else
-		MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+	massoc = m_dir + _T("codecs\\massoc.exe");
+	ShellExecute(0, _T("open"), massoc, _T("--real-online-dreg"), NULL, SW_SHOW);
 }
 
 void CMOtherPage::OnRadioMplayer() 
