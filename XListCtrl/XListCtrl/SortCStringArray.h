@@ -20,7 +20,7 @@ public:
 								 BOOL bCaseSensitive = FALSE, 
 								 BOOL bAscending = TRUE)
 	{
-		int nArraySize = psa->GetSize();
+		INT_PTR nArraySize = psa->GetSize();
 		if (nArraySize <= 0)
 			return;
 

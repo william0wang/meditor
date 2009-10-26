@@ -44,7 +44,7 @@ protected:
 	void OnFullScreen(void);
 	void Seek(double len);
 	int GetKeyNumber(CString Key);
-	bool GetKeyCommand(LONG KeyNumber,CString &cmd, CString &value);
+	bool GetKeyCommand(LPARAM KeyNumber,CString &cmd, CString &value);
 	void LoadConfig();
 	bool AnalyseLine(CString line, CString &key, CString &cmd, CString &val);
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
@@ -66,6 +66,6 @@ public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg LONG OnCmdKeyDown(UINT lParam, LONG wParam);
+	afx_msg LRESULT OnCmdKeyDown(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 };

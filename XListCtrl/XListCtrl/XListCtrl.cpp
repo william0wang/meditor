@@ -1715,7 +1715,7 @@ int CXListCtrl::GetColumns()
 // The GetItemData and SetItemData functions allow for app-specific data
 // to be stored, by using an extra field in the XLISTCTRLDATA struct.
 //
-DWORD CXListCtrl::GetItemData(int nItem)
+LPARAM CXListCtrl::GetItemData(int nItem)
 {
 	ASSERT(nItem >= 0);
 	ASSERT(nItem < GetItemCount());
@@ -1911,7 +1911,7 @@ void CXListCtrl::OnSysColorChange()
 //    4 - used to get combo listbox selection, set in OnComboKeydown (for
 //        example, user hits arrow key in listbox)
 //
-void CXListCtrl::OnTimer(UINT nIDEvent)
+void CXListCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	if (nIDEvent == 1)			// timer set when combo is created
 	{
@@ -2034,7 +2034,7 @@ LRESULT CXListCtrl::OnComboComplete(WPARAM, LPARAM)
 
 ///////////////////////////////////////////////////////////////////////////////
 // OnToolHitTest
-int CXListCtrl::OnToolHitTest(CPoint point, TOOLINFO * pTI) const
+INT_PTR CXListCtrl::OnToolHitTest(CPoint point, TOOLINFO * pTI) const
 {
 	LVHITTESTINFO lvhitTestInfo;
 	
@@ -2079,7 +2079,7 @@ int CXListCtrl::OnToolHitTest(CPoint point, TOOLINFO * pTI) const
 // OnToolTipText
 BOOL CXListCtrl::OnToolTipText(UINT /*id*/, NMHDR * pNMHDR, LRESULT * pResult)
 {
-	UINT nID = pNMHDR->idFrom;
+	UINT_PTR nID = pNMHDR->idFrom;
 	//XLISTCTRL_TRACE(_T("in CXListCtrl::OnToolTipText: id=%d\n"), nID);
 	
 	// check if this is the automatic tooltip of the control

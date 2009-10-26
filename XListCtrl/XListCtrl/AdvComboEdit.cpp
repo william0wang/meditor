@@ -32,7 +32,7 @@ CAdvComboEdit::~CAdvComboEdit()
 /////////////////////////////////////////////////////////////////////////////
 // CAdvComboEdit message handlers
 
-void CAdvComboEdit::OnTimer(UINT nIDEvent) 
+void CAdvComboEdit::OnTimer(UINT_PTR nIDEvent) 
 {
 	KillTimer(nIDEvent);
 	SetForegroundWindow();

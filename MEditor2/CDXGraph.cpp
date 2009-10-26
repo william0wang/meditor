@@ -478,7 +478,8 @@ void CDXGraph::HandleEvent(WPARAM inWParam, LPARAM inLParam)
 {
 	if (mEvent)
 	{
-		LONG eventCode = 0, eventParam1 = 0, eventParam2 = 0;
+		LONG eventCode = 0;
+		LONG_PTR eventParam1 = 0, eventParam2 = 0;
 		while (SUCCEEDED(mEvent->GetEvent(&eventCode, &eventParam1, &eventParam2, 0)))
 		{
 			mEvent->FreeEventParams(eventCode, eventParam1, eventParam2);

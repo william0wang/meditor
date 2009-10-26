@@ -129,24 +129,24 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CAdvComboBox message handlers
 
-LONG CAdvComboBox::OnAddString( WPARAM /*wParam*/, LPARAM lString )
+LRESULT CAdvComboBox::OnAddString( WPARAM /*wParam*/, LPARAM lString )
 {
 	TCHAR* pStr = (TCHAR*)lString;
 	return AddString( pStr );
 }
 
-LONG CAdvComboBox::OnSetCurSel( WPARAM wIndex, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnSetCurSel( WPARAM wIndex, LPARAM /*lParam*/ )
 {
 	int nIndex = (int)wIndex;
 	return SetCurSel( nIndex );
 }
 
-LONG CAdvComboBox::OnGetCurSel( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnGetCurSel( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	return GetCurSel();
 }
 
-LONG CAdvComboBox::OnSelectString( WPARAM wItemStart, LPARAM lString )
+LRESULT CAdvComboBox::OnSelectString( WPARAM wItemStart, LPARAM lString )
 {
 	int nItem = (int)wItemStart;
 	TCHAR* pStr = (TCHAR*)lString;
@@ -154,12 +154,12 @@ LONG CAdvComboBox::OnSelectString( WPARAM wItemStart, LPARAM lString )
 	return SetCurSel( nIndex );
 }
 
-LONG CAdvComboBox::OnGetCount( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnGetCount( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	return GetCount();
 }
 
-LONG CAdvComboBox::OnResetContent( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnResetContent( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	m_list.clear();
 	m_strEdit = _T("");
@@ -173,7 +173,7 @@ LONG CAdvComboBox::OnResetContent( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 	return CB_OKAY;
 }
 
-LONG CAdvComboBox::OnGetLBText( WPARAM wIndex, LPARAM lString )
+LRESULT CAdvComboBox::OnGetLBText( WPARAM wIndex, LPARAM lString )
 {
 	int nIndex = (int)wIndex;
 	TCHAR* pOutStr = (TCHAR*)lString;
@@ -181,18 +181,18 @@ LONG CAdvComboBox::OnGetLBText( WPARAM wIndex, LPARAM lString )
 }
 
 
-LONG CAdvComboBox::OnGetLBTextLen( WPARAM wIndex, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnGetLBTextLen( WPARAM wIndex, LPARAM /*lParam*/ )
 {
 	int nIndex = (int)wIndex;
 	return GetLBTextLen( nIndex );
 }
 
-LONG CAdvComboBox::OnGetTopIndex( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnGetTopIndex( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	return GetTopIndex();
 }
 
-LONG CAdvComboBox::OnSetTopIndex( WPARAM wIndex, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnSetTopIndex( WPARAM wIndex, LPARAM /*lParam*/ )
 {
 	return SetTopIndex(wIndex);
 }
@@ -709,7 +709,7 @@ void CAdvComboBox::OnLButtonDown(UINT nFlags, CPoint point)
 	CWnd::OnLButtonDown(nFlags, point);
 }
 
-LONG CAdvComboBox::OnSelectedItem( WPARAM wParam, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnSelectedItem( WPARAM wParam, LPARAM /*lParam*/ )
 {
 	list<LIST_ITEM> itemlist;
 	list<LIST_ITEM>::iterator itemiter;
@@ -749,7 +749,7 @@ LONG CAdvComboBox::OnSelectedItem( WPARAM wParam, LPARAM /*lParam*/ )
 	return TRUE;
 }
 
-LONG CAdvComboBox::OnDropdownButton( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnDropdownButton( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	XLISTCTRL_TRACE(_T("in CAdvComboBox::OnDropdownButton\n"));
 	//
@@ -776,7 +776,7 @@ LONG CAdvComboBox::OnDropdownButton( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 	return TRUE;
 }
 
-LONG CAdvComboBox::OnDestroyDropdownList( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CAdvComboBox::OnDestroyDropdownList( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	XLISTCTRL_TRACE(_T("in CAdvComboBox::OnDestroyDropdownList\n"));
 	//
@@ -2103,7 +2103,7 @@ void CAdvComboBox::OnMouseLeave()
 		InvalidateRect( &m_rcDropButton );
 }
 
-void CAdvComboBox::OnTimer(UINT nIDEvent) 
+void CAdvComboBox::OnTimer(UINT_PTR nIDEvent) 
 {
 	if( nIDEvent == 1 )
 	{

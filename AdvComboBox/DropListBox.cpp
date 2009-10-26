@@ -99,13 +99,13 @@ int CAdvDropListBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 }
 
 
-LONG CAdvDropListBox::OnSetCapture( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvDropListBox::OnSetCapture( WPARAM wParam, LPARAM lParam )
 {
 	SetCapture();
 	return FALSE;
 }
 
-LONG CAdvDropListBox::OnReleaseCapture( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvDropListBox::OnReleaseCapture( WPARAM wParam, LPARAM lParam )
 {
 	ReleaseCapture();
 	return FALSE;

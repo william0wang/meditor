@@ -1372,7 +1372,7 @@ void CMVideoPage::OnChangeEditSaturations()
 	UpdateData(FALSE);
 }
 
-LONG CMVideoPage::OnSelChange(UINT /*lParam*/, LONG /*wParam*/)
+LRESULT CMVideoPage::OnSelChange(WPARAM wParam, LPARAM lParam)
 {
 	UpdateData(TRUE);
 	COLORREF Color = m_color_b.GetColor();

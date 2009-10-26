@@ -80,8 +80,8 @@ protected:
 	afx_msg void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	//}}AFX_MSG
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg LONG OnSetCapture( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnReleaseCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSetCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnReleaseCapture( WPARAM wParam, LPARAM lParam );
 
 	DECLARE_MESSAGE_MAP()
 

@@ -262,13 +262,13 @@ int CDropWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-LONG CDropWnd::OnSetCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CDropWnd::OnSetCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	SetCapture();
 	return FALSE;
 }
 
-LONG CDropWnd::OnReleaseCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CDropWnd::OnReleaseCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	ReleaseCapture();
 	return FALSE;

@@ -214,7 +214,7 @@ void CMFlashPlayer::OnDropFiles(HDROP hDropInfo)
 	CDialog::OnDropFiles(hDropInfo);
 }
 
-void CMFlashPlayer::OnTimer(UINT nIDEvent) 
+void CMFlashPlayer::OnTimer(UINT_PTR nIDEvent) 
 {
 	if(nIDEvent == TIMER_HIDE_CURSOR)
 	{
@@ -304,7 +304,7 @@ void CMFlashPlayer::OnPre()
 	PlayFile();
 }
 
-LONG CMFlashPlayer::OnSelChange(UINT lParam, LONG wParam)
+LRESULT CMFlashPlayer::OnSelChange(WPARAM lParam, LPARAM wParam)
 {
 	if(lParam >= 0)
 	{
@@ -314,7 +314,7 @@ LONG CMFlashPlayer::OnSelChange(UINT lParam, LONG wParam)
 	return TRUE;
 }
 
-LONG CMFlashPlayer::OnCmdKeyDown(UINT lParam, LONG wParam)
+LRESULT CMFlashPlayer::OnCmdKeyDown(WPARAM lParam, LPARAM wParam)
 {
 	if(lParam != CMD_KEY)
 		return FALSE;

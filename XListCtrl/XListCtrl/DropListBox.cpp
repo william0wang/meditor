@@ -87,13 +87,13 @@ int CDropListBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-LONG CDropListBox::OnSetCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CDropListBox::OnSetCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	SetCapture();
 	return FALSE;
 }
 
-LONG CDropListBox::OnReleaseCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CDropListBox::OnReleaseCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	ReleaseCapture();
 	return FALSE;

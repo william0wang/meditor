@@ -303,7 +303,7 @@ public:
 	void DeleteAllToolTips();
 	BOOL SetItemToolTipText(int nItem, int nSubItem, LPCTSTR lpszToolTipText);
 	CString GetItemToolTipText(int nItem, int nSubItem);
-	virtual int OnToolHitTest(CPoint point, TOOLINFO * pTI) const;
+	virtual INT_PTR OnToolHitTest(CPoint point, TOOLINFO * pTI) const;
 #endif
 
 // Overrides

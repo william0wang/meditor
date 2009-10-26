@@ -94,7 +94,6 @@ CAdvComboBoxMod::~CAdvComboBoxMod()
 
 
 BEGIN_MESSAGE_MAP(CAdvComboBoxMod, CWnd)
-	//{{AFX_MSG_MAP(CAdvComboBoxMod)
 	ON_WM_CREATE()
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
@@ -108,7 +107,6 @@ BEGIN_MESSAGE_MAP(CAdvComboBoxMod, CWnd)
 	ON_WM_CHILDACTIVATE()
 	ON_WM_MOUSEMOVE()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 	ON_MESSAGE( WM_SELECTED_ITEM, OnSelectedItem )
 	ON_MESSAGE( WM_ON_DROPDOWN_BUTTON, OnDropdownButton )
 	ON_MESSAGE( WM_DESTROY_DROPLIST, OnDestroyDropdownList )
@@ -134,24 +132,24 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CAdvComboBoxMod message handlers
 
-LONG CAdvComboBoxMod::OnAddString( WPARAM wParam, LPARAM lString )
+LRESULT CAdvComboBoxMod::OnAddString( WPARAM wParam, LPARAM lString )
 {
 	TCHAR* pStr = (TCHAR*)lString;
 	return AddString( pStr );
 }
 
-LONG CAdvComboBoxMod::OnSetCurSel( WPARAM wIndex, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnSetCurSel( WPARAM wIndex, LPARAM lParam )
 {
 	int nIndex = (int)wIndex;
 	return SetCurSel( nIndex );
 }
 
-LONG CAdvComboBoxMod::OnGetCurSel( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnGetCurSel( WPARAM wParam, LPARAM lParam )
 {
 	return GetCurSel();
 }
 
-LONG CAdvComboBoxMod::OnSelectString( WPARAM wItemStart, LPARAM lString )
+LRESULT CAdvComboBoxMod::OnSelectString( WPARAM wItemStart, LPARAM lString )
 {
 	int nItem = (int)wItemStart;
 	TCHAR* pStr = (TCHAR*)lString;
@@ -159,12 +157,12 @@ LONG CAdvComboBoxMod::OnSelectString( WPARAM wItemStart, LPARAM lString )
 	return SetCurSel( nIndex );
 }
 
-LONG CAdvComboBoxMod::OnGetCount( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnGetCount( WPARAM wParam, LPARAM lParam )
 {
 	return GetCount();
 }
 
-LONG CAdvComboBoxMod::OnResetContent( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnResetContent( WPARAM wParam, LPARAM lParam )
 {
 	m_list.clear();
 	m_strEdit = _T("");
@@ -178,7 +176,7 @@ LONG CAdvComboBoxMod::OnResetContent( WPARAM wParam, LPARAM lParam )
 	return CB_OKAY;
 }
 
-LONG CAdvComboBoxMod::OnGetLBText( WPARAM wIndex, LPARAM lString )
+LRESULT CAdvComboBoxMod::OnGetLBText( WPARAM wIndex, LPARAM lString )
 {
 	int nIndex = (int)wIndex;
 	TCHAR* pOutStr = (TCHAR*)lString;
@@ -186,18 +184,18 @@ LONG CAdvComboBoxMod::OnGetLBText( WPARAM wIndex, LPARAM lString )
 }
 
 
-LONG CAdvComboBoxMod::OnGetLBTextLen( WPARAM wIndex, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnGetLBTextLen( WPARAM wIndex, LPARAM lParam )
 {
 	int nIndex = (int)wIndex;
 	return GetLBTextLen( nIndex );
 }
 
-LONG CAdvComboBoxMod::OnGetTopIndex( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnGetTopIndex( WPARAM wParam, LPARAM lParam )
 {
 	return GetTopIndex();
 }
 
-LONG CAdvComboBoxMod::OnSetTopIndex( WPARAM wIndex, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnSetTopIndex( WPARAM wIndex, LPARAM lParam )
 {
 	return SetTopIndex(wIndex);
 }
@@ -697,7 +695,7 @@ void CAdvComboBoxMod::OnLButtonDown(UINT nFlags, CPoint point)
 }
 
 
-LONG CAdvComboBoxMod::OnSelectedItem( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnSelectedItem( WPARAM wParam, LPARAM lParam )
 {
 	list<LIST_ITEM_MOD> itemlist;
 	list<LIST_ITEM_MOD>::iterator itemiter;
@@ -737,7 +735,7 @@ LONG CAdvComboBoxMod::OnSelectedItem( WPARAM wParam, LPARAM lParam )
 	return TRUE;
 }
 
-LONG CAdvComboBoxMod::OnDropdownButton( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnDropdownButton( WPARAM wParam, LPARAM lParam )
 {
 	//
 	//
@@ -764,7 +762,7 @@ LONG CAdvComboBoxMod::OnDropdownButton( WPARAM wParam, LPARAM lParam )
 }
 
 
-LONG CAdvComboBoxMod::OnDestroyDropdownList( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvComboBoxMod::OnDestroyDropdownList( WPARAM wParam, LPARAM lParam )
 {
 	//
 	// 
@@ -1891,7 +1889,7 @@ void CAdvComboBoxMod::OnMouseLeave()
 }
 
 
-void CAdvComboBoxMod::OnTimer(UINT nIDEvent) 
+void CAdvComboBoxMod::OnTimer(UINT_PTR nIDEvent) 
 {
 	// TODO: Add your message handler code here and/or call default
 	if( nIDEvent == 1 )

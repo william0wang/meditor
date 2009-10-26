@@ -192,7 +192,7 @@ struct XLISTCTRLDATA
 	// for checkbox
 	int			nCheckedState;				// -1 = don't show, 0 = unchecked, 1 = checked
 
-	DWORD		dwItemData;					// pointer to app's data
+	LPARAM		dwItemData;					// pointer to app's data
 };
 
 
@@ -231,7 +231,7 @@ public:
 						  int nSubItem, 
 						  COLORREF& crText, 
 						  COLORREF& crBackground);
-	DWORD	GetItemData(int nItem);
+	LPARAM	GetItemData(int nItem);
 	BOOL	GetListModified() { return m_bListModified; }			//+++
 	BOOL	GetModified(int nItem, int nSubItem);					//+++
 	BOOL	GetSubItemRect(int iItem, int iSubItem, int nArea, CRect& rect);
@@ -303,7 +303,7 @@ public:
 	void DeleteAllToolTips();
 	BOOL SetItemToolTipText(int nItem, int nSubItem, LPCTSTR lpszToolTipText);
 	CString GetItemToolTipText(int nItem, int nSubItem);
-	virtual int OnToolHitTest(CPoint point, TOOLINFO * pTI) const;
+	virtual INT_PTR OnToolHitTest(CPoint point, TOOLINFO * pTI) const;
 #endif
 
 // Overrides
@@ -416,7 +416,7 @@ protected:
 	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
 	//}}AFX_MSG
 #ifndef DO_NOT_INCLUDE_XCOMBOLIST
-	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg LRESULT OnComboEscape(WPARAM, LPARAM);
 	afx_msg LRESULT OnComboComplete(WPARAM, LPARAM);
 #endif

@@ -246,13 +246,13 @@ int CAdvDropWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 
 
-LONG CAdvDropWnd::OnSetCapture( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvDropWnd::OnSetCapture( WPARAM wParam, LPARAM lParam )
 {
 	SetCapture();
 	return FALSE;
 }
 
-LONG CAdvDropWnd::OnReleaseCapture( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvDropWnd::OnReleaseCapture( WPARAM wParam, LPARAM lParam )
 {
 	ReleaseCapture();
 	return FALSE;
