@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "MShared.h"
 #include "unrar.h"
-#include "7zDec.h"
+#include "7z.h"
 #include "resource.h"
 //#include "zlib.h"
 #include <wininet.h>

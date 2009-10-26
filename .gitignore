@@ -26,3 +26,18 @@ Debug
 Release
 Debug Unicode
 Release Unicode
+
+/7z/Archive/7z/7zAlloc.asm
+/7z/Archive/7z/7zBuf.asm
+/7z/Archive/7z/7zCrc.asm
+/7z/Archive/7z/7zDec.asm
+/7z/Archive/7z/7zDecode.asm
+/7z/Archive/7z/7zExtract.asm
+/7z/Archive/7z/7zFile.asm
+/7z/Archive/7z/7zHeader.asm
+/7z/Archive/7z/7zIn.asm
+/7z/Archive/7z/7zItem.asm
+/7z/Archive/7z/7zStream.asm
+/7z/Archive/7z/Bcj2.asm
+/7z/Archive/7z/Bra86.asm
+/7z/Archive/7z/LzmaDec.asm

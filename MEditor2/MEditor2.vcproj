@@ -71,7 +71,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zDecD.lib AdvComboBoxD.lib  CxImageD.lib jpegD.lib Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zD.lib AdvComboBoxD.lib  CxImageD.lib jpegD.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateManifest="false"
@@ -153,7 +153,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zDecD.lib AdvComboBoxD.lib  CxImageD.lib jpegD.lib Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zD.lib AdvComboBoxD.lib  CxImageD.lib jpegD.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib/x64"
 				GenerateManifest="false"
@@ -240,7 +240,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecR.lib AdvComboBoxR.lib  CxImageR.lib jpegR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zR.lib AdvComboBoxR.lib  CxImageR.lib jpegR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
 				GenerateManifest="true"
@@ -330,7 +330,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="7zdecR.lib AdvComboBoxR.lib  CxImageR.lib jpegR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
+				AdditionalDependencies="7zR.lib AdvComboBoxR.lib  CxImageR.lib jpegR.lib Strmiids.lib Quartz.lib GdiPlus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib/x64"
 				GenerateManifest="true"
