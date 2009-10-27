@@ -228,7 +228,7 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 				SetBkMode(dc2, TRANSPARENT);
 				SetTextColor(dc2, RGB(0, 0, 0));
 
-				TextOut(dc2, 10, 12, Name?Name:m_filename, Name?_tcslen(Name):m_filename.GetLength());
+				TextOut(dc2, 10, 12, Name?Name:m_filename, Name?(int)_tcslen(Name):m_filename.GetLength());
 
 				TextOut(dc2, 10, 36, time, time.GetLength());
 
