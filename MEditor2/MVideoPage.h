@@ -177,7 +177,7 @@ protected:
 	afx_msg void OnChangeEditHue();
 	afx_msg void OnChangeEditSaturations();
 	//}}AFX_MSG
-	afx_msg LONG OnSelChange(UINT lParam, LONG wParam);
+	afx_msg LRESULT OnSelChange(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnEnChangeEditGamma();

@@ -214,7 +214,7 @@ void CMFlashPlayer::OnDropFiles(HDROP hDropInfo)
 	CDialog::OnDropFiles(hDropInfo);
 }
 
-void CMFlashPlayer::OnTimer(UINT nIDEvent) 
+void CMFlashPlayer::OnTimer(UINT_PTR nIDEvent) 
 {
 	if(nIDEvent == TIMER_HIDE_CURSOR)
 	{
@@ -304,25 +304,25 @@ void CMFlashPlayer::OnPre()
 	PlayFile();
 }
 
-LONG CMFlashPlayer::OnSelChange(UINT lParam, LONG wParam)
+LRESULT CMFlashPlayer::OnSelChange(WPARAM wParam, LPARAM lParam)
 {
-	if(lParam >= 0)
+	if(wParam >= 0)
 	{
-		m_current = lParam;
+		m_current = wParam;
 		PlayFile();
 	}
 	return TRUE;
 }
 
-LONG CMFlashPlayer::OnCmdKeyDown(UINT lParam, LONG wParam)
+LRESULT CMFlashPlayer::OnCmdKeyDown(WPARAM wParam, LPARAM lParam)
 {
-	if(lParam != CMD_KEY)
+	if(wParam != CMD_KEY)
 		return FALSE;
 	if(m_keydowning)
 		return  FALSE;
 	m_keydowning = true;
 	CString cmd, value;
-	if(GetKeyCommand( wParam, cmd, value))
+	if(GetKeyCommand(lParam, cmd, value))
 	{
 		if( cmd == _T("quit"))
 		{
@@ -419,7 +419,7 @@ void CMFlashPlayer::OnFSCommand(LPCTSTR command, LPCTSTR args)
 {
 }
 
-bool CMFlashPlayer::GetKeyCommand(LONG KeyNumber,CString &cmd, CString &value)
+bool CMFlashPlayer::GetKeyCommand(LONG_PTR KeyNumber,CString &cmd, CString &value)
 {
 	CString key, abs;
 	for(int i = 0 ; i < m_inputs.GetSize() ; i++)

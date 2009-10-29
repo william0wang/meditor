@@ -108,8 +108,8 @@ protected:
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
 	afx_msg void OnActivateApp(BOOL bActive, DWORD hTask);
 	//}}AFX_MSG
-	afx_msg LONG OnSetCapture( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnReleaseCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSetCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnReleaseCapture( WPARAM wParam, LPARAM lParam );
 	DECLARE_MESSAGE_MAP()
 
 private:

@@ -101,8 +101,8 @@ protected:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
 	//}}AFX_MSG
-	afx_msg LONG OnSetCapture( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnReleaseCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSetCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnReleaseCapture( WPARAM wParam, LPARAM lParam );
 
 	//+++
 #if (_MSC_VER > 1200)

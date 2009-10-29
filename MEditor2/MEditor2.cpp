@@ -13,6 +13,14 @@
 #define new DEBUG_NEW
 #endif
 
+#ifdef UNICODE
+#define _ttof _wtof
+typedef std::wstring _tstring;
+#else
+#define _ttof atof
+typedef std::string _tstring;
+#endif
+
 #define START_FLASHPLAYER 1001
 #define START_MEDIAPLAYER 2002
 #define START_MEDIAINFO 2005
@@ -145,6 +153,21 @@ BOOL CMEditor2App::InitInstance()
 			return FALSE;
 		name = name.Left(offset);
 
+		CString aspect;
+		offset = sCmdLine.Find(_T("--aspect"));
+		if(offset > 0) {
+			offset = sCmdLine.Find(_T("\""), offset);
+			if(offset > 0) {
+				aspect = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+				aspect.Trim();
+				offset = aspect.Find(_T("\""));
+				if(offset > 0)
+					aspect = aspect.Left(offset);
+				else
+					aspect = _T("0");
+			}
+		}
+
 		offset = sCmdLine.Find(_T("--duration"));
 		if(offset < 0)
 			return FALSE;
@@ -180,6 +203,7 @@ BOOL CMEditor2App::InitInstance()
 		CPreviewDlg preview;
 		preview.m_filename = name;
 		preview.ltime = time;
+		preview.m_aspect = _ttof(aspect);
 		m_pMainWnd = &preview;
 		INT_PTR nResponse = preview.DoModal();
 

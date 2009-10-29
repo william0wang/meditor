@@ -122,6 +122,7 @@ BOOL CPreviewDlg::OnInitDialog()
 
 void CPreviewDlg::GetPreview(int index, int resolution, int time)
 {
+	int height;
 	CString cmd;
 	STARTUPINFO si;
 	PROCESS_INFORMATION procInfo;
@@ -132,8 +133,13 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:-3 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
-		, m_player_exe, m_filename, resolution, time);
+	if(m_aspect > 0.2 && m_aspect < 5)
+		height = (int)((double)resolution/m_aspect);
+	else
+		height = -3;
+
+	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:%d -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
+		, m_player_exe, m_filename, resolution, height, time);
 
 	CreateProcess(NULL, cmd.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &procInfo);
 	cmd.ReleaseBuffer();
@@ -222,7 +228,7 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 				SetBkMode(dc2, TRANSPARENT);
 				SetTextColor(dc2, RGB(0, 0, 0));
 
-				TextOut(dc2, 10, 12, Name?Name:m_filename, Name?_tcslen(Name):m_filename.GetLength());
+				TextOut(dc2, 10, 12, Name?Name:m_filename, Name?(int)_tcslen(Name):m_filename.GetLength());
 
 				TextOut(dc2, 10, 36, time, time.GetLength());
 

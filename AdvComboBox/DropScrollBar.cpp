@@ -78,13 +78,13 @@ void CAdvDropScrollBar::OnMouseMove(UINT nFlags, CPoint point)
 
 
 
-LONG CAdvDropScrollBar::OnSetCapture( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvDropScrollBar::OnSetCapture( WPARAM wParam, LPARAM lParam )
 {
 	SetCapture();
 	return FALSE;
 }
 
-LONG CAdvDropScrollBar::OnReleaseCapture( WPARAM wParam, LPARAM lParam )
+LRESULT CAdvDropScrollBar::OnReleaseCapture( WPARAM wParam, LPARAM lParam )
 {
 	ReleaseCapture();
 	return FALSE;

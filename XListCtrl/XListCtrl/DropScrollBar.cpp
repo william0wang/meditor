@@ -68,13 +68,13 @@ void CDropScrollBar::OnMouseMove(UINT nFlags, CPoint point)
 	CScrollBar::OnMouseMove(nFlags, point);
 }
 
-LONG CDropScrollBar::OnSetCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CDropScrollBar::OnSetCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	SetCapture();
 	return FALSE;
 }
 
-LONG CDropScrollBar::OnReleaseCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
+LRESULT CDropScrollBar::OnReleaseCapture( WPARAM /*wParam*/, LPARAM /*lParam*/ )
 {
 	ReleaseCapture();
 	return FALSE;

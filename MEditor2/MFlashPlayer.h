@@ -42,7 +42,7 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
-	int m_current;
+	INT_PTR m_current;
 	long m_fnumber;
 	bool m_inited;
 	bool m_keydowning;
@@ -67,7 +67,7 @@ protected:
 	void PlayFile(bool init = false);
 	void FullScreen(bool init = false);
 	int GetKeyNumber(CString Key);
-	bool GetKeyCommand(LONG KeyNumber,CString &cmd, CString &value);
+	bool GetKeyCommand(LONG_PTR KeyNumber,CString &cmd, CString &value);
 	void LoadConfig();
 	bool AnalyseLine(CString line, CString &key, CString &cmd, CString &val);
 
@@ -80,7 +80,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnProgressflash(long percentDone);
 	afx_msg void OnFlashCall(LPCTSTR request);
-	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnReleasedcaptureSliderControl(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnMplaylist();
 	afx_msg void OnPlay();
@@ -93,8 +93,8 @@ protected:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	DECLARE_EVENTSINK_MAP()
 	//}}AFX_MSG
-	afx_msg LONG OnSelChange(UINT lParam, LONG wParam);
-	afx_msg LONG OnCmdKeyDown(UINT lParam, LONG wParam);
+	afx_msg LRESULT OnSelChange(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnCmdKeyDown(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 };
 

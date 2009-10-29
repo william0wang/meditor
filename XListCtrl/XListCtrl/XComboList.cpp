@@ -382,7 +382,7 @@ void CXComboList::OnDestroy()
 
 ///////////////////////////////////////////////////////////////////////////////
 // OnTimer
-void CXComboList::OnTimer(UINT nIDEvent) 
+void CXComboList::OnTimer(UINT_PTR nIDEvent) 
 {
 	UNUSED_ALWAYS(nIDEvent);
 

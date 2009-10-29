@@ -148,31 +148,31 @@ protected:
 	afx_msg void OnEnable(BOOL bEnable);
 	afx_msg void OnChildActivate();
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnActivateApp(BOOL bActive, HTASK hTask);
 	//}}AFX_MSG
 	afx_msg void OnMouseLeave();
-	afx_msg LONG OnSelectedItem( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnDropdownButton( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnDestroyDropdownList( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSelectedItem( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnDropdownButton( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnDestroyDropdownList( WPARAM wParam, LPARAM lParam );
 	afx_msg void OnKillfocusEdit();
 	afx_msg void OnSetfocusEdit();
 	afx_msg void OnChangeEdit();
 	afx_msg void OnUpdateEdit();
 
 	// ComboBox messages
-	afx_msg LONG OnAddString( WPARAM wParam, LPARAM lString );
-	afx_msg LONG OnSetCurSel( WPARAM wIndex, LPARAM lParam );
-	afx_msg LONG OnGetCurSel( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnSelectString( WPARAM wItemStart, LPARAM lString );
-	afx_msg LONG OnGetCount( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnResetContent( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnGetLBText( WPARAM wIndex, LPARAM lString );
-	afx_msg LONG OnGetLBTextLen( WPARAM wIndex, LPARAM lParam );
-	afx_msg LONG OnGetTopIndex( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnSetTopIndex( WPARAM wIndex, LPARAM lParam );
+	afx_msg LRESULT OnAddString( WPARAM wParam, LPARAM lString );
+	afx_msg LRESULT OnSetCurSel( WPARAM wIndex, LPARAM lParam );
+	afx_msg LRESULT OnGetCurSel( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSelectString( WPARAM wItemStart, LPARAM lString );
+	afx_msg LRESULT OnGetCount( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnResetContent( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnGetLBText( WPARAM wIndex, LPARAM lString );
+	afx_msg LRESULT OnGetLBTextLen( WPARAM wIndex, LPARAM lParam );
+	afx_msg LRESULT OnGetTopIndex( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSetTopIndex( WPARAM wIndex, LPARAM lParam );
 
 	DECLARE_MESSAGE_MAP()
 

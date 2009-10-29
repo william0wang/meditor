@@ -389,7 +389,7 @@ void CMDSPlayer::OnDestroy()
 	DestroyGraph();
 }
 
-bool CMDSPlayer::GetKeyCommand(LONG KeyNumber,CString &cmd, CString &value)
+bool CMDSPlayer::GetKeyCommand(LPARAM KeyNumber,CString &cmd, CString &value)
 {
 	CString key, abs;
 	for(int i = 0 ; i < m_inputs.GetSize() ; i++)
@@ -604,7 +604,7 @@ bool CMDSPlayer::AnalyseLine(CString line, CString &key, CString &cmd, CString &
 	return true;
 }
 
-LONG CMDSPlayer::OnCmdKeyDown(UINT lParam, LONG wParam)
+LRESULT CMDSPlayer::OnCmdKeyDown(WPARAM wParam, LPARAM lParam)
 {
 	if(lParam != CMDS_KEY)
 		return FALSE;
@@ -612,7 +612,7 @@ LONG CMDSPlayer::OnCmdKeyDown(UINT lParam, LONG wParam)
 		return  FALSE;
 	m_keydowning = true;
 	CString cmd, value;
-	if(GetKeyCommand( wParam, cmd, value))
+	if(GetKeyCommand( lParam, cmd, value))
 	{
 		if( cmd == _T("quit"))
 		{

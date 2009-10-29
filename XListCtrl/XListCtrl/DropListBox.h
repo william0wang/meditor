@@ -74,8 +74,8 @@ protected:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	//}}AFX_MSG
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg LONG OnSetCapture( WPARAM wParam, LPARAM lParam );
-	afx_msg LONG OnReleaseCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnSetCapture( WPARAM wParam, LPARAM lParam );
+	afx_msg LRESULT OnReleaseCapture( WPARAM wParam, LPARAM lParam );
 
 	DECLARE_MESSAGE_MAP()
 
