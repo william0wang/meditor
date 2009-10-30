@@ -41,6 +41,9 @@ public:
 
 // Implementation
 protected:
+	UINT	s_uTBBC;
+	ITaskbarList3 *g_pTaskbarList;
+	HIMAGELIST hImglist;
 	HICON m_hIcon;
 	INT_PTR m_current;
 	long m_fnumber;
@@ -70,6 +73,7 @@ protected:
 	bool GetKeyCommand(LONG_PTR KeyNumber,CString &cmd, CString &value);
 	void LoadConfig();
 	bool AnalyseLine(CString line, CString &key, CString &cmd, CString &val);
+	HRESULT UpdateThumbnailToolbar(HWND hWnd);
 
 	// Generated message map functions
 	//{{AFX_MSG(CMFlashPlayer)
@@ -96,6 +100,8 @@ protected:
 	afx_msg LRESULT OnSelChange(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnCmdKeyDown(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnDestroy();
 };
 
 //{{AFX_INSERT_LOCATION}}

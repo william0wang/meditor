@@ -11,11 +11,16 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
+
+typedef BOOL (__stdcall *ChangeWindowMessageFilterTp)(UINT, DWORD);
+static ChangeWindowMessageFilterTp ChangeWindowMessageFilterDLL = NULL;
+
 /////////////////////////////////////////////////////////////////////////////
 // CMFlashPlayer dialog
 
 #define CMD_KEYDOWN     WM_USER + 1111
-#define CMD_KEY     WM_USER + 1568
+#define CMD_KEY			WM_USER + 1568
+#define IDTB_PLAY_PAUSE	WM_USER + 2068
 #define TIMER_HIDE_CURSOR 101
 
 CMFlashPlayer::CMFlashPlayer(CWnd* pParent /*=NULL*/)
@@ -33,6 +38,7 @@ CMFlashPlayer::CMFlashPlayer(CWnd* pParent /*=NULL*/)
 	m_current = 0;
 	now_state = 0;
 	m_menu = NULL;
+	g_pTaskbarList = NULL;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
@@ -72,6 +78,7 @@ BEGIN_MESSAGE_MAP(CMFlashPlayer, CDialog)
 	ON_MESSAGE(PLS_SELCHANGE,  OnSelChange)
 	ON_MESSAGE(CMD_KEYDOWN,  OnCmdKeyDown)
 	ON_WM_DROPFILES()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -138,6 +145,15 @@ BOOL CMFlashPlayer::OnInitDialog()
 
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
+	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
+	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
+	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterTp)GetProcAddress(user32, "ChangeWindowMessageFilter");
+	if(ChangeWindowMessageFilterDLL) {
+		ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
+		ChangeWindowMessageFilterDLL(WM_COMMAND, MSGFLT_ADD);
+	}
+
 	m_control.SetRange(0,100);
 	m_control.SetPageSize(5);
 	m_inited = true;
@@ -224,8 +240,11 @@ void CMFlashPlayer::OnTimer(UINT_PTR nIDEvent)
 	else if(m_flash.GetPlaying())
 	{
 		long m_fnow = m_flash.CurrentFrame();
-		if(! m_changing)
-			m_control.SetPos((int)((double)m_fnow / (double)m_fnumber * 100.0));
+		if(! m_changing) {
+			int pos = (int)((double)m_fnow / (double)m_fnumber * 100.0);
+			m_control.SetPos(pos);
+			if(g_pTaskbarList) g_pTaskbarList->SetProgressValue(this->m_hWnd, pos, 100);
+		}
 	}
 	else if(now_state == 4)
 	{
@@ -272,11 +291,13 @@ void CMFlashPlayer::OnMplaylist()
 void CMFlashPlayer::OnPlay()
 {
 	m_flash.Play();
+	if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
 }
 
 void CMFlashPlayer::OnStop()
 {
 	m_flash.Stop();
+	if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
 }
 
 void CMFlashPlayer::OnNext() 
@@ -677,62 +698,135 @@ bool CMFlashPlayer::AnalyseLine(CString line, CString &key, CString &cmd, CStrin
 	return true;
 }
 
-BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg) 
-{	
-	switch(pMsg->message)
+HRESULT CMFlashPlayer::UpdateThumbnailToolbar(HWND hWnd)
+{
+	HRESULT hr = NULL;
+	if (g_pTaskbarList)
 	{
-	case WM_SYSCHAR:
-		if (pMsg->wParam == 13)
-			FullScreen();
-		break;
-	case   WM_KEYDOWN:
-		SendMessage(CMD_KEYDOWN, CMD_KEY, pMsg->wParam );
-		if(pMsg->wParam == 13)
-			return TRUE;
-		break;
-	case   WM_LBUTTONDOWN:
-		POINT point;
-		GetCursorPos(&point);
-		if(m_fs && m_showctrl)
+		THUMBBUTTON buttons[2] = {};
+
+		buttons[0].dwMask = THB_BITMAP | THB_FLAGS;
+		buttons[0].dwFlags = THBF_ENABLED;
+		buttons[0].iId = IDTB_PLAY_PAUSE;
+
+		if(m_flash.IsPlaying())
+			buttons[0].iBitmap = 1;
+		else
+			buttons[0].iBitmap = 0;
+
+		// Set the buttons to be the thumbnail toolbar
+		hr = g_pTaskbarList->ThumbBarUpdateButtons(hWnd, 1, buttons);
+	}
+
+	return hr;
+}
+
+BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg) 
+{
+	int const wmId = LOWORD(pMsg->wParam);
+	if (pMsg->message == s_uTBBC)
+	{
+		if (!g_pTaskbarList)
 		{
-			if(point.y < m_scr_height - 16)
-				break;
-			if(point.x < 5 || point.x > m_scr_width - 5)
-				break;
-			m_changing = true;
-			double pos = (double)(point.x - 5) / (double) (m_scr_width - 10);
-			m_flash.GotoFrame((long)(m_fnumber * pos));
+			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+			if (SUCCEEDED(hr))
+			{
+				hr = g_pTaskbarList->HrInit();
+				if (FAILED(hr))
+				{
+					g_pTaskbarList->Release();
+					g_pTaskbarList = NULL;
+				}
+
+				if(g_pTaskbarList) {
+					hImglist = ImageList_LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP_96),
+						16, 0, RGB(255,0,255), IMAGE_BITMAP, LR_CREATEDIBSECTION);
+					if (hImglist)
+					{
+						hr = g_pTaskbarList->ThumbBarSetImageList(this->m_hWnd, hImglist);
+						if (SUCCEEDED(hr))
+						{
+							THUMBBUTTON buttons[2] = {};
+
+							buttons[0].dwMask = THB_BITMAP | THB_FLAGS;
+							buttons[0].dwFlags = THBF_ENABLED;
+							buttons[0].iId = IDTB_PLAY_PAUSE;
+
+							if(m_flash.IsPlaying())
+								buttons[0].iBitmap = 1;
+							else
+								buttons[0].iBitmap = 0;
+
+							g_pTaskbarList->ThumbBarAddButtons(this->m_hWnd, 1, buttons);
+						}
+						g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+						ImageList_Destroy(hImglist);
+					}
+				}
+			}
+		}
+	} else if(pMsg->message == WM_COMMAND && (wmId == IDTB_PLAY_PAUSE)) {
+		if(m_flash.IsPlaying())
+			m_flash.Stop();
+		else
 			m_flash.Play();
-			m_changing = false;
-			return TRUE;
-		}
-		break;
-	case  WM_RBUTTONDOWN:
-		if(!m_rmenu)
+		UpdateThumbnailToolbar(this->m_hWnd);
+	} else {
+		switch(pMsg->message)
 		{
-			SendMessage(CMD_KEYDOWN, CMD_KEY, WM_RBUTTONDOWN );
-			return TRUE;
-		}
-		break;
-	case  WM_MOUSEMOVE:
-		{
-			if(!m_fs)
-				break;
-			ShowCursor(TRUE);
-			SetTimer(TIMER_HIDE_CURSOR, 2000, NULL);
+		case WM_SYSCHAR:
+			if (pMsg->wParam == 13)
+				FullScreen();
+			break;
+		case   WM_KEYDOWN:
+			SendMessage(CMD_KEYDOWN, CMD_KEY, pMsg->wParam );
+			if(pMsg->wParam == 13)
+				return TRUE;
+			break;
+		case   WM_LBUTTONDOWN:
 			POINT point;
 			GetCursorPos(&point);
-			if(!m_showctrl && point.y >= m_scr_height - 20)
+			if(m_fs && m_showctrl)
 			{
-				m_control.MoveWindow(0,m_scr_height - 16,m_scr_width,20);
-				m_showctrl = true;
-			}
-			else if(m_showctrl && point.y < m_scr_height - 20)
-			{
-				m_control.MoveWindow(0,m_scr_height,m_scr_width,20);
-				m_showctrl = false;
+				if(point.y < m_scr_height - 16)
+					break;
+				if(point.x < 5 || point.x > m_scr_width - 5)
+					break;
+				m_changing = true;
+				double pos = (double)(point.x - 5) / (double) (m_scr_width - 10);
+				m_flash.GotoFrame((long)(m_fnumber * pos));
+				m_flash.Play();
+				m_changing = false;
+				return TRUE;
 			}
 			break;
+		case  WM_RBUTTONDOWN:
+			if(!m_rmenu)
+			{
+				SendMessage(CMD_KEYDOWN, CMD_KEY, WM_RBUTTONDOWN );
+				return TRUE;
+			}
+			break;
+		case  WM_MOUSEMOVE:
+			{
+				if(!m_fs)
+					break;
+				ShowCursor(TRUE);
+				SetTimer(TIMER_HIDE_CURSOR, 2000, NULL);
+				POINT point;
+				GetCursorPos(&point);
+				if(!m_showctrl && point.y >= m_scr_height - 20)
+				{
+					m_control.MoveWindow(0,m_scr_height - 16,m_scr_width,20);
+					m_showctrl = true;
+				}
+				else if(m_showctrl && point.y < m_scr_height - 20)
+				{
+					m_control.MoveWindow(0,m_scr_height,m_scr_width,20);
+					m_showctrl = false;
+				}
+				break;
+			}
 		}
 	}
 	return CDialog::PreTranslateMessage(pMsg);
@@ -797,3 +891,15 @@ void CMFlashPlayer::OnMouseMove(UINT nFlags, CPoint point)
 	CDialog::OnMouseMove(nFlags, point);
 }
 
+
+void CMFlashPlayer::OnDestroy()
+{
+	CDialog::OnDestroy();
+
+	if (g_pTaskbarList)
+	{
+		g_pTaskbarList->Release();
+		g_pTaskbarList = NULL;
+	}
+
+}
