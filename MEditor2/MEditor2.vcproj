@@ -481,6 +481,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ProgressDlg.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\shockwaveflash.cpp"
 					>
 				</File>
@@ -697,10 +701,6 @@
 				</File>
 				<File
 					RelativePath=".\MShowInfoDlg.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ProgressDlg.cpp"
 					>
 				</File>
 				<File

@@ -66,6 +66,7 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CPreviewDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &CPreviewDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON_B, &CPreviewDlg::OnBnClickedButtonB)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -356,4 +357,15 @@ void CPreviewDlg::AddFont(CString strName)
 	if(m_font_c.FindStringExact(0,strName) > 0 || strName.Find(_T("@")) == 0)
 		return;
 	m_font_c.AddString(strName);
+}
+
+BOOL CPreviewDlg::PreTranslateMessage(MSG* pMsg)
+{
+	return CDialog::PreTranslateMessage(pMsg);
+}
+
+void CPreviewDlg::OnDestroy()
+{
+	CDialog::OnDestroy();
+
 }

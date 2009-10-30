@@ -47,6 +47,9 @@ public:
 
 // й╣ож
 protected:
+	UINT	s_uTBBC;
+	ITaskbarList3 *g_pTaskbarList;
+
 	HANDLE gUniqueEvent;
 	HICON m_hIcon;
 	CTabSheet m_TabSheet;
@@ -96,4 +99,5 @@ public:
 	afx_msg void OnShowHelp();
 	afx_msg void OnShowfaq();
 	afx_msg void OnResetinfo();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

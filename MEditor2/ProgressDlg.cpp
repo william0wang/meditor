@@ -5,6 +5,8 @@
 #include "meditor2.h"
 #include "ProgressDlg.h"
 
+typedef BOOL (__stdcall *ChangeWindowMessageFilterTp)(UINT, DWORD);
+static ChangeWindowMessageFilterTp ChangeWindowMessageFilterDLL = NULL;
 
 // CProgressDlg ¶Ô»°¿ò
 
@@ -13,6 +15,7 @@ IMPLEMENT_DYNAMIC(CProgressDlg, CDialog)
 CProgressDlg::CProgressDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CProgressDlg::IDD, pParent)
 {
+	g_pTaskbarList = NULL;
 
 }
 
@@ -37,6 +40,12 @@ END_MESSAGE_MAP()
 BOOL CProgressDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
+	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
+	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterTp)GetProcAddress(user32, "ChangeWindowMessageFilter");
+	if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
+
 	m_progress.SetRange(0,100);
 	m_progress.SetPos(0);
 	SetTimer(0, 100, 0);
@@ -50,11 +59,46 @@ void CProgressDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CString percent;
 	int p = m_progress.GetPos();
-	percent.Format(_T("%d%%"), p);
-	SetWindowText(percent);
 	if(p >= 100) {
 		KillTimer(0);
+		if (g_pTaskbarList)
+		{
+			g_pTaskbarList->Release();
+			g_pTaskbarList = NULL;
+		}
 		OnOK();
+		return;
 	}
+	percent.Format(_T("%d%%"), p);
+	SetWindowText(percent);
+	if(g_pTaskbarList) g_pTaskbarList->SetProgressValue(this->m_hWnd, p, 100);
 	CDialog::OnTimer(nIDEvent);
+}
+
+BOOL CProgressDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == s_uTBBC)
+	{
+		// Once we get the TaskbarButtonCreated message, we can call methods
+		// specific to our window on a TaskbarList instance. Note that it's
+		// possible this message can be received multiple times over the lifetime
+		// of this window (if explorer terminates and restarts, for example).
+		if (!g_pTaskbarList)
+		{
+			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+			if (SUCCEEDED(hr))
+			{
+				hr = g_pTaskbarList->HrInit();
+				if (FAILED(hr))
+				{
+					g_pTaskbarList->Release();
+					g_pTaskbarList = NULL;
+				}
+
+				if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+			}
+		}
+	}
+
+	return CDialog::PreTranslateMessage(pMsg);
 }

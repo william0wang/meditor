@@ -6,9 +6,14 @@
 #include "MEditor2Dlg.h"
 #include "MShowInfoDlg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+typedef BOOL (__stdcall *ChangeWindowMessageFilterTp)(UINT, DWORD);
+static ChangeWindowMessageFilterTp ChangeWindowMessageFilterDLL = NULL;
+
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialog
@@ -53,6 +58,7 @@ CMEditor2Dlg::CMEditor2Dlg(CWnd* pParent /*=NULL*/)
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
 	gUniqueEvent = NULL;
+	g_pTaskbarList = NULL;
 }
 
 void CMEditor2Dlg::DoDataExchange(CDataExchange* pDX)
@@ -92,6 +98,11 @@ END_MESSAGE_MAP()
 BOOL CMEditor2Dlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
+	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
+	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterTp)GetProcAddress(user32, "ChangeWindowMessageFilter");
+	if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
 
 	m_config.LoadConfig(m_program_dir + _T("kk.ini"),true);
 	bool value_b;
@@ -328,6 +339,7 @@ void CMEditor2Dlg::OnBnClickedApply()
 	m_progress_apply.SetPos(m_pos);
 	m_progress_apply.ShowWindow(SW_SHOW);
 	SetTimer(0,10,NULL);
+	if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
 	SaveAll();
 }
 
@@ -368,12 +380,14 @@ void CMEditor2Dlg::OnBnClickedHelp()
 void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
 {
 	m_pos++;
-	if(m_pos <= 20)
-		m_progress_apply.SetPos(m_pos);
-	else
-	{
+	if(m_pos <= 80) {
+		if(m_pos > 20)
+			m_progress_apply.ShowWindow(SW_HIDE);
+		else
+			m_progress_apply.SetPos(m_pos);
+	} else {
 		KillTimer(0);
-		m_progress_apply.ShowWindow(SW_HIDE);
+		if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
 	}
 	CDialog::OnTimer(nIDEvent);
 }
@@ -382,6 +396,12 @@ BOOL CMEditor2Dlg::DestroyWindow()
 {
 	if(gUniqueEvent)
 		CloseHandle(gUniqueEvent);
+
+	if (g_pTaskbarList)
+	{
+		g_pTaskbarList->Release();
+		g_pTaskbarList = NULL;
+	}
 
 	return CDialog::DestroyWindow();
 }
@@ -526,4 +546,32 @@ void CMEditor2Dlg::ShowInfo(int type)
 {
 	if(infoDlg.IsShow(type))
 		infoDlg.DoModal();
+}
+
+BOOL CMEditor2Dlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == s_uTBBC)
+	{
+		// Once we get the TaskbarButtonCreated message, we can call methods
+		// specific to our window on a TaskbarList instance. Note that it's
+		// possible this message can be received multiple times over the lifetime
+		// of this window (if explorer terminates and restarts, for example).
+		if (!g_pTaskbarList)
+		{
+			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+			if (SUCCEEDED(hr))
+			{
+				hr = g_pTaskbarList->HrInit();
+				if (FAILED(hr))
+				{
+					g_pTaskbarList->Release();
+					g_pTaskbarList = NULL;
+				}
+
+				if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+			}
+		}
+	}
+
+	return CDialog::PreTranslateMessage(pMsg);
 }
