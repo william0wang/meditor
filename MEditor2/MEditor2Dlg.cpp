@@ -11,8 +11,7 @@
 #define new DEBUG_NEW
 #endif
 
-typedef BOOL (__stdcall *ChangeWindowMessageFilterTp)(UINT, DWORD);
-static ChangeWindowMessageFilterTp ChangeWindowMessageFilterDLL = NULL;
+static ChangeWindowMessageFilterFunction ChangeWindowMessageFilterDLL = NULL;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -101,7 +100,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 
 	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
 	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
-	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterTp)GetProcAddress(user32, "ChangeWindowMessageFilter");
+	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterFunction)GetProcAddress(user32, "ChangeWindowMessageFilter");
 	if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
 
 	m_config.LoadConfig(m_program_dir + _T("kk.ini"),true);

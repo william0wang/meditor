@@ -297,6 +297,12 @@ EXTERN_C const IID IID_ITaskbarList2;
 typedef IUnknown *HIMAGELIST;
 
 #endif
+
+#ifndef __ITaskbarList3_INTERFACE_DEFINED__
+#define __ITaskbarList3_INTERFACE_DEFINED__
+/* interface ITaskbarList3 */
+/* [object][uuid] */ 
+
 typedef /* [v1_enum] */ 
 enum THUMBBUTTONFLAGS
     {	THBF_ENABLED	= 0,
@@ -336,12 +342,6 @@ typedef struct THUMBBUTTON *LPTHUMBBUTTON;
 
 extern RPC_IF_HANDLE __MIDL_itf_shobjidl_0000_0093_v0_0_c_ifspec;
 extern RPC_IF_HANDLE __MIDL_itf_shobjidl_0000_0093_v0_0_s_ifspec;
-
-#ifndef __ITaskbarList3_INTERFACE_DEFINED__
-#define __ITaskbarList3_INTERFACE_DEFINED__
-
-/* interface ITaskbarList3 */
-/* [object][uuid] */ 
 
 typedef /* [v1_enum] */ 
 enum TBPFLAG
@@ -611,5 +611,6 @@ EXTERN_C const IID IID_ITaskbarList3;
 
 #endif 	/* __ITaskbarList3_INTERFACE_DEFINED__ */
 
+typedef BOOL (__stdcall *ChangeWindowMessageFilterFunction)(UINT message, DWORD dwFlag);
 
 #endif /* __Win7ShellApi_h__ */

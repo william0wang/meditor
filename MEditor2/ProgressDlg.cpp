@@ -5,8 +5,7 @@
 #include "meditor2.h"
 #include "ProgressDlg.h"
 
-typedef BOOL (__stdcall *ChangeWindowMessageFilterTp)(UINT, DWORD);
-static ChangeWindowMessageFilterTp ChangeWindowMessageFilterDLL = NULL;
+static ChangeWindowMessageFilterFunction ChangeWindowMessageFilterDLL = NULL;
 
 // CProgressDlg ¶Ô»°¿ò
 
@@ -43,7 +42,7 @@ BOOL CProgressDlg::OnInitDialog()
 
 	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
 	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
-	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterTp)GetProcAddress(user32, "ChangeWindowMessageFilter");
+	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterFunction)GetProcAddress(user32, "ChangeWindowMessageFilter");
 	if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
 
 	m_progress.SetRange(0,100);

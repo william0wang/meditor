@@ -12,8 +12,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-typedef BOOL (__stdcall *ChangeWindowMessageFilterTp)(UINT, DWORD);
-static ChangeWindowMessageFilterTp ChangeWindowMessageFilterDLL = NULL;
+static ChangeWindowMessageFilterFunction ChangeWindowMessageFilterDLL = NULL;
 
 /////////////////////////////////////////////////////////////////////////////
 // CMFlashPlayer dialog
@@ -148,7 +147,7 @@ BOOL CMFlashPlayer::OnInitDialog()
 
 	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
 	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
-	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterTp)GetProcAddress(user32, "ChangeWindowMessageFilter");
+	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterFunction)GetProcAddress(user32, "ChangeWindowMessageFilter");
 	if(ChangeWindowMessageFilterDLL) {
 		ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
 		ChangeWindowMessageFilterDLL(WM_COMMAND, MSGFLT_ADD);
