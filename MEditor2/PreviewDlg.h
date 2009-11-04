@@ -43,7 +43,6 @@ public:
 	int		m_time;
 	long	ltime;
 	BOOL	m_show;
-	double	m_aspect;
 	CString m_filename;
 	CString m_savename;
 	CString m_font;

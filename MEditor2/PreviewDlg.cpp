@@ -123,7 +123,6 @@ BOOL CPreviewDlg::OnInitDialog()
 
 void CPreviewDlg::GetPreview(int index, int resolution, int time)
 {
-	int height;
 	CString cmd;
 	STARTUPINFO si;
 	PROCESS_INFORMATION procInfo;
@@ -134,13 +133,8 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	if(m_aspect > 0.2 && m_aspect < 5)
-		height = (int)((double)resolution/m_aspect);
-	else
-		height = -3;
-
-	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:%d -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
-		, m_player_exe, m_filename, resolution, height, time);
+	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:-10 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
+		, m_player_exe, m_filename, resolution, time);
 
 	CreateProcess(NULL, cmd.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &procInfo);
 	cmd.ReleaseBuffer();
@@ -179,6 +173,7 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 	for(int i = 0; i < m_parti; i++) {
 		for(int j = 0; j < m_partj; j++) {
 			int re = (m_width-10)/m_partj-10;
+			if(re > 16) re = re/16*16;
 			long nowt = (m_time)*(i*m_partj+j+1)/(m_parti*m_partj+1);
 			GetPreview(i*m_partj+j+1, re, nowt);
 			CString jpg;
@@ -239,7 +234,8 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 				}
 
 			}
-			int left = 10+j*(re+10);
+			int spw = m_partj > 1 ? (m_width-m_partj*(re)-20)/(m_partj-1) : 10;
+			int left = 10+j*(re+spw);
 			int top = (he+10)*i+90;
 
 			img.Draw(dc2, left, top);
