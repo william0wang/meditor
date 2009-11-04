@@ -16,6 +16,9 @@ public:
 	enum { IDD = IDD_DIALOG_P };
 
 protected:
+	UINT	s_uTBBC;
+	ITaskbarList3 *g_pTaskbarList;
+
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 
 	DECLARE_MESSAGE_MAP()
@@ -23,4 +26,5 @@ public:
 	CProgressCtrl m_progress;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

@@ -153,21 +153,6 @@ BOOL CMEditor2App::InitInstance()
 			return FALSE;
 		name = name.Left(offset);
 
-		CString aspect;
-		offset = sCmdLine.Find(_T("--aspect"));
-		if(offset > 0) {
-			offset = sCmdLine.Find(_T("\""), offset);
-			if(offset > 0) {
-				aspect = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
-				aspect.Trim();
-				offset = aspect.Find(_T("\""));
-				if(offset > 0)
-					aspect = aspect.Left(offset);
-				else
-					aspect = _T("0");
-			}
-		}
-
 		offset = sCmdLine.Find(_T("--duration"));
 		if(offset < 0)
 			return FALSE;
@@ -203,7 +188,6 @@ BOOL CMEditor2App::InitInstance()
 		CPreviewDlg preview;
 		preview.m_filename = name;
 		preview.ltime = time;
-		preview.m_aspect = _ttof(aspect);
 		m_pMainWnd = &preview;
 		INT_PTR nResponse = preview.DoModal();
 

@@ -51,7 +51,7 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_V, m_partj);
 	DDV_MinMaxInt(pDX, m_partj, 1, 8);
 	DDX_Text(pDX, IDC_EDIT_W, m_width);
-	DDV_MinMaxInt(pDX, m_width, 200, 1920);
+	DDV_MinMaxInt(pDX, m_width, 200, 2560);
 	DDX_Text(pDX, IDC_EDIT_SAVEFILE, m_savename);
 	DDX_Text(pDX, IDC_EDIT_T, m_time);
 	DDX_Check(pDX, IDC_CHECK_SHOW, m_show);
@@ -66,6 +66,7 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CPreviewDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &CPreviewDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BUTTON_B, &CPreviewDlg::OnBnClickedButtonB)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -122,7 +123,6 @@ BOOL CPreviewDlg::OnInitDialog()
 
 void CPreviewDlg::GetPreview(int index, int resolution, int time)
 {
-	int height;
 	CString cmd;
 	STARTUPINFO si;
 	PROCESS_INFORMATION procInfo;
@@ -133,13 +133,8 @@ void CPreviewDlg::GetPreview(int index, int resolution, int time)
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	if(m_aspect > 0.2 && m_aspect < 5)
-		height = (int)((double)resolution/m_aspect);
-	else
-		height = -3;
-
-	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:%d -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
-		, m_player_exe, m_filename, resolution, height, time);
+	cmd.Format(_T("\"%s\" -generate-preview -noidle -autoplay 0 \"%s\" -vf ass,scale=%d:-10 -vo jpeg:outdir=\"./preview\" -ao null -frames 3 -ss %d")
+		, m_player_exe, m_filename, resolution, time);
 
 	CreateProcess(NULL, cmd.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &procInfo);
 	cmd.ReleaseBuffer();
@@ -178,6 +173,7 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 	for(int i = 0; i < m_parti; i++) {
 		for(int j = 0; j < m_partj; j++) {
 			int re = (m_width-10)/m_partj-10;
+			if(re > 16) re = re/16*16;
 			long nowt = (m_time)*(i*m_partj+j+1)/(m_parti*m_partj+1);
 			GetPreview(i*m_partj+j+1, re, nowt);
 			CString jpg;
@@ -238,7 +234,8 @@ void CPreviewDlg::GenerateThumbnails(CString ThumbName)
 				}
 
 			}
-			int left = 10+j*(re+10);
+			int spw = m_partj > 1 ? (m_width-m_partj*(re)-20)/(m_partj-1) : 10;
+			int left = 10+j*(re+spw);
 			int top = (he+10)*i+90;
 
 			img.Draw(dc2, left, top);
@@ -291,7 +288,7 @@ void CPreviewDlg::OnBnClickedButtonB()
 void CPreviewDlg::OnBnClickedOk()
 {
 	UpdateData(TRUE);
-	if(m_parti < 1 || m_parti > 8 || m_partj < 1 || m_partj > 8 || m_width < 400 || m_width > 1920)
+	if(m_parti < 1 || m_parti > 8 || m_partj < 1 || m_partj > 8 || m_width < 200 || m_width > 2560)
 		return;
 
 	if(m_time <= 0 || m_time > ltime)
@@ -356,4 +353,15 @@ void CPreviewDlg::AddFont(CString strName)
 	if(m_font_c.FindStringExact(0,strName) > 0 || strName.Find(_T("@")) == 0)
 		return;
 	m_font_c.AddString(strName);
+}
+
+BOOL CPreviewDlg::PreTranslateMessage(MSG* pMsg)
+{
+	return CDialog::PreTranslateMessage(pMsg);
+}
+
+void CPreviewDlg::OnDestroy()
+{
+	CDialog::OnDestroy();
+
 }

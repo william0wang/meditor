@@ -322,7 +322,7 @@ BEGIN
 END
 
 IDD_DIALOG_FLASH DIALOGEX 0, 0, 320, 250
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_CLIPCHILDREN | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 EXSTYLE WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
 CAPTION "MFlashPlayer"
 MENU IDR_MENU_FLASH
@@ -1796,6 +1796,13 @@ IDR_LOGO                LOGO                    "res\\logo.jpg"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Bitmap
+//
+
+IDB_BITMAP_96           BITMAP                  "res\\btn_96.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
@@ -1847,7 +1854,7 @@ BEGIN
     IDS_PLAYER_AS_NO        "无同步模式(推荐)"
     IDS_PLAYER_AS_NORMAL    "普通同步模式"
     IDS_PLAYER_AS_FAST      "快速同步模式"
-    IDS_PLAYER_AS_FLV       "FLV/RM 模式"
+    IDS_PLAYER_AS_FLV       "FLV 同步模式"
     IDS_PLAYER_AS_FLVEX     "FLV 强力同步模式"
     IDS_PLAYER_AS_AVI       "AVI 修正模式"
     IDS_PLAYER_PREALTIME    "实时(不推荐)"
@@ -2089,8 +2096,8 @@ BEGIN
     IDS_VIDEO_OTH           "其它视频滤镜"
     IDS_VIDEO_OTHI          "直接输入视频滤镜参数"
     IDS_TAB_PROFILE         "配置集"
-    IDS_PROFILE_FLV         "FLV/RM 同步"
-    IDS_PROFILE_FLV_INFO    "为FLV/RM文件增强音视频同步"
+    IDS_PROFILE_FLV         "FLV 同步"
+    IDS_PROFILE_FLV_INFO    "为FLV文件增强音视频同步"
     IDS_PROFILE_ALN         "音轨语言"
     IDS_PROFILE_ALN_INFO    "设置音轨语言优先级"
 END
