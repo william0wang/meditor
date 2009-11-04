@@ -51,7 +51,7 @@ void CPreviewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_V, m_partj);
 	DDV_MinMaxInt(pDX, m_partj, 1, 8);
 	DDX_Text(pDX, IDC_EDIT_W, m_width);
-	DDV_MinMaxInt(pDX, m_width, 200, 1920);
+	DDV_MinMaxInt(pDX, m_width, 200, 2560);
 	DDX_Text(pDX, IDC_EDIT_SAVEFILE, m_savename);
 	DDX_Text(pDX, IDC_EDIT_T, m_time);
 	DDX_Check(pDX, IDC_CHECK_SHOW, m_show);
@@ -288,7 +288,7 @@ void CPreviewDlg::OnBnClickedButtonB()
 void CPreviewDlg::OnBnClickedOk()
 {
 	UpdateData(TRUE);
-	if(m_parti < 1 || m_parti > 8 || m_partj < 1 || m_partj > 8 || m_width < 400 || m_width > 1920)
+	if(m_parti < 1 || m_parti > 8 || m_partj < 1 || m_partj > 8 || m_width < 200 || m_width > 2560)
 		return;
 
 	if(m_time <= 0 || m_time > ltime)
