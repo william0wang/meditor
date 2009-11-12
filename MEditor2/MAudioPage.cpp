@@ -57,6 +57,8 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_str_channels.Add(_T("2.0") + ResStr(IDS_AUDIO_CHAN));
 	m_str_channels.Add(_T("4.0") + ResStr(IDS_AUDIO_CHAN));
 	m_str_channels.Add(_T("5.1") + ResStr(IDS_AUDIO_CHAN));
+	m_str_channels.Add(_T("6.1") + ResStr(IDS_AUDIO_CHAN));
+	m_str_channels.Add(_T("7.1") + ResStr(IDS_AUDIO_CHAN));
 
 	m_adv_af.Add(ResStr(IDS_AUDIO_AFAT));
 	m_adv_af.Add(ResStr(IDS_AUDIO_AFH));
@@ -406,6 +408,12 @@ void CMAudioPage::InitFromConfig()
 		case 6:
 			m_channels.SetCurSel(ch_6);
 			break;
+		case 7:
+			m_channels.SetCurSel(ch_7);
+			break;
+		case 8:
+			m_channels.SetCurSel(ch_8);
+			break;
 		default:
 			m_channels.SetCurSel(ch_auto);
 		}
@@ -528,6 +536,12 @@ void CMAudioPage::SaveConfig()
 		break;
 	case ch_6:
 		m_cfg->SetValue(_T("channels") ,_T("6") );
+		break;
+	case ch_7:
+		m_cfg->SetValue(_T("channels") ,_T("7") );
+		break;
+	case ch_8:
+		m_cfg->SetValue(_T("channels") ,_T("8") );
 		break;
 	default:
 		m_cfg->RemoveValue(_T("channels"));
