@@ -30,7 +30,9 @@ enum channels
 	ch_auto,
 	ch_2,
 	ch_4,
-	ch_6
+	ch_6,
+	ch_7,
+	ch_8
 };
 
 class CMAudioPage : public CDialog
