@@ -483,6 +483,13 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_fixedvo = FALSE;
 	}
+	if(m_cfg->GetValue_Boolean(_T("use-filename-title"),value_b))
+	{
+		if(!value_b)
+			m_filename = FALSE;
+		else
+			m_filename = TRUE;
+	}
 	if(m_cfg->GetValue_Boolean(_T("skinned_player"),value_b,true))
 	{
 		if(!value_b)
@@ -510,13 +517,6 @@ void CMPlayerPage::InitFromConfig()
 			m_gui_high = TRUE;
 		else
 			m_gui_high = FALSE;
-	}
-	if(m_cfg->GetValue_Boolean(_T("show_filename"),value_b,true))
-	{
-		if(!value_b)
-			m_filename = FALSE;
-		else
-			m_filename = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("reload_when_open"),value_b,true))
 	{
@@ -875,6 +875,11 @@ void CMPlayerPage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("urlcp"));
 
+	if(m_filename)
+		m_cfg->RemoveValue(_T("use-filename-title"));
+	else
+		m_cfg->SetValue(_T("use-filename-title") ,_T("0"));
+
 	if(m_bskin)
 		m_cfg->RemoveValue(_T("skinned_player"),true);
 	else
@@ -894,11 +899,6 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("gui_priority_lowest") ,_T("0") , true,ex_gui);
 	else
 		m_cfg->RemoveValue(_T("gui_priority_lowest"), true );
-
-	if(m_filename)
-		m_cfg->RemoveValue(_T("show_filename"), true );
-	else
-		m_cfg->SetValue(_T("show_filename") ,_T("0") , true,ex_gui);
 
 	if(m_reload)
 		m_cfg->SetValue(_T("reload_when_open") ,_T("1") , true,ex_setting);
