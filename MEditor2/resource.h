@@ -701,6 +701,9 @@
 #define IDS_VIDEO_SCAI                  35354
 #define IDS_VIDEO_SCAI2                 35355
 #define IDS_PLAYER_THEME                35355
+#define IDS_AUDIO_DSP                   35356
+#define IDS_AUDIO_STM_INFO2             35357
+#define IDS_AUDIO_DSP_INFO              35357
 
 // Next default values for new objects
 // 

@@ -794,6 +794,8 @@ BEGIN
     IDS_VIDEO_SCA           "Scale"
     IDS_VIDEO_SCAI          "Video scaling to the specified width and height，scaling by aspect when height set to -3"
     IDS_PLAYER_THEME        "System Theme"
+    IDS_AUDIO_DSP           "DSP/Effect"
+    IDS_AUDIO_DSP_INFO      "Select a Winamp audio DSP/Effect plug-in to use"
 END
 
 #endif    // 中文(中华人民共和国) resources
