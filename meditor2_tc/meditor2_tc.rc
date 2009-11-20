@@ -793,6 +793,8 @@ BEGIN
     IDS_VIDEO_SCA           "縮放濾鏡"
     IDS_VIDEO_SCAI          "縮放視頻到指定寬度與高度，高度為-3時為按比例縮放"
     IDS_PLAYER_THEME        "系統主題"
+    IDS_AUDIO_DSP           "DSP 音效增強插件"
+    IDS_AUDIO_DSP_INFO      "選擇準備使用的 Winamp DSP 音效增強插件"
 END
 
 #endif    // 中文(中华人民共和国) resources

@@ -67,6 +67,7 @@ protected:
 	CStringArray m_volnormal;
 	CStringArray m_equalizer;
 	CStringArray m_resample;
+	CStringArray m_wadsp;
 	CXListCtrl m_List;
 	static int m_nColWidths[];
 	void FillListCtrl(CXListCtrl * pList);
@@ -86,6 +87,8 @@ protected:
 	CString str_re2;
 	CString str_eq1;
 	CString str_eq2;
+	CString str_dsp1;
+	CString str_dsp2;
 
 	CStringArray m_str_audio;
 	CStringArray m_str_channels;

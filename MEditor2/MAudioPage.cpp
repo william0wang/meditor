@@ -47,6 +47,8 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	str_re2 = ResStr(IDS_AUDIO_RE_INFO);
 	str_eq1 = ResStr(IDS_AUDIO_EQ);
 	str_eq2 = ResStr(IDS_AUDIO_EQ_INFO);
+	str_dsp1 = ResStr(IDS_AUDIO_DSP);
+	str_dsp2 = ResStr(IDS_AUDIO_DSP_INFO);
 
 	m_str_audio.Add(ResStr(IDS_AUDIO_DS));
 	m_str_audio.Add(ResStr(IDS_AUDIO_WIN));
@@ -99,6 +101,34 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_resample.Add(_T("96kHz ") + m_str_low);
 	m_resample.Add(_T("96kHz ") + m_str_int);
 	m_resample.Add(_T("96kHz ") + m_str_foa);
+
+	CString plugins_dir;
+	TCHAR szCurPath[MAX_PATH + 1];
+	TCHAR szFilePath[MAX_PATH + 1];
+	::GetCurrentDirectory(MAX_PATH,szCurPath);
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	plugins_dir.Format(_T("%scodecs\\plugins"),szFilePath);
+	::SetCurrentDirectory(plugins_dir);
+
+	CFileFind finder;
+	if(finder.FindFile(_T("*.*"),0))
+	{
+		CString str;
+		while(finder.FindNextFile())
+		{
+			if(!finder.IsDirectory() && !finder.IsDots()) {
+				str = finder.GetFileName().MakeLower();
+				if(str.GetLength() > 4 && str.Right(4) == _T(".dll"))
+					m_wadsp.Add(str.Left(str.GetLength()-4));
+			}
+		}
+		str = finder.GetFileName().MakeLower();
+		if(!finder.IsDirectory() && !finder.IsDots() && str.GetLength() > 4 &&  str.Right(4) == _T(".dll")) {
+			m_wadsp.Add(str.Left(str.GetLength()-4));
+		}
+	}
+	::SetCurrentDirectory(szCurPath);
 }
 
 
@@ -140,6 +170,7 @@ enum Filters
 	scaletempo,
 	resample,
 	equalizer,
+	wadsp,
 };
 
 
@@ -254,6 +285,14 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->SetEdit(equalizer, 2);
 	pList->SetItemText(equalizer, 3, str_eq2);
 
+	pList->InsertItem(wadsp, _T(""));
+	pList->SetCheckbox(wadsp, 0, 0);
+	pList->SetItemText(wadsp, 1, str_dsp1);
+	pList->SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  0,  FALSE);
+	pList->SetItemText(wadsp, 2, _T(""));
+	pList->SetEdit(wadsp, 2);
+	pList->SetItemText(wadsp, 3, str_dsp2);
+
 
 	pList->UnlockWindowUpdate();	// ***** unlock window updates *****
 }
@@ -338,6 +377,8 @@ void CMAudioPage::SetNormal()
 	m_channels.SetCurSel(ch_auto);
 	m_List.SetCheckbox(equalizer, 0, 0);
 	m_List.SetItemText(equalizer, 2,_T("0:0:0:0:0:0:0:0:0:0"));
+	m_List.SetCheckbox(wadsp, 0, 0);
+	m_List.SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  0,  FALSE);
 	m_List.SetCheckbox(resample, 0, 0);
 	m_List.SetComboBox(resample, 2, TRUE,  &m_resample,  8,  16,  FALSE);
 	m_List.SetCheckbox(adv_af, 0, 0);
@@ -443,6 +484,21 @@ void CMAudioPage::InitFromConfig()
 			{
 				if(value_sub == _T("2"))
 					m_List.SetComboBox(volnormal, 2, TRUE,  &m_volnormal,  5,  1,  FALSE);
+			}
+		}
+		if(m_cfg->HaveSubValue(value_s,_T("wadsp")))
+		{
+			m_List.SetCheckbox(wadsp, 0, 1);
+			m_List.SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  0,  FALSE);
+			if(m_cfg->GetSubValue(value_s,_T("wadsp"), value_sub))
+			{
+				for(int i = 0; i < m_wadsp.GetSize(); i++)
+				{
+					if(value_sub == m_wadsp.GetAt(i)) {
+						m_List.SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  i,  FALSE);
+						break;
+					}
+				}
 			}
 		}
 		if(m_cfg->HaveSubValue(value_s,_T("scaletempo")))
@@ -610,6 +666,14 @@ void CMAudioPage::SaveConfig()
 		str.TrimRight(_T(" "));
 		if(str != _T(""))
 			af_str +=  _T("equalizer=") + str  +  _T(",");
+	}
+	if(m_List.GetCheckbox(wadsp, 0))
+	{
+		CString str= m_List.GetItemText(wadsp, 2);
+		str.TrimLeft(_T(" "));
+		str.TrimRight(_T(" "));
+		if(str != _T(""))
+			af_str +=  _T("wadsp=") + str  +  _T(",");
 	}
 	if(m_List.GetCheckbox(resample, 0))
 	{

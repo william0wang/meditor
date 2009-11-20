@@ -98,7 +98,8 @@ public:
 	afx_msg void OnBnClickedAll();
 	afx_msg void OnBnClickedNone();
 	afx_msg void OnBnClickedRecommand();
-	void ApplyChange(bool quiet = false);
+	void Exit();
+	void ApplyChange();
 	BOOL m_rightmenu;
 	BOOL m_rightmenu2;
 	BOOL m_mpc;

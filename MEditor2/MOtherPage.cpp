@@ -253,7 +253,7 @@ void CMOtherPage::OnButtonPlay()
 	}
 	CString mpcmd;
 	mpcmd.Format(_T("-audiofile \"%s\" \"%s\""), m_audio, m_video);
-	ShellExecute(0, _T("open"), _T("mplayer.exe"), mpcmd, NULL, SW_SHOW);
+	ShellExecute(0, _T("open"), m_program_dir + _T("mplayer.exe"), mpcmd, NULL, SW_SHOW);
 }
 
 void CMOtherPage::OnButtonVideo() 

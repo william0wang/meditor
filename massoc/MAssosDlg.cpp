@@ -7,6 +7,33 @@
 #include "MAssosDlg.h"
 #include "reg.h"
 
+UINT RebuildIconsCacheThread(LPVOID pParam)
+{
+	CMAssosPage *This = (CMAssosPage *)pParam;
+
+	This->ShowWindow(SW_HIDE);
+	//Rebuild Icon Cache
+	CReg reg;
+	CString Content, ContentTemp;
+	DWORD dwType = REG_SZ; 
+	DWORD dSize = MAX_PATH;
+	TCHAR ContentOld[MAX_PATH] = {0};
+	TCHAR SubKey[] = _T("Control Panel\\Desktop\\WindowMetrics");
+	TCHAR VauleName[] = _T("Shell Icon Size");
+	if(SHGetValue(HKEY_CURRENT_USER, SubKey, VauleName, &dwType, &ContentOld, &dSize) == ERROR_SUCCESS) {
+		Content = ContentOld;
+		ContentTemp = _T("24");
+		if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , ContentTemp)) {
+			SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 3000, NULL);
+			if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , Content))
+				SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 3000, NULL);
+		}
+	}
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, 0, 0);
+
+	This->Exit();
+	return 0;
+}
 
 // CMAssosPage ¶Ô»°¿ò
 
@@ -959,13 +986,12 @@ void CMAssosPage::OnBnClickedRecommand()
 	m_List.UnlockWindowUpdate();
 }
 
-void CMAssosPage::ApplyChange(bool quiet)
+void CMAssosPage::ApplyChange()
 {
 	UpdateData(TRUE);
 	if(!IsFileExist(m_player_exe))
 	{
-		if(!quiet)
-			MessageBox(m_str_player_samedir);
+		MessageBox(m_str_player_samedir);
 		return;
 	}
 	int index = m_micons.GetCurSel();
@@ -1044,26 +1070,12 @@ void CMAssosPage::ApplyChange(bool quiet)
 	}
 	m_List.UnlockWindowUpdate();
 
-	if(!quiet) {
-		//Rebuild Icon Cache
-		CReg reg;
-		CString Content, ContentTemp;
-		DWORD dwType = REG_SZ; 
-		DWORD dSize = MAX_PATH;
-		TCHAR ContentOld[MAX_PATH] = {0};
-		TCHAR SubKey[] = _T("Control Panel\\Desktop\\WindowMetrics");
-		TCHAR VauleName[] = _T("Shell Icon Size");
-		if(SHGetValue(HKEY_CURRENT_USER, SubKey, VauleName, &dwType, &ContentOld, &dSize) == ERROR_SUCCESS) {
-			Content = ContentOld;
-			ContentTemp = _T("24");
-			if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , ContentTemp)) {
-				SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 2000, NULL);
-				if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , Content))
-					SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 2000, NULL);
-			}
-		}
-	}
-	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, 0, 0);
+	AfxBeginThread(RebuildIconsCacheThread, this);
+}
+
+void CMAssosPage::Exit()
+{
+	OnOK();
 }
 
 BOOL CMAssosPage::PreTranslateMessage(MSG* pMsg) 
