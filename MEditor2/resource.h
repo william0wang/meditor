@@ -191,6 +191,8 @@
 #define IDC_COMBO_ALPHA                 1058
 #define IDC_COMBO_CTRLBAR               1059
 #define IDC_COMBO_VO                    1060
+#define IDC_CHECK_CTLSKIN2              1060
+#define IDC_CHECK_CTLALPHA              1060
 #define IDC_CHECK_SOFT                  1061
 #define IDC_COMBO_MXCOLOR               1062
 #define IDC_EDIT_COLOR                  1064

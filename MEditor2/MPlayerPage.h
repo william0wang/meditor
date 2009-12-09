@@ -185,6 +185,7 @@ public:
 	BOOL m_seekrt;
 	BOOL m_bskin;
 	BOOL m_ctlskin;
+	BOOL m_alpha_control;
 };
 
 //{{AFX_INSERT_LOCATION}}
