@@ -31,6 +31,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	, m_seekrt(TRUE)
 	, m_bskin(TRUE)
 	, m_ctlskin(TRUE)
+	, m_alpha_control(TRUE)
 {
 	m_cfg = NULL;
 	m_fullscreen = FALSE;
@@ -157,6 +158,7 @@ void CMPlayerPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_RTSEEK, m_seekrt);
 	DDX_Check(pDX, IDC_CHECK_BSKIN, m_bskin);
 	DDX_Check(pDX, IDC_CHECK_CTLSKIN, m_ctlskin);
+	DDX_Check(pDX, IDC_CHECK_CTLALPHA, m_alpha_control);
 }
 
 
@@ -555,6 +557,14 @@ void CMPlayerPage::InitFromConfig()
 			m_menu = FALSE;
 	}
 
+	if(m_cfg->GetValue_Boolean(_T("alpha_control"),value_b,true))
+	{
+		if(!value_b)
+			m_alpha_control = FALSE;
+		else
+			m_alpha_control = TRUE;
+	}
+
 	if(m_cfg->GetValue_Boolean(_T("skin_controlbar"),value_b,true))
 	{
 		if(!value_b)
@@ -889,6 +899,11 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->RemoveValue(_T("skin_controlbar"),true);
 	else
 		m_cfg->SetValue(_T("skin_controlbar") ,_T("0") , true , ex_gui);
+
+	if(m_alpha_control)
+		m_cfg->RemoveValue(_T("alpha_control"),true);
+	else
+		m_cfg->SetValue(_T("alpha_control") ,_T("0") , true , ex_gui);
 
 	if(m_guithread)
 		m_cfg->SetValue(_T("gui_thread") ,_T("1") , true , ex_option);
