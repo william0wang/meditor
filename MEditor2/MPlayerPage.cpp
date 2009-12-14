@@ -36,7 +36,7 @@ CMPlayerPage::CMPlayerPage(CWnd* pParent /*=NULL*/)
 	m_cfg = NULL;
 	m_fullscreen = FALSE;
 	m_guithread = FALSE;
-	m_menu = TRUE;
+	m_menu = FALSE;
 	m_oneplayer = FALSE;
 	m_quit = TRUE;
 	m_show = FALSE;
@@ -318,7 +318,7 @@ void CMPlayerPage::SetNormal()
 	m_fixedvo = TRUE;
 	m_reload = FALSE;
 	m_no_dvdnav = FALSE;
-	m_menu = TRUE;
+	m_menu = FALSE;
 	m_fullscreen = FALSE;
 	m_guithread = TRUE;
 	m_oneplayer = FALSE;
@@ -939,11 +939,11 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("high_accuracy_timer") ,_T("1") , true , ex_option);
 	else
 		m_cfg->RemoveValue(_T("high_accuracy_timer") , true);
-	
+
 	if(m_menu)
-		m_cfg->RemoveValue(_T("show_menubar"), true);
+		m_cfg->SetValue(_T("show_menubar") ,_T("1") , true , ex_gui);
 	else
-		m_cfg->SetValue(_T("show_menubar") ,_T("0") , true , ex_gui);
+		m_cfg->RemoveValue(_T("show_menubar"), true);
 
 	int indexCtrl = m_ctrlbar.GetCurSel();
 	if(indexCtrl > 1) {
