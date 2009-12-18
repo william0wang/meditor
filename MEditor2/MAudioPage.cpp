@@ -52,6 +52,7 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 
 	m_str_audio.Add(ResStr(IDS_AUDIO_DS));
 	m_str_audio.Add(ResStr(IDS_AUDIO_WIN));
+	m_str_audio.Add(_T("SDL (Simple DirectMedia Layer)"));
 	m_str_audio.Add(ResStr(IDS_AUDIO_FILE));
 	m_str_audio.Add(ResStr(IDS_AUDIO_NULL));
 
@@ -463,6 +464,8 @@ void CMAudioPage::InitFromConfig()
 	{
 		if(value_s == _T("win32"))
 			m_audio.SetCurSel(win32);
+		else if(value_s == _T("sdl"))
+			m_audio.SetCurSel(ao_sdl);
 		else if(value_s == _T("pcm"))
 			m_audio.SetCurSel(pcm);
 		else if(value_s == _T("null"))
@@ -570,6 +573,9 @@ void CMAudioPage::SaveConfig()
 	{
 	case win32:
 		m_cfg->SetValue(_T("ao") ,_T("win32") );
+		break;
+	case ao_sdl:
+		m_cfg->SetValue(_T("ao") ,_T("sdl") );
 		break;
 	case pcm:
 		m_cfg->SetValue(_T("ao") ,_T("pcm") );
@@ -751,7 +757,7 @@ void CMAudioPage::SaveConfig()
 		m_cfg->RemoveValue(_T("af"));
 	m_List.UnlockWindowUpdate();
 }
-	
+
 BOOL CMAudioPage::PreTranslateMessage(MSG* pMsg) 
 {
 	switch(pMsg->message)
