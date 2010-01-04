@@ -86,11 +86,6 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO9));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO10));
 
-	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX1));
-	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX2));
-	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX3));
-	m_mxcolor_str.Add(ResStr(IDS_VIDEO_MX4));
-
 	m_str_vet = ResStr(IDS_VIDEO_EXPIT);
 	m_str_cot = ResStr(IDS_VIDEO_CROIT);
 
@@ -133,7 +128,6 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO_VO, m_vo);
-	DDX_Control(pDX, IDC_COMBO_MXCOLOR, m_mxcolor);
 	DDX_Control(pDX, IDC_SLIDER_SATURATIONS, m_sc);
 	DDX_Control(pDX, IDC_SLIDER_HUE, m_hc);
 	DDX_Control(pDX, IDC_SLIDER_CONTRAST, m_cc);
@@ -393,10 +387,6 @@ BOOL CMVideoPage::OnInitDialog()
 		m_vo.AddString(m_vo_str[i]);
 	m_vo.SetCurSel(directx);
 	
-	for(int i = 0; i < m_mxcolor_str.GetCount(); i++)
-		m_mxcolor.AddString(m_mxcolor_str[i]);
-	m_mxcolor.SetCurSel(mx_g);
-	
 	InitFromConfig();
 	
 	int b = _tcstoul(m_color.Right(2), 0, 16);
@@ -425,7 +415,6 @@ void CMVideoPage::SetNormal()
 	m_saturation_s = 100;
 	m_brightness_s = 100;
 	m_gamma_s = 10;
-	m_mxcolor.SetCurSel(mx_g);
 
 	m_List.SetCheckbox(screenshot, 0, 1);
 	m_List.SetCheckbox(ass, 0, 0);
@@ -611,20 +600,12 @@ void CMVideoPage::InitFromConfig()
 		}
 		else if(value_s == _T("matrixview") || value_s.Find(_T("matrixview:")) == 0)
 		{
-			if(value_s.Find(_T("matrixview:cols=320:")) == 0)
+			if(value_s.Find(_T("matrixview:cols=320")) == 0)
 				m_vo.SetCurSel(mx_h);
-			else if(value_s.Find(_T("matrixview:cols=40:")) == 0)
+			else if(value_s.Find(_T("matrixview:cols=40")) == 0)
 				m_vo.SetCurSel(mx_l);
 			else
 				m_vo.SetCurSel(mx);
-			if(value_s.Find(_T("color=1")) > 0)
-				m_mxcolor.SetCurSel(mx_b);
-			else if(value_s.Find(_T("color=2")) > 0)
-				m_mxcolor.SetCurSel(mx_r);
-			else if(value_s.Find(_T("color=3")) > 0)
-				m_mxcolor.SetCurSel(mx_a);
-			else
-				m_mxcolor.SetCurSel(mx_g);
 		}
 		else if(value_s == _T("sdl"))
 			m_vo.SetCurSel(sdl);
@@ -934,13 +915,7 @@ void CMVideoPage::SaveConfig()
 		m_cfg->RemoveValue(_T("aspect"));
 
 	int vvo = m_vo.GetCurSel();
-	int vmxcolor = m_mxcolor.GetCurSel();
 	CString glstr =  _T("gl");
-	CString mxcolorstr;
-	if(vmxcolor > 0 && vmxcolor <=3)
-		mxcolorstr.Format(_T(":color=%d"),vmxcolor);
-	else
-		mxcolorstr = _T(":color=0");
 	switch (vvo)
 	{
 	case direct3d:
@@ -1008,13 +983,13 @@ void CMVideoPage::SaveConfig()
 		m_cfg->SetValue(_T("vo") , _T("sdl") );
 		break;
 	case mx:
-		m_cfg->SetValue(_T("vo") , _T("matrixview") + mxcolorstr );
+		m_cfg->SetValue(_T("vo") , _T("matrixview") );
 		break;
 	case mx_l:
-		m_cfg->SetValue(_T("vo") , _T("matrixview:cols=40:rows=30") + mxcolorstr);
+		m_cfg->SetValue(_T("vo") , _T("matrixview:cols=40:rows=30"));
 		break;
 	case mx_h:
-		m_cfg->SetValue(_T("vo") , _T("matrixview:cols=320:rows=240") + mxcolorstr);
+		m_cfg->SetValue(_T("vo") , _T("matrixview:cols=320:rows=240"));
 		break;
 	case jpeg:
 		m_cfg->SetValue(_T("vo") , _T("jpeg"));
