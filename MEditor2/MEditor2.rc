@@ -2254,6 +2254,7 @@ BEGIN
     IDS_PLAYER_THEME        "系统主题"
     IDS_AUDIO_DSP           "DSP 音效增强插件"
     IDS_AUDIO_DSP_INFO      "选择准备使用的 Winamp DSP 音效增强插件"
+    IDS_INPUT_WINRESIZE     "播放器窗口尺寸"
 END
 
 #endif    // 中文(中华人民共和国) resources

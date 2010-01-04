@@ -177,6 +177,11 @@ CMInputPage::CMInputPage(CWnd* pParent /*=NULL*/)
 	m_str_list.Add(_T("b / B"));
 
 	m_str_list.Add(ResStr(IDS_INPUT_INNER));
+	m_str_list.Add(ResStr(IDS_INPUT_WINRESIZE));
+	m_str_list.Add(_T("+-25%, 100%"));
+	m_str_list.Add(_T("alt + 1~3"));
+
+	m_str_list.Add(ResStr(IDS_INPUT_INNER));
 	m_str_list.Add(ResStr(IDS_INPUT_RESIZE));
 	m_str_list.Add(ResStr(IDS_INPUT_RESIZE));
 	m_str_list.Add(ResStr(IDS_INPUT_RIGHT) + _T(" Ctrl + 1~9"));
@@ -374,12 +379,13 @@ void CMInputPage::FillListCtrl(CXListCtrl * pList)
 	CString str = _T("");
 
 	int index = 0;
-	for(; index < 12; index++)
+	for(; index < 13; index++)
 	{
-		m_List.InsertItem(index, m_str_list[index*4],RGB(0,0,0),RGB(200,255,200));
-		m_List.SetItemText(index, 1,m_str_list[index*4 + 1],RGB(0,0,0),RGB(200,255,200));
-		m_List.SetItemText(index, 2,m_str_list[index*4 + 2],RGB(0,0,0),RGB(200,255,200));
-		m_List.SetItemText(index, 3,m_str_list[index*4 + 3],RGB(0,0,0),RGB(200,255,200));
+		COLORREF color = index%2 ? RGB(220,200,195): RGB(200,195,220);
+		m_List.InsertItem(index, m_str_list[index*4],RGB(0,0,0),RGB(130,150,180));
+		m_List.SetItemText(index, 1,m_str_list[index*4 + 1],RGB(0,0,0),color);
+		m_List.SetItemText(index, 2,m_str_list[index*4 + 2],RGB(0,0,0),color);
+		m_List.SetItemText(index, 3,m_str_list[index*4 + 3],RGB(0,0,0),color);
 	}
 
 	m_readonly_number = index;
@@ -499,7 +505,7 @@ bool CMInputPage::SaveInputConfig()
 	if(mute >= 0)
 	{
 		CString msg;
-		msg.Format(_T("%s£º%s ¡¢ %s ¡¢ %s¡£"), ResStr(IDS_INPUT_REUS)
+		msg.Format(_T("%s: %s , %s , %s"), ResStr(IDS_INPUT_REUS)
 			, m_List.GetItemText(mute,0), m_List.GetItemText(mute,2), m_List.GetItemText(mute,3));
 		m_List.UnlockWindowUpdate();
 		MessageBox(msg, ResStr(IDS_INPUT_CONF));

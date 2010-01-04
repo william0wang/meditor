@@ -676,6 +676,7 @@
 #define IDS_PLAYER_THEME                35355
 #define IDS_AUDIO_DSP                   35356
 #define IDS_AUDIO_DSP_INFO              35357
+#define IDS_INPUT_WINRESIZE             35358
 
 // Next default values for new objects
 // 

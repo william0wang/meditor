@@ -743,8 +743,8 @@ END
 STRINGTABLE 
 BEGIN
     IDS_INPUT_SETNONE       "Not found input settings, use the default settings ?"
-    IDS_INPUT_INNER         "inner key"
-    IDS_INPUT_INMOS         "inner mouse control"
+    IDS_INPUT_INNER         "internal hot key"
+    IDS_INPUT_INMOS         "internal mouse control"
     IDS_INPUT_ADD           "add"
     IDS_INPUT_DEC           "dec"
     IDS_INPUT_SUBSZ         " sub size"
@@ -796,6 +796,7 @@ BEGIN
     IDS_PLAYER_THEME        "System Theme"
     IDS_AUDIO_DSP           "DSP/Effect"
     IDS_AUDIO_DSP_INFO      "Select a Winamp audio DSP/Effect plug-in to use"
+    IDS_INPUT_WINRESIZE     "player window size"
 END
 
 #endif    // 中文(中华人民共和国) resources
