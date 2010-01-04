@@ -1264,7 +1264,7 @@ BEGIN
             VALUE "FileDescription", "MPlayer Preferences"
             VALUE "FileVersion", "2.1.0"
             VALUE "InternalName", "meditor2.exe"
-            VALUE "LegalCopyright", "(C) 2007-2009 william0wang"
+            VALUE "LegalCopyright", "(C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "meditor2.exe"
             VALUE "ProductName", "MPlayer  Preferences"
             VALUE "ProductVersion", "2.1.0.0"
