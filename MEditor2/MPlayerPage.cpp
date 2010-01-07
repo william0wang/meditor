@@ -167,6 +167,7 @@ BEGIN_MESSAGE_MAP(CMPlayerPage, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_DVD, OnButtonDvd)
 	ON_CBN_SELCHANGE(IDC_COMBO_AUTOPLAY, OnSelchangeAutoplay)
 	ON_BN_CLICKED(IDC_BUTTON_DEF, &CMPlayerPage::OnBnClickedButtonDef)
+	ON_BN_CLICKED(IDC_CHECK_BSKIN, &CMPlayerPage::OnBnClickedCheckBskin)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -305,6 +306,8 @@ BOOL CMPlayerPage::OnInitDialog()
 	for(int i = 0; i < m_str_autoplay.GetCount(); i++)
 		m_autoplay.AddString(m_str_autoplay[i]);
 	m_autoplay.SetCurSel(auto_ex);
+
+	GetDlgItem(IDC_CHECK_CTLALPHA)->EnableWindow(FALSE);
 
 	InitFromConfig();
 	
@@ -494,9 +497,10 @@ void CMPlayerPage::InitFromConfig()
 	}
 	if(m_cfg->GetValue_Boolean(_T("skinned_player"),value_b,true))
 	{
-		if(!value_b)
+		if(!value_b) {
 			m_bskin = FALSE;
-		else
+			GetDlgItem(IDC_CHECK_CTLALPHA)->EnableWindow(TRUE);
+		} else
 			m_bskin = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("seek_realtime"),value_b,true))
@@ -1307,4 +1311,13 @@ void CMPlayerPage::OnBnClickedButtonDef()
 		m_def = csFolder;
 	::SetCurrentDirectory(szFilePath);
 	UpdateData(FALSE);
+}
+
+void CMPlayerPage::OnBnClickedCheckBskin()
+{
+	UpdateData(TRUE);
+	if(m_bskin)
+		GetDlgItem(IDC_CHECK_CTLALPHA)->EnableWindow(FALSE);
+	else
+		GetDlgItem(IDC_CHECK_CTLALPHA)->EnableWindow(TRUE);
 }
