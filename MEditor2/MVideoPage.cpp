@@ -23,6 +23,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	, m_gamma_s(10)
 	, m_dr(FALSE)
 	, m_vista_fs(TRUE)
+	, m_aero_directx(TRUE)
 {
 	m_noflash = TRUE;
 	m_forcepbo = FALSE;
@@ -154,6 +155,7 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER_GAMMA, m_gc);
 	DDX_Check(pDX, IDC_CHECK_DR, m_dr);
 	DDX_Check(pDX, IDC_CHECK_VISTA_FS, m_vista_fs);
+	DDX_Check(pDX, IDC_CHECK_AERODX, m_aero_directx);
 }
 
 
@@ -494,6 +496,13 @@ void CMVideoPage::InitFromConfig()
 			m_framedrop = TRUE;
 		else
 			m_framedrop = FALSE;
+	}
+	if(m_cfg->GetValue_Boolean(_T("detect_directx"),value_b,true))
+	{
+		if(!value_b)
+			m_aero_directx = FALSE;
+		else
+			m_aero_directx = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("gl_new_window"),value_b,true))
 	{
@@ -886,7 +895,12 @@ void CMVideoPage::SaveConfig()
 		m_cfg->SetValue(_T("dr"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("dr"));
-	
+
+	if(m_aero_directx)
+		m_cfg->RemoveValue(_T("detect_directx"),true);
+	else
+		m_cfg->SetValue(_T("detect_directx"),_T("0"),true, ex_sysinfo);
+
 	if(m_noflash)
 		m_cfg->RemoveValue(_T("gl_fs_flash"),true);
 	else

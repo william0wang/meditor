@@ -183,6 +183,7 @@ public:
 	BOOL m_dr;
 	void SetInfoDlg(CMShowInfoDlg *infoDlg);
 	BOOL m_vista_fs;
+	BOOL m_aero_directx;
 };
 
 //{{AFX_INSERT_LOCATION}}
