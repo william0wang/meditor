@@ -557,7 +557,7 @@ void CMPlayerPage::InitFromConfig()
 			m_menu = FALSE;
 	}
 
-	if(m_cfg->GetValue_Boolean(_T("alpha_control"),value_b,true))
+	if(m_cfg->GetValue_Boolean(_T("auto_hide_control"),value_b,true))
 	{
 		if(!value_b)
 			m_alpha_control = FALSE;
@@ -901,9 +901,9 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("skin_controlbar") ,_T("0") , true , ex_gui);
 
 	if(m_alpha_control)
-		m_cfg->RemoveValue(_T("alpha_control"),true);
+		m_cfg->RemoveValue(_T("auto_hide_control"),true);
 	else
-		m_cfg->SetValue(_T("alpha_control") ,_T("0") , true , ex_gui);
+		m_cfg->SetValue(_T("auto_hide_control") ,_T("0") , true , ex_gui);
 
 	if(m_guithread)
 		m_cfg->SetValue(_T("gui_thread") ,_T("1") , true , ex_option);
