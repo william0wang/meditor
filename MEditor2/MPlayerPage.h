@@ -186,6 +186,7 @@ public:
 	BOOL m_bskin;
 	BOOL m_ctlskin;
 	BOOL m_alpha_control;
+	afx_msg void OnBnClickedCheckBskin();
 };
 
 //{{AFX_INSERT_LOCATION}}

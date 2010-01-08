@@ -169,7 +169,7 @@ BEGIN
             VALUE "FileDescription", "MPlayer  Preferences"
             VALUE "FileVersion", "2.1.0"
             VALUE "InternalName", "meditor2.tc"
-            VALUE "LegalCopyright", "(C) 2007-2009 william0wang"
+            VALUE "LegalCopyright", "(C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "meditor2.tc"
             VALUE "ProductName", "MPlayer  Preferences"
             VALUE "ProductVersion", "2.1.0.0"
@@ -795,6 +795,7 @@ BEGIN
     IDS_PLAYER_THEME        "系統主題"
     IDS_AUDIO_DSP           "DSP 音效增強插件"
     IDS_AUDIO_DSP_INFO      "選擇準備使用的 Winamp DSP 音效增強插件"
+    IDS_INPUT_WINRESIZE     "播放器窗口尺寸"
 END
 
 #endif    // 中文(中华人民共和国) resources

@@ -105,7 +105,6 @@ protected:
 // Dialog Data
 	enum { IDD = IDD_VIDEO_DIALOG };
 	CAdvComboBoxMod	m_vo;
-	CAdvComboBoxMod	m_mxcolor;
 	CSliderCtrl	m_sc;
 	CSliderCtrl	m_hc;
 	CSliderCtrl	m_cc;
@@ -133,7 +132,6 @@ protected:
 	CStringArray m_deinterlacing;
 	CStringArray m_deblocking;
 	CStringArray m_vo_str;
-	CStringArray m_mxcolor_str;
 	CStringArray m_str_vf;
 
 	CString use;
@@ -185,6 +183,7 @@ public:
 	BOOL m_dr;
 	void SetInfoDlg(CMShowInfoDlg *infoDlg);
 	BOOL m_vista_fs;
+	BOOL m_aero_directx;
 };
 
 //{{AFX_INSERT_LOCATION}}

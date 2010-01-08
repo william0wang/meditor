@@ -97,7 +97,7 @@ BEGIN
             VALUE "FileDescription", "mloader"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "mloader.exe"
-            VALUE "LegalCopyright", "(C) 2007-2009 william0wang"
+            VALUE "LegalCopyright", "(C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "mloader.exe"
             VALUE "ProductName", "mloader"
             VALUE "ProductVersion", "1.0.0.1"
