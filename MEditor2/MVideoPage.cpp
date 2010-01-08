@@ -1153,7 +1153,6 @@ void CMVideoPage::SaveConfig()
 
 	if(use_coreavc && use_expand && vvo >= direct3d && vvo <= gl2)
 	{
-		vf_str += _T("eq2,");
 		ShowInfo(type_coreavc);
 		m_List.SetCheckbox(eq2, 0 , 1);
 		veq = true;
