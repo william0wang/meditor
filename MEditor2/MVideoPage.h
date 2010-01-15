@@ -184,6 +184,7 @@ public:
 	void SetInfoDlg(CMShowInfoDlg *infoDlg);
 	BOOL m_vista_fs;
 	BOOL m_aero_directx;
+	BOOL m_d3dfix;
 };
 
 //{{AFX_INSERT_LOCATION}}

@@ -303,6 +303,8 @@
 #define IDC_ACOMBO_FONT                 1152
 #define IDC_CHECK_BSKIN                 1153
 #define IDC_CHECK_AERODX                1154
+#define IDC_CHECK_AERODX2               1155
+#define IDC_CHECK_D3DFIX                1155
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774

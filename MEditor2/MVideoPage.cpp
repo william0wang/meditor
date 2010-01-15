@@ -24,6 +24,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	, m_dr(FALSE)
 	, m_vista_fs(TRUE)
 	, m_aero_directx(TRUE)
+	, m_d3dfix(FALSE)
 {
 	m_noflash = TRUE;
 	m_forcepbo = FALSE;
@@ -156,6 +157,7 @@ void CMVideoPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_DR, m_dr);
 	DDX_Check(pDX, IDC_CHECK_VISTA_FS, m_vista_fs);
 	DDX_Check(pDX, IDC_CHECK_AERODX, m_aero_directx);
+	DDX_Check(pDX, IDC_CHECK_D3DFIX, m_d3dfix);
 }
 
 
@@ -572,12 +574,13 @@ void CMVideoPage::InitFromConfig()
 	}
 	if(m_cfg->GetValue_String(_T("vo"),value_s))
 	{
-		if(value_s == _T("direct3d"))
+		if(value_s == _T("direct3d") || value_s.Find(_T("direct3d:")) == 0) {
 			m_vo.SetCurSel(direct3d);
-		else if(value_s == _T("gl2") || value_s.Find(_T("gl2:")) == 0)
+			if(value_s.Find(_T(":levelconv")) > 0)
+				m_d3dfix = TRUE;
+		} else if(value_s == _T("gl2") || value_s.Find(_T("gl2:")) == 0) {
 			m_vo.SetCurSel(gl2);
-		else if(value_s == _T("gl") || value_s.Find(_T("gl:")) == 0)
-		{
+		} else if(value_s == _T("gl") || value_s.Find(_T("gl:")) == 0) {
 			if(value_s.Find(_T(":yuv=4")) > 0)
 				m_vo.SetCurSel(gl);
 			else if(value_s.Find(_T(":yuv=2")) > 0)
@@ -599,16 +602,13 @@ void CMVideoPage::InitFromConfig()
 				m_forcepbo = 0;
 			int offset = value_s.Find(_T(":osdcolor="));
 			value_s += _T(":");
-			if(offset > 0)
-			{
+			if(offset > 0) {
 				offset += 10;
 				int offsetend = value_s.Find(_T(":"),offset);
 				if(offsetend > offset)
 					m_color = value_s.Mid(offset,offsetend - offset);
 			}
-		}
-		else if(value_s == _T("matrixview") || value_s.Find(_T("matrixview:")) == 0)
-		{
+		} else if(value_s == _T("matrixview") || value_s.Find(_T("matrixview:")) == 0) {
 			if(value_s.Find(_T("matrixview:cols=320")) == 0)
 				m_vo.SetCurSel(mx_h);
 			else if(value_s.Find(_T("matrixview:cols=40")) == 0)
@@ -626,8 +626,7 @@ void CMVideoPage::InitFromConfig()
 			m_vo.SetCurSel(yuv4mpeg);
 		else if(value_s == _T("null"))
 			m_vo.SetCurSel(null);
-		else
-		{
+		else {
 			m_vo.SetCurSel(directx);
 			is_directx = true;
 		}
@@ -933,7 +932,10 @@ void CMVideoPage::SaveConfig()
 	switch (vvo)
 	{
 	case direct3d:
-		m_cfg->SetValue(_T("vo") , _T("direct3d") );
+		if(m_d3dfix)
+			m_cfg->SetValue(_T("vo") , _T("direct3d:levelconv"));
+		else
+			m_cfg->SetValue(_T("vo") , _T("direct3d"));
 		break;
 	case gl:
 		glstr += _T(":yuv=4");
