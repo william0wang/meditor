@@ -774,7 +774,7 @@ BEGIN
     IDS_VIDEO_VONV          "OpenGL(nVIDIA Only)"
     IDS_VIDEO_VOATI         "OpenGL(ATI old Only)"
     IDS_VIDEO_VOGL4         "OpenGL(High Requirement)"
-    IDS_VIDEO_VOGL2         "OpenGL(Low Requirement)"
+    IDS_VIDEO_VOGL3         "OpenGL(Low Requirement)"
     IDS_VIDEO_VOGL6         "OpenGL(High GPU Bandwidth)"
     IDS_VIDEO_VOGL0         "OpenGL(software YUV)"
     IDS_INFO_REALTIME       "Real-time priority in some computer systems will cause loss of response , please use extreme caution."

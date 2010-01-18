@@ -2238,9 +2238,9 @@ BEGIN
     IDS_VIDEO_VONV          "OpenGL(nVIDIA 专用)"
     IDS_VIDEO_VOATI         "OpenGL(ATI 旧显卡专用)"
     IDS_VIDEO_VOGL4         "OpenGL(高显卡需求)"
-    IDS_VIDEO_VOGL2         "OpenGL(低显卡需求)"
+    IDS_VIDEO_VOGL3         "OpenGL(低显卡需求)"
     IDS_VIDEO_VOGL6         "OpenGL(高GPU带宽依赖)"
-    IDS_VIDEO_VOGL0         "OpenGL软件转换(不推荐)"
+    IDS_VIDEO_VOGL0         "OpenGL软件(高兼容性)"
     IDS_INFO_REALTIME       "实时优先级在某些电脑上会造成系统失去响应，请谨慎使用！"
 END
 

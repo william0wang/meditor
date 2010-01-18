@@ -772,10 +772,10 @@ BEGIN
     IDS_INPUT_DVDPRE        "返回上一個DVD菜單"
     IDS_VIDEO_VONV          "OpenGL(nVIDIA 專用)"
     IDS_VIDEO_VOATI         "OpenGL(ATI 舊顯示卡專用)"
-    IDS_VIDEO_VOGL4         "OpenGL(高顯示卡需求)"
-    IDS_VIDEO_VOGL2         "OpenGL(低顯示卡需求)"
-    IDS_VIDEO_VOGL6         "OpenGL(高GPU帶寬依賴)"
-    IDS_VIDEO_VOGL0         "OpenGL軟體轉換(不推薦)"
+    IDS_VIDEO_VOGL4         "OpenGL(yuv=4)"
+    IDS_VIDEO_VOGL3         "OpenGL(yuv=3)"
+    IDS_VIDEO_VOGL6         "OpenGL(yuv=6)"
+    IDS_VIDEO_VOGL0         "OpenGL軟體(高相容性)"
     IDS_INFO_REALTIME       "實時優先級在某些電腦上會造成系統失去響應，請謹慎使用！"
 END
 

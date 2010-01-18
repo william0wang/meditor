@@ -27,7 +27,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	, m_d3dfix(FALSE)
 {
 	m_noflash = TRUE;
-	m_forcepbo = FALSE;
+	m_forcepbo = TRUE;
 	m_color = _T("0xffffff");
 	m_saturation = _T("0");
 	m_saturation_s = 0;
@@ -72,11 +72,11 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOD3D));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO1));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL));
-	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL4));
-	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL2));
+	m_vo_str.Add(_T("OpenGL(yuv=3)"));
+	m_vo_str.Add(_T("OpenGL(yuv=4)"));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VONV));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOATI));
-	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL6));
+	m_vo_str.Add(_T("OpenGL(yuv=6)"));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL0));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO3));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO4));
@@ -581,10 +581,10 @@ void CMVideoPage::InitFromConfig()
 		} else if(value_s == _T("gl2") || value_s.Find(_T("gl2:")) == 0) {
 			m_vo.SetCurSel(gl2);
 		} else if(value_s == _T("gl") || value_s.Find(_T("gl:")) == 0) {
-			if(value_s.Find(_T(":yuv=4")) > 0)
+			if(value_s.Find(_T(":yuv=2")) > 0)
 				m_vo.SetCurSel(gl);
-			else if(value_s.Find(_T(":yuv=2")) > 0)
-				m_vo.SetCurSel(glyuv2);
+			else if(value_s.Find(_T(":yuv=4")) > 0)
+				m_vo.SetCurSel(glyuv4);
 			else if(value_s.Find(_T(":yuv=3")) > 0)
 				m_vo.SetCurSel(glyuv3);
 			else if(value_s.Find(_T(":yuv=1")) > 0)
@@ -597,9 +597,9 @@ void CMVideoPage::InitFromConfig()
 				m_vo.SetCurSel(glyuv0);
 			
 			if(value_s.Find(_T(":force-pbo")) > 0)
-				m_forcepbo = 1;
+				m_forcepbo = TRUE;
 			else
-				m_forcepbo = 0;
+				m_forcepbo = FALSE;
 			int offset = value_s.Find(_T(":osdcolor="));
 			value_s += _T(":");
 			if(offset > 0) {
@@ -938,7 +938,7 @@ void CMVideoPage::SaveConfig()
 			m_cfg->SetValue(_T("vo") , _T("direct3d"));
 		break;
 	case gl:
-		glstr += _T(":yuv=4");
+		glstr += _T(":yuv=2");
 		if(m_forcepbo)
 			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))
@@ -953,8 +953,8 @@ void CMVideoPage::SaveConfig()
 			glstr += _T(":osdcolor=") + m_color;	
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
-	case glyuv2:
-		glstr += _T(":yuv=2");
+	case glyuv4:
+		glstr += _T(":yuv=4");
 		if(m_forcepbo)
 			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))

@@ -63,7 +63,7 @@ enum vo
 	directx,
 	gl,
 	glyuv3,
-	glyuv2,
+	glyuv4,
 	glnv,
 	glati,
 	glyuv6,
