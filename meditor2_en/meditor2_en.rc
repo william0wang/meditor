@@ -712,7 +712,7 @@ BEGIN
     IDS_INPUT_SWIF          "font switch"
     IDS_INPUT_SUBS          "subtitle switch"
     IDS_INPUT_SUBA          "subtitle alignment"
-    IDS_INPUT_SWIV          "view switch"
+    IDS_INPUT_SWIV          "hide/show border"
     IDS_INPUT_VOFS          "fullscreen switch"
     IDS_INPUT_VOOT          "ontop switch"
     IDS_INPUT_RELO          "reload all"

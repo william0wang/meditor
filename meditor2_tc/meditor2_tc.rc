@@ -711,7 +711,7 @@ BEGIN
     IDS_INPUT_SWIF          "字體轉換"
     IDS_INPUT_SUBS          "字幕轉換"
     IDS_INPUT_SUBA          "字幕校正"
-    IDS_INPUT_SWIV          "視圖轉換"
+    IDS_INPUT_SWIV          "隱藏/顯示邊框"
     IDS_INPUT_VOFS          "全螢幕 狀態轉換"
     IDS_INPUT_VOOT          "前端顯示 狀態轉換"
     IDS_INPUT_RELO          "全部重新加載"
