@@ -63,7 +63,7 @@ enum vo
 	directx,
 	gl,
 	glyuv3,
-	glyuv2,
+	glyuv4,
 	glnv,
 	glati,
 	glyuv6,
@@ -184,6 +184,7 @@ public:
 	void SetInfoDlg(CMShowInfoDlg *infoDlg);
 	BOOL m_vista_fs;
 	BOOL m_aero_directx;
+	BOOL m_d3dfix;
 };
 
 //{{AFX_INSERT_LOCATION}}

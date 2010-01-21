@@ -303,6 +303,7 @@
 #define IDC_ACOMBO_FONT                 1152
 #define IDC_CHECK_BSKIN                 1153
 #define IDC_CHECK_AERODX                1154
+#define IDC_CHECK_D3DFIX                1155
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774
@@ -688,6 +689,7 @@
 #define IDS_VIDEO_VOATI                 35338
 #define IDS_VIDEO_VOGL4                 35339
 #define IDS_VIDEO_VOGL2                 35340
+#define IDS_VIDEO_VOGL3                 35340
 #define IDS_VIDEO_VOGL6                 35341
 #define IDS_VIDEO_VOGL0                 35342
 #define IDS_INFO_REALTIME               35343
