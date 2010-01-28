@@ -137,4 +137,5 @@ public:
 	void ShowInfo(int type);
 	afx_msg void OnBnClickedCheckFontconfig();
 	float m_ass_font_scale;
+	BOOL m_always_ass;
 };

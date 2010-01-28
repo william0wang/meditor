@@ -130,6 +130,7 @@
 #define IDC_CHECK_HIDE                  1039
 #define IDC_CHECK_ASS_MARGINS           1039
 #define IDC_CHECK_NOSKIN                1039
+#define IDC_CHECK_ASS_ALWAYS            1039
 #define IDC_EDIT_ERROR                  1040
 #define IDC_CHECK_SYS                   1040
 #define IDC_BUTTON_DEF                  1040

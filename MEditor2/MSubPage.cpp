@@ -34,6 +34,7 @@ CMSubPage::CMSubPage(CWnd* pParent /*=NULL*/)
 		, m_bold(FALSE)
 		, m_italic(FALSE)
 		, m_ass_font_scale(1.0)
+		, m_always_ass(TRUE)
 {
 	m_cfg = NULL;
 	m_dvdsub = FALSE;
@@ -170,6 +171,7 @@ void CMSubPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_B, m_bold);
 	DDX_Check(pDX, IDC_CHECK_I, m_italic);
 	DDX_Text(pDX, IDC_EDIT_FSCALE, m_ass_font_scale);
+	DDX_Check(pDX, IDC_CHECK_ASS_ALWAYS, m_always_ass);
 }
 
 
@@ -390,6 +392,13 @@ void CMSubPage::InitFromConfig()
 		default:
 			m_osdmode.SetCurSel(osd_normal);
 		}
+	}
+	if(m_cfg->GetValue_Boolean(_T("always_use_ass"),value_b,true))
+	{
+		if(!value_b)
+			m_always_ass = FALSE;
+		else
+			m_always_ass = TRUE;
 	}
 	if(m_cfg->GetValue_Boolean(_T("osd_percent"),value_b,true))
 	{
@@ -686,6 +695,11 @@ void CMSubPage::SaveConfig()
 	default:
 		m_cfg->RemoveValue(_T("osdlevel"));
 	}
+
+	if(!m_always_ass)
+		m_cfg->SetValue(_T("always_use_ass") ,_T("0") ,true, ex_option);
+	else
+		m_cfg->RemoveValue(_T("always_use_ass") ,true);
 
 	if(m_osdpercent)
 		m_cfg->SetValue(_T("osd_percent") ,_T("1") ,true, ex_osd);
