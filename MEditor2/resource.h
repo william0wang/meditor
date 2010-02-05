@@ -711,6 +711,8 @@
 #define IDS_AUDIO_STM_INFO2             35357
 #define IDS_AUDIO_DSP_INFO              35357
 #define IDS_INPUT_WINRESIZE             35358
+#define IDS_VIDEO_VOGL5                 35359
+#define IDS_VIDEO_VOGLAUTO              35359
 
 // Next default values for new objects
 // 
