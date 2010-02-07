@@ -26,8 +26,10 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	//}}AFX_DATA_INIT
 	m_vdecode.RemoveAll();
 	m_adecode.RemoveAll();
-	m_vdecode.Add(_T("coreavc"));
+	m_vdecode.Add(_T("coreavcdshow"));
+	m_vdecode.Add(_T("diavcdshow"));
 	m_vdecode.Add(_T("coreavcwindows"));
+	m_vdecode.Add(_T("coreavc"));
 	m_vdecode.Add(_T("mpegpes"));
 	m_vdecode.Add(_T("mpeg12"));
 	m_vdecode.Add(_T("ffmpeg1"));
