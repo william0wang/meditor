@@ -28,4 +28,5 @@ public:
 	afx_msg void OnDestroy();
 	DECLARE_EVENTSINK_MAP()
 	void DownloadCompleteExplorerHtml();
+	void NavigateComplete2ExplorerHtml(LPDISPATCH pDisp, VARIANT* URL);
 };

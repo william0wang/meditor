@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "meditor2.h"
 #include "MediaInfoDlg.h"
+#include <mshtml.h>
 
 
 // CMediaInfoDlg ¶Ô»°¿ò
@@ -72,10 +73,54 @@ void CMediaInfoDlg::OnDestroy()
 }
 BEGIN_EVENTSINK_MAP(CMediaInfoDlg, CDialog)
 	ON_EVENT(CMediaInfoDlg, IDC_EXPLORER_HTML, 104, CMediaInfoDlg::DownloadCompleteExplorerHtml, VTS_NONE)
+	ON_EVENT(CMediaInfoDlg, IDC_EXPLORER_HTML, 252, CMediaInfoDlg::NavigateComplete2ExplorerHtml, VTS_DISPATCH VTS_PVARIANT)
 END_EVENTSINK_MAP()
+
+void DisableHtmlStyle(void *pDisp)
+{
+	IDispatch *pdisp = (IDispatch *)pDisp;
+
+	IHTMLDocument2 *phtmldoc2 = NULL;
+	IHTMLElement *phtmlElement = NULL;
+	IHTMLStyle   *phtmlStyle = NULL;
+	if (pdisp != NULL)
+	{ 
+		pdisp->QueryInterface(IID_IHTMLDocument2, (void**)&phtmldoc2); 
+		pdisp->Release(); 
+	} 
+	if (phtmldoc2 != NULL) 
+	{ 
+		phtmldoc2->get_body(&phtmlElement); 
+		phtmldoc2->Release();
+	} 
+	if (phtmlElement != NULL) 
+	{ 
+		//IHTMLBodyElement *phtmlbody = NULL; 
+		//phtmlElement->QueryInterface(IID_IHTMLBodyElement, (void**)&phtmlbody); 
+		//if (phtmlbody != NULL) 
+		//{ 
+		//	phtmlbody->put_scroll(L"no");
+		//	phtmlbody->Release(); 
+		//}
+		phtmlElement->get_style(&phtmlStyle);  
+		if(phtmlStyle != NULL)
+		{
+			//phtmlStyle->put_overflow(L"hidden");
+			phtmlStyle->put_border(L"none");
+			phtmlStyle->Release();
+		}  
+		phtmlElement->Release(); 
+	}
+}
 
 void CMediaInfoDlg::DownloadCompleteExplorerHtml()
 {
 	DeleteFile(URL);
+	DisableHtmlStyle(m_html.get_Document());
 	::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+}
+
+void CMediaInfoDlg::NavigateComplete2ExplorerHtml(LPDISPATCH pDisp, VARIANT* URL)
+{
+	DisableHtmlStyle(m_html.get_Document());
 }
