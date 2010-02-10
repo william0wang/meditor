@@ -185,6 +185,11 @@ void CMAssosPage::OnBnClickedAssos()
 		CReg reg;
 		CString SubKey, Name, Content;
 
+		Name =  _T("MPlayer");
+		Content = _T("SOFTWARE\\MPlayer\\Capabilites");
+		SubKey =  _T("SOFTWARE\\RegisteredApplications");
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
 		Name =  _T("");
 		Content = _T("");
 		SubKey =  _T("SOFTWARE\\MPlayer");
