@@ -90,6 +90,8 @@
 #define IDC_EDIT_T                      1011
 #define IDC_ASSOS                       1012
 #define IDC_PROGRESS_APPLEY             1013
+#define IDC_ASSOS_DEF                   1013
+#define IDC_ASSOS2                      1013
 #define IDC_COMBO_MONITOR               1015
 #define IDC_COMBO_AUTOSYNC              1016
 #define IDC_COMBO_LANGUAGE              1017
@@ -711,7 +713,6 @@
 #define IDS_AUDIO_STM_INFO2             35357
 #define IDS_AUDIO_DSP_INFO              35357
 #define IDS_INPUT_WINRESIZE             35358
-#define IDS_VIDEO_VOGL5                 35359
 #define IDS_VIDEO_VOGLAUTO              35359
 
 // Next default values for new objects
