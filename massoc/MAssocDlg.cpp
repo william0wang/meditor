@@ -1,15 +1,15 @@
-// MAssosPage.cpp : 实现文件
+// MAssocPage.cpp : 实现文件
 //
 #include "stdafx.h"
 #include "massoc.h"
 #include "shlwapi.h"
 #include "MShared.h"
-#include "MAssosDlg.h"
+#include "MAssocDlg.h"
 #include "reg.h"
 
 UINT RebuildIconsCacheThread(LPVOID pParam)
 {
-	CMAssosPage *This = (CMAssosPage *)pParam;
+	CMAssocPage *This = (CMAssocPage *)pParam;
 
 	This->ShowWindow(SW_HIDE);
 	//Rebuild Icon Cache
@@ -35,11 +35,11 @@ UINT RebuildIconsCacheThread(LPVOID pParam)
 	return 0;
 }
 
-// CMAssosPage 对话框
+// CMAssocPage 对话框
 
-IMPLEMENT_DYNAMIC(CMAssosPage, CDialog)
+IMPLEMENT_DYNAMIC(CMAssocPage, CDialog)
 
-CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
+CMAssocPage::CMAssocPage(CWnd* pParent /*=NULL*/)
 	: CDialog(theApp.IDD, pParent)
 	, m_rightmenu(TRUE)
 	, m_rightmenu2(FALSE)
@@ -74,6 +74,7 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_alist.Add( _T("asf"), _T("Advanced Streaming ") + ResStr(IDS_ASSOS_V), m_str_v, _T("16"));
 	m_alist.Add( _T("avi"), _T("AVI ") + ResStr(IDS_ASSOS_AVI), m_str_v, _T("1"));
 	m_alist.Add( _T("avs"), ResStr(IDS_ASSOS_AVS), m_str_v, _T("35"));
+	m_alist.Add( _T("bik"), _T("Bink ") + ResStr(IDS_ASSOS_V), m_str_v, _T("35"));
 	m_alist.Add( _T("dat"), _T("VCD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("5"));
 	m_alist.Add( _T("divx"), _T("DIVX ") + ResStr(IDS_ASSOS_V), m_str_v, _T("35"));
 	m_alist.Add( _T("evo"), _T("EVOB ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("35"));
@@ -88,6 +89,7 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_alist.Add( _T("mp4"), _T("MPEG-4 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("6"));
 	m_alist.Add( _T("mpeg"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
 	m_alist.Add( _T("mpg"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("8"));
+	m_alist.Add( _T("mpv"), _T("MPEG ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
 	m_alist.Add( _T("ogm"), _T("Ogg ") + ResStr(IDS_ASSOS_V), m_str_v, _T("4"));
 	m_alist.Add( _T("pmp"), _T("PMP ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("38"));
 	m_alist.Add( _T("pss"), _T("MPEG-1 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("7"));
@@ -96,8 +98,10 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_alist.Add( _T("qt"), _T("QuickTime ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("12"));
 	m_alist.Add( _T("rm"), _T("RealMedia ") + ResStr(IDS_ASSOS_V), m_str_v, _T("14"));
 	m_alist.Add( _T("rmvb"), _T("RealMedia VBR ") + ResStr(IDS_ASSOS_V), m_str_v, _T("15"));
-	m_alist.Add( _T("tp"), _T("MPEG-2 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("10"));
-	m_alist.Add( _T("ts"), _T("MPEG-2 ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("9"));
+	m_alist.Add( _T("tp"), _T("AVCHD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("10"));
+	m_alist.Add( _T("ts"), _T("AVCHD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("9"));
+	m_alist.Add( _T("m2ts"), _T("AVCHD ") + ResStr(IDS_ASSOS_V), m_str_v, _T("9"));
+	m_alist.Add( _T("mts"), _T("AVCHD ") + ResStr(IDS_ASSOS_V), m_str_v, _T("9"));
 	m_alist.Add( _T("vob"), _T("DVD ") + ResStr(IDS_ASSOS_MOV), m_str_v, _T("11"));
 	m_alist.Add( _T("vp6"), _T("VP6/VP7 ") + ResStr(IDS_ASSOS_V), m_str_v, _T("35"));
 	m_alist.Add( _T("wmv"), _T("Windows Media ") + ResStr(IDS_ASSOS_V), m_str_v, _T("17"));
@@ -122,6 +126,7 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_alist.Add( _T("m3u"), _T("M3U ") + ResStr(IDS_ASSOS_LISTFILE), m_str_list, _T("32"));
 	m_alist.Add( _T("m3u8"), _T("M3U8 ") + ResStr(IDS_ASSOS_LISTFILE), m_str_list, _T("33"));
 	m_alist.Add( _T("pls"), _T("PLS ") + ResStr(IDS_ASSOS_LISTFILE), m_str_list, _T("34"));
+	m_list_num = m_alist.m_type.GetSize();
 	m_alist.Add( _T("swf"), _T("Flash ") + ResStr(IDS_ASSOS_CT), m_str_flash, _T("0"));
 
 	if (theApp.hResourceHandleOld)
@@ -138,6 +143,15 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	m_dll_getted = false;
 	m_have_icons = false;
 	m_special = false;
+	m_is_vista = false;
+
+	OSVERSIONINFO version;
+
+	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	if(GetVersionEx(&version)) {
+		if(version.dwMajorVersion >= 6)
+			m_is_vista = true;
+	}
 
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -156,11 +170,11 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 		m_editor_exe = m_program_dir + _T("meditor.exe");
 }
 
-CMAssosPage::~CMAssosPage()
+CMAssocPage::~CMAssocPage()
 {
 }
 
-void CMAssosPage::DoDataExchange(CDataExchange* pDX)
+void CMAssocPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO_MICONS, m_micons);
@@ -173,8 +187,8 @@ void CMAssosPage::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CMAssosPage, CDialog)
-	ON_BN_CLICKED(IDC_ASSOS, OnBnClickedAssos)
+BEGIN_MESSAGE_MAP(CMAssocPage, CDialog)
+	ON_BN_CLICKED(IDC_ASSOS, OnBnClickedAssoc)
 	ON_BN_CLICKED(IDC_ADD, OnBnClickedAdd)
 	ON_BN_CLICKED(IDC_DEL, OnBnClickedDel)
 	ON_BN_CLICKED(IDC_ALL, OnBnClickedAll)
@@ -184,11 +198,11 @@ BEGIN_MESSAGE_MAP(CMAssosPage, CDialog)
 END_MESSAGE_MAP()
 
 
-// CMAssosPage 消息处理程序
+// CMAssocPage 消息处理程序
 
-int CMAssosPage::m_nColWidths[4] = { 5, 10, 30, 10};	// sixty-fourths
+int CMAssocPage::m_nColWidths[4] = { 5, 10, 30, 10};	// sixty-fourths
 
-BOOL CMAssosPage::OnInitDialog()
+BOOL CMAssocPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -268,7 +282,7 @@ BOOL CMAssosPage::OnInitDialog()
 				{
 					s_type = text.Left(offset);
 					s_info = text.Mid(offset + 1, text.GetLength() - offset -1);
-					if(IsAssosed(s_type))
+					if(IsAssoced(s_type))
 						checked = 1;
 					else
 						checked = 0;
@@ -300,7 +314,7 @@ BOOL CMAssosPage::OnInitDialog()
 				{
 					s_type = text.Left(offset);
 					s_info = text.Mid(offset + 1, text.GetLength() - offset -1);
-					if(IsAssosed(s_type))
+					if(IsAssoced(s_type))
 						checked = 1;
 					else
 						checked = 0;
@@ -332,7 +346,7 @@ BOOL CMAssosPage::OnInitDialog()
 				{
 					s_type = text.Left(offset);
 					s_info = text.Mid(offset + 1, text.GetLength() - offset -1);
-					if(IsAssosed(s_type))
+					if(IsAssoced(s_type))
 						checked = 1;
 					else
 						checked = 0;
@@ -364,7 +378,7 @@ BOOL CMAssosPage::OnInitDialog()
 				{
 					s_type = text.Left(offset);
 					s_info = text.Mid(offset + 1, text.GetLength() - offset -1);
-					if(IsAssosed(s_type))
+					if(IsAssoced(s_type))
 						checked = 1;
 					else
 						checked = 0;
@@ -396,7 +410,7 @@ BOOL CMAssosPage::OnInitDialog()
 				{
 					s_type = text.Left(offset);
 					s_info = text.Mid(offset + 1, text.GetLength() - offset -1);
-					if(IsAssosed(s_type))
+					if(IsAssoced(s_type))
 						checked = 1;
 					else
 						checked = 0;
@@ -422,7 +436,7 @@ BOOL CMAssosPage::OnInitDialog()
 }
 
 // InitListCtrl
-void CMAssosPage::InitListCtrl(CXListCtrl * pList)
+void CMAssocPage::InitListCtrl(CXListCtrl * pList)
 {
 	ASSERT(pList);
 	if (!pList)
@@ -492,7 +506,7 @@ void CMAssosPage::InitListCtrl(CXListCtrl * pList)
 
 ///////////////////////////////////////////////////////////////////////////////
 // FillListCtrl
-void CMAssosPage::FillListCtrl(CXListCtrl * pList)
+void CMAssocPage::FillListCtrl(CXListCtrl * pList)
 {
 	// a list of some more of my favorite things
 
@@ -529,7 +543,7 @@ void CMAssosPage::FillListCtrl(CXListCtrl * pList)
 		else
 			classnum = 3;
 
-		if(IsAssosed(m_alist.m_type[nItem]))
+		if(IsAssoced(m_alist.m_type[nItem]))
 			checked = 1;
 		else
 			checked = 0;
@@ -579,7 +593,7 @@ void CMAssosPage::FillListCtrl(CXListCtrl * pList)
 	pList->UnlockWindowUpdate();
 }
 
-void CMAssosPage::SaveConfig()
+void CMAssocPage::SaveConfig()
 {
 	UpdateData(TRUE);
 
@@ -649,7 +663,7 @@ void CMAssosPage::SaveConfig()
 	m_List.UnlockWindowUpdate();
 }
 
-bool CMAssosPage::IsAssosed(CString type)
+bool CMAssocPage::IsAssoced(CString type)
 {
 	CReg reg, reg1;
 	TCHAR dll[256], *sp;
@@ -673,11 +687,103 @@ bool CMAssosPage::IsAssosed(CString type)
 	return false;
 }
 
-bool CMAssosPage::AssosType(CString type, CString info, CString icons, bool isplaylist, bool Assos)
+bool CMAssocPage::AssocTypeDefault(CString type, CString info, CString icons, bool isplaylist, bool isflash)
 {
 	CReg reg;
 	CString SubKey, Name, Content;
-	if(Assos)
+	{
+		SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites\\FileAssociations");
+		Name =  _T(".") + type;
+		Content = _T("MPlayer.AssocFile.") + type;
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
+		Name =  _T("");
+		SubKey =  _T("SOFTWARE\\Classes\\MPlayer.AssocFile.") + type;
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,info);
+
+		Name =  _T("FriendlyTypeName");
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,info);
+
+		Name =  _T("");
+		SubKey =  _T("SOFTWARE\\Classes\\MPlayer.AssocFile.") + type + _T("\\DefaultIcon");
+		if(IsFileExist(_T("icons\\")  +type +_T(".ico")))
+			Content = m_program_dir +_T("icons\\") +type +_T(".ico");
+		else if(isflash)
+			Content =  m_editor_exe + _T(",1");
+		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
+			Content = m_icons_dll +_T(",") + icons;
+		else
+			Content =  m_player_exe + _T(",0");
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name , Content);
+
+		SubKey =  _T("SOFTWARE\\Classes\\MPlayer.AssocFile.") + type + _T("\\shell");
+		if(!reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name ,_T("open")))
+			return false;
+
+		SubKey =  _T("SOFTWARE\\Classes\\MPlayer.AssocFile.") + type + _T("\\shell\\open");
+		reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name ,_T(""));
+
+		SubKey =  _T("SOFTWARE\\Classes\\MPlayer.AssocFile.") + type + _T("\\shell\\open\\command");
+
+		if(isplaylist)
+			Content =  _T("\"") +m_player_exe +_T("\" -playlist \"%1\"");
+		else if(isflash)
+			Content =  _T("\"") +m_editor_exe +_T("\" --Open FlashPlayer \"%1\"");
+		else
+			Content =  _T("\"") +m_player_exe +_T("\" \"%1\"");
+
+		if(!reg.SetValue_S_STR(HKEY_LOCAL_MACHINE,SubKey, Name , Content))
+			return false;
+
+	}
+	return true;
+}
+
+void CMAssocPage::AssocDefaults()
+{
+	CReg reg;
+	CString SubKey, Name, Content;
+
+	Name =  _T("MPlayer");
+	Content = _T("SOFTWARE\\MPlayer\\Capabilites");
+	SubKey =  _T("SOFTWARE\\RegisteredApplications");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
+	Name =  _T("");
+	Content = _T("");
+	SubKey =  _T("SOFTWARE\\MPlayer");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
+	SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
+	Name =  _T("ApplicationDescription");
+	Content = _T("MPlayer WW - The Movie Player.");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
+	SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
+	Name =  _T("ApplicationName");
+	Content = _T("MPlayer WW");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
+	SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
+	Name =  _T("ApplicationIcon");
+	Content = m_player_exe + _T(",0");
+	reg.SetValue_S_STR(HKEY_LOCAL_MACHINE, SubKey, Name ,Content);
+
+	for(int i = 0; i < m_audio_num; i++) {
+		AssocTypeDefault(m_alist.m_type[i], m_alist.m_info[i], m_alist.m_icon[i]);
+	}
+
+	for(int i = m_audio_num; i < m_list_num; i++) {
+		AssocTypeDefault(m_alist.m_type[i], m_alist.m_info[i], m_alist.m_icon[i], true);
+	}
+	AssocTypeDefault(m_alist.m_type[m_list_num], m_alist.m_info[m_list_num], m_alist.m_icon[m_list_num], false, true);
+}
+
+bool CMAssocPage::AssocType(CString type, CString info, CString icons, bool isplaylist, bool Assoc)
+{
+	CReg reg;
+	CString SubKey, Name, Content;
+	if(Assoc)
 	{
 		SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\OpenWithProgids");
 		Name =  _T("mplayer.") + type;
@@ -798,11 +904,11 @@ bool CMAssosPage::AssosType(CString type, CString info, CString icons, bool ispl
 	return true;
 }
 
-bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool Assos ,bool isflash)
+bool CMAssocPage::AssocTypeIner(CString type, CString info, CString icons, bool Assoc ,bool isflash)
 {
 	CReg reg;
 	CString SubKey, Name, Content;
-	if(Assos)
+	if(Assoc)
 	{
 		SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\OpenWithProgids");
 		Name =  _T("mplayer.") + type;
@@ -911,12 +1017,12 @@ bool CMAssosPage::AssosTypeIner(CString type, CString info, CString icons, bool 
 	return true;
 }
 
-void CMAssosPage::OnBnClickedAssos()
+void CMAssocPage::OnBnClickedAssoc()
 {
 	ApplyChange();
 }
 
-void CMAssosPage::OnBnClickedAdd()
+void CMAssocPage::OnBnClickedAdd()
 {
 	m_List.LockWindowUpdate();
 
@@ -933,7 +1039,7 @@ void CMAssosPage::OnBnClickedAdd()
 	m_List.UnlockWindowUpdate();
 }
 
-void CMAssosPage::OnBnClickedDel()
+void CMAssocPage::OnBnClickedDel()
 {
 	m_List.LockWindowUpdate();
 	int nItem = m_List.GetCurSel();
@@ -944,7 +1050,7 @@ void CMAssosPage::OnBnClickedDel()
 	m_List.UnlockWindowUpdate();
 }
 
-void CMAssosPage::OnBnClickedAll()
+void CMAssocPage::OnBnClickedAll()
 {
 	m_List.LockWindowUpdate();
 	CString str = _T("");
@@ -957,7 +1063,7 @@ void CMAssosPage::OnBnClickedAll()
 	m_List.UnlockWindowUpdate();
 }
 
-void CMAssosPage::OnBnClickedNone()
+void CMAssocPage::OnBnClickedNone()
 {
 	m_List.LockWindowUpdate();
 	CString str = _T("");
@@ -971,7 +1077,7 @@ void CMAssosPage::OnBnClickedNone()
 }
 
 
-void CMAssosPage::OnBnClickedRecommand()
+void CMAssocPage::OnBnClickedRecommand()
 {
 	m_List.LockWindowUpdate();
 	CString str = _T("");
@@ -986,7 +1092,24 @@ void CMAssosPage::OnBnClickedRecommand()
 	m_List.UnlockWindowUpdate();
 }
 
-void CMAssosPage::ApplyChange()
+void CMAssocPage::ApplyDefault()
+{
+	m_icons_dll = m_icons_org;
+	AssocDefaults();
+
+	AfxOleInit();
+	IApplicationAssociationRegistrationUI* pAARUI = NULL;
+	HRESULT hr = ::CoCreateInstance( CLSID_ApplicationAssociationRegistrationUI
+		, NULL, CLSCTX_INPROC, __uuidof( IApplicationAssociationRegistrationUI )
+		, reinterpret_cast< void** >( &pAARUI ) );
+
+	if ( SUCCEEDED( hr ) && pAARUI != NULL ) {
+		hr = pAARUI->LaunchAdvancedAssociationUI( _T( "MPlayer" ) );
+		pAARUI->Release();
+	}
+}
+
+void CMAssocPage::ApplyChange()
 {
 	UpdateData(TRUE);
 	if(!IsFileExist(m_player_exe))
@@ -1003,6 +1126,9 @@ void CMAssosPage::ApplyChange()
 	}
 	else
 		m_icons_dll = m_icons_org;
+
+	if(m_is_vista)
+		AssocDefaults();
 
 	CString type, info, icon ,classes;
 	bool checked, isplaylist , isflash, isdshow;
@@ -1062,23 +1188,23 @@ void CMAssosPage::ApplyChange()
 		else
 			checked = false;
 		if(isflash)
-			AssosTypeIner(type,info,icon,checked);
+			AssocTypeIner(type,info,icon,checked);
 		else if(isdshow)
-			AssosTypeIner(type,info,icon,checked,false);
+			AssocTypeIner(type,info,icon,checked,false);
 		else
-			AssosType(type,info,icon,isplaylist,checked);
+			AssocType(type,info,icon,isplaylist,checked);
 	}
 	m_List.UnlockWindowUpdate();
 
 	AfxBeginThread(RebuildIconsCacheThread, this);
 }
 
-void CMAssosPage::Exit()
+void CMAssocPage::Exit()
 {
 	OnOK();
 }
 
-BOOL CMAssosPage::PreTranslateMessage(MSG* pMsg) 
+BOOL CMAssocPage::PreTranslateMessage(MSG* pMsg) 
 {	
 	switch(pMsg->message)
 	{
