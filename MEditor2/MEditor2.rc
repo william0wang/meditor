@@ -1786,6 +1786,7 @@ END
 
 IDR_CODECS_NORMAL       CODECS_INI              "res\\codecs.conf"
 IDR_CODECS_COREAVC      CODECS_INI              "res\\codecs.coreavc.conf"
+IDR_CODECS_COREAVCDS    CODECS_INI              "res\\codecs.coreavcdshow.conf"
 
 /////////////////////////////////////////////////////////////////////////////
 //

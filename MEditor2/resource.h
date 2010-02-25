@@ -41,6 +41,8 @@
 #define IDR_CODECS_COREAVC              184
 #define IDB_BITMAP_96                   188
 #define IDD_PROFILE_DIALOG              190
+#define IDR_CODECS_INI1                 190
+#define IDR_CODECS_COREAVCDS            190
 #define IDD_OSD_DIALOG                  191
 #define IDD_SUBTITLE_DIALOG             191
 #define IDD_PLAYER_DIALOG_EN            192
@@ -719,7 +721,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        190
+#define _APS_NEXT_RESOURCE_VALUE        191
 #define _APS_NEXT_COMMAND_VALUE         32828
 #define _APS_NEXT_CONTROL_VALUE         1155
 #define _APS_NEXT_SYMED_VALUE           101

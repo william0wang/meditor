@@ -22,7 +22,8 @@ enum codecs_ini
 {
 	inner,
 	external,
-	coreavc
+	coreavc,
+	coreavcds,
 };
 
 enum Avcodec
