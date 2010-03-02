@@ -41,6 +41,8 @@
 #define IDR_CODECS_COREAVC              184
 #define IDB_BITMAP_96                   188
 #define IDD_PROFILE_DIALOG              190
+#define IDR_CODECS_INI1                 190
+#define IDR_CODECS_COREAVCDS            190
 #define IDD_OSD_DIALOG                  191
 #define IDD_SUBTITLE_DIALOG             191
 #define IDD_PLAYER_DIALOG_EN            192
@@ -90,6 +92,8 @@
 #define IDC_EDIT_T                      1011
 #define IDC_ASSOS                       1012
 #define IDC_PROGRESS_APPLEY             1013
+#define IDC_ASSOS_DEF                   1013
+#define IDC_ASSOS2                      1013
 #define IDC_COMBO_MONITOR               1015
 #define IDC_COMBO_AUTOSYNC              1016
 #define IDC_COMBO_LANGUAGE              1017
@@ -130,6 +134,7 @@
 #define IDC_CHECK_HIDE                  1039
 #define IDC_CHECK_ASS_MARGINS           1039
 #define IDC_CHECK_NOSKIN                1039
+#define IDC_CHECK_ASS_ALWAYS            1039
 #define IDC_EDIT_ERROR                  1040
 #define IDC_CHECK_SYS                   1040
 #define IDC_BUTTON_DEF                  1040
@@ -710,12 +715,13 @@
 #define IDS_AUDIO_STM_INFO2             35357
 #define IDS_AUDIO_DSP_INFO              35357
 #define IDS_INPUT_WINRESIZE             35358
+#define IDS_VIDEO_VOGLAUTO              35359
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        190
+#define _APS_NEXT_RESOURCE_VALUE        191
 #define _APS_NEXT_COMMAND_VALUE         32828
 #define _APS_NEXT_CONTROL_VALUE         1155
 #define _APS_NEXT_SYMED_VALUE           101

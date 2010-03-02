@@ -4,7 +4,7 @@
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON00              ICON    DISCARDABLE     "meditor.ico"
+IDI_ICON00              ICON    DISCARDABLE     "icons\\swf.ico"
 IDI_ICON01              ICON    DISCARDABLE     "icons\\avi.ico"
 IDI_ICON02              ICON    DISCARDABLE     "icons\\flv.ico"
 IDI_ICON03              ICON    DISCARDABLE     "icons\\mkv.ico"

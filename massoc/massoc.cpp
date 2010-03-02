@@ -6,7 +6,7 @@
 #include "MShared.h"
 #include "AVS.h"
 #include "RealDlg.h"
-#include "MAssosDlg.h"
+#include "MAssocDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -57,6 +57,12 @@ BOOL CmassocApp::InitInstance()
 	SetRegistryKey(_T("MEditor2 - Assoc"));
 
 	CString sCmdLine(this->m_lpCmdLine);
+
+	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
+		CMAssocPage dlg;
+		dlg.ApplyDefault();
+		return FALSE;
+	}
 
 	if(sCmdLine.Find(_T("--install-avs")) >= 0) {
 		int offset = sCmdLine.Find(_T("\""));
@@ -157,7 +163,7 @@ BOOL CmassocApp::InitInstance()
 	if(GetLastError() == ERROR_ALREADY_EXISTS)
 		return FALSE;
 
-	CMAssosPage dlg;
+	CMAssocPage dlg;
 	m_pMainWnd = &dlg;
 
 	INT_PTR nResponse = dlg.DoModal();

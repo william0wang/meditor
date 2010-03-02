@@ -72,6 +72,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOD3D));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO1));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOGLAUTO));
 	m_vo_str.Add(_T("OpenGL(yuv=3)"));
 	m_vo_str.Add(_T("OpenGL(yuv=4)"));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VONV));
@@ -593,8 +594,10 @@ void CMVideoPage::InitFromConfig()
 				m_vo.SetCurSel(glati);
 			else if(value_s.Find(_T(":yuv=6")) > 0)
 				m_vo.SetCurSel(glyuv6);
-			else
+			else if(value_s.Find(_T(":yuv=0")) > 0)
 				m_vo.SetCurSel(glyuv0);
+			else
+				m_vo.SetCurSel(glauto);
 			
 			if(value_s.Find(_T(":force-pbo")) > 0)
 				m_forcepbo = TRUE;
@@ -986,6 +989,14 @@ void CMVideoPage::SaveConfig()
 		m_cfg->SetValue(_T("vo") , glstr );
 		break;
 	case glyuv0:
+		glstr += _T(":yuv=0");
+		if(m_forcepbo)
+			glstr += _T(":force-pbo");
+		if( m_color != _T("0xffffff"))
+			glstr += _T(":osdcolor=") + m_color ;	
+		m_cfg->SetValue(_T("vo") , glstr );
+		break;
+	case glauto:
 		if(m_forcepbo)
 			glstr += _T(":force-pbo");
 		if( m_color != _T("0xffffff"))

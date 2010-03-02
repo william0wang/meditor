@@ -18,11 +18,17 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 
+	BOOL	m_is_vista;
 	CString m_assoc_exe;
+	CString m_player_exe;
+	CString m_program_dir;
+
+	bool AssosTypeDef(CString type, CString info, CString icons, bool isplaylist = false);
 
 	DECLARE_MESSAGE_MAP()
 public:
 	//AssList m_olist;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedAssos();
+	afx_msg void OnBnClickedAssosDef();
 };

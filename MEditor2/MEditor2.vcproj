@@ -753,6 +753,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\res\codecs.coreavcdshow.conf"
+			>
+		</File>
 	</Files>
 	<Globals>
 		<Global

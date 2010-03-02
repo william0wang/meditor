@@ -373,7 +373,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MAssosDlg.cpp"
+				RelativePath=".\MAssocDlg.cpp"
 				>
 			</File>
 			<File
@@ -443,7 +443,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MAssosDlg.h"
+				RelativePath=".\MAssocDlg.h"
 				>
 			</File>
 			<File

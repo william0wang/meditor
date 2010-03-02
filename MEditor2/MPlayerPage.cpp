@@ -218,6 +218,9 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_cache.AddString(_T("8 M"));
 	m_cache.AddString(_T("16 M"));
 	m_cache.AddString(_T("32 M"));
+	m_cache.AddString(_T("64 M"));
+	m_cache.AddString(_T("128 M"));
+	m_cache.AddString(_T("256 M"));
 	m_cache.SetCurSel(0);
 
 	for(int i = 0; i < m_str_ontop.GetCount(); i++)
@@ -702,8 +705,14 @@ void CMPlayerPage::InitFromConfig()
 			m_cache.SetCurSel(5);
 		else if(value_i <=16384)
 			m_cache.SetCurSel(6);
-		else
+		else if(value_i <=32768)
 			m_cache.SetCurSel(7);
+		else if(value_i <=65536)
+			m_cache.SetCurSel(8);
+		else if(value_i <=131072)
+			m_cache.SetCurSel(9);
+		else
+			m_cache.SetCurSel(10);
 	}
 	if(m_cfg->GetValue_Integer(_T("Language"),value_i,true))
 	{
@@ -1148,6 +1157,15 @@ void CMPlayerPage::SaveConfig()
 		break;
 	case 7:
 		m_cfg->SetValue(_T("cache") ,_T("32768") );
+		break;
+	case 8:
+		m_cfg->SetValue(_T("cache") ,_T("65536") );
+		break;
+	case 9:
+		m_cfg->SetValue(_T("cache") ,_T("131072") );
+		break;
+	case 10:
+		m_cfg->SetValue(_T("cache") ,_T("262144") );
 		break;
 	default:
 		m_cfg->RemoveValue(_T("cache"));

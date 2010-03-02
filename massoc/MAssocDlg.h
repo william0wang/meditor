@@ -8,7 +8,7 @@
 #include "AdvCombo\AdvComboBox.h"
 #include "MConfig.h"
 
-// CMAssosPage 对话框
+// CMAssocPage 对话框
 
 class AssList
 {
@@ -23,25 +23,28 @@ public:
 	int GetInfo(CString type);
 };
 
-class CMAssosPage : public CDialog
+class CMAssocPage : public CDialog
 {
-	DECLARE_DYNAMIC(CMAssosPage)
+	DECLARE_DYNAMIC(CMAssocPage)
 
 public:
-	CMAssosPage(CWnd* pParent = NULL);   // 标准构造函数
-	virtual ~CMAssosPage();
+	CMAssocPage(CWnd* pParent = NULL);   // 标准构造函数
+	virtual ~CMAssocPage();
 	void SaveConfig();
 
 // 对话框数据
 	enum { IDD = IDD_ASSOS_DIALOG };
 
-	public:
+public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
-	bool IsAssosed(CString type);
-	bool AssosTypeIner(CString type, CString info, CString icons, bool Assos = true, bool isflash = true);
-	bool AssosType(CString type, CString info, CString icons, bool isplaylist, bool Assos = true);
+	bool IsAssoced(CString type);
+	bool AssocTypeIner(CString type, CString info, CString icons, bool Assoc = true, bool isflash = true);
+	bool AssocType(CString type, CString info, CString icons, bool isplaylist, bool Assoc = true);
+	bool AssocTypeDefault(CString type, CString info, CString icons, bool isplaylist = false, bool isflash = false);
+	void AssocDefaults();
 
 	HICON m_hIcon;
 	AssList m_alist;
@@ -78,12 +81,14 @@ protected:
 	CString inf;
 	CString tp;
 
+	bool m_is_vista;
 	bool m_dll_getted;
 	bool m_have_icons;
 	bool m_special;
 	int m_default_num;
 	int m_vedio_num;
 	int m_audio_num;
+	int m_list_num;
 	static int m_nColWidths[];
 	void FillListCtrl(CXListCtrl * pList);
 	void InitListCtrl(CXListCtrl * pList);
@@ -92,7 +97,7 @@ protected:
 public:
 	//AssList m_olist;
 	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedAssos();
+	afx_msg void OnBnClickedAssoc();
 	afx_msg void OnBnClickedAdd();
 	afx_msg void OnBnClickedDel();
 	afx_msg void OnBnClickedAll();
@@ -100,6 +105,7 @@ public:
 	afx_msg void OnBnClickedRecommand();
 	void Exit();
 	void ApplyChange();
+	void ApplyDefault();
 	BOOL m_rightmenu;
 	BOOL m_rightmenu2;
 	BOOL m_mpc;

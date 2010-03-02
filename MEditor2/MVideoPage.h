@@ -62,6 +62,7 @@ enum vo
 	direct3d,
 	directx,
 	gl,
+	glauto,
 	glyuv3,
 	glyuv4,
 	glnv,

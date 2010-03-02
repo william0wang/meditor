@@ -27,6 +27,10 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.RemoveAll();
 	m_adecode.RemoveAll();
 	m_vdecode.Add(_T("coreavc"));
+	m_vdecode.Add(_T("diavc"));
+	m_vdecode.Add(_T("ffdshow"));
+	m_vdecode.Add(_T("ffdshowdxva"));
+	m_vdecode.Add(_T("cineformhd"));
 	m_vdecode.Add(_T("coreavcwindows"));
 	m_vdecode.Add(_T("mpegpes"));
 	m_vdecode.Add(_T("mpeg12"));
@@ -148,6 +152,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE1));
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE2));
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE3));
+	m_str_codecs.Add(_T("CoreAVC DirectShow Native"));
 }
 
 
@@ -429,6 +434,9 @@ void CMDecodePage::InitFromConfig()
 		case 2:
 			m_codecs.SetCurSel(coreavc);
 			break;
+		case 3:
+			m_codecs.SetCurSel(coreavcds);
+			break;
 		default:
 			m_codecs.SetCurSel(inner);
 			break;
@@ -658,6 +666,13 @@ void CMDecodePage::SaveConfig()
 		if(m_last_extract !=  coreavc)
 			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVC),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
 		m_last_extract =  coreavc;
+		break;
+	case coreavcds:
+		RegCoreCodec();
+		m_cfg->SetValue(_T("cofing_codecs") , _T("3") , true , ex_meditor);
+		if(m_last_extract !=  coreavcds)
+			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVCDS),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+		m_last_extract =  coreavcds;
 		break;
 	default:
 		m_cfg->RemoveValue(_T("cofing_codecs"), true);
