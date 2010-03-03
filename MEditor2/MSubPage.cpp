@@ -287,7 +287,7 @@ void CMSubPage::SetNormal()
 	m_osdsize_s = _T("3");
 	m_osdtime.SetCurSel(time_none);	
 	m_osdmode.SetCurSel(osd_normal);
-	m_subcp = _T("GBK,BIG-5,CP932,CP949,UTF-8,UTF-16");
+	m_subcp = _T("enca:zh:UTF-8,CP932,CP949");
 	m_fuzziness.SetCurSel(name);
 	m_align.SetCurSel(center);
 	m_autoscale.SetCurSel(diagonal);
