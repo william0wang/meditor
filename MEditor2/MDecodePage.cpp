@@ -28,9 +28,10 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.RemoveAll();
 	m_vdecode.Add(_T("coreavc"));
 	m_vdecode.Add(_T("diavc"));
+	m_vdecode.Add(_T("divxh264"));
 	m_vdecode.Add(_T("ffdshow"));
-	m_vdecode.Add(_T("ffdshowdxva"));
 	m_vdecode.Add(_T("cineformhd"));
+	m_vdecode.Add(_T("ffdshowdxva"));
 	m_vdecode.Add(_T("coreavcwindows"));
 	m_vdecode.Add(_T("mpegpes"));
 	m_vdecode.Add(_T("mpeg12"));
