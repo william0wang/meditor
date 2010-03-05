@@ -210,7 +210,7 @@ BOOL CMPlayerPage::OnInitDialog()
 		m_language.AddString(m_str_language[i]);
 	m_language.SetCurSel(lang_auto);
 
-	m_cache.AddString(m_auto_s);
+	m_cache.AddString(m_no_s);
 	m_cache.AddString(_T("512 KB"));
 	m_cache.AddString(_T("1 M"));
 	m_cache.AddString(_T("2 M"));

@@ -665,18 +665,31 @@ void CMAssocPage::SaveConfig()
 
 bool CMAssocPage::IsAssoced(CString type)
 {
-	CReg reg, reg1;
+	CReg reg;
 	TCHAR dll[256], *sp;
-	CString regstr = _T("mplayer.") + type;
+	CString regstr;
+
+	if(m_is_vista)
+	{
+		regstr = _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\UserChoice");
+		if(reg.ShowContent_STR(HKEY_CURRENT_USER, regstr, _T("Progid")))
+		{
+			regstr = _T("MPlayer.AssocFile.") + type;
+			if(!_tcsicmp(reg.content, regstr))
+				return true;
+		}
+	}
+
+	regstr = _T("mplayer.") + type;
 	if(reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
 	{
 		if(!m_dll_getted)
 		{
 			m_dll_getted = true;
 			regstr = _T("mplayer.") + type + _T("\\DefaultIcon");
-			if(reg1.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
+			if(reg.ShowContent_STR(HKEY_CLASSES_ROOT,regstr,_T("")))
 			{
-				_tcsncpy_s(dll, 255, _tcsrchr(reg1.content, _T('\\')) + 1, _TRUNCATE);
+				_tcsncpy_s(dll, 255, _tcsrchr(reg.content, _T('\\')) + 1, _TRUNCATE);
 				sp = _tcschr(dll, _T(','));
 				if(sp) sp[0] = 0;
 				m_icons_dll = dll;
@@ -783,8 +796,22 @@ bool CMAssocPage::AssocType(CString type, CString info, CString icons, bool ispl
 {
 	CReg reg;
 	CString SubKey, Name, Content;
-	if(Assoc)
-	{
+	if(Assoc) {
+		if(m_is_vista) {
+			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites\\FileAssociations");
+			Name =  _T(".") + type;
+			Content = _T("MPlayer.AssocFile.") + type;
+			if(reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name))
+			{
+				if(!_tcsicmp(reg.content, Content)) {
+					SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\UserChoice");
+					Name =  _T("Progid");
+					if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, Name, Content))
+						return true;
+				}
+			}
+		}
+
 		SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\OpenWithProgids");
 		Name =  _T("mplayer.") + type;
 		reg.SetValue_N_STR(HKEY_CURRENT_USER,SubKey, Name);
@@ -824,7 +851,7 @@ bool CMAssocPage::AssocType(CString type, CString info, CString icons, bool ispl
 
 			if(m_special)
 				spini =_T(" -include \"") + m_program_dir + _T("SpecialConfig\\") + type + _T(".ini\"");
-			
+
 			if(isplaylist)
 				Content =  _T("\"") +m_player_exe +_T("\"") + spini + _T(" -playlist \"%1\"");
 			else
@@ -844,7 +871,7 @@ bool CMAssocPage::AssocType(CString type, CString info, CString icons, bool ispl
 
 		if(m_special)
 			spini =_T(" -include \"") + m_program_dir + _T("SpecialConfig\\") + type + _T(".ini\"");
-		
+
 		if(isplaylist)
 			Content =  _T("\"") +m_player_exe +_T("\"") + spini + _T(" -playlist \"%1\"");
 		else
@@ -862,9 +889,17 @@ bool CMAssocPage::AssocType(CString type, CString info, CString icons, bool ispl
 		}
 		if(!reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, _T(""),Content))
 			return false;
-	}
-	else
-	{
+
+	} else {
+		if(m_is_vista) {
+			if(IsAssoced(type))	{
+				SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type;
+				Name =  _T("UserChoice");
+				reg.DeleteKey_STR(HKEY_CURRENT_USER,SubKey, Name);
+				return true;
+			}
+		}
+
 		SubKey =  _T("mplayer.") + type;
 		if (reg.ShowContent_STR(HKEY_CLASSES_ROOT ,SubKey,_T("mplayer backup")))
 		{
@@ -908,8 +943,22 @@ bool CMAssocPage::AssocTypeIner(CString type, CString info, CString icons, bool 
 {
 	CReg reg;
 	CString SubKey, Name, Content;
-	if(Assoc)
-	{
+	if(Assoc) {
+		if(m_is_vista) {
+			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites\\FileAssociations");
+			Name =  _T(".") + type;
+			Content = _T("MPlayer.AssocFile.") + type;
+			if(reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name))
+			{
+				if(!_tcsicmp(reg.content, Content)) {
+					SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\UserChoice");
+					Name =  _T("Progid");
+					if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, Name, Content))
+						return true;
+				}
+			}
+		}
+
 		SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type + _T("\\OpenWithProgids");
 		Name =  _T("mplayer.") + type;
 		reg.SetValue_N_STR(HKEY_CURRENT_USER,SubKey, Name);
@@ -975,9 +1024,18 @@ bool CMAssocPage::AssocTypeIner(CString type, CString info, CString icons, bool 
 		}
 		if(!reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, _T(""),Content))
 			return false;
-	}
-	else
-	{
+
+	} else {
+
+		if(m_is_vista) {
+			if(IsAssoced(type))	{
+				SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + type;
+				Name =  _T("UserChoice");
+				reg.DeleteKey_STR(HKEY_CURRENT_USER,SubKey, Name);
+				return true;
+			}
+		}
+
 		SubKey =  _T("mplayer.") + type;
 		if (reg.ShowContent_STR(HKEY_CLASSES_ROOT ,SubKey,_T("mplayer backup")))
 		{
