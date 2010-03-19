@@ -66,6 +66,7 @@ BOOL CMProfileDlg::OnInitDialog()
 	m_plist.AddString(_T("extension.3gp"));
 	m_plist.AddString(_T("extension.vp6"));
 	m_plist.AddString(_T("protocol.dvd"));
+	m_plist.AddString(_T("protocol.dvdnav"));
 	m_plist.AddString(_T("protocol.rtsp"));
 	m_plist.AddString(_T("protocol.mms"));
 	m_plist.AddString(_T("protocol.http"));
