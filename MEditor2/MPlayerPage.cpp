@@ -497,6 +497,7 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_filename = TRUE;
 	}
+	m_cfg->GetValue_Boolean(_T("detect_cache"),value_b,true);
 	if(m_cfg->GetValue_Boolean(_T("skinned_player"),value_b,true))
 	{
 		if(!value_b)
