@@ -21,6 +21,7 @@ static char THIS_FILE[] = __FILE__;
 CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMDecodePage::IDD, pParent)
 	, m_auto_threads(TRUE)
+	, m_dshow(FALSE)
 {
 	//{{AFX_DATA_INIT(CMDecodePage)
 	//}}AFX_DATA_INIT
@@ -167,6 +168,7 @@ void CMDecodePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST_AVCODEC, m_avlist);
 	DDX_Control(pDX, IDC_COMBO_CODECS, m_codecs);
 	DDX_Check(pDX, IDC_CHECK_THREAD, m_auto_threads);
+	DDX_Check(pDX, IDC_CHECK_DSHOW, m_dshow);
 }
 
 
@@ -416,9 +418,18 @@ void CMDecodePage::InitFromConfig()
 {
 	if(!m_cfg)
 		return;
+	bool value_b;
 	int value_i;
 	CString value_s;
 	CString value_sub;
+
+	if(m_cfg->GetValue_Boolean(_T("dshow-demux"),value_b))
+	{
+		if(value_b)
+			m_dshow = TRUE;
+		else
+			m_dshow = FALSE;
+	}
 
 	if(m_cfg->GetValue_Integer(_T("auto_threads"),value_i,true))
 	{
@@ -681,6 +692,11 @@ void CMDecodePage::SaveConfig()
 		m_last_extract = inner;
 		break;
 	}
+
+	if(m_dshow)
+		m_cfg->SetValue(_T("dshow-demux"), _T("1"));
+	else
+		m_cfg->RemoveValue(_T("dshow-demux"));
 
 	if(m_auto_threads)
 		m_cfg->RemoveValue(_T("auto_threads"), true);
