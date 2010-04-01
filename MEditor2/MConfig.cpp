@@ -415,6 +415,18 @@ void CMConfig::LoadConfigSP(CString filename)
 			info.uesed = true;
 			vi->info.push_back(info);
 		}
+
+		name = _T("nocache");
+		GetPrivateProfileString(types,name,_T(""),vl,MAX_PATH,filename);
+		value.Format(_T("%s"),vl);
+		if(value != _T(""))
+		{
+			ConfigDataSP_info info;
+			info.name = name;
+			info.value = value;
+			info.uesed = true;
+			vi->info.push_back(info);
+		}
 	}
 }
 

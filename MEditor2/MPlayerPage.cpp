@@ -219,6 +219,7 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_cache.AddString(_T("16 M"));
 	m_cache.AddString(_T("32 M"));
 	m_cache.AddString(_T("64 M"));
+	m_cache.AddString(_T("96 M"));
 	m_cache.AddString(_T("128 M"));
 	m_cache.AddString(_T("256 M"));
 	m_cache.SetCurSel(0);
@@ -438,6 +439,7 @@ void CMPlayerPage::InitFromConfig()
 		m_fuzziness.EnableWindow(TRUE);
 	}
 
+	m_cfg->GetValue_Integer(_T("cache-min"),value_i);
 	if(m_cfg->GetValue_Integer(_T("switchview"),value_i))
 	{
 		switch (value_i)
@@ -495,6 +497,7 @@ void CMPlayerPage::InitFromConfig()
 		else
 			m_filename = TRUE;
 	}
+	m_cfg->GetValue_Boolean(_T("detect_cache"),value_b,true);
 	if(m_cfg->GetValue_Boolean(_T("skinned_player"),value_b,true))
 	{
 		if(!value_b)
@@ -709,10 +712,12 @@ void CMPlayerPage::InitFromConfig()
 			m_cache.SetCurSel(7);
 		else if(value_i <=65536)
 			m_cache.SetCurSel(8);
-		else if(value_i <=131072)
+		else if(value_i <=98304)
 			m_cache.SetCurSel(9);
-		else
+		else if(value_i <=131072)
 			m_cache.SetCurSel(10);
+		else
+			m_cache.SetCurSel(11);
 	}
 	if(m_cfg->GetValue_Integer(_T("Language"),value_i,true))
 	{
@@ -1139,33 +1144,47 @@ void CMPlayerPage::SaveConfig()
 	{
 	case 1:
 		m_cfg->SetValue(_T("cache") ,_T("512") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 2:
 		m_cfg->SetValue(_T("cache") ,_T("1024") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 3:
 		m_cfg->SetValue(_T("cache") ,_T("2048") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 4:
 		m_cfg->SetValue(_T("cache") ,_T("4096") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 5:
 		m_cfg->SetValue(_T("cache") ,_T("8192") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 6:
 		m_cfg->SetValue(_T("cache") ,_T("16384") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 7:
 		m_cfg->SetValue(_T("cache") ,_T("32768") );
+		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 8:
 		m_cfg->SetValue(_T("cache") ,_T("65536") );
+		m_cfg->SetValue(_T("cache-min") ,_T("12") );
 		break;
 	case 9:
-		m_cfg->SetValue(_T("cache") ,_T("131072") );
+		m_cfg->SetValue(_T("cache") ,_T("98304") );
+		m_cfg->SetValue(_T("cache-min") ,_T("8") );
 		break;
 	case 10:
+		m_cfg->SetValue(_T("cache") ,_T("131072") );
+		m_cfg->SetValue(_T("cache-min") ,_T("5") );
+		break;
+	case 11:
 		m_cfg->SetValue(_T("cache") ,_T("262144") );
+		m_cfg->SetValue(_T("cache-min") ,_T("3") );
 		break;
 	default:
 		m_cfg->RemoveValue(_T("cache"));
