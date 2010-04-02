@@ -11,6 +11,7 @@
 // CMProfilePage ¶Ô»°¿ò
 enum Profile_list
 {
+	dshow,
 	flvsync,
 	slang,
 	alang,
@@ -132,6 +133,8 @@ CMProfilePage::CMProfilePage(CWnd* pParent /*=NULL*/)
 	m_resample.Add(_T("96kHz ") + m_str_int);
 	m_resample.Add(_T("96kHz ") + m_str_foa);
 
+	m_str_profile.Add(_T("DirectShow"));
+	m_str_profile.Add(_T("DirectShow Demuxer"));
 	m_str_profile.Add(ResStr(IDS_PROFILE_FLV));
 	m_str_profile.Add(ResStr(IDS_PROFILE_FLV_INFO));
 	m_str_profile.Add(ResStr(IDS_PROFILE_SLN));
@@ -276,6 +279,12 @@ void CMProfilePage::FillListCtrl(CXListCtrl * pList)
 	pList->DeleteAllItems();
 
 	// insert the items and subitems into the list
+	pList->InsertItem(dshow, _T(""));
+	pList->SetCheckbox(dshow, 0, 0);
+	pList->SetItemText(dshow, 1, m_str_profile[dshow*2]);
+	pList->SetItemText(dshow, 2, _T(""));
+	pList->SetItemText(dshow, 3, m_str_profile[dshow*2 + 1]);
+
 	pList->InsertItem(flvsync, _T(""));
 	pList->SetCheckbox(flvsync, 0, 0);
 	pList->SetItemText(flvsync, 1, m_str_profile[flvsync*2]);
@@ -446,6 +455,7 @@ BOOL CMProfilePage::OnInitDialog()
 void CMProfilePage::CleanConfig()
 {
 	m_List.LockWindowUpdate();
+	m_List.SetCheckbox(dshow, 0, 0);
 	m_List.SetCheckbox(screenshot, 0, 0);
 	m_List.SetCheckbox(ass, 0, 0);
 	m_List.SetCheckbox(expand, 0, 0);
@@ -506,6 +516,11 @@ void CMProfilePage::SetCurConfig()
 	int value_i;
 	CString value_s;
 	CString value_sub;
+	if(m_cfg->GetValueSP_Boolean(curtype,_T("dshow-demux"),value_b))
+	{
+		if(value_b)
+			m_List.SetCheckbox(dshow, 0, 1);
+	}
 	if(m_cfg->GetValueSP_Boolean(curtype,_T("flip"),value_b))
 	{
 		if(value_b)
@@ -754,6 +769,11 @@ void CMProfilePage::SavePreConfig()
 		return;
 	
 	m_List.LockWindowUpdate();
+
+	if(m_List.GetCheckbox(dshow, 0))
+		m_cfg->SetValueSP(m_pre_profile,_T("dshow-demux"),_T("1"));
+	else
+		m_cfg->RemoveValueSP(m_pre_profile,_T("dshow-demux"));
 
 	if(m_List.GetCheckbox(flvsync, 0))
 	{
