@@ -93,6 +93,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.Add(_T("ra10atrcwin"));
 	m_adecode.Add(_T("raatrcwin"));
 	m_adecode.Add(_T("faad"));
+	m_adecode.Add(_T("ffaac"));
 	m_adecode.Add(_T("ffflac"));
 	m_adecode.Add(_T("fftta"));
 	m_adecode.Add(_T("ffwavpack"));
