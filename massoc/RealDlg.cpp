@@ -62,17 +62,31 @@ BOOL CRealDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	bool bSilent = false;
+
+	if(m_cmdline.Find(_T("--real-online-silent")) >= 0)
+		bSilent = true;
+
 	if(m_cmdline.Find(_T("--real-online-reg")) >= 0) {
 		if(RegRealOnline()) {
 			while(CheckRealThread)
 				Sleep(300);
-			if(m_reg_ok)
-				MessageBox(ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-			else
-				MessageBox(ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+			if(!bSilent) {
+				if(m_reg_ok)
+					MessageBox(ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+				else
+					MessageBox(ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+			}
 		}
 	} else if(m_cmdline.Find(_T("--real-online-dreg")) >= 0) {
 		DRegRealOnline();
+		if(!bSilent) {
+			if(!CheckRealOnline()) {
+				MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+			} else {
+				MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+			}
+		}
 	}
 
 	OnOK();
@@ -220,12 +234,6 @@ BOOL CRealDlg::DRegRealOnline()
 	}
 
 	::SetCurrentDirectory(szCurPath);
-
-	if(!CheckRealOnline()) {
-		MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-	} else {
-		MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-	}
 
 	return TRUE;
 }
