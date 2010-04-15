@@ -63,4 +63,5 @@ public:
 	BOOL m_auto_resume;
 	afx_msg void OnBnClickedRadioAuto();
 	afx_msg void OnBnClickedRadioManual();
+	BOOL m_confirm;
 };

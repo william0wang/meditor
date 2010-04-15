@@ -14,6 +14,7 @@ IMPLEMENT_DYNAMIC(CMResumePage, CDialog)
 CMResumePage::CMResumePage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMResumePage::IDD, pParent)
 	, m_auto_resume(FALSE)
+	, m_confirm(TRUE)
 {
 	no = ResStr(IDS_RESUME_NO);
 	time = ResStr(IDS_RESUME_TIME);
@@ -41,6 +42,7 @@ void CMResumePage::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, m_maxnum, 3);
 	DDX_Control(pDX, IDC_RADIOAUTO, m_auto);
 	DDX_Control(pDX, IDC_RADIOMANUAL, m_manual);
+	DDX_Check(pDX, IDC_CHECK_CONFIRM, m_confirm);
 }
 
 
@@ -159,6 +161,13 @@ BOOL CMResumePage::OnInitDialog()
 			}
 			else
 				m_auto_resume = FALSE;
+		}
+		if(m_cfg->GetValue_Boolean(_T("reload_confirm"),value_b,true))
+		{
+			if(!value_b)
+				m_confirm = FALSE;
+			else
+				m_confirm = TRUE;
 		}
 		if(m_cfg->GetValue_String(_T("save_stats_num"),value_s,true))
 		{
@@ -312,6 +321,11 @@ void CMResumePage::SaveConfig()
 	}
 	else
 		m_cfg->RemoveValue(_T("auto_resume") ,true);
+
+	if(m_confirm)
+		m_cfg->RemoveValue(_T("reload_confirm") ,true);
+	else
+		m_cfg->SetValue(_T("reload_confirm") ,_T("0") , true , ex_setting);
 
 	m_maxnum.TrimLeft();
 	m_maxnum.TrimRight();
