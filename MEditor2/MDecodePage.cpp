@@ -93,6 +93,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_adecode.Add(_T("ra10atrcwin"));
 	m_adecode.Add(_T("raatrcwin"));
 	m_adecode.Add(_T("faad"));
+	m_adecode.Add(_T("ffaac"));
 	m_adecode.Add(_T("ffflac"));
 	m_adecode.Add(_T("fftta"));
 	m_adecode.Add(_T("ffwavpack"));
@@ -431,9 +432,20 @@ void CMDecodePage::InitFromConfig()
 			m_dshow = FALSE;
 	}
 
-	if(m_cfg->GetValue_Integer(_T("auto_threads"),value_i,true))
+	if(m_cfg->GetValue_Boolean(_T("auto-threads"),value_b))
 	{
-		m_auto_threads = value_i;
+		if(!value_b)
+			m_auto_threads = FALSE;
+		else
+			m_auto_threads = TRUE;
+	}
+
+	if(m_cfg->GetValue_Boolean(_T("noauto-threads"),value_b))
+	{
+		if(value_b)
+			m_auto_threads = FALSE;
+		else
+			m_auto_threads = TRUE;
 	}
 
 	if(m_cfg->GetValue_Integer(_T("cofing_codecs"),value_i,true))
@@ -698,10 +710,11 @@ void CMDecodePage::SaveConfig()
 	else
 		m_cfg->RemoveValue(_T("dshow-demux"));
 
-	if(m_auto_threads)
-		m_cfg->RemoveValue(_T("auto_threads"), true);
-	else
-		m_cfg->SetValue(_T("auto_threads"), _T("0"), true , ex_option);
+	if(m_auto_threads) {
+		m_cfg->RemoveValue(_T("auto-threads"));
+		m_cfg->RemoveValue(_T("noauto-threads"));
+	} else
+		m_cfg->SetValue(_T("auto-threads"), _T("0"));
 
 	m_vlist.LockWindowUpdate();
 	m_alist.LockWindowUpdate();

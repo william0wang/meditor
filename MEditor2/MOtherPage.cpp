@@ -516,7 +516,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 					switch(tools_i)
 					{
 					case 1:
-						tools_name.Format(_T("%stools\\mmg.exe") , m_program_dir);
+						tools_name.Format(_T("%stools\\mplayerc.exe") , m_program_dir);
 						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL1));
 						break;
 					case 2:
@@ -532,7 +532,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL4));
 						break;
 					case 5:
-						tools_name.Format(_T("%stools\\GSpot.exe") , m_program_dir);
+						tools_name.Format(_T("%stools\\SubDownloader.exe") , m_program_dir);
 						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL5));
 						break;
 					case 6:
@@ -540,7 +540,7 @@ void CMOtherPage::OnBnClickedButtonLink()
 						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL6));
 						break;
 					case 7:
-						tools_name.Format(_T("%stools\\pmp_demuxer_gui.exe") , m_program_dir);
+						tools_name.Format(_T("%stools\\tsMuxerGUI.exe") , m_program_dir);
 						LinkPath.Format(_T("%sTools\\%s.lnk") , StartMenu_dir , ResStr(IDS_OTHER_TOOL7));
 						break;
 					case 8:

@@ -463,11 +463,11 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_OTHER_TOOL4         "FLV 分離提取工具"
-    IDS_OTHER_TOOL5         "GSpot 影片資訊查看工具"
-    IDS_OTHER_TOOL6         "MediaInfo 影片資訊查看工具"
-    IDS_OTHER_TOOL7         "PMP 分離提取工具"
-    IDS_OTHER_TOOL8         "TS 分割工具"
+    IDS_OTHER_TOOL4         "FLVExtract"
+    IDS_OTHER_TOOL5         "Subtitle Downloader"
+    IDS_OTHER_TOOL6         "MediaInfo"
+    IDS_OTHER_TOOL7         "TSMuxer"
+    IDS_OTHER_TOOL8         "TSSplitter"
     IDS_TAB_SUBTITLE        "字幕/OSD"
     IDS_DECODE_PR           "解碼器順序"
     IDS_DECODE_NAME         "名稱"
@@ -514,9 +514,9 @@ BEGIN
     IDS_OTHER_EMPTY         "視頻和音頻檔案名不能為空 !"
     IDS_OTHER_LINK_EDITOR   "MPlayer首選項"
     IDS_OTHER_LINK_PLAYER   "播放器"
-    IDS_OTHER_TOOL1         "MKV 轉換合成工具"
+    IDS_OTHER_TOOL1         "MPC-HC"
     IDS_OTHER_TOOL2         "MKV 分離提取工具"
-    IDS_OTHER_TOOL3         "FLV 修復工具"
+    IDS_OTHER_TOOL3         "FLV Fixer"
 END
 
 STRINGTABLE 

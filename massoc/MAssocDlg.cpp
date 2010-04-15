@@ -12,24 +12,8 @@ UINT RebuildIconsCacheThread(LPVOID pParam)
 	CMAssocPage *This = (CMAssocPage *)pParam;
 
 	This->ShowWindow(SW_HIDE);
-	//Rebuild Icon Cache
-	CReg reg;
-	CString Content, ContentTemp;
-	DWORD dwType = REG_SZ; 
-	DWORD dSize = MAX_PATH;
-	TCHAR ContentOld[MAX_PATH] = {0};
-	TCHAR SubKey[] = _T("Control Panel\\Desktop\\WindowMetrics");
-	TCHAR VauleName[] = _T("Shell Icon Size");
-	if(SHGetValue(HKEY_CURRENT_USER, SubKey, VauleName, &dwType, &ContentOld, &dSize) == ERROR_SUCCESS) {
-		Content = ContentOld;
-		ContentTemp = _T("24");
-		if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , ContentTemp)) {
-			SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 3000, NULL);
-			if(reg.SetValue_S_STR(HKEY_CURRENT_USER, SubKey, VauleName , Content))
-				SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, SPI_SETNONCLIENTMETRICS, 0, SMTO_ABORTIFHUNG, 3000, NULL);
-		}
-	}
-	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, 0, 0);
+
+	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST & SHCNF_FLUSH, 0, 0);
 
 	This->Exit();
 	return 0;
