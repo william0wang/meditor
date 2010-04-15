@@ -463,11 +463,11 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_OTHER_TOOL4         "FLV Extract"
-    IDS_OTHER_TOOL5         "GSpot Info View"
-    IDS_OTHER_TOOL6         "MediaInfo Info View"
-    IDS_OTHER_TOOL7         "PMP demuxer"
-    IDS_OTHER_TOOL8         "TS Splitter"
+    IDS_OTHER_TOOL4         "FLVExtract"
+    IDS_OTHER_TOOL5         "Subtitle Downloader"
+    IDS_OTHER_TOOL6         "MediaInfo"
+    IDS_OTHER_TOOL7         "TSMuxer"
+    IDS_OTHER_TOOL8         "TSSplitter"
     IDS_TAB_SUBTITLE        "Subtitle/OSD"
     IDS_DECODE_PR           "Decoder Order"
     IDS_DECODE_NAME         "Name"
@@ -515,9 +515,9 @@ BEGIN
     IDS_OTHER_EMPTY         "Name of Audio or Video Not be Empty!"
     IDS_OTHER_LINK_EDITOR   "MPlayer Preferences"
     IDS_OTHER_LINK_PLAYER   "Player"
-    IDS_OTHER_TOOL1         "MKV merge tool"
+    IDS_OTHER_TOOL1         "MPC-HC"
     IDS_OTHER_TOOL2         "MKV extract tool"
-    IDS_OTHER_TOOL3         "FLV fix tool"
+    IDS_OTHER_TOOL3         "FLV Fixer"
 END
 
 STRINGTABLE 
