@@ -66,7 +66,7 @@ protected:
 	CStringArray m_playlist;
 	CMInputList m_inputs;
 	CString m_program_dir;
-	CMenu *m_menu;
+	CMenu m_popmenu;
 	void PlayFile(bool init = false);
 	void FullScreen(bool init = false);
 	int GetKeyNumber(CString Key);
