@@ -21,7 +21,7 @@ enum ao
 {
 	dsound,
 	win32,
-	ao_sdl,
+	//ao_sdl,
 	pcm,
 	ao_null
 };

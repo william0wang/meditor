@@ -73,7 +73,7 @@ enum vo
 	mx,
 	mx_l,
 	mx_h,
-	sdl,
+	//sdl,
 	jpeg,
 	png,
 	yuv4mpeg,
