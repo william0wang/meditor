@@ -36,7 +36,6 @@ CMFlashPlayer::CMFlashPlayer(CWnd* pParent /*=NULL*/)
 	m_changing = false;
 	m_current = 0;
 	now_state = 0;
-	m_menu = NULL;
 	g_pTaskbarList = NULL;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -161,7 +160,8 @@ BOOL CMFlashPlayer::OnInitDialog()
 	m_list->Create(IDD_DIALOG_LIST,NULL);
 	SetTimer(0,300,0);
 	LoadConfig();
-	m_menu = this->GetMenu();
+	m_popmenu.LoadMenu(IDR_MENU_FLASH);
+	SetMenu(NULL);
 	if(m_ontop)
 		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 
@@ -238,8 +238,8 @@ void CMFlashPlayer::OnTimer(UINT_PTR nIDEvent)
 	}
 	else if(m_flash.GetPlaying())
 	{
-		long m_fnow = m_flash.CurrentFrame();
 		if(! m_changing) {
+		long m_fnow = m_flash.CurrentFrame();
 			int pos = (int)((double)m_fnow / (double)m_fnumber * 100.0);
 			m_control.SetPos(pos);
 			if(g_pTaskbarList) g_pTaskbarList->SetProgressValue(this->m_hWnd, pos, 100);
@@ -773,6 +773,13 @@ BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg)
 	} else {
 		switch(pMsg->message)
 		{
+		case WM_NCRBUTTONDOWN:
+		{
+			if(pMsg->wParam == HTMAXBUTTON || pMsg->wParam == HTMINBUTTON || pMsg->wParam == HTCLOSE)
+				break;
+			m_popmenu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN, LOWORD(pMsg->lParam), HIWORD(pMsg->lParam), this);
+			return TRUE;
+		}
 		case WM_SYSCHAR:
 			if (pMsg->wParam == 13)
 				FullScreen();
@@ -834,13 +841,10 @@ BOOL CMFlashPlayer::PreTranslateMessage(MSG* pMsg)
 void CMFlashPlayer::OnRmenu() 
 {
 	m_rmenu = !m_rmenu;
-	if(m_menu)
-	{
-		if(m_rmenu)
-			m_menu->CheckMenuItem(IDM_RMENU,MF_CHECKED);
-		else
-			m_menu->CheckMenuItem(IDM_RMENU,MF_UNCHECKED);
-	}
+	if(m_rmenu)
+		m_popmenu.CheckMenuItem(IDM_RMENU,MF_CHECKED);
+	else
+		m_popmenu.CheckMenuItem(IDM_RMENU,MF_UNCHECKED);
 }
 
 void CMFlashPlayer::FullScreen(bool init)
@@ -862,7 +866,6 @@ void CMFlashPlayer::FullScreen(bool init)
 			save_x = (m_scr_width - save_width) / 2;
 			save_y = (m_scr_height - save_height) / 2;
 		}
-		this->SetMenu(NULL);
 		this->ModifyStyle(WS_CAPTION | WS_THICKFRAME,WS_OVERLAPPED);
 		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,m_scr_width,m_scr_height,SWP_SHOWWINDOW);
 		while (ShowCursor(0) >= 0)  ;
@@ -871,7 +874,6 @@ void CMFlashPlayer::FullScreen(bool init)
 	{
 		m_fs = false;
 		m_showctrl = true;
-		this->SetMenu(m_menu);
 		this->ModifyStyle(WS_OVERLAPPED,WS_CAPTION | WS_THICKFRAME);
 		if(!m_ontop)
 			::SetWindowPos(this->m_hWnd,HWND_NOTOPMOST,save_x,save_y

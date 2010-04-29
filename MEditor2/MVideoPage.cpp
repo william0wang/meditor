@@ -83,7 +83,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO4));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO5));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO6));
-	m_vo_str.Add(_T("SDL (Simple DirectMedia Layer)"));
+	//m_vo_str.Add(_T("SDL (Simple DirectMedia Layer)"));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO7));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO8));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO9));
@@ -619,8 +619,8 @@ void CMVideoPage::InitFromConfig()
 			else
 				m_vo.SetCurSel(mx);
 		}
-		else if(value_s == _T("sdl"))
-			m_vo.SetCurSel(sdl);
+		//else if(value_s == _T("sdl"))
+		//	m_vo.SetCurSel(sdl);
 		else if(value_s == _T("jpeg"))
 			m_vo.SetCurSel(jpeg);
 		else if(value_s == _T("png") || value_s.Find(_T("png:")) == 0)
@@ -1006,9 +1006,9 @@ void CMVideoPage::SaveConfig()
 	case gl2:
 		m_cfg->SetValue(_T("vo") , _T("gl2") );
 		break;
-	case sdl:
-		m_cfg->SetValue(_T("vo") , _T("sdl") );
-		break;
+	//case sdl:
+	//	m_cfg->SetValue(_T("vo") , _T("sdl") );
+	//	break;
 	case mx:
 		m_cfg->SetValue(_T("vo") , _T("matrixview") );
 		break;

@@ -568,6 +568,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\codecs.coreavcdshow.conf"
+				>
+			</File>
+			<File
 				RelativePath=".\res\dshow.ico"
 				>
 			</File>
@@ -753,10 +757,6 @@
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\res\codecs.coreavcdshow.conf"
-			>
-		</File>
 	</Files>
 	<Globals>
 		<Global
