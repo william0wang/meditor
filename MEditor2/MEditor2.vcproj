@@ -29,6 +29,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="cd res&#x0D;&#x0A;del /F codecs.7z&#x0D;&#x0A;..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -195,6 +196,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="cd res&#x0D;&#x0A;del /F codecs.7z&#x0D;&#x0A;..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -557,6 +559,10 @@
 			>
 			<File
 				RelativePath=".\res\btn_96.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\codecs.7z"
 				>
 			</File>
 			<File

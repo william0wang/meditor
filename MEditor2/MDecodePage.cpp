@@ -681,21 +681,24 @@ void CMDecodePage::SaveConfig()
 	case external:
 		m_cfg->SetValue(_T("cofing_codecs"), _T("1"), true , ex_meditor);
 		if(m_last_extract !=  external)
-			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_NORMAL),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.conf"));
 		m_last_extract =  external;
 		break;
 	case coreavc:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("2") , true , ex_meditor);
 		if(m_last_extract !=  coreavc)
-			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVC),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.coreavc.conf"));
 		m_last_extract =  coreavc;
 		break;
 	case coreavcds:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("3") , true , ex_meditor);
 		if(m_last_extract !=  coreavcds)
-			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVCDS),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.coreavcdshow.conf"));
 		m_last_extract =  coreavcds;
 		break;
 	default:
