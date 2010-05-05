@@ -24,6 +24,7 @@ enum codecs_ini
 	external,
 	coreavc,
 	coreavcds,
+	divxh264,
 };
 
 enum Avcodec
