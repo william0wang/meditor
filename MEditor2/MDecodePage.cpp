@@ -27,13 +27,14 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	//}}AFX_DATA_INIT
 	m_vdecode.RemoveAll();
 	m_adecode.RemoveAll();
+	m_vdecode.Add(_T("divxh264win"));
+	m_vdecode.Add(_T("coreavcwindows"));
 	m_vdecode.Add(_T("coreavc"));
-	m_vdecode.Add(_T("diavc"));
 	m_vdecode.Add(_T("divxh264"));
+	m_vdecode.Add(_T("diavc"));
 	m_vdecode.Add(_T("ffdshow"));
 	m_vdecode.Add(_T("cineformhd"));
 	m_vdecode.Add(_T("ffdshowdxva"));
-	m_vdecode.Add(_T("coreavcwindows"));
 	m_vdecode.Add(_T("mpegpes"));
 	m_vdecode.Add(_T("mpeg12"));
 	m_vdecode.Add(_T("ffmpeg1"));
@@ -156,6 +157,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE2));
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE3));
 	m_str_codecs.Add(_T("CoreAVC DirectShow Native"));
+	m_str_codecs.Add(_T("DivX H.264 Decoder"));
 }
 
 
@@ -461,6 +463,9 @@ void CMDecodePage::InitFromConfig()
 		case 3:
 			m_codecs.SetCurSel(coreavcds);
 			break;
+		case 4:
+			m_codecs.SetCurSel(divxh264);
+			break;
 		default:
 			m_codecs.SetCurSel(inner);
 			break;
@@ -681,22 +686,33 @@ void CMDecodePage::SaveConfig()
 	case external:
 		m_cfg->SetValue(_T("cofing_codecs"), _T("1"), true , ex_meditor);
 		if(m_last_extract !=  external)
-			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_NORMAL),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.conf"));
 		m_last_extract =  external;
 		break;
 	case coreavc:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("2") , true , ex_meditor);
 		if(m_last_extract !=  coreavc)
-			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVC),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.coreavc.conf"));
 		m_last_extract =  coreavc;
 		break;
 	case coreavcds:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("3") , true , ex_meditor);
 		if(m_last_extract !=  coreavcds)
-			ExtractResource(MAKEINTRESOURCE(IDR_CODECS_COREAVCDS),TEXT("CODECS_INI"),m_program_dir + _T("codecs.ini"),true);
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.coreavcdshow.conf"));
 		m_last_extract =  coreavcds;
+		break;
+	case divxh264:
+		RegCoreCodec();
+		m_cfg->SetValue(_T("cofing_codecs") , _T("4") , true , ex_meditor);
+		if(m_last_extract !=  divxh264)
+			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
+			m_program_dir+_T("codecs.ini"), true, true, _T("codecs.divxh264.conf"));
+		m_last_extract =  divxh264;
 		break;
 	default:
 		m_cfg->RemoveValue(_T("cofing_codecs"), true);

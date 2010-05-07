@@ -5,7 +5,6 @@
 *.diff
 *.lib
 *.dll*
-*.exe
 *.obj
 *.pdb
 *.idb
@@ -41,3 +40,5 @@ Release Unicode
 /7z/Archive/7z/Bcj2.asm
 /7z/Archive/7z/Bra86.asm
 /7z/Archive/7z/LzmaDec.asm
+
+/MEditor2/res/codecs.7z
