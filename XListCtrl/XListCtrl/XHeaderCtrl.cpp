@@ -515,7 +515,7 @@ void CXHeaderCtrl::OnPaint()
 
     if (m_bDoubleBuffer)
     {
-        CMemDC MemDC(&dc);
+        CMMemDC MemDC(&dc);
         DrawCtrl(&MemDC);
     }
     else
