@@ -26,6 +26,7 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 	m_volnorm = _T("100");
 	m_volnorm_s = 10;
 	m_volume_s = 60;
+	m_wadsp_index = 0;
 	m_str_at = ResStr(IDS_PLAYER_AUTO);
 	m_str_no = ResStr(IDS_PLAYER_NONE);
 	m_str_low = ResStr(IDS_AUDIO_RELOW);
@@ -127,6 +128,13 @@ CMAudioPage::CMAudioPage(CWnd* pParent /*=NULL*/)
 		str = finder.GetFileName().MakeLower();
 		if(!finder.IsDirectory() && !finder.IsDots() && str.GetLength() > 4 &&  str.Right(4) == _T(".dll")) {
 			m_wadsp.Add(str.Left(str.GetLength()-4));
+		}
+		for(int i = 0; i < m_wadsp.GetSize(); i++)
+		{
+			if(m_wadsp[i] == _T("dsp_enhancer")) {
+				m_wadsp_index = i;
+				break;
+			}
 		}
 	}
 	::SetCurrentDirectory(szCurPath);
@@ -289,8 +297,9 @@ void CMAudioPage::FillListCtrl(CXListCtrl * pList)
 	pList->InsertItem(wadsp, _T(""));
 	pList->SetCheckbox(wadsp, 0, 0);
 	pList->SetItemText(wadsp, 1, str_dsp1);
-	pList->SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  0,  FALSE);
-	pList->SetItemText(wadsp, 2, _T(""));
+	pList->SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  m_wadsp_index,  FALSE);
+	if(m_wadsp_index > 0) m_List.SetItemText(wadsp, 2,_T("dsp_enhancer"));
+	else pList->SetItemText(wadsp, 2, _T(""));
 	pList->SetEdit(wadsp, 2);
 	pList->SetItemText(wadsp, 3, str_dsp2);
 
@@ -379,7 +388,8 @@ void CMAudioPage::SetNormal()
 	m_List.SetCheckbox(equalizer, 0, 0);
 	m_List.SetItemText(equalizer, 2,_T("0:0:0:0:0:0:0:0:0:0"));
 	m_List.SetCheckbox(wadsp, 0, 0);
-	m_List.SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  0,  FALSE);
+	m_List.SetComboBox(wadsp, 2, TRUE,  &m_wadsp,  8,  m_wadsp_index,  FALSE);
+	if(m_wadsp_index > 0) m_List.SetItemText(wadsp, 2,_T("dsp_enhancer"));
 	m_List.SetCheckbox(resample, 0, 0);
 	m_List.SetComboBox(resample, 2, TRUE,  &m_resample,  8,  16,  FALSE);
 	m_List.SetCheckbox(adv_af, 0, 0);
