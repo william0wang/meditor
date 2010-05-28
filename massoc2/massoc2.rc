@@ -1,0 +1,263 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\massoc2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG  0, 0, 187, 102
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 9, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
+    CTEXT           "massoc2 Application v1.0\n\n(c) Copyright 2010",IDC_STATIC,25,57,78,32
+    ICON            IDR_MAINFRAME,IDC_STATIC,55,26,18,20
+    GROUPBOX        "",IDC_STATIC,7,7,115,88
+END
+
+IDD_MAINDLG DIALOGEX 0, 0, 347, 232
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "massoc2"
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,301,211,39,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL,"ListCtrl",WS_TABSTOP,7,21,333,186
+    COMBOBOX        IDC_COMBO_ICON,259,7,81,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,73,8,68,10
+    LTEXT           "关联格式右键菜单:",IDC_STATIC,7,8,61,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,142,8,72,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_MAINDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 340
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 225
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "massoc2 Module"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "massoc2"
+            VALUE "LegalCopyright", "Copyright 2010"
+            VALUE "OriginalFilename", "massoc2.exe"
+            VALUE "ProductName", "massoc2 Module"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LISTITEMS           BITMAP                  "res\\ListItems.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_DIVIDER             CURSOR                  "res\\divider.cur"
+IDC_HYPERLINK           CURSOR                  "res\\hand.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "massoc2"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_TAB_ASSOS           "文件关联"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_PLAYER_SAMEDIR      "请与 mplayer.exe 放在相同目录中使用本程序!"
+    IDS_ASSOC_LIST          "播放列表"
+    IDS_ASSOC_V             "视频文件"
+    IDS_ASSOC_A             "音频文件"
+    IDS_ASSOC_FLASH         "Flash动画"
+    IDS_ASSOC_DS            "DirectShow"
+    IDS_ASSOC_MV            "移动视频文件"
+    IDS_ASSOC_MA            "移动音频文件"
+    IDS_ASSOC_LA            "无损音频文件"
+    IDS_ASSOC_LISTFILE      "播放列表文件"
+    IDS_ASSOC_MOV           "影片文件"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ASSOC_AVI           "视频剪辑"
+    IDS_ASSOC_CT            "动画文件"
+    IDS_ASSOC_INPUT         "请输入扩展名和说明并选择类型"
+    IDS_ASSOC_AS            "文件关联"
+    IDS_ASSOC_DEL           "不能删除默认格式!"
+    IDS_PLAYER_USE          "使用"
+    IDS_ASSOC_OP            "打开"
+    IDS_ASSOC_PL            "播放"
+    IDS_ASSOC_ASSOS         "关联"
+    IDS_ASSOC_EX            "扩展名"
+    IDS_ASSOC_INF           "文件说明"
+    IDS_ASSOC_TYP           "类型"
+    IDS_OTHER_REALONLINE    "Real 在线支持"
+    IDS_OTHER_REALOK        "Real 在线支持注册成功 !"
+    IDS_OTHER_REALFAIL      "Real 在线支持注册失败，请重试 !"
+    IDS_OTHER_REALAGAIN     "Real 在线支持已注册，是否重新注册 ?"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_OTHER_REALON        "Real 在线支持尚未注册 !"
+    IDS_OTHER_REALFAILS     "Real 在线支持注册失败，未找到需要的文件 !"
+    IDS_OTHER_UNREALFAIL    "Real 在线支持反注册失败，未找到需要的文件 !"
+    IDS_OTHER_UNREALOK      "Real 在线支持反注册成功 !"
+    IDS_OTHER_UNREALFAILS   "Real 在线支持反注册失败，请重试 !"
+    IDS_ASSOC_ICO           "图标"
+    IDS_ASSOC_MPC           "MPC"
+    IDS_ASSOC_V2            "其它视频文件"
+    IDS_ASSOC_SEC           "第2播放器"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ASSOC_AVS           "AviSynth 脚本"
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
