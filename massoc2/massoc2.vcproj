@@ -193,7 +193,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\AboutDlg.cpp"
+				RelativePath=".\AVS.cpp"
 				>
 			</File>
 			<File
@@ -202,6 +202,10 @@
 			</File>
 			<File
 				RelativePath=".\massoc2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Real.cpp"
 				>
 			</File>
 			<File
@@ -234,15 +238,19 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath=".\AboutDlg.h"
-				>
-			</File>
-			<File
 				RelativePath=".\AtlStdioFile.h"
 				>
 			</File>
 			<File
+				RelativePath=".\AVS.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MainDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Real.h"
 				>
 			</File>
 			<File

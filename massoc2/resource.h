@@ -2,7 +2,6 @@
 // Microsoft Visual C++ generated include file.
 // Used by massoc2.rc
 //
-#define IDD_ABOUTBOX                    100
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
 #define IDB_LISTITEMS                   201
@@ -49,7 +48,6 @@
 #define IDS_ASSOC_ICO                   35093
 #define IDS_ASSOC_MPC                   35094
 #define IDS_ASSOC_V2                    35095
-#define IDS_ASSOC_DS2                   35096
 #define IDS_ASSOC_SEC                   35096
 #define IDS_ASSOC_AVS                   35351
 

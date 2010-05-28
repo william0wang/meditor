@@ -11,7 +11,6 @@
 #include <shobjidl.h>
 
 #include "AtlStdioFile.h"
-#include "aboutdlg.h"
 #include "MainDlg.h"
 #include "shared.h"
 #include "Reg.h"
@@ -158,13 +157,6 @@ LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 	pLoop->RemoveMessageFilter(this);
 	pLoop->RemoveIdleHandler(this);
 
-	return 0;
-}
-
-LRESULT CMainDlg::OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-{
-	CAboutDlg dlg;
-	dlg.DoModal();
 	return 0;
 }
 

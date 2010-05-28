@@ -5,7 +5,8 @@
 
 #include "resource.h"
 
-#include "aboutdlg.h"
+#include "AVS.h"
+#include "Real.h"
 #include "MainDlg.h"
 
 CAppModule _Module;
@@ -15,18 +16,59 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	CMessageLoop theLoop;
 	_Module.AddMessageLoop(&theLoop);
 
-	CMainDlg dlgMain;
 
 	CString sCmdLine(lpstrCmdLine);
 
+	if(sCmdLine.Find(_T("--install-avs")) >= 0) {
+		int offset = sCmdLine.Find(_T("\""));
+		if(offset < 0)
+			return FALSE;
+		CString path = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+		path.Trim();
+		offset = path.Find(_T("\""));
+		if(offset <= 0)
+			return FALSE;
+		path = path.Left(offset);
+
+		CAVS avs;
+		avs.Install(path);
+		return FALSE;
+	}
+
+	if(sCmdLine.Find(_T("--real-online")) >= 0)	{
+
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - RealOnline"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS)
+			return FALSE;
+
+		CRealDlg dlg;
+		dlg.m_cmdline = sCmdLine;
+		dlg.InstallReal();
+
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
+
+		return FALSE;
+	}
+
+	CMainDlg dlgMain;
+
+	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Assoc"));
+	if(GetLastError() == ERROR_ALREADY_EXISTS)
+		return FALSE;
+
 	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
 		dlgMain.ApplyDefault();
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
 		return 0;
 	}
 
 	if(dlgMain.Create(NULL) == NULL)
 	{
 		ATLTRACE(_T("Main dialog creation failed!\n"));
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
 		return 0;
 	}
 
@@ -35,6 +77,10 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	int nRet = theLoop.Run();
 
 	_Module.RemoveMessageLoop();
+
+	if(gUniqueEvent)
+		CloseHandle(gUniqueEvent);
+
 	return nRet;
 }
 
