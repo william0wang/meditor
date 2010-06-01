@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by massoc2.rc
+// Used by massoc.rc
 //
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129

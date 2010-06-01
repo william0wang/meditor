@@ -34,6 +34,8 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 		_Module.SetResourceInstance(dll);
 	}
 
+	m_str_title = ResStr(IDS_TAB_ASSOS);
+
 	m_type_video = ResStr(IDS_ASSOC_V);
 	m_type_video2 = ResStr(IDS_ASSOC_V2);
 	m_type_audio = ResStr(IDS_ASSOC_A);
@@ -133,6 +135,8 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 {
 	// center the dialog on the screen
 	CenterWindow();
+
+	SetWindowText(m_str_title);
 
 	::SetWindowText(GetDlgItem(IDOK), m_str_ui_ok);
 	::SetWindowText(GetDlgItem(IDC_ADD), m_str_ui_add);

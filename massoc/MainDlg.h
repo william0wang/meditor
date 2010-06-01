@@ -63,6 +63,7 @@ public:
 	CString m_icons_dll;
 	CString	m_icons_str;
 	CString m_program_dir;
+	CString m_str_title;
 	CString m_str_player_use;
 	CString m_str_player_samedir;
 	CString m_str_assos_input;
