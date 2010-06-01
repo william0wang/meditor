@@ -15,7 +15,7 @@
 #include "shared.h"
 #include "Reg.h"
 
-CMainDlg::CMainDlg()
+CMainDlg::CMainDlg(HINSTANCE dll)
 {
 	m_wndListCtrl.RegisterClass();
 
@@ -23,16 +23,14 @@ CMainDlg::CMainDlg()
 	m_have_icons = false;
 	m_is_vista = false;
 
-	m_rightmenu = TRUE;
-	m_rightmenu2 = FALSE;
+	m_rightOpen = TRUE;
+	m_rightPlay = FALSE;
 	m_mpc = FALSE;
 
-	OSVERSIONINFO version;
-
-	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	if(GetVersionEx(&version)) {
-		if(version.dwMajorVersion >= 6)
-			m_is_vista = true;
+	HINSTANCE old_res = NULL;
+	if(dll) {
+		old_res = _Module.GetResourceInstance();
+		_Module.SetResourceInstance(dll);
 	}
 
 	m_type_video = ResStr(IDS_ASSOC_V);
@@ -50,6 +48,38 @@ CMainDlg::CMainDlg()
 	m_str_assos_op = ResStr(IDS_ASSOC_OP);
 	m_str_assos_pl = ResStr(IDS_ASSOC_PL);
 	m_str_assos_as = ResStr(IDS_ASSOC_AS);
+	m_str_assos_ct = ResStr(IDS_ASSOC_CT);
+	m_str_assos_mv = ResStr(IDS_ASSOC_MV);
+	m_str_assos_mov = ResStr(IDS_ASSOC_MOV);
+	m_str_assos_avi = ResStr(IDS_ASSOC_AVI);
+	m_str_assos_avs = ResStr(IDS_ASSOC_AVS);
+	m_str_assos_list = ResStr(IDS_ASSOC_LISTFILE);
+	m_str_assos_ex = ResStr(IDS_ASSOC_EX);
+	m_str_assos_inf = ResStr(IDS_ASSOC_INF);
+	m_str_assos_typ = ResStr(IDS_ASSOC_TYP);
+	m_str_assos_ico = ResStr(IDS_ASSOC_ICO);
+
+	m_str_ui_ok = ResStr(IDS_ASSOC_BOK);
+	m_str_ui_add = ResStr(IDS_ASSOC_BADD);
+	m_str_ui_del = ResStr(IDS_ASSOC_BDEL);
+	m_str_ui_all = ResStr(IDS_ASSOC_BALL);
+	m_str_ui_none = ResStr(IDS_ASSOC_BNONE);
+	m_str_ui_rem = ResStr(IDS_ASSOC_BRE);
+	m_str_ui_icons = ResStr(IDS_ASSOC_ICONS);
+	m_str_ui_right = ResStr(IDS_ASSOC_RENU);
+	m_str_ui_open = ResStr(IDS_ASSOC_OPEN);
+	m_str_ui_play = ResStr(IDS_ASSOC_PLAY);
+
+	if(old_res)
+		_Module.SetResourceInstance(old_res);
+
+	OSVERSIONINFO version;
+
+	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	if(GetVersionEx(&version)) {
+		if(version.dwMajorVersion >= 6)
+			m_is_vista = true;
+	}
 
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
@@ -95,6 +125,17 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 {
 	// center the dialog on the screen
 	CenterWindow();
+
+	::SetWindowText(GetDlgItem(IDOK), m_str_ui_ok);
+	::SetWindowText(GetDlgItem(IDC_ADD), m_str_ui_add);
+	::SetWindowText(GetDlgItem(IDC_DEL), m_str_ui_del);
+	::SetWindowText(GetDlgItem(IDC_ALL), m_str_ui_all);
+	::SetWindowText(GetDlgItem(IDC_NONE), m_str_ui_none);
+	::SetWindowText(GetDlgItem(IDC_RECOMMAND), m_str_ui_rem);
+	::SetWindowText(GetDlgItem(IDC_CHECK_RMENU), m_str_ui_open);
+	::SetWindowText(GetDlgItem(IDC_CHECK_RMENU2), m_str_ui_play);
+	::SetWindowText(GetDlgItem(IDC_STATIC_ICONS), m_str_ui_icons);
+	::SetWindowText(GetDlgItem(IDC_STATIC_RIGHT), m_str_ui_right);
 
 	// set icons
 	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
@@ -182,15 +223,63 @@ void CMainDlg::CloseDialog(int nVal)
 	::PostQuitMessage(nVal);
 }
 
+LRESULT CMainDlg::OnBnClickedAdd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	return 0;
+}
+
+LRESULT CMainDlg::OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	return 0;
+}
+
+LRESULT CMainDlg::OnBnClickedAll(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	m_wndListCtrl.LockWindowUpdate(TRUE);
+	for(int i = 0; i < m_wndListCtrl.GetItemCount(); i++)
+	{
+		m_wndListCtrl.SetItemCheck( i, 0,  TRUE);
+	}
+	m_wndListCtrl.LockWindowUpdate(FALSE);
+	m_wndListCtrl.InvalidateRect(NULL);
+	return 0;
+}
+
+LRESULT CMainDlg::OnBnClickedNone(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	m_wndListCtrl.LockWindowUpdate(TRUE);
+	for(int i = 0; i < m_wndListCtrl.GetItemCount(); i++)
+	{
+		m_wndListCtrl.SetItemCheck( i, 0,  FALSE);
+	}
+	m_wndListCtrl.LockWindowUpdate(FALSE);
+	m_wndListCtrl.InvalidateRect(NULL);
+	return 0;
+}
+
+LRESULT CMainDlg::OnBnClickedRecommand(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	m_wndListCtrl.LockWindowUpdate(TRUE);
+	for(UINT i = 0; i < m_AssocList.size(); i++)
+	{
+		if(m_AssocList[i].m_recommand)
+			m_wndListCtrl.SetItemCheck( i, 0,  TRUE);
+		else
+			m_wndListCtrl.SetItemCheck( i, 0,  FALSE);
+	}
+	m_wndListCtrl.LockWindowUpdate(FALSE);
+	m_wndListCtrl.InvalidateRect(NULL);
+	return 0;
+}
+
 void CMainDlg::LoadAssocINI()
 {
 	CAtlStdioFile file;
 	AssocItem item;
-	int itype, iico;
+	int itype, iico, ireco;
 	bool find_icon = false;
 	CString line, name, val, ext, info, type, ico;
 	CString inifile = m_program_dir + _T("massoc.ini");
-
 	
 	if(file.Create(inifile,  GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING) == S_OK) {
 		while(file.ReadLine(line)) {
@@ -227,142 +316,152 @@ void CMainDlg::LoadAssocINI()
 					continue;
 				type = line.Left(sp);
 				line.Delete(0,sp + 1);
-				ico = line;
+
+				ireco = 0;
+				sp = line.Find(_T(","));
+				if(sp > 0) {
+					ico = line.Left(sp);
+					line.Delete(0,sp + 1);
+					ireco = _ttoi(line);
+					if(ireco != 1)
+						ireco = 0;
+				} else
+					ico = line;
 
 				itype = _ttoi(type);
 				iico = _ttoi(ico);
 
 				if(ext.GetLength() > 0 && info.GetLength() > 0
 					&& itype >=0 && itype < 6 && iico >= 0) {
-					item.Set(ext, info, itype, iico);
+					item.Set(ext, info, itype, iico, ireco);
 					m_AssocList.push_back(item);
 				}
 			}
 		}
 		file.Close();
 	} else {
-		item.Set(L"3gp", L"3GP " + ResStr(IDS_ASSOC_MV), ASSOC_TYPE_VIDEO, 13);
+		item.Set(L"3gp", L"3GP " + m_str_assos_mv, ASSOC_TYPE_VIDEO, 13, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"asf", L"Advanced Streaming " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 16);
+		item.Set(L"asf", L"Advanced Streaming " + m_type_video, ASSOC_TYPE_VIDEO, 16, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"avi", L"AVI " + ResStr(IDS_ASSOC_AVI), ASSOC_TYPE_VIDEO, 1);
+		item.Set(L"avi", L"AVI " + m_str_assos_avi, ASSOC_TYPE_VIDEO, 1, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"flv", L"Flash " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 2);
+		item.Set(L"flv", L"Flash " + m_type_video, ASSOC_TYPE_VIDEO, 2, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"mp4", L"MPEG-4 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 6);
+		item.Set(L"mp4", L"MPEG-4 " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 6, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"mkv", L"Matroska" + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 3);
+		item.Set(L"mkv", L"Matroska" + m_type_video, ASSOC_TYPE_VIDEO, 3, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"mov", L"QuickTime " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 12);
+		item.Set(L"mov", L"QuickTime " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 12, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"mpeg", L"MPEG " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 7);
+		item.Set(L"mpeg", L"MPEG " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 7, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"mpg", L"MPEG " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 8);
+		item.Set(L"mpg", L"MPEG " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 8, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"ogm", L"OGG " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 4);
+		item.Set(L"ogm", L"OGG " + m_type_video, ASSOC_TYPE_VIDEO, 4, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"pmp", L"PMP " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 38);
+		item.Set(L"pmp", L"PMP " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 38, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"qt", L"QuickTime " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 12);
+		item.Set(L"qt", L"QuickTime " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 12, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"rm", L"RealMedia " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 14);
+		item.Set(L"rm", L"RealMedia " + m_type_video, ASSOC_TYPE_VIDEO, 14, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"rmvb", L"RealMedia VBR " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 15);
+		item.Set(L"rmvb", L"RealMedia VBR " + m_type_video, ASSOC_TYPE_VIDEO, 15, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"vob", L"DVD " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 11);
+		item.Set(L"vob", L"DVD " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 11, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"webm", L"WebM " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 35);
+		item.Set(L"webm", L"WebM " + m_type_video, ASSOC_TYPE_VIDEO, 35, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"wmv", L"Windows Media " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO, 17);
-		m_AssocList.push_back(item);
-
-		item.Set(L"tp", L"HDTV " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 10);
-		m_AssocList.push_back(item);
-		item.Set(L"ts", L"HDTV " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 9);
-		m_AssocList.push_back(item);
-		item.Set(L"m2ts", L"HDTV " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 9);
-		m_AssocList.push_back(item);
-		item.Set(L"mts", L"HDTV " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO, 9);
+		item.Set(L"wmv", L"Windows Media " + m_type_video, ASSOC_TYPE_VIDEO, 17, 1);
 		m_AssocList.push_back(item);
 
-		item.Set(L"3g2", L"3GP " + ResStr(IDS_ASSOC_MV), ASSOC_TYPE_VIDEO2, 13);
+		item.Set(L"tp", L"HDTV " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 10, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"3gp2", L"3GP " + ResStr(IDS_ASSOC_MV), ASSOC_TYPE_VIDEO2, 13);
+		item.Set(L"ts", L"HDTV " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 9, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"3gpp", L"3GP " + ResStr(IDS_ASSOC_MV), ASSOC_TYPE_VIDEO2, 13);
+		item.Set(L"m2ts", L"HDTV " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 9, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"avs", ResStr(IDS_ASSOC_AVS), ASSOC_TYPE_VIDEO2, 35);
+		item.Set(L"mts", L"HDTV " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 9, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"bik", L"Bink " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO2, 35);
+
+		item.Set(L"3g2", L"3GP " + m_str_assos_mv, ASSOC_TYPE_VIDEO2, 13, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"evo", L"HDTV " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO2, 35);
+		item.Set(L"3gp2", L"3GP " + m_str_assos_mv, ASSOC_TYPE_VIDEO2, 13, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"dat", L"VCD " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 5);
+		item.Set(L"3gpp", L"3GP " + m_str_assos_mv, ASSOC_TYPE_VIDEO2, 13, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"divx", L"DIVX " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO2, 35);
+		item.Set(L"avs", m_str_assos_avs, ASSOC_TYPE_VIDEO2, 35, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"mpv", L"MPEG " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 7);
+		item.Set(L"bik", L"Bink " + m_type_video, ASSOC_TYPE_VIDEO2, 35, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"m1v", L"MPEG-1 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 7);
+		item.Set(L"evo", L"HDTV " + m_type_video, ASSOC_TYPE_VIDEO2, 35, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"m2v", L"MPEG-2 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 7);
+		item.Set(L"dat", L"VCD " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 5, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"m4v", L"MPEG-4 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 6);
+		item.Set(L"divx", L"DIVX " + m_type_video, ASSOC_TYPE_VIDEO2, 35, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"pss", L"MPEG-1 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 7);
+		item.Set(L"mpv", L"MPEG " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 7, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"pva", L"MPEG-1 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 7);
+		item.Set(L"m1v", L"MPEG-1 " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 7, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"tpr", L"MPEG-1 " + ResStr(IDS_ASSOC_MOV), ASSOC_TYPE_VIDEO2, 7);
+		item.Set(L"m2v", L"MPEG-2 " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 7, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"vp6", L"VP6/VP7 " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO2, 35);
+		item.Set(L"m4v", L"MPEG-4 " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 6, 1);
 		m_AssocList.push_back(item);
-		//item.Set(L"vp7", L"VP7 " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO2, 35);
+		item.Set(L"pss", L"MPEG-1 " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 7, 1);
+		m_AssocList.push_back(item);
+		item.Set(L"pva", L"MPEG-1 " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 7, 1);
+		m_AssocList.push_back(item);
+		item.Set(L"tpr", L"MPEG-1 " + m_str_assos_mov, ASSOC_TYPE_VIDEO2, 7, 1);
+		m_AssocList.push_back(item);
+		item.Set(L"vp6", L"VP6/VP7 " + m_type_video, ASSOC_TYPE_VIDEO2, 35, 1);
+		m_AssocList.push_back(item);
+		//item.Set(L"vp7", L"VP7 " + m_type_video, ASSOC_TYPE_VIDEO2, 35);
 		//m_AssocList.push_back(item);
-		//item.Set(L"vp8", L"VP8 " + ResStr(IDS_ASSOC_V), ASSOC_TYPE_VIDEO2, 35);
+		//item.Set(L"vp8", L"VP8 " + m_type_video, ASSOC_TYPE_VIDEO2, 35);
 		//m_AssocList.push_back(item);
 
-		item.Set(L"aac", L"Advanced Audio Coding " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 18);
+		item.Set(L"aac", L"Advanced Audio Coding " + m_type_audio, ASSOC_TYPE_AUDIO, 18);
 		m_AssocList.push_back(item);
-		item.Set(L"ac3", L"Dolby AC3 " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 19);
+		item.Set(L"ac3", L"Dolby AC3 " + m_type_audio, ASSOC_TYPE_AUDIO, 19);
 		m_AssocList.push_back(item);
-		item.Set(L"aiff", L"AIFF Mac " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 36);
+		item.Set(L"aiff", L"AIFF Mac " + m_type_audio, ASSOC_TYPE_AUDIO, 36);
 		m_AssocList.push_back(item);
-		item.Set(L"amr", L"AMR " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 20);
+		item.Set(L"amr", L"AMR " + m_type_audio, ASSOC_TYPE_AUDIO, 20, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"dts", L"DTS " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 21);
+		item.Set(L"dts", L"DTS " + m_type_audio, ASSOC_TYPE_AUDIO, 21, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"flac", L"FLAC " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 22);
+		item.Set(L"flac", L"FLAC " + m_type_audio, ASSOC_TYPE_AUDIO, 22);
 		m_AssocList.push_back(item);
-		item.Set(L"m4a", L"MPEG-4 " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 23);
+		item.Set(L"m4a", L"MPEG-4 " + m_type_audio, ASSOC_TYPE_AUDIO, 23);
 		m_AssocList.push_back(item);
-		item.Set(L"mp2", L"MPEG " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 36);
+		item.Set(L"mp2", L"MPEG " + m_type_audio, ASSOC_TYPE_AUDIO, 36);
 		m_AssocList.push_back(item);
-		item.Set(L"mp3", L"MPEG Laye-3 " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 24);
+		item.Set(L"mp3", L"MPEG Laye-3 " + m_type_audio, ASSOC_TYPE_AUDIO, 24);
 		m_AssocList.push_back(item);
-		item.Set(L"mpa", L"MPEG " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 25);
+		item.Set(L"mpa", L"MPEG " + m_type_audio, ASSOC_TYPE_AUDIO, 25);
 		m_AssocList.push_back(item);
-		item.Set(L"mpc", L"MusePack " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 26);
+		item.Set(L"mpc", L"MusePack " + m_type_audio, ASSOC_TYPE_AUDIO, 26);
 		m_AssocList.push_back(item);
-		item.Set(L"mka", L"Matroska " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 27);
+		item.Set(L"mka", L"Matroska " + m_type_audio, ASSOC_TYPE_AUDIO, 27);
 		m_AssocList.push_back(item);
-		item.Set(L"ogg", L"Vorbis " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 28);
+		item.Set(L"ogg", L"Vorbis " + m_type_audio, ASSOC_TYPE_AUDIO, 28);
 		m_AssocList.push_back(item);
-		item.Set(L"ra", L"RealMedia " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 29);
+		item.Set(L"ra", L"RealMedia " + m_type_audio, ASSOC_TYPE_AUDIO, 29, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"wav", L"WAVE " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 30);
+		item.Set(L"wav", L"WAVE " + m_type_audio, ASSOC_TYPE_AUDIO, 30);
 		m_AssocList.push_back(item);
-		item.Set(L"wma", L"Windows Media " + ResStr(IDS_ASSOC_A), ASSOC_TYPE_AUDIO, 31);
-		m_AssocList.push_back(item);
-
-		item.Set(L"swf", L"Flash " + ResStr(IDS_ASSOC_CT), ASSOC_TYPE_FLASH, 0);
+		item.Set(L"wma", L"Windows Media " + m_type_audio, ASSOC_TYPE_AUDIO, 31);
 		m_AssocList.push_back(item);
 
-		item.Set(L"m3u", L"M3U " + ResStr(IDS_ASSOC_LISTFILE), ASSOC_TYPE_PLAYLIST, 32);
+		item.Set(L"swf", L"Flash " + m_str_assos_ct, ASSOC_TYPE_FLASH, 0, 1);
 		m_AssocList.push_back(item);
-		item.Set(L"m3u8", L"M3U8 " + ResStr(IDS_ASSOC_LISTFILE), ASSOC_TYPE_PLAYLIST, 33);
+
+		item.Set(L"m3u", L"M3U " + m_str_assos_list, ASSOC_TYPE_PLAYLIST, 32);
 		m_AssocList.push_back(item);
-		item.Set(L"pls", L"PLS " + ResStr(IDS_ASSOC_LISTFILE), ASSOC_TYPE_PLAYLIST, 34);
+		item.Set(L"m3u8", L"M3U8 " + m_str_assos_list, ASSOC_TYPE_PLAYLIST, 33);
+		m_AssocList.push_back(item);
+		item.Set(L"pls", L"PLS " + m_str_assos_list, ASSOC_TYPE_PLAYLIST, 34, 1);
 		m_AssocList.push_back(item);
 	}
 
@@ -389,10 +488,10 @@ void CMainDlg::InitBasicList()
 	m_wndListCtrl.SetSingleSelect(TRUE);
 
 	m_wndListCtrl.AddColumn( _T( "" ), 0, ITEM_IMAGE_CHECK_OFF, TRUE, ITEM_FORMAT_CHECKBOX );
-	m_wndListCtrl.AddColumn( ResStr(IDS_ASSOC_EX), 100, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_EDIT, ITEM_FLAGS_CENTRE);
-	m_wndListCtrl.AddColumn( ResStr(IDS_ASSOC_INF), 260, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_EDIT, ITEM_FLAGS_CENTRE);
-	m_wndListCtrl.AddColumn( ResStr(IDS_ASSOC_TYP), 130, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_COMBO, ITEM_FLAGS_CENTRE);
-	m_wndListCtrl.AddColumn( ResStr(IDS_ASSOC_ICO), 52, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_COMBO, ITEM_FLAGS_CENTRE);
+	m_wndListCtrl.AddColumn( m_str_assos_ex, 100, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_EDIT, ITEM_FLAGS_CENTRE);
+	m_wndListCtrl.AddColumn( m_str_assos_inf, 260, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_EDIT, ITEM_FLAGS_CENTRE);
+	m_wndListCtrl.AddColumn( m_str_assos_typ, 130, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_COMBO, ITEM_FLAGS_CENTRE);
+	m_wndListCtrl.AddColumn( m_str_assos_ico, 52, ITEM_IMAGE_NONE, FALSE, ITEM_FORMAT_COMBO, ITEM_FLAGS_CENTRE);
 
 	CString ico;
 	CListArray < CString > tComboList;
@@ -690,13 +789,12 @@ bool CMainDlg::AssocExtension(CString ext, CString info, CString icons, int type
 		} else
 			Content =  _T("\"") +m_player_exe +_T("\" \"%1\"");
 
-		if(m_rightmenu)
+		if(m_rightOpen)
 			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,m_str_player_use + Player + m_str_assos_op);
 		else
 			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,_T(""));
 
-		if(m_rightmenu2) {
-
+		if(m_rightPlay) {
 			SubKey =  _T("mplayer.") + ext + _T("\\shell\\play");
 			reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,m_str_player_use + Player + m_str_assos_pl);
 			SubKey =  _T("mplayer.") + ext + _T("\\shell\\play\\command");

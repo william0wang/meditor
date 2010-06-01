@@ -40,12 +40,18 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
 CAPTION "massoc2"
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,301,211,39,14
+    DEFPUSHBUTTON   "确定",IDOK,301,211,39,14
     CONTROL         "ListCtrl",IDC_LISTCTRL,"ListCtrl",WS_TABSTOP,7,21,333,186
     COMBOBOX        IDC_COMBO_ICON,259,7,81,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,73,8,68,10
-    LTEXT           "关联格式右键菜单:",IDC_STATIC,7,8,61,8
-    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,142,8,72,10
+    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,59,8,74,10
+    LTEXT           "关联右键菜单:",IDC_STATIC_RIGHT,7,8,46,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,139,8,75,10
+    PUSHBUTTON      "添加",IDC_ADD,7,211,39,14
+    PUSHBUTTON      "全选",IDC_ALL,109,211,51,14
+    PUSHBUTTON      "不选",IDC_NONE,164,211,51,14
+    PUSHBUTTON      "推荐",IDC_RECOMMAND,219,211,51,14
+    PUSHBUTTON      "删除",IDC_DEL,49,211,39,14
+    LTEXT           "图标集:",IDC_STATIC_ICONS,227,9,28,8
 END
 
 
@@ -227,15 +233,24 @@ BEGIN
     IDS_OTHER_UNREALFAIL    "Real 在线支持反注册失败，未找到需要的文件 !"
     IDS_OTHER_UNREALOK      "Real 在线支持反注册成功 !"
     IDS_OTHER_UNREALFAILS   "Real 在线支持反注册失败，请重试 !"
-    IDS_ASSOC_ICO           "图标"
-    IDS_ASSOC_MPC           "MPC"
-    IDS_ASSOC_V2            "其它视频文件"
-    IDS_ASSOC_SEC           "第2播放器"
 END
 
 STRINGTABLE 
 BEGIN
     IDS_ASSOC_AVS           "AviSynth 脚本"
+    IDS_ASSOC_ICO           "图标"
+    IDS_ASSOC_V2            "其它视频文件"
+    IDS_ASSOC_SEC           "第2播放器"
+    IDS_ASSOC_OPEN          "使用 MPlayer 打开"
+    IDS_ASSOC_PLAY          "使用 MPlayer 播放"
+    IDS_ASSOC_RENU          "关联右键菜单:"
+    IDS_ASSOC_ICONS         "图标集:"
+    IDS_ASSOC_BADD          "添加"
+    IDS_ASSOC_BDEL          "删除"
+    IDS_ASSOC_BALL          "全选"
+    IDS_ASSOC_BNONE         "不选"
+    IDS_ASSOC_BRE           "推荐"
+    IDS_ASSOC_BOK           "确定"
 END
 
 #endif    // 中文(中华人民共和国) resources

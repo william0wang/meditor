@@ -28,13 +28,15 @@ public:
 	CString m_info;
 	int m_type;
 	int m_icon;
+	int m_recommand;
 
-	void Set(CString ext, CString info, int type, int icon)
+	void Set(CString ext, CString info, int type, int icon, int recommand = 0)
 	{
 		m_ext = ext;
 		m_info = info;
 		m_type = type;
 		m_icon = icon;
+		m_recommand = recommand;
 	}
 };
 
@@ -46,8 +48,8 @@ public:
 
 	vector<AssocItem> m_AssocList;
 
-	BOOL m_rightmenu;
-	BOOL m_rightmenu2;
+	BOOL m_rightOpen;
+	BOOL m_rightPlay;
 	BOOL m_mpc;
 	bool m_is_vista;
 	bool m_dll_getted;
@@ -66,6 +68,27 @@ public:
 	CString m_str_assos_pl;
 	CString m_str_assos_op;
 	CString m_str_assos_as;
+	CString m_str_assos_ct;
+	CString m_str_assos_ex;
+	CString m_str_assos_mv;
+	CString m_str_assos_mov;
+	CString m_str_assos_inf;
+	CString m_str_assos_ico;
+	CString m_str_assos_typ;
+	CString m_str_assos_avi;
+	CString m_str_assos_avs;
+	CString m_str_assos_list;
+
+	CString m_str_ui_ok;
+	CString m_str_ui_add;
+	CString m_str_ui_del;
+	CString m_str_ui_all;
+	CString m_str_ui_none;
+	CString m_str_ui_rem;
+	CString m_str_ui_icons;
+	CString m_str_ui_right;
+	CString m_str_ui_open;
+	CString m_str_ui_play;
 
 	CString m_type_video;
 	CString m_type_video2;
@@ -82,11 +105,11 @@ public:
 
 	CListCtrl m_wndListCtrl;
 
-	CMainDlg();
+	CMainDlg(HINSTANCE dll);
 
 	BEGIN_DDX_MAP(CMainDlg)
-		DDX_CHECK(IDC_CHECK_RMENU, m_rightmenu)
-		DDX_CHECK(IDC_CHECK_RMENU2, m_rightmenu2)
+		DDX_CHECK(IDC_CHECK_RMENU, m_rightOpen)
+		DDX_CHECK(IDC_CHECK_RMENU2, m_rightPlay)
 	END_DDX_MAP();
 	
 
@@ -109,6 +132,11 @@ public:
 	END_UPDATE_UI_MAP()
 
 	BEGIN_MSG_MAP(CMainDlg)
+		COMMAND_HANDLER(IDC_ADD, BN_CLICKED, OnBnClickedAdd)
+		COMMAND_HANDLER(IDC_ALL, BN_CLICKED, OnBnClickedAll)
+		COMMAND_HANDLER(IDC_RECOMMAND, BN_CLICKED, OnBnClickedRecommand)
+		COMMAND_HANDLER(IDC_NONE, BN_CLICKED, OnBnClickedNone)
+		COMMAND_HANDLER(IDC_DEL, BN_CLICKED, OnBnClickedDel)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
@@ -127,4 +155,9 @@ public:
 
 
 	void CloseDialog(int nVal);
+	LRESULT OnBnClickedAdd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBnClickedAll(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBnClickedRecommand(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBnClickedNone(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 };

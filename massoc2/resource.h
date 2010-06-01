@@ -10,6 +10,13 @@
 #define IDC_LISTCTRL                    1000
 #define IDC_COMBO2                      1002
 #define IDC_COMBO_ICON                  1002
+#define IDC_STATIC_ICONS                1003
+#define IDC_STATIC_RIGHT                1004
+#define IDC_ADD                         1007
+#define IDC_ALL                         1008
+#define IDC_NONE                        1009
+#define IDC_RECOMMAND                   1010
+#define IDC_DEL                         1011
 #define IDC_CHECK_RMENU                 1109
 #define IDC_CHECK_RMENU2                1110
 #define IDS_TAB_ASSOS                   35007
@@ -45,11 +52,20 @@
 #define IDS_OTHER_UNREALFAIL            35090
 #define IDS_OTHER_UNREALOK              35091
 #define IDS_OTHER_UNREALFAILS           35092
-#define IDS_ASSOC_ICO                   35093
-#define IDS_ASSOC_MPC                   35094
-#define IDS_ASSOC_V2                    35095
-#define IDS_ASSOC_SEC                   35096
-#define IDS_ASSOC_AVS                   35351
+#define IDS_ASSOC_AVS                   35361
+#define IDS_ASSOC_ICO                   35362
+#define IDS_ASSOC_V2                    35363
+#define IDS_ASSOC_SEC                   35364
+#define IDS_ASSOC_OPEN                  35365
+#define IDS_ASSOC_PLAY                  35366
+#define IDS_ASSOC_RENU                  35367
+#define IDS_ASSOC_ICONS                 35368
+#define IDS_ASSOC_BADD                  35369
+#define IDS_ASSOC_BDEL                  35370
+#define IDS_ASSOC_BALL                  35371
+#define IDS_ASSOC_BNONE                 35372
+#define IDS_ASSOC_BRE                   35373
+#define IDS_ASSOC_BOK                   35374
 
 // Next default values for new objects
 // 
@@ -57,7 +73,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        204
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1002
+#define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -7,6 +7,7 @@
 
 #include "AVS.h"
 #include "Real.h"
+#include "shared.h"
 #include "MainDlg.h"
 
 CAppModule _Module;
@@ -15,7 +16,6 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
 	CMessageLoop theLoop;
 	_Module.AddMessageLoop(&theLoop);
-
 
 	CString sCmdLine(lpstrCmdLine);
 
@@ -35,11 +35,86 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		return FALSE;
 	}
 
-	if(sCmdLine.Find(_T("--real-online")) >= 0)	{
-
-		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - RealOnline"));
+	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-associations-updater"));
 		if(GetLastError() == ERROR_ALREADY_EXISTS)
 			return FALSE;
+
+		CMainDlg dlgMain(NULL);
+
+		dlgMain.ApplyDefault();
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
+		return 0;
+	}
+
+	int AppLanguage = 0;
+	CString langfile_tc;
+	CString langfile_en;
+	HINSTANCE instance_dll = NULL;
+	TCHAR szFilePath[MAX_PATH + 1];
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	CString program_dir;
+	program_dir.Format(_T("%s"),szFilePath);
+
+	CString right = program_dir.Right(8);
+	if(right == _T("\\codecs\\"))
+		program_dir = program_dir.Left(program_dir.GetLength() - 7);
+	else {
+		right = program_dir.Right(7);
+		if(right == _T("\\tools\\"))
+			program_dir = program_dir.Left(program_dir.GetLength() - 6);
+	}
+
+	if(IsFileExist(program_dir + _T("tools\\meditor2.tc.dll")))
+		langfile_tc = program_dir + _T("tools\\meditor2.tc.dll");
+	if(IsFileExist(program_dir + _T("tools\\meditor2.en.dll")))
+		langfile_en = program_dir + _T("tools\\");
+	if(IsFileExist(program_dir + _T("codecs\\meditor2.tc.dll")))
+		langfile_tc = program_dir + _T("codecs\\meditor2.tc.dll");
+	if(IsFileExist(program_dir + _T("codecs\\meditor2.en.dll")))
+		langfile_en = program_dir + _T("codecs\\meditor2.en.dll");
+	if(IsFileExist(program_dir + _T("meditor2.tc.dll")))
+		langfile_tc = program_dir + _T("meditor2.tc.dll");
+	if(IsFileExist(program_dir + _T("meditor2.en.dll")))
+		langfile_en = program_dir + _T("meditor2.en.dll");
+
+	if(langfile_tc.GetLength()>1 || langfile_en.GetLength()> 1) {
+		AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"), 0, program_dir + _T("kk.ini"));
+		if(AppLanguage == 0) {
+			LANGID   _SysLangId = GetSystemDefaultLangID();
+			if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE) {
+				if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
+					AppLanguage = 1;		//Simplified Chinese GBK
+				else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
+					AppLanguage = 4;		//Traditional Chinese Big5
+				else
+					AppLanguage = 3;		//ANSI
+			} else
+				AppLanguage = 2;			//ANSI
+		}
+	}
+
+	CString strSatellite = _T("");
+	if(AppLanguage == 2 && langfile_en.GetLength() > 1)
+		strSatellite = langfile_en;
+	else if((AppLanguage == 3 || AppLanguage == 4) && langfile_tc.GetLength() > 1)
+		strSatellite = langfile_tc;
+
+	if (strSatellite.GetLength() > 2)
+		instance_dll = LoadLibrary(strSatellite);
+
+	if(sCmdLine.Find(_T("--real-online")) >= 0)	{
+		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-realOnline"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS) {
+			if(instance_dll)
+				FreeLibrary(instance_dll);
+			return FALSE;
+		}
+
+		if(instance_dll)
+			_Module.SetResourceInstance(instance_dll);
 
 		CRealDlg dlg;
 		dlg.m_cmdline = sCmdLine;
@@ -48,20 +123,19 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		if(gUniqueEvent)
 			CloseHandle(gUniqueEvent);
 
+		if(instance_dll)
+			FreeLibrary(instance_dll);
+
 		return FALSE;
 	}
 
-	CMainDlg dlgMain;
+	CMainDlg dlgMain(instance_dll);
 
-	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Assoc"));
-	if(GetLastError() == ERROR_ALREADY_EXISTS)
+	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-associations"));
+	if(GetLastError() == ERROR_ALREADY_EXISTS) {
+		if(instance_dll)
+			FreeLibrary(instance_dll);
 		return FALSE;
-
-	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
-		dlgMain.ApplyDefault();
-		if(gUniqueEvent)
-			CloseHandle(gUniqueEvent);
-		return 0;
 	}
 
 	if(dlgMain.Create(NULL) == NULL)
@@ -69,6 +143,8 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		ATLTRACE(_T("Main dialog creation failed!\n"));
 		if(gUniqueEvent)
 			CloseHandle(gUniqueEvent);
+		if(instance_dll)
+			FreeLibrary(instance_dll);
 		return 0;
 	}
 
@@ -80,6 +156,8 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 	if(gUniqueEvent)
 		CloseHandle(gUniqueEvent);
+	if(instance_dll)
+		FreeLibrary(instance_dll);
 
 	return nRet;
 }
