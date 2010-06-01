@@ -28,7 +28,7 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\massoc2.ico"
+IDR_MAINFRAME           ICON                    "res\\massoc.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -37,7 +37,7 @@ IDR_MAINFRAME           ICON                    "res\\massoc2.ico"
 
 IDD_MAINDLG DIALOGEX 0, 0, 347, 232
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
-CAPTION "massoc2"
+CAPTION "massoc"
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "È·¶¨",IDOK,301,211,39,14
@@ -120,12 +120,12 @@ BEGIN
     BEGIN
         BLOCK "040904B0"
         BEGIN
-            VALUE "FileDescription", "massoc2 Module"
+            VALUE "FileDescription", "massoc Module"
             VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "massoc2"
+            VALUE "InternalName", "massoc"
             VALUE "LegalCopyright", "Copyright 2010"
-            VALUE "OriginalFilename", "massoc2.exe"
-            VALUE "ProductName", "massoc2 Module"
+            VALUE "OriginalFilename", "massoc.exe"
+            VALUE "ProductName", "massoc Module"
             VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
@@ -183,7 +183,7 @@ IDC_HYPERLINK           CURSOR                  "res\\hand.cur"
 
 STRINGTABLE 
 BEGIN
-    IDR_MAINFRAME           "massoc2"
+    IDR_MAINFRAME           "massoc"
 END
 
 STRINGTABLE 

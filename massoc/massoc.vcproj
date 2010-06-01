@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="massoc2"
+	Name="massoc"
 	ProjectGUID="{EF902F5A-0726-43CF-9C57-72449B8A5774}"
-	RootNamespace="massoc2"
+	RootNamespace="massoc"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc2"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
 			ConfigurationType="1"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
@@ -41,11 +41,11 @@
 				MkTypLibCompatible="false"
 				TargetEnvironment="1"
 				GenerateStublessProxies="true"
-				TypeLibraryName="$(IntDir)/massoc2.tlb"
-				HeaderFileName="massoc2.h"
+				TypeLibraryName="$(IntDir)/massoc.tlb"
+				HeaderFileName="massoc.h"
 				DLLDataFileName=""
-				InterfaceIdentifierFileName="massoc2_i.c"
-				ProxyFileName="massoc2_p.c"
+				InterfaceIdentifierFileName="massoc_i.c"
+				ProxyFileName="massoc_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -104,7 +104,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc2"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
 			ConfigurationType="1"
 			ATLMinimizesCRunTimeLibraryUsage="true"
 			CharacterSet="1"
@@ -127,11 +127,11 @@
 				MkTypLibCompatible="false"
 				TargetEnvironment="1"
 				GenerateStublessProxies="true"
-				TypeLibraryName="$(IntDir)/massoc2.tlb"
-				HeaderFileName="massoc2.h"
+				TypeLibraryName="$(IntDir)/massoc.tlb"
+				HeaderFileName="massoc.h"
 				DLLDataFileName=""
-				InterfaceIdentifierFileName="massoc2_i.c"
-				ProxyFileName="massoc2_p.c"
+				InterfaceIdentifierFileName="massoc_i.c"
+				ProxyFileName="massoc_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -201,7 +201,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\massoc2.cpp"
+				RelativePath=".\massoc.cpp"
 				>
 			</File>
 			<File
@@ -335,11 +335,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\massoc2.ico"
+				RelativePath=".\res\massoc.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\massoc2.rc"
+				RelativePath=".\massoc.rc"
 				>
 			</File>
 		</Filter>

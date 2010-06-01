@@ -269,8 +269,17 @@ LRESULT CMainDlg::OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 	if(m_wndListCtrl.GetFocusItem(item, subitem))
 	{
 		m_wndListCtrl.DeleteItem(item);
-		if(item < m_AssocList.size()) {
-			vector<AssocItem>::iterator it;			for(it=m_AssocList.begin();it!= m_AssocList.end();it++)			{				if(i == item) {					m_AssocList.erase(it);					break;				}				++i;			}		}
+		if((UINT)item < m_AssocList.size()) {
+			vector<AssocItem>::iterator it;
+			for(it=m_AssocList.begin();it!= m_AssocList.end();it++)
+			{
+				if(i == item) {
+					m_AssocList.erase(it);
+					break;
+				}
+				++i;
+			}
+		}
 	}
 	return 0;
 }
@@ -895,7 +904,6 @@ bool CMainDlg::AssocExtension(CString ext, CString info, CString icons, int type
 				SubKey =  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.") + ext;
 				Name =  _T("UserChoice");
 				reg.DeleteKey_STR(HKEY_CURRENT_USER,SubKey, Name);
-				return true;
 			}
 		}
 

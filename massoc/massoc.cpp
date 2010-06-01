@@ -35,19 +35,6 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		return FALSE;
 	}
 
-	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
-		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-associations-updater"));
-		if(GetLastError() == ERROR_ALREADY_EXISTS)
-			return FALSE;
-
-		CMainDlg dlgMain(NULL);
-
-		dlgMain.ApplyDefault();
-		if(gUniqueEvent)
-			CloseHandle(gUniqueEvent);
-		return 0;
-	}
-
 	int AppLanguage = 0;
 	CString langfile_tc;
 	CString langfile_en;
@@ -129,6 +116,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		return FALSE;
 	}
 
+
 	CMainDlg dlgMain(instance_dll, AppLanguage);
 
 	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-associations"));
@@ -136,6 +124,15 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		if(instance_dll)
 			FreeLibrary(instance_dll);
 		return FALSE;
+	}
+
+	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
+		dlgMain.ApplyDefault();
+		if(gUniqueEvent)
+			CloseHandle(gUniqueEvent);
+		if(instance_dll)
+			FreeLibrary(instance_dll);
+		return 0;
 	}
 
 	if(dlgMain.Create(NULL) == NULL)

@@ -30,7 +30,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mloader", "mloader\mloader.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7z", "7z\Archive\7z\7z.vcproj", "{445560C2-7FBE-4157-BDF8-22DFB6CEDC12}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "massoc2", "massoc2\massoc2.vcproj", "{EF902F5A-0726-43CF-9C57-72449B8A5774}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "massoc", "massoc\massoc.vcproj", "{EF902F5A-0726-43CF-9C57-72449B8A5774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
