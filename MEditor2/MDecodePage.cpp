@@ -34,6 +34,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("diavc"));
 	m_vdecode.Add(_T("ffdshow"));
 	m_vdecode.Add(_T("cineformhd"));
+	m_vdecode.Add(_T("cineformhddshow"));
 	m_vdecode.Add(_T("ffdshowdxva"));
 	m_vdecode.Add(_T("mpegpes"));
 	m_vdecode.Add(_T("mpeg12"));
@@ -47,6 +48,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("ffh264"));
 	m_vdecode.Add(_T("ffodivx"));
 	m_vdecode.Add(_T("ffwv1f"));
+	m_vdecode.Add(_T("fflibvpx"));
 	m_vdecode.Add(_T("camtasia"));
 	m_vdecode.Add(_T("xvid"));
 	m_vdecode.Add(_T("divx4vfw"));
@@ -80,7 +82,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("vp6"));
 	m_vdecode.Add(_T("vp7"));
 	m_vdecode.Add(_T("null"));
-	
+
 	m_adecode.Add(_T("wmadmo"));
 	m_adecode.Add(_T("wma9dmo"));
 	m_adecode.Add(_T("wma9spdmo"));
