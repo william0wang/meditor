@@ -12,6 +12,7 @@ IMPLEMENT_DYNAMIC(CMAssosPage, CDialog)
 
 CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	: CDialog(CMAssosPage::IDD, pParent)
+	, m_update(FALSE)
 {
 	m_is_vista = FALSE;
 
@@ -46,6 +47,7 @@ CMAssosPage::~CMAssosPage()
 void CMAssosPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Check(pDX, IDC_CHECK_UPDATE, m_update);
 }
 
 
@@ -74,61 +76,66 @@ void CMAssosPage::OnBnClickedAssos()
 void CMAssosPage::OnBnClickedAssosDef()
 {
 	if(m_is_vista) {
-		CReg reg;
-		CString SubKey, Name, Content;
+
+		UpdateData(TRUE);
+
 		bool needupdate = false;
+		if(!m_update) {
+			CReg reg;
+			CString SubKey, Name, Content;
 
-		Name =  _T("MPlayer");
-		Content = _T("SOFTWARE\\MPlayer\\Capabilites");
-		SubKey =  _T("SOFTWARE\\RegisteredApplications");
-		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
-			needupdate = true;
-		} else {
-			if(_tcsicmp(reg.content, Content))
+			Name =  _T("MPlayer");
+			Content = _T("SOFTWARE\\MPlayer\\Capabilites");
+			SubKey =  _T("SOFTWARE\\RegisteredApplications");
+			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
 				needupdate = true;
+			} else {
+				if(_tcsicmp(reg.content, Content))
+					needupdate = true;
+			}
+
+			Name =  _T("");
+			Content = _T("");
+			SubKey =  _T("SOFTWARE\\MPlayer");
+			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
+				needupdate = true;
+			} else {
+				if(_tcsicmp(reg.content, Content))
+					needupdate = true;
+			}
+
+			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
+			Name =  _T("ApplicationDescription");
+			Content = _T("MPlayer WW - The Movie Player.");
+			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
+				needupdate = true;
+			} else {
+				if(_tcsicmp(reg.content, Content))
+					needupdate = true;
+			}
+
+			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
+			Name =  _T("ApplicationName");
+			Content = _T("MPlayer WW");
+			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
+				needupdate = true;
+			} else {
+				if(_tcsicmp(reg.content, Content))
+					needupdate = true;
+			}
+
+			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
+			Name =  _T("ApplicationIcon");
+			Content = m_player_exe + _T(",0");
+			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
+				needupdate = true;
+			} else {
+				if(_tcsicmp(reg.content, Content))
+					needupdate = true;
+			}
 		}
 
-		Name =  _T("");
-		Content = _T("");
-		SubKey =  _T("SOFTWARE\\MPlayer");
-		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
-			needupdate = true;
-		} else {
-			if(_tcsicmp(reg.content, Content))
-				needupdate = true;
-		}
-
-		SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
-		Name =  _T("ApplicationDescription");
-		Content = _T("MPlayer WW - The Movie Player.");
-		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
-			needupdate = true;
-		} else {
-			if(_tcsicmp(reg.content, Content))
-				needupdate = true;
-		}
-
-		SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
-		Name =  _T("ApplicationName");
-		Content = _T("MPlayer WW");
-		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
-			needupdate = true;
-		} else {
-			if(_tcsicmp(reg.content, Content))
-				needupdate = true;
-		}
-
-		SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
-		Name =  _T("ApplicationIcon");
-		Content = m_player_exe + _T(",0");
-		if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
-			needupdate = true;
-		} else {
-			if(_tcsicmp(reg.content, Content))
-				needupdate = true;
-		}
-
-		if(needupdate) {
+		if(needupdate || m_update) {
 			ShellExecute(0, _T("open"), m_assoc_exe, _T("--shell-associations-updater"), NULL, SW_SHOW);
 		} else {
 			IApplicationAssociationRegistrationUI* pAARUI = NULL;
