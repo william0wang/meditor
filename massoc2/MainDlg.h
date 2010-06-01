@@ -48,12 +48,14 @@ public:
 
 	vector<AssocItem> m_AssocList;
 
+	int	m_appLang;
 	BOOL m_rightOpen;
 	BOOL m_rightPlay;
 	BOOL m_mpc;
 	bool m_is_vista;
 	bool m_dll_getted;
 	bool m_have_icons;
+	CString inifile;
 	CString m_editor_exe;
 	CString m_player_exe;
 	CString m_mpc_exe;
@@ -105,15 +107,15 @@ public:
 
 	CListCtrl m_wndListCtrl;
 
-	CMainDlg(HINSTANCE dll);
+	CMainDlg(HINSTANCE dll, int appLang = 0);
 
 	BEGIN_DDX_MAP(CMainDlg)
 		DDX_CHECK(IDC_CHECK_RMENU, m_rightOpen)
 		DDX_CHECK(IDC_CHECK_RMENU2, m_rightPlay)
 	END_DDX_MAP();
-	
 
 	void LoadAssocINI();
+	void SaveAssocIni();
 
 	void InitBasicList();
 

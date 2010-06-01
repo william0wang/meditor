@@ -50,4 +50,16 @@ public:
 
 		return TRUE;
 	}
+
+	HRESULT WriteLine(CString str)
+	{
+		HRESULT hr = S_OK;
+		str += _T("\r\n");
+		int len = str.GetLength();
+		if(len > 1) {
+			hr = Write(str.GetBuffer(), len*sizeof(TCHAR));
+			str.ReleaseBuffer();
+		}
+		return hr;
+	}
 };

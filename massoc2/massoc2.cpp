@@ -129,7 +129,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		return FALSE;
 	}
 
-	CMainDlg dlgMain(instance_dll);
+	CMainDlg dlgMain(instance_dll, AppLanguage);
 
 	HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-associations"));
 	if(GetLastError() == ERROR_ALREADY_EXISTS) {

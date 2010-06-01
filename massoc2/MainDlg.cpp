@@ -15,10 +15,11 @@
 #include "shared.h"
 #include "Reg.h"
 
-CMainDlg::CMainDlg(HINSTANCE dll)
+CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 {
 	m_wndListCtrl.RegisterClass();
 
+	m_appLang = appLang;
 	m_dll_getted = false;
 	m_have_icons = false;
 	m_is_vista = false;
@@ -85,6 +86,13 @@ CMainDlg::CMainDlg(HINSTANCE dll)
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
+
+	if(appLang == 2)
+		inifile = m_program_dir + _T("massoc_en.ini");
+	else if(appLang == 3 || appLang == 4)
+		inifile = m_program_dir + _T("massoc_tc.ini");
+	else
+		inifile = m_program_dir + _T("massoc.ini");
 
 	CString right = m_program_dir.Right(8);
 	if(right == _T("\\codecs\\"))
@@ -167,17 +175,19 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_icon.SetCurSel(0);
 
 	CString m_skin_dir = m_program_dir + _T("skin");
-	TCHAR szCurPath[MAX_PATH + 1];
-	::GetCurrentDirectory(MAX_PATH,szCurPath);
-	::SetCurrentDirectory(m_skin_dir);
-	CFindFile finder;
-	if(finder.FindFile(_T("micons*.dll"))) {
-		m_icon.AddString(finder.GetFileName());
-		while(finder.FindNextFile())
+	if(IsFileExist(m_skin_dir)) {
+		TCHAR szCurPath[MAX_PATH + 1];
+		::GetCurrentDirectory(MAX_PATH,szCurPath);
+		::SetCurrentDirectory(m_skin_dir);
+		CFindFile finder;
+		if(finder.FindFile(_T("micons*.dll"))) {
 			m_icon.AddString(finder.GetFileName());
+			while(finder.FindNextFile())
+				m_icon.AddString(finder.GetFileName());
+		}
+		finder.Close();
+		::SetCurrentDirectory(szCurPath);
 	}
-	finder.Close();
-	::SetCurrentDirectory(szCurPath);
 
 	int index = m_icon.FindStringExact(0, m_icons_dll);
 	if(index > 0)
@@ -205,6 +215,8 @@ LRESULT CMainDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /
 {
 	DoDataExchange(TRUE);
 
+	SaveAssocIni();
+
 	ApplyChange();
 
 	CloseDialog(wID);
@@ -225,11 +237,41 @@ void CMainDlg::CloseDialog(int nVal)
 
 LRESULT CMainDlg::OnBnClickedAdd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
+	CString ico;
+	CListArray < CString > tComboList;
+	CListArray < CString > aComboList;
+
+	tComboList.Add(m_type_video);
+	tComboList.Add(m_type_video2);
+	tComboList.Add(m_type_audio);
+	tComboList.Add(m_type_flash);
+	tComboList.Add(m_type_list);
+	tComboList.Add(m_type_dshow);
+	tComboList.Add(m_type_inner);
+
+	for(int i = 0; i < 40; i++)
+	{
+		ico.Format(_T("%d"), i);
+		aComboList.Add(ico);
+	}
+
+	int nNewItem = m_wndListCtrl.AddItem( L"" );
+	m_wndListCtrl.SetItemFormat( nNewItem, 3, ITEM_FORMAT_COMBO, ITEM_FLAGS_NONE, tComboList );
+	m_wndListCtrl.SetItemComboIndex( nNewItem, 3, 0 );
+	m_wndListCtrl.SetItemFormat( nNewItem, 4, ITEM_FORMAT_COMBO, ITEM_FLAGS_NONE, aComboList );
+	m_wndListCtrl.SetItemComboIndex( nNewItem, 4, 0 );	
 	return 0;
 }
 
 LRESULT CMainDlg::OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
+	int item, subitem, i=0;
+	if(m_wndListCtrl.GetFocusItem(item, subitem))
+	{
+		m_wndListCtrl.DeleteItem(item);
+		if(item < m_AssocList.size()) {
+			vector<AssocItem>::iterator it;			for(it=m_AssocList.begin();it!= m_AssocList.end();it++)			{				if(i == item) {					m_AssocList.erase(it);					break;				}				++i;			}		}
+	}
 	return 0;
 }
 
@@ -272,6 +314,47 @@ LRESULT CMainDlg::OnBnClickedRecommand(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 	return 0;
 }
 
+void CMainDlg::SaveAssocIni()
+{
+	CAtlStdioFile file;
+	CString len;
+	if(file.Create(inifile,  GENERIC_WRITE, 0, CREATE_ALWAYS) == S_OK) {
+		int index = m_icon.GetCurSel();
+		if(index > 0)
+			m_icon.GetLBText(index, m_icons_str);
+		else
+			m_icons_str = _T("micons.dll");
+		len.Format(_T("icon=%s\r\n"), m_icons_str);
+		file.WriteLine(len);
+
+		for(int i = 0; i < m_wndListCtrl.GetItemCount(); i++) {
+			bool is_checked = false;
+			int type = ASSOC_TYPE_VIDEO;
+			CString ext = m_wndListCtrl.GetItemText(i, 1);
+			CString info = m_wndListCtrl.GetItemText(i, 2);
+			CString stype = m_wndListCtrl.GetItemText(i, 3);
+			CString icon = m_wndListCtrl.GetItemText(i, 4);
+
+			if(ext.GetLength() < 1)
+				continue;
+
+			if(stype == m_type_list)
+				type = ASSOC_TYPE_PLAYLIST;
+			else if(stype == m_type_flash)
+				type = ASSOC_TYPE_FLASH;
+			else if(stype == m_type_dshow)
+				type = ASSOC_TYPE_DSHOW;
+			else if(stype == m_type_inner)
+				type = ASSOC_TYPE_DSHOWINNER;
+
+			len.Format(_T("%s,%s,%d,%s,%d"), ext, info,	type, icon, m_AssocList[i].m_recommand);
+			file.WriteLine(len);
+		}
+		file.Close();
+	}
+
+}
+
 void CMainDlg::LoadAssocINI()
 {
 	CAtlStdioFile file;
@@ -279,7 +362,6 @@ void CMainDlg::LoadAssocINI()
 	int itype, iico, ireco;
 	bool find_icon = false;
 	CString line, name, val, ext, info, type, ico;
-	CString inifile = m_program_dir + _T("massoc.ini");
 	
 	if(file.Create(inifile,  GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING) == S_OK) {
 		while(file.ReadLine(line)) {
@@ -464,25 +546,10 @@ void CMainDlg::LoadAssocINI()
 		item.Set(L"pls", L"PLS " + m_str_assos_list, ASSOC_TYPE_PLAYLIST, 34, 1);
 		m_AssocList.push_back(item);
 	}
-
 }
 
 void CMainDlg::InitBasicList()
 {
-	LOGFONT logFont = { 0 };
-	logFont.lfCharSet = DEFAULT_CHARSET;
-	logFont.lfHeight = 90;
-	lstrcpy( logFont.lfFaceName, _T("New Times Roman") );
-	logFont.lfWeight = FW_BOLD;
-	logFont.lfItalic = (BYTE)TRUE;
-
-	m_fntCustomFont1.CreatePointFontIndirect( &logFont );
-
-	logFont.lfHeight = 100;
-	lstrcpy( logFont.lfFaceName, _T( "Arial" ) );
-	logFont.lfUnderline = (BYTE)TRUE;
-	m_fntCustomFont2.CreatePointFontIndirect( &logFont );
-
 	m_wndListCtrl.SetFocusSubItem( TRUE );
 	m_wndListCtrl.ShowHeaderSort(FALSE);
 	m_wndListCtrl.SetSingleSelect(TRUE);
@@ -934,6 +1001,9 @@ void CMainDlg::ApplyChange()
 		CString info = m_wndListCtrl.GetItemText(i, 2);
 		CString stype = m_wndListCtrl.GetItemText(i, 3);
 		CString icon = m_wndListCtrl.GetItemText(i, 4);
+
+		if(ext.GetLength() < 1)
+			continue;
 
 		if(stype == m_type_list)
 			type = ASSOC_TYPE_PLAYLIST;

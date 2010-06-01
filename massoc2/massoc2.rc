@@ -46,11 +46,11 @@ BEGIN
     CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,59,8,74,10
     LTEXT           "关联右键菜单:",IDC_STATIC_RIGHT,7,8,46,8
     CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,139,8,75,10
-    PUSHBUTTON      "添加",IDC_ADD,7,211,39,14
-    PUSHBUTTON      "全选",IDC_ALL,109,211,51,14
-    PUSHBUTTON      "不选",IDC_NONE,164,211,51,14
-    PUSHBUTTON      "推荐",IDC_RECOMMAND,219,211,51,14
-    PUSHBUTTON      "删除",IDC_DEL,49,211,39,14
+    PUSHBUTTON      "添加",IDC_ADD,7,211,30,14
+    PUSHBUTTON      "全选",IDC_ALL,102,211,35,14
+    PUSHBUTTON      "不选",IDC_NONE,139,211,33,14
+    PUSHBUTTON      "推荐",IDC_RECOMMAND,174,211,51,14
+    PUSHBUTTON      "删除",IDC_DEL,44,211,30,14
     LTEXT           "图标集:",IDC_STATIC_ICONS,227,9,28,8
 END
 
@@ -199,17 +199,17 @@ BEGIN
     IDS_ASSOC_A             "音频文件"
     IDS_ASSOC_FLASH         "Flash动画"
     IDS_ASSOC_DS            "DirectShow"
-    IDS_ASSOC_MV            "移动视频文件"
-    IDS_ASSOC_MA            "移动音频文件"
-    IDS_ASSOC_LA            "无损音频文件"
-    IDS_ASSOC_LISTFILE      "播放列表文件"
-    IDS_ASSOC_MOV           "影片文件"
+    IDS_ASSOC_MV            "移动视频"
+    IDS_ASSOC_MA            "移动音频"
+    IDS_ASSOC_LA            "无损音频"
+    IDS_ASSOC_LISTFILE      "播放列表"
+    IDS_ASSOC_MOV           "影片"
 END
 
 STRINGTABLE 
 BEGIN
     IDS_ASSOC_AVI           "视频剪辑"
-    IDS_ASSOC_CT            "动画文件"
+    IDS_ASSOC_CT            "动画"
     IDS_ASSOC_INPUT         "请输入扩展名和说明并选择类型"
     IDS_ASSOC_AS            "文件关联"
     IDS_ASSOC_DEL           "不能删除默认格式!"
