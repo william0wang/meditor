@@ -47,6 +47,7 @@ public:
 
 // й╣ож
 protected:
+	bool	isVista;
 	UINT	s_uTBBC;
 	ITaskbarList3 *g_pTaskbarList;
 
