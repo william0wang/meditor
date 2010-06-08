@@ -31,4 +31,5 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedAssos();
 	afx_msg void OnBnClickedAssosDef();
+	BOOL m_update;
 };

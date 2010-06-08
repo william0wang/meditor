@@ -679,6 +679,20 @@
 #define IDS_AUDIO_DSP_INFO              35357
 #define IDS_INPUT_WINRESIZE             35358
 #define IDS_VIDEO_VOGLAUTO              35359
+#define IDS_ASSOC_AVS                   35361
+#define IDS_ASSOC_ICO                   35362
+#define IDS_ASSOC_V2                    35363
+#define IDS_ASSOC_SEC                   35364
+#define IDS_ASSOC_OPEN                  35365
+#define IDS_ASSOC_PLAY                  35366
+#define IDS_ASSOC_RENU                  35367
+#define IDS_ASSOC_ICONS                 35368
+#define IDS_ASSOC_BADD                  35369
+#define IDS_ASSOC_BDEL                  35370
+#define IDS_ASSOC_BALL                  35371
+#define IDS_ASSOC_BNONE                 35372
+#define IDS_ASSOC_BRE                   35373
+#define IDS_ASSOC_BOK                   35374
 
 // Next default values for new objects
 // 

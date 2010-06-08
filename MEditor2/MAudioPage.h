@@ -58,6 +58,7 @@ protected:
 	CString	m_volnorm;
 	int		m_volnorm_s;
 	int		m_volume_s;
+	int		m_wadsp_index;
 	CString	m_str_no;
 	CString	m_str_at;
 	CString	m_str_low;

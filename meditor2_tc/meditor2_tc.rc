@@ -370,15 +370,15 @@ BEGIN
     IDS_RESUME_FILE         "檔案名"
     IDS_PLAYER_SAMEDIR      "請與 mplayer.exe 放在相同目錄中使用本程式!"
     IDS_ASSOS_LIST          "播放列表"
-    IDS_ASSOS_V             "視頻檔案"
-    IDS_ASSOS_A             "音頻檔案"
+    IDS_ASSOS_V             "視頻檔"
+    IDS_ASSOS_A             "音頻檔"
     IDS_ASSOS_FLASH         "Flash動畫"
     IDS_ASSOS_DS            "DirectShow媒體檔案"
-    IDS_ASSOS_MV            "移動視頻檔案"
-    IDS_ASSOS_MA            "移動音頻檔案"
-    IDS_ASSOS_LA            "無損音頻檔案"
-    IDS_ASSOS_LISTFILE      "播放列表檔案"
-    IDS_ASSOS_MOV           "影片檔案"
+    IDS_ASSOS_MV            "移動視頻"
+    IDS_ASSOS_MA            "移動音頻"
+    IDS_ASSOS_LA            "無損音頻"
+    IDS_ASSOS_LISTFILE      "播放列表"
+    IDS_ASSOS_MOV           "影片"
 END
 
 STRINGTABLE 
@@ -444,7 +444,7 @@ END
 STRINGTABLE 
 BEGIN
     IDS_ASSOS_AVI           "視頻剪輯"
-    IDS_ASSOS_CT            "動畫檔案"
+    IDS_ASSOS_CT            "動畫"
     IDS_ASSOS_INPUT         "請錄入副檔名和說明並選擇類型"
     IDS_ASSOS_AS            "檔案關聯"
     IDS_ASSOS_DEL           "不能移除預設格式!"
@@ -797,6 +797,24 @@ BEGIN
     IDS_AUDIO_DSP_INFO      "選擇準備使用的 Winamp DSP 音效增強插件"
     IDS_INPUT_WINRESIZE     "播放器窗口尺寸"
     IDS_VIDEO_VOGLAUTO      "OpenGL(自動檢測)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ASSOC_AVS           "AviSynth 脚本"
+    IDS_ASSOC_ICO           "圖示"
+    IDS_ASSOC_V2            "其他視頻檔"
+    IDS_ASSOC_SEC           "第2播放器"
+    IDS_ASSOC_OPEN          "使用 MPlayer 打開"
+    IDS_ASSOC_PLAY          "使用 MPlayer 播放"
+    IDS_ASSOC_RENU          "關聯右鍵菜單:"
+    IDS_ASSOC_ICONS         "圖示集:"
+    IDS_ASSOC_BADD          "添加"
+    IDS_ASSOC_BDEL          "刪除"
+    IDS_ASSOC_BALL          "全選"
+    IDS_ASSOC_BNONE         "不選"
+    IDS_ASSOC_BRE           "推薦"
+    IDS_ASSOC_BOK           "確定"
 END
 
 #endif    // 中文(中华人民共和国) resources

@@ -2,9 +2,9 @@
 //
 
 #include "stdafx.h"
-#include "massoc.h"
-#include "RealDlg.h"
-#include "MShared.h"
+#include "Real.h"
+#include "shared.h"
+#include "resource.h"
 #include "Reg.h"
 
 #define WM_CHECKREAL        WM_USER + 101
@@ -31,37 +31,15 @@ UINT CheckThread(LPVOID pParam)
 
 // CRealDlg 对话框
 
-IMPLEMENT_DYNAMIC(CRealDlg, CDialog)
 
-CRealDlg::CRealDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CRealDlg::IDD, pParent)
+CRealDlg::CRealDlg()
 {
-	if (theApp.hResourceHandleMod)
-		AfxSetResourceHandle(theApp.hResourceHandleMod);
 	CheckRealThread = NULL;
 	m_reg_ok = FALSE;
 }
 
-CRealDlg::~CRealDlg()
+BOOL CRealDlg::InstallReal()
 {
-}
-
-void CRealDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialog::DoDataExchange(pDX);
-}
-
-
-BEGIN_MESSAGE_MAP(CRealDlg, CDialog)
-END_MESSAGE_MAP()
-
-
-// CRealDlg 消息处理程序
-
-BOOL CRealDlg::OnInitDialog()
-{
-	CDialog::OnInitDialog();
-
 	bool bSilent = false;
 
 	if(m_cmdline.Find(_T("--real-online-silent")) >= 0)
@@ -73,26 +51,22 @@ BOOL CRealDlg::OnInitDialog()
 				Sleep(300);
 			if(!bSilent) {
 				if(m_reg_ok)
-					MessageBox(ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+					MessageBox(NULL, ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 				else
-					MessageBox(ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+					MessageBox(NULL, ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 			}
 		}
 	} else if(m_cmdline.Find(_T("--real-online-dreg")) >= 0) {
 		DRegRealOnline();
 		if(!bSilent) {
 			if(!CheckRealOnline()) {
-				MessageBox(ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+				MessageBox(NULL, ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 			} else {
-				MessageBox(ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+				MessageBox(NULL, ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 			}
 		}
 	}
-
-	OnOK();
-
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常: OCX 属性页应返回 FALSE
+	return TRUE;
 }
 
 BOOL CRealDlg::CheckRealOnline()
@@ -119,7 +93,7 @@ BOOL CRealDlg::RegRealOnline()
 	CString m_dir, m_sysdir, m_prodir, m_datadir;
 
 	if(CheckRealOnline() &&
-		MessageBox(ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
+		MessageBox(NULL, ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
 		return FALSE;
 
 	GetModuleFileName(NULL, szPath, MAX_PATH);
@@ -172,7 +146,7 @@ BOOL CRealDlg::RegRealOnline()
 	::SetCurrentDirectory(szCurPath);
 
 	if(CheckRealThread == NULL)
-		CheckRealThread = AfxBeginThread(CheckThread,this);
+		CheckRealThread = CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)CheckThread,this,0,0);
 
 	return TRUE;
 }
@@ -184,7 +158,7 @@ BOOL CRealDlg::DRegRealOnline()
 	CString m_dir, m_sysdir, m_prodir, m_datadir;
 
 	if(!CheckRealOnline()) {
-		MessageBox(ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+		MessageBox(NULL, ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 		return FALSE;
 	}
 

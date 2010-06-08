@@ -3,17 +3,13 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="massoc"
-	ProjectGUID="{06AC1BE3-C2A9-49B9-AB1C-AF4C1E0372DA}"
+	ProjectGUID="{EF902F5A-0726-43CF-9C57-72449B8A5774}"
 	RootNamespace="massoc"
-	Keyword="MFCProj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
 			Name="Win32"
-		/>
-		<Platform
-			Name="x64"
 		/>
 	</Platforms>
 	<ToolFiles>
@@ -24,7 +20,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
 			ConfigurationType="1"
-			UseOfMFC="1"
+			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
 			>
 			<Tool
@@ -43,13 +39,19 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
 				MkTypLibCompatible="false"
-				ValidateParameters="true"
+				TargetEnvironment="1"
+				GenerateStublessProxies="true"
+				TypeLibraryName="$(IntDir)/massoc.tlb"
+				HeaderFileName="massoc.h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="massoc_i.c"
+				ProxyFileName="massoc_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../meditor2/include"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -63,7 +65,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="2052"
+				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
 			/>
 			<Tool
@@ -71,95 +73,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxD.lib CxImageD.lib jpegD.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../meditor2/lib"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug|x64"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc\$(PlatformName)"
-			ConfigurationType="1"
-			UseOfMFC="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="false"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="../meditor2/include"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2052"
-				AdditionalIncludeDirectories="$(IntDir)"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxD.lib CxImageD.lib jpegD.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="../meditor2/lib/x64"
-				UACExecutionLevel="2"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -188,9 +106,8 @@
 			OutputDirectory="$(SolutionDir)\Bin"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
 			ConfigurationType="1"
-			UseOfMFC="1"
+			ATLMinimizesCRunTimeLibraryUsage="true"
 			CharacterSet="1"
-			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -208,20 +125,23 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
 				MkTypLibCompatible="false"
-				ValidateParameters="true"
+				TargetEnvironment="1"
+				GenerateStublessProxies="true"
+				TypeLibraryName="$(IntDir)/massoc.tlb"
+				HeaderFileName="massoc.h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="massoc_i.c"
+				ProxyFileName="massoc_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../meditor2/include"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
-				MinimalRebuild="false"
+				AdditionalIncludeDirectories="../include"
+				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
+				ExceptionHandling="0"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -229,7 +149,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="2052"
+				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
 			/>
 			<Tool
@@ -237,101 +157,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxR.lib CxImageR.lib jpegR.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../meditor2/lib"
 				UACExecutionLevel="2"
-				GenerateDebugInformation="true"
 				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
 				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|x64"
-			OutputDirectory="$(SolutionDir)\Bin\$(PlatformName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc\$(PlatformName)"
-			ConfigurationType="1"
-			UseOfMFC="1"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="false"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../meditor2/include"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
-				MinimalRebuild="false"
-				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="2052"
-				AdditionalIncludeDirectories="$(IntDir)"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="AdvComboBoxR.lib CxImageR.lib jpegR.lib"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="../meditor2/lib/x64"
-				UACExecutionLevel="2"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -360,12 +189,15 @@
 	</References>
 	<Files>
 		<Filter
-			Name="源文件"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
 				RelativePath=".\AVS.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MainDlg.cpp"
 				>
 			</File>
 			<File
@@ -373,19 +205,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MAssocDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MConfig.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MShared.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RealDlg.cpp"
+				RelativePath=".\Real.cpp"
 				>
 			</File>
 			<File
@@ -404,14 +224,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
@@ -419,43 +231,26 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
-			Name="头文件"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc"
 			>
+			<File
+				RelativePath=".\AtlStdioFile.h"
+				>
+			</File>
 			<File
 				RelativePath=".\AVS.h"
 				>
 			</File>
 			<File
-				RelativePath=".\massoc.h"
+				RelativePath=".\MainDlg.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MAssocDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MConfig.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MShared.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RealDlg.h"
+				RelativePath=".\Real.h"
 				>
 			</File>
 			<File
@@ -463,23 +258,82 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
-			<File
-				RelativePath=".\targetver.h"
+			<Filter
+				Name="Depend"
 				>
-			</File>
+				<File
+					RelativePath=".\AdvCombo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AtlAux2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\DragDrop.h"
+					>
+				</File>
+				<File
+					RelativePath=".\DropArrows.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kFlatCombo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ListCombo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ListCtrl.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ListDate.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ListEdit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ListTypes.h"
+					>
+				</File>
+				<File
+					RelativePath=".\shared.h"
+					>
+				</File>
+				<File
+					RelativePath=".\TitleTip.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
-			Name="资源文件"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest"
 			>
+			<File
+				RelativePath=".\res\divider.cur"
+				>
+			</File>
+			<File
+				RelativePath=".\res\hand.cur"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ListItems.bmp"
+				>
+			</File>
 			<File
 				RelativePath=".\res\massoc.ico"
 				>
@@ -488,20 +342,8 @@
 				RelativePath=".\massoc.rc"
 				>
 			</File>
-			<File
-				RelativePath=".\res\massoc.rc2"
-				>
-			</File>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="RESOURCE_FILE"
-			Value="massoc.rc"
-		/>
 	</Globals>
 </VisualStudioProject>

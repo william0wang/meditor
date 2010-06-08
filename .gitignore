@@ -12,6 +12,9 @@
 *.mo
 *.o
 *.ncb
+*.ipch
+*.sdf
+*.opensdf
 *.suo
 *.aps
 *.user

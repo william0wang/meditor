@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "AVS.h"
 #include "Reg.h"
-#include "MShared.h"
+#include "shared.h"
 
 CAVS::CAVS(void)
 {

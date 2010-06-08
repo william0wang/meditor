@@ -800,6 +800,24 @@ BEGIN
     IDS_VIDEO_VOGLAUTO      "OpenGL(Auto)"
 END
 
+STRINGTABLE 
+BEGIN
+    IDS_ASSOC_AVS           "AviSynth Script"
+    IDS_ASSOC_ICO           "Icon"
+    IDS_ASSOC_V2            "Other Video"
+    IDS_ASSOC_SEC           "Second Player"
+    IDS_ASSOC_OPEN          "Open with MPlayer"
+    IDS_ASSOC_PLAY          "Play with MPlayer"
+    IDS_ASSOC_RENU          "Right menu:"
+    IDS_ASSOC_ICONS         "Icons:"
+    IDS_ASSOC_BADD          "Add"
+    IDS_ASSOC_BDEL          "Del"
+    IDS_ASSOC_BALL          "All"
+    IDS_ASSOC_BNONE         "None"
+    IDS_ASSOC_BRE           "Recommand"
+    IDS_ASSOC_BOK           "OK"
+END
+
 #endif    // 中文(中华人民共和国) resources
 /////////////////////////////////////////////////////////////////////////////
 

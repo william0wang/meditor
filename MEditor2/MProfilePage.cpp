@@ -23,7 +23,7 @@ enum Profile_list
 	eq2,
 	hue,
 	flip,
-	rotate,
+	rotates,
 	crop,
 	deinterlacing,
 	deblocking,
@@ -355,11 +355,11 @@ void CMProfilePage::FillListCtrl(CXListCtrl * pList)
 	pList->SetItemText(flip, 2, _T(""));
 	pList->SetItemText(flip, 3, m_str_profile[flip*2 + 1]);
 
-	pList->InsertItem(rotate, _T(""));
-	pList->SetCheckbox(rotate, 0, 0);
-	pList->SetItemText(rotate, 1, m_str_profile[rotate*2]);
-	pList->SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
-	pList->SetItemText(rotate, 3, m_str_profile[rotate*2 + 1]);
+	pList->InsertItem(rotates, _T(""));
+	pList->SetCheckbox(rotates, 0, 0);
+	pList->SetItemText(rotates, 1, m_str_profile[rotates*2]);
+	pList->SetComboBox(rotates, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
+	pList->SetItemText(rotates, 3, m_str_profile[rotates*2 + 1]);
 
 	pList->InsertItem(crop, _T(""));
 	pList->SetCheckbox(crop, 0, 0);
@@ -465,8 +465,8 @@ void CMProfilePage::CleanConfig()
 	m_List.SetCheckbox(eq2, 0, 0);	
 	m_List.SetCheckbox(hue, 0, 0);	
 	m_List.SetCheckbox(flip, 0, 0);	
-	m_List.SetCheckbox(rotate, 0, 0);
-	m_List.SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);	
+	m_List.SetCheckbox(rotates, 0, 0);
+	m_List.SetComboBox(rotates, 2, TRUE,  &m_rotate,  5,  0,  FALSE);	
 	m_List.SetCheckbox(crop, 0, 0);
 	m_List.SetItemText(crop, 2, _T("640:480"));	
 	m_List.SetCheckbox(deinterlacing, 0, 0);
@@ -673,17 +673,17 @@ void CMProfilePage::SetCurConfig()
 		
 		if(m_cfg->HaveSubValue(value_s,_T("rotate")))
 		{
-			m_List.SetCheckbox(rotate, 0, 1);
+			m_List.SetCheckbox(rotates, 0, 1);
 			if(m_cfg->GetSubValue(value_s,_T("rotate"), value_sub))
 			{
 				if(value_sub == _T("0"))
-					m_List.SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
+					m_List.SetComboBox(rotates, 2, TRUE,  &m_rotate,  5,  0,  FALSE);
 				if(value_sub == _T("1"))
-					m_List.SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  1,  FALSE);
+					m_List.SetComboBox(rotates, 2, TRUE,  &m_rotate,  5,  1,  FALSE);
 				if(value_sub == _T("2"))
-					m_List.SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  2,  FALSE);
+					m_List.SetComboBox(rotates, 2, TRUE,  &m_rotate,  5,  2,  FALSE);
 				if(value_sub == _T("3"))
-					m_List.SetComboBox(rotate, 2, TRUE,  &m_rotate,  5,  3,  FALSE);
+					m_List.SetComboBox(rotates, 2, TRUE,  &m_rotate,  5,  3,  FALSE);
 			}
 			RemoveSubValue(value_vf , _T("rotate"));
 		}
@@ -878,9 +878,9 @@ void CMProfilePage::SavePreConfig()
 			vf_str += _T("expand,");
 	}
 	
-	if(m_List.GetCheckbox(rotate, 0))
+	if(m_List.GetCheckbox(rotates, 0))
 	{
-		CString str = m_List.GetItemText(rotate, 2);
+		CString str = m_List.GetItemText(rotates, 2);
 		if(str == ResStr(IDS_VIDEO_ROTA2))
 			vf_str += _T("rotate=1,") ;
 		else if(str == ResStr(IDS_VIDEO_ROTA3))

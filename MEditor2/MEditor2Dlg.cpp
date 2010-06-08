@@ -58,6 +58,8 @@ CMEditor2Dlg::CMEditor2Dlg(CWnd* pParent /*=NULL*/)
 	m_program_dir.Format(_T("%s"),szFilePath);
 	gUniqueEvent = NULL;
 	g_pTaskbarList = NULL;
+	s_uTBBC = WM_NULL;
+	isVista = false;
 }
 
 void CMEditor2Dlg::DoDataExchange(CDataExchange* pDX)
@@ -98,10 +100,18 @@ BOOL CMEditor2Dlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
-	HINSTANCE user32 = GetModuleHandle(L"user32.dll");
-	if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterFunction)GetProcAddress(user32, "ChangeWindowMessageFilter");
-	if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
+	OSVERSIONINFO version;
+
+	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	if(GetVersionEx(&version)) {
+		if(version.dwMajorVersion >= 6) {
+			isVista = true;
+			s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
+			HINSTANCE user32 = GetModuleHandle(L"user32.dll");
+			if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterFunction)GetProcAddress(user32, "ChangeWindowMessageFilter");
+			if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
+		}
+	}
 
 	m_config.LoadConfig(m_program_dir + _T("kk.ini"),true);
 	bool value_b;
@@ -549,7 +559,7 @@ void CMEditor2Dlg::ShowInfo(int type)
 
 BOOL CMEditor2Dlg::PreTranslateMessage(MSG* pMsg)
 {
-	if (pMsg->message == s_uTBBC)
+	if (isVista && pMsg->message == s_uTBBC)
 	{
 		// Once we get the TaskbarButtonCreated message, we can call methods
 		// specific to our window on a TaskbarList instance. Note that it's

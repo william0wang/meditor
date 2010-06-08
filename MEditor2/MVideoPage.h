@@ -32,7 +32,7 @@ enum Filters
 	dering,
 	tmpnoise,
 	flip,
-	rotate,
+	rotates,
 	autolevels,
 	vf_other
 };
