@@ -222,6 +222,7 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_cache.AddString(_T("96 M"));
 	m_cache.AddString(_T("128 M"));
 	m_cache.AddString(_T("256 M"));
+	m_cache.AddString(m_auto_s);
 	m_cache.SetCurSel(0);
 
 	for(int i = 0; i < m_str_ontop.GetCount(); i++)
@@ -691,6 +692,11 @@ void CMPlayerPage::InitFromConfig()
 		default:
 			m_ontop.SetCurSel(top_playing);
 		}
+	}
+	if(m_cfg->GetValue_Boolean(_T("auto-cache"),value_b))
+	{
+		if(value_b)
+			m_cache.SetCurSel(12);
 	}
 	if(m_cfg->GetValue_Integer(_T("cache"),value_i))
 	{
@@ -1186,8 +1192,15 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("cache") ,_T("262144") );
 		m_cfg->SetValue(_T("cache-min") ,_T("3") );
 		break;
-	default:
+	case 12:
+		m_cfg->SetValue(_T("auto-cache") ,_T("1") );
 		m_cfg->RemoveValue(_T("cache"));
+		m_cfg->RemoveValue(_T("cache-min"));
+		break;
+	default:
+		m_cfg->RemoveValue(_T("auto-cache"));
+		m_cfg->RemoveValue(_T("cache"));
+		m_cfg->RemoveValue(_T("cache-min"));
 	}
 	
 	int vlang = m_language.GetCurSel();
