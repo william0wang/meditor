@@ -222,6 +222,7 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_cache.AddString(_T("96 M"));
 	m_cache.AddString(_T("128 M"));
 	m_cache.AddString(_T("256 M"));
+	m_cache.AddString(m_auto_s);
 	m_cache.SetCurSel(0);
 
 	for(int i = 0; i < m_str_ontop.GetCount(); i++)
@@ -692,6 +693,11 @@ void CMPlayerPage::InitFromConfig()
 			m_ontop.SetCurSel(top_playing);
 		}
 	}
+	if(m_cfg->GetValue_Boolean(_T("auto-cache"),value_b))
+	{
+		if(value_b)
+			m_cache.SetCurSel(12);
+	}
 	if(m_cfg->GetValue_Integer(_T("cache"),value_i))
 	{
 		if(value_i <= 0)
@@ -1138,56 +1144,55 @@ void CMPlayerPage::SaveConfig()
 	default:
 		m_cfg->RemoveValue(_T("ontop"));
 	}
-	
+
+	m_cfg->RemoveValue(_T("auto-cache"));
+	m_cfg->RemoveValue(_T("cache-min"));
 	int vcache = m_cache.GetCurSel();
 	switch (vcache)
 	{
 	case 1:
 		m_cfg->SetValue(_T("cache") ,_T("512") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 2:
 		m_cfg->SetValue(_T("cache") ,_T("1024") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 3:
 		m_cfg->SetValue(_T("cache") ,_T("2048") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 4:
 		m_cfg->SetValue(_T("cache") ,_T("4096") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 5:
 		m_cfg->SetValue(_T("cache") ,_T("8192") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 6:
 		m_cfg->SetValue(_T("cache") ,_T("16384") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 7:
 		m_cfg->SetValue(_T("cache") ,_T("32768") );
-		m_cfg->RemoveValue(_T("cache-min"));
 		break;
 	case 8:
 		m_cfg->SetValue(_T("cache") ,_T("65536") );
-		m_cfg->SetValue(_T("cache-min") ,_T("12") );
 		break;
 	case 9:
 		m_cfg->SetValue(_T("cache") ,_T("98304") );
-		m_cfg->SetValue(_T("cache-min") ,_T("8") );
+		m_cfg->SetValue(_T("cache-min") ,_T("10") );
 		break;
 	case 10:
 		m_cfg->SetValue(_T("cache") ,_T("131072") );
-		m_cfg->SetValue(_T("cache-min") ,_T("5") );
+		m_cfg->SetValue(_T("cache-min") ,_T("8") );
 		break;
 	case 11:
 		m_cfg->SetValue(_T("cache") ,_T("262144") );
-		m_cfg->SetValue(_T("cache-min") ,_T("3") );
+		m_cfg->SetValue(_T("cache-min") ,_T("5") );
+		break;
+	case 12:
+		m_cfg->SetValue(_T("auto-cache") ,_T("1") );
+		m_cfg->RemoveValue(_T("cache"));
 		break;
 	default:
 		m_cfg->RemoveValue(_T("cache"));
+		break;
 	}
 	
 	int vlang = m_language.GetCurSel();

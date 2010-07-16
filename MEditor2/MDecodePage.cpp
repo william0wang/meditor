@@ -73,12 +73,14 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_vdecode.Add(_T("ffrv20"));
 	m_vdecode.Add(_T("ffrv10"));
 	m_vdecode.Add(_T("ffvp3"));
-	m_vdecode.Add(_T("vp3"));
-	m_vdecode.Add(_T("vp4"));
 	m_vdecode.Add(_T("ffvp5"));
-	m_vdecode.Add(_T("vp5"));
 	m_vdecode.Add(_T("ffvp6"));
 	m_vdecode.Add(_T("ffvp6f"));
+	m_vdecode.Add(_T("ffvp8"));
+	m_vdecode.Add(_T("fflibvpx"));
+	m_vdecode.Add(_T("vp3"));
+	m_vdecode.Add(_T("vp4"));
+	m_vdecode.Add(_T("vp5"));
 	m_vdecode.Add(_T("vp6"));
 	m_vdecode.Add(_T("vp7"));
 	m_vdecode.Add(_T("null"));
