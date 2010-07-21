@@ -441,6 +441,8 @@ void CMainDlg::LoadAssocINI()
 		m_AssocList.push_back(item);
 		item.Set(L"avi", L"AVI " + m_str_assos_avi, ASSOC_TYPE_VIDEO, 1, 1);
 		m_AssocList.push_back(item);
+		item.Set(L"f4v", L"Flash " + m_type_video, ASSOC_TYPE_VIDEO, 2, 1);
+		m_AssocList.push_back(item);
 		item.Set(L"flv", L"Flash " + m_type_video, ASSOC_TYPE_VIDEO, 2, 1);
 		m_AssocList.push_back(item);
 		item.Set(L"mp4", L"MPEG-4 " + m_str_assos_mov, ASSOC_TYPE_VIDEO, 6, 1);
