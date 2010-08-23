@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "MEditor2.h"
 #include "PreviewDlg.h"
-#include "../CxImage/CxImage/ximage.h"
+#include "../Libs/CxImage/CxImage/ximage.h"
 
 static DWORD WINAPI ProgressThread(LPVOID pParam)
 {
