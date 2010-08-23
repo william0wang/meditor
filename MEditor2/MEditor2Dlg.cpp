@@ -348,13 +348,13 @@ void CMEditor2Dlg::OnBnClickedApply()
 	m_progress_apply.SetPos(m_pos);
 	m_progress_apply.ShowWindow(SW_SHOW);
 	SetTimer(0,10,NULL);
-	if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
+	//if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
 	SaveAll();
 }
 
 void CMEditor2Dlg::OnBnClickedOk()
 {
-	if(! SaveAll())
+	if(!SaveAll())
 		return;
 	OnOK();
 }
@@ -396,7 +396,7 @@ void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
 			m_progress_apply.SetPos(m_pos);
 	} else {
 		KillTimer(0);
-		if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
+		//if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
 	}
 	CDialog::OnTimer(nIDEvent);
 }
@@ -406,11 +406,11 @@ BOOL CMEditor2Dlg::DestroyWindow()
 	if(gUniqueEvent)
 		CloseHandle(gUniqueEvent);
 
-	if (g_pTaskbarList)
-	{
-		g_pTaskbarList->Release();
-		g_pTaskbarList = NULL;
-	}
+	//if (g_pTaskbarList)
+	//{
+	//	g_pTaskbarList->Release();
+	//	g_pTaskbarList = NULL;
+	//}
 
 	return CDialog::DestroyWindow();
 }
@@ -559,28 +559,28 @@ void CMEditor2Dlg::ShowInfo(int type)
 
 BOOL CMEditor2Dlg::PreTranslateMessage(MSG* pMsg)
 {
-	if (isVista && pMsg->message == s_uTBBC)
-	{
-		// Once we get the TaskbarButtonCreated message, we can call methods
-		// specific to our window on a TaskbarList instance. Note that it's
-		// possible this message can be received multiple times over the lifetime
-		// of this window (if explorer terminates and restarts, for example).
-		if (!g_pTaskbarList)
-		{
-			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
-			if (SUCCEEDED(hr))
-			{
-				hr = g_pTaskbarList->HrInit();
-				if (FAILED(hr))
-				{
-					g_pTaskbarList->Release();
-					g_pTaskbarList = NULL;
-				}
+	//if (isVista && pMsg->message == s_uTBBC)
+	//{
+	//	// Once we get the TaskbarButtonCreated message, we can call methods
+	//	// specific to our window on a TaskbarList instance. Note that it's
+	//	// possible this message can be received multiple times over the lifetime
+	//	// of this window (if explorer terminates and restarts, for example).
+	//	if (!g_pTaskbarList)
+	//	{
+	//		HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+	//		if (SUCCEEDED(hr))
+	//		{
+	//			hr = g_pTaskbarList->HrInit();
+	//			if (FAILED(hr))
+	//			{
+	//				g_pTaskbarList->Release();
+	//				g_pTaskbarList = NULL;
+	//			}
 
-				if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
-			}
-		}
-	}
+	//			if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+	//		}
+	//	}
+	//}
 
 	return CDialog::PreTranslateMessage(pMsg);
 }
