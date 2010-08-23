@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{e965063c-1b61-4dbe-8ae7-298b54aee341}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{2a59b8cf-ce41-4271-a620-acb93bd8f066}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Depend">
+      <UniqueIdentifier>{8686c393-0cb8-4afb-b123-d28edb616070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{73ddbceb-50f4-42e9-8e92-210c1d81df0f}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AboutDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="meditor3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvCombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlAux2.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlStdioFile.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="DragDrop.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="DropArrows.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="kFlatCombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCtrl.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListDate.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListEdit.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListTypes.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleTip.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\divider.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\hand.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListItems.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\meditor3.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TabItems.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="meditor3.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
