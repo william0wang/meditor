@@ -1,14 +1,19 @@
-// mloader.cpp : 定义应用程序的类行为。
+// mloader.cpp : main source file for mloader.exe
 //
 
 #include "stdafx.h"
-#include "mloader.h"
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
+#include <atlframe.h>
+#include <atlctrls.h>
+#include <atldlgs.h>
 
-#include <afxinet.h>
+#include <string>
+
+#include "resource.h"
+
+CAppModule _Module;
+
+#include <wininet.h>
 #pragma comment(lib, "wininet.lib")
 
 #define MAX_URI MAX_PATH*4
@@ -16,118 +21,71 @@
 
 #define IsFileExist(lpszFileName) (GetFileAttributes((lpszFileName))   !=   INVALID_FILE_ATTRIBUTES)
 
-// CmloaderApp
-
-BEGIN_MESSAGE_MAP(CmloaderApp, CWinApp)
-	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
-END_MESSAGE_MAP()
-
-
-// CmloaderApp 构造
-
-CmloaderApp::CmloaderApp()
+bool GetRealURL(std::string url, int maxsize, std::string &outstr, int timeout = 10)
 {
-	// TODO: 在此处添加构造代码，
-	// 将所有重要的初始化放置在 InitInstance 中
-}
+	char buffer[HTTP_BUFFER_LEN];//下载文件的缓冲区
+	DWORD bytes_read = 1;//下载的字节数
+	bool getre = false;
+	outstr = "";
 
+	if(url.length() < 6)
+		return false;
 
-// 唯一的一个 CmloaderApp 对象
+	//打开一个internet连接
+	HINTERNET internet=InternetOpen(_T("HTTP"), INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
+	if(!internet)
+		return false;
 
-CmloaderApp theApp;
+	DWORD dtimeout = timeout * 300;
+	InternetSetOption(internet, INTERNET_OPTION_CONNECT_TIMEOUT, &dtimeout, sizeof(DWORD));
+	InternetSetOption(internet, INTERNET_OPTION_SEND_TIMEOUT, &dtimeout, sizeof(DWORD));
+	InternetSetOption(internet, INTERNET_OPTION_RECEIVE_TIMEOUT, &dtimeout, sizeof(DWORD));
+	dtimeout = timeout/10;
+	InternetSetOption(internet, INTERNET_OPTION_CONNECT_RETRIES, &dtimeout, sizeof(DWORD));
 
-// CmloaderApp 初始化
+	//打开一个http url地址
+	HINTERNET file_handle=InternetOpenUrl(internet, url.c_str(), NULL, 0, INTERNET_FLAG_RELOAD, 0);
 
-
-
-CString GetRealURL(CString url, int maxsize, int timeout = 10)
-{
-	TCHAR error[512];
-	char buffer[512];
-	int readbyte = 0, bytes_read;
-	CHttpFile* pFile = NULL;
-	CInternetSession session;
-	CString RealUrl = _T("");
-
-	try {
-		session.SetOption(INTERNET_OPTION_CONNECT_TIMEOUT, timeout * 300);
-		session.SetOption(INTERNET_OPTION_SEND_TIMEOUT, timeout * 300);
-		session.SetOption(INTERNET_OPTION_RECEIVE_TIMEOUT, timeout * 1000);
-		session.SetOption(INTERNET_OPTION_CONNECT_RETRIES, timeout/10);
-
-		pFile = (CHttpFile *)session.OpenURL(url);
-
-		if(pFile) {
-			while(readbyte < maxsize) {
-				bytes_read = pFile->Read(buffer,512);
-				if(bytes_read <= 0)
-					break;
-				buffer[bytes_read] = 0;
-				readbyte += bytes_read;
-				RealUrl += buffer;
-			}
-
-			pFile->Close();
-			delete pFile;
+	if(file_handle) {
+		//从url地址中读取文件内容到缓冲区buffer
+		BOOL b = 0;
+		int readbyte = 0;
+		while(bytes_read > 0) {
+			b = InternetReadFile(file_handle, buffer, 512 , &bytes_read);
+			if(!b)
+				break;
+			readbyte += bytes_read;
+			buffer[bytes_read] = 0;
+			outstr += buffer;
 		}
-
-		session.Close();
-
-		return RealUrl;
-	} catch (CInternetException* pEx) {
-
-		if(pFile != NULL)
-			pFile->Close();
-		delete pFile;
-
-		pEx->GetErrorMessage(error,512);
-		pEx->Delete();
-
-		return RealUrl;
+		getre = true;
 	}
+	//关闭连接
+	InternetCloseHandle(internet);
+
+	return getre;
 }
 
-
-//CString GetRealURL(CString url , DWORD maxsize)
-//{
-//	char buffer[HTTP_BUFFER_LEN];
-//	DWORD bytes_read;
-//	DWORD readbyte = 0;
-//	CString RealUrl = _T("");
-//
-//	HINTERNET internet = InternetOpen(_T("HTTP"), INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
-//	if(internet) {
-//
-//		DWORD timeout = 5000;
-//		InternetSetOption(internet, INTERNET_OPTION_CONNECT_TIMEOUT, &timeout, sizeof(DWORD));
-//
-//		HINTERNET file_handle = InternetOpenUrl(internet, url, NULL, 0, INTERNET_FLAG_RELOAD, 0);
-//
-//		if(file_handle) {
-//			while(readbyte < maxsize) {
-//				if(!InternetReadFile(file_handle, buffer, HTTP_BUFFER_LEN, &bytes_read))
-//					break;
-//				if(bytes_read <= 0)
-//					break;
-//
-//				buffer[bytes_read] = 0;
-//				readbyte += bytes_read;
-//				RealUrl += buffer;
-//			}
-//		}
-//
-//		InternetCloseHandle(internet);
-//	}
-//
-//	return RealUrl;
-//}
-
-BOOL CmloaderApp::InitInstance()
+int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)
 {
-	CWinApp::InitInstance();
+	HRESULT hRes = ::CoInitialize(NULL);
+// If you are running on NT 4.0 or higher you can use the following call instead to 
+// make the EXE free threaded. This means that calls come in on a random RPC thread.
+//	HRESULT hRes = ::CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	ATLASSERT(SUCCEEDED(hRes));
+
+	// this resolves ATL window thunking problem when Microsoft Layer for Unicode (MSLU) is used
+	::DefWindowProc(NULL, 0, 0, 0L);
+
+	AtlInitCommonControls(ICC_BAR_CLASSES);	// add flags to support other controls
+
+	hRes = _Module.Init(NULL, hInstance);
+	ATLASSERT(SUCCEEDED(hRes));
+
+	int nRet = 0;//Run(lpstrCmdLine, nCmdShow);
 
 	CString ProgramFile;
-	CString lpszArgument(this->m_lpCmdLine);
+	CString lpszArgument(lpstrCmdLine);
 
 	TCHAR szFilePath[MAX_URI], szIniPath[MAX_URI];
 	GetModuleFileName(NULL, szFilePath, MAX_URI);
@@ -158,7 +116,9 @@ BOOL CmloaderApp::InitInstance()
 		if(len > index) {
 			CString url = lpszArgument.Mid(index+1, len-index-1);
 			if(url.Find(_T("http://")) >= 0) {
-				url = GetRealURL(url, 4096);
+				std::string surl;
+				if(GetRealURL(url.GetBuffer(), 4096, surl))
+					url = surl.c_str();
 				if(url.Find(_T("rtsp://")) >= 0)
 					lpszArgument = _T("\"") + url + _T("\"");
 			}
@@ -167,5 +127,8 @@ BOOL CmloaderApp::InitInstance()
 
 	ShellExecute(0, _T("open"), ProgramFile,  lpszArgument, NULL, SW_SHOW);
 
-	return FALSE;
+	_Module.Term();
+	::CoUninitialize();
+
+	return nRet;
 }
