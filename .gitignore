@@ -22,6 +22,7 @@
 *.pot
 *.so*
 *.swp
+*.ipch
 .svn
 Bin
 Debug

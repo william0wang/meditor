@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="源文件\Page">
+      <UniqueIdentifier>{beb8bb54-1008-4be6-9b98-4d45523fc947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Other">
+      <UniqueIdentifier>{e6decb9f-e091-4248-85d3-990c835b9533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Share">
+      <UniqueIdentifier>{9073ad61-c2bf-4121-85fe-341e7e62b099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{900ed810-9a10-4fcf-ba20-b71704c9c6b8}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="头文件\Page">
+      <UniqueIdentifier>{45ba9882-1612-4d1f-91a3-5b648e31e11c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Other">
+      <UniqueIdentifier>{abc77c07-8560-4f49-a136-99ef632a9fdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Share">
+      <UniqueIdentifier>{eec42d32-ac7d-4e35-afdf-44fc3df7eda0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MEditor2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MEditor2Dlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MAssosPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MAudioPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MDecodePage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MInputPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MOtherPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MPlayerPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MProfilePage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MResumePage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MSubPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="MVideoPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="CDXGraph.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorButton.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ColourPopup.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="explorer_html.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="FontComboBox.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MDSPlayer.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaInfoDlg.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MFlashPlayer.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MLinkDlg.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MPlayList.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MProfileDlg.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MShowInfoDlg.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressDlg.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="shockwaveflash.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="MConfig.cpp">
+      <Filter>源文件\Share</Filter>
+    </ClCompile>
+    <ClCompile Include="MInputList.cpp">
+      <Filter>源文件\Share</Filter>
+    </ClCompile>
+    <ClCompile Include="MShared.cpp">
+      <Filter>源文件\Share</Filter>
+    </ClCompile>
+    <ClCompile Include="Reg.cpp">
+      <Filter>源文件\Share</Filter>
+    </ClCompile>
+    <ClCompile Include="TabSheet.cpp">
+      <Filter>源文件\Share</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\btn_96.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\codecs.7z">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\codecs.conf">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\codecs.coreavc.conf">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\codecs.coreavcdshow.conf">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\dshow.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\flash.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\input.7z">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\logo.jpg">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\MEditor2.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\MEditor2.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MEditor2.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MEditor2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MEditor2Dlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PreviewDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MAssosPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MAudioPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MDecodePage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MInputPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MOtherPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MPlayerPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MProfilePage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MResumePage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MSubPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MVideoPage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="CDXGraph.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorButton.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourPopup.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="explorer_html.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="FontComboBox.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MDSPlayer.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaInfoDlg.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MFlashPlayer.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MLinkDlg.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MPlayList.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MProfileDlg.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MShowInfoDlg.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressDlg.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="shockwaveflash.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MConfig.h">
+      <Filter>头文件\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="MInputList.h">
+      <Filter>头文件\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="MShared.h">
+      <Filter>头文件\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="Reg.h">
+      <Filter>头文件\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="TabSheet.h">
+      <Filter>头文件\Share</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
