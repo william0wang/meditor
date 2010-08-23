@@ -58,7 +58,8 @@ public:
 		if ( IsWindow() )
 			DestroyWindow();
 			
-		DWORD dwStyle = WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | CBS_AUTOHSCROLL;
+		DWORD dwStyle = WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | CBS_AUTOHSCROLL /*| CBS_SORT*/;
+
 		
 		if ( nFlags & ITEM_FLAGS_COMBO_EDIT )
 			dwStyle |= CBS_DROPDOWN;
@@ -247,6 +248,7 @@ public:
 		MSG_WM_MOUSELEAVE(OnMouseLeave)
 		MSG_WM_ERASEBKGND(OnEraseBkgnd)
 		MSG_WM_PAINT(OnPaint)
+		REFLECTED_COMMAND_CODE_HANDLER_EX(CBN_SELCHANGE, OnSelChange)
 		REFLECTED_COMMAND_CODE_HANDLER_EX(CBN_KILLFOCUS, OnKillFocus)
 		MSG_WM_GETDLGCODE(OnGetDlgCode)
 		MSG_WM_CHAR(OnChar)
@@ -362,7 +364,45 @@ public:
 
 		dcMemory.RestoreDC( nContextState );
 	}
-	
+
+	void OnSelChange( UINT uCode, int nCtrlID, HWND hwndCtrl )
+	{
+		SetMsgHandled( FALSE );
+
+		CWindow wndParent( GetParent() );
+		if ( wndParent.IsWindow() )
+		{
+			CString strValue;
+
+			if ( ( GetStyle() & CBS_DROPDOWNLIST ) == CBS_DROPDOWNLIST )
+			{
+				int nIndex = GetCurSel();
+				if ( nIndex != CB_ERR )
+					GetLBText( nIndex, strValue );
+			}
+			else
+			{
+				int nValueLength = GetWindowTextLength() + 1;
+				GetWindowText( strValue.GetBuffer( nValueLength ), nValueLength );
+				strValue.ReleaseBuffer();
+			}
+
+			CListNotify listNotify;
+			listNotify.m_hdrNotify.hwndFrom = m_hWnd;
+			listNotify.m_hdrNotify.idFrom = GetDlgCtrlID();
+			listNotify.m_hdrNotify.code = LCN_SELCHANEG;
+			listNotify.m_nItem = m_nItem;
+			listNotify.m_nSubItem = m_nSubItem;
+			listNotify.m_nExitChar = m_nExitChar;
+			listNotify.m_lpszItemText = strValue;
+			listNotify.m_lpItemDate = NULL;
+
+			// forward notification to parent
+			FORWARD_WM_NOTIFY( wndParent, listNotify.m_hdrNotify.idFrom, &listNotify.m_hdrNotify, ::SendMessage );
+		}
+
+	}
+
 	void OnKillFocus( UINT uCode, int nCtrlID, HWND hwndCtrl )
 	{
 		SetMsgHandled( FALSE );

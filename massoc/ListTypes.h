@@ -47,6 +47,7 @@
 #define ITEM_FLAGS_TIME_ONLY		0x0800
 #define ITEM_FLAGS_DATETIME_NONE	0x1000
 #define ITEM_FLAGS_PROGRESS_SOLID	0x2000
+#define ITEM_FLAGS_EDIT_PASSWORD	0x4000
 
 #define ITEM_IMAGE_NONE				-1
 #define ITEM_IMAGE_DOWN				0
@@ -76,6 +77,7 @@
 #define LCN_ENDEDIT					( LCN_FIRST - 5 )
 #define LCN_MODIFIED				( LCN_FIRST - 6 )
 #define LCN_HYPERLINK				( LCN_FIRST - 7 )
+#define LCN_SELCHANEG				( LCN_FIRST - 8 )
 
 struct CListNotify
 {
