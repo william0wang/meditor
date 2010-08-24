@@ -37,11 +37,13 @@
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -56,6 +58,9 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -340,28 +345,6 @@ del /F codecs.7z
     <ClInclude Include="MShared.h" />
     <ClInclude Include="Reg.h" />
     <ClInclude Include="TabSheet.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\7z\Archive\7z\7z.vcxproj">
-      <Project>{445560c2-7fbe-4157-bdf8-22dfb6cedc12}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\AdvComboBox\AdvComboBox.vcxproj">
-      <Project>{80c783f3-3af3-4d33-87cd-85c8641a96e9}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\CxImage\CxImage\cximage.vcxproj">
-      <Project>{3f4ff3aa-7d81-4d1b-a9d0-8bbff4fb01f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\CxImage\jpeg\Jpeg.vcxproj">
-      <Project>{9592355b-59bd-4654-9d3e-904a99ffa615}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\XListCtrl\XListCtrlLib\XListCtrlSS.vcxproj">
-      <Project>{e83123c0-35d3-47eb-aed0-224e22add240}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

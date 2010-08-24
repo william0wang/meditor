@@ -1580,7 +1580,6 @@ BOOL CXListCtrl::SetComboBox(int nItem,
 	if (!psa)
 		return FALSE;
 	ASSERT(nComboListHeight > 0);
-	ASSERT(nInitialComboSel >= 0 && nInitialComboSel < psa->GetSize());
 	if ((nInitialComboSel < 0) || (nInitialComboSel >= psa->GetSize()))
 		nInitialComboSel = 0;
 
