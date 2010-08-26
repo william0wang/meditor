@@ -57,7 +57,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	if(IsFileExist(program_dir + _T("tools\\meditor2.tc.dll")))
 		langfile_tc = program_dir + _T("tools\\meditor2.tc.dll");
 	if(IsFileExist(program_dir + _T("tools\\meditor2.en.dll")))
-		langfile_en = program_dir + _T("tools\\");
+		langfile_en = program_dir + _T("tools\\meditor2.en.dll");
 	if(IsFileExist(program_dir + _T("codecs\\meditor2.tc.dll")))
 		langfile_tc = program_dir + _T("codecs\\meditor2.tc.dll");
 	if(IsFileExist(program_dir + _T("codecs\\meditor2.en.dll")))
