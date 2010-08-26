@@ -105,7 +105,7 @@ public:
 		MSG_WM_GETDLGCODE(OnGetDlgCode)
 		MSG_WM_CHAR(OnChar)
 		DEFAULT_REFLECTION_HANDLER()
-	END_MSG_MAP_EX()
+	END_MSG_MAP()
 	
 	void OnKillFocus( HWND hNewWnd )
 	{

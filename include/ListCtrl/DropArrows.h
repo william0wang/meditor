@@ -83,7 +83,7 @@ public:
 	BEGIN_MSG_MAP_EX(CDropArrows)
 		MSG_WM_DESTROY(OnDestroy)
 		MSG_WM_ERASEBKGND(OnEraseBkgnd)
-	END_MSG_MAP_EX()
+	END_MSG_MAP()
 	
 	void OnDestroy()
 	{

@@ -116,7 +116,7 @@ public:
 		MESSAGE_RANGE_HANDLER_EX(WM_MOUSEFIRST,WM_MOUSELAST,OnMouseRange)
 		MSG_WM_ERASEBKGND(OnEraseBkgnd)
 		MSG_WM_PAINT(OnPaint)
-	END_MSG_MAP_EX()
+	END_MSG_MAP()
 	
 	void OnDestroy()
 	{

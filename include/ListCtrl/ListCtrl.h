@@ -1955,7 +1955,7 @@ public:
 		MESSAGE_HANDLER(WM_CTLCOLOREDIT, OnCtlColorListBox)
 		CHAIN_MSG_MAP(CDoubleBufferImpl< CListImpl >)
 		REFLECT_NOTIFICATIONS()
-	END_MSG_MAP_EX()
+	END_MSG_MAP()
 	
 	int OnCreate( LPCREATESTRUCT lpCreateStruct )
 	{

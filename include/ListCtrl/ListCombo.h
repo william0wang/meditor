@@ -256,7 +256,7 @@ public:
 	ALT_MSG_MAP(1)
 		MSG_WM_GETDLGCODE(OnGetDlgCode)
 		MSG_WM_CHAR(OnChar)
-	END_MSG_MAP_EX()
+	END_MSG_MAP()
 	
 	LRESULT OnMouseRange( UINT nMessage, WPARAM wParam, LPARAM lParam )
 	{
