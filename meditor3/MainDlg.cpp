@@ -11,6 +11,7 @@
 
 CMainDlg::CMainDlg()
 {
+	m_tablist.ShowBorder(FALSE);
 	m_tablist.RegisterClass();
 }
 

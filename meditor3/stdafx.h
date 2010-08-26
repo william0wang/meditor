@@ -28,8 +28,6 @@ extern CAppModule _Module;
 #include <atlcrack.h>
 #include <atlddx.h>
 
-#define END_MSG_MAP_EX	END_MSG_MAP
-
 #if defined _M_IX86
   #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #elif defined _M_IA64

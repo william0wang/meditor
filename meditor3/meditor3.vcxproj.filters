@@ -16,32 +16,38 @@
       <UniqueIdentifier>{73ddbceb-50f4-42e9-8e92-210c1d81df0f}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
     </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{23b75bd6-5196-4b16-bd8b-d461ce027c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{025cb05d-a4a0-494d-a1f9-81ab46519ecb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AboutDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="meditor3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="shared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutDlg.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressDlg.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPage.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewDlg.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AboutDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerPage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -59,32 +65,23 @@
     <ClInclude Include="AtlStdioFile.h">
       <Filter>Header Files\Depend</Filter>
     </ClInclude>
-    <ClInclude Include="DragDrop.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="DropArrows.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
     <ClInclude Include="kFlatCombo.h">
       <Filter>Header Files\Depend</Filter>
     </ClInclude>
-    <ClInclude Include="ListCombo.h">
-      <Filter>Header Files\Depend</Filter>
+    <ClInclude Include="shared.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListCtrl.h">
-      <Filter>Header Files\Depend</Filter>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
-    <ClInclude Include="ListDate.h">
-      <Filter>Header Files\Depend</Filter>
+    <ClInclude Include="ProgressDlg.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
-    <ClInclude Include="ListEdit.h">
-      <Filter>Header Files\Depend</Filter>
+    <ClInclude Include="PlayerPage.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
-    <ClInclude Include="ListTypes.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleTip.h">
-      <Filter>Header Files\Depend</Filter>
+    <ClInclude Include="PreviewDlg.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +98,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\TabItems.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\logo.jpg">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

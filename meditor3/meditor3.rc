@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// 中文(简体，中国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
-#ifdef _WIN32
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -35,7 +33,7 @@ IDR_MAINFRAME           ICON                    "res\\meditor3.ico"
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG  0, 0, 187, 102
+IDD_ABOUTBOX DIALOG 0, 0, 187, 102
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
 FONT 9, "MS Shell Dlg"
@@ -69,6 +67,106 @@ BEGIN
     PUSHBUTTON      "Button1",IDC_BUTTON4,0,0,112,81
 END
 
+IDD_PREVIEW_DIALOG_TC DIALOGEX 0, 0, 282, 148
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "縮圖"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "生成",IDOK,164,127,50,14
+    PUSHBUTTON      "關閉",IDCANCEL,225,127,50,14
+    EDITTEXT        IDC_EDIT_FILE,52,7,223,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "源檔案:",IDC_STATIC,7,10,35,8
+    LTEXT           "縮圖:",IDC_STATIC,7,34,31,8
+    LTEXT           "圖像寬度:",IDC_STATIC,7,58,45,8
+    EDITTEXT        IDC_EDIT_SAVEFILE,52,100,176,14,ES_AUTOHSCROLL
+    LTEXT           "檔案名:",IDC_STATIC,7,103,35,8
+    PUSHBUTTON      "瀏覽",IDC_BUTTON_B,235,100,40,14
+    EDITTEXT        IDC_EDIT_R,52,31,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_R,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,88,30,10,14
+    EDITTEXT        IDC_EDIT_V,140,31,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_V,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,177,30,10,14
+    LTEXT           "行",IDC_STATIC,104,34,31,8
+    LTEXT           "列",IDC_STATIC,193,33,31,8
+    EDITTEXT        IDC_EDIT_W,52,54,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_W,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,88,53,10,14
+    LTEXT           "像素",IDC_STATIC,104,56,31,8
+    CONTROL         "顯示生成的縮略圖",IDC_CHECK_SHOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,128,91,10
+    LTEXT           "結束時間:",IDC_STATIC,7,80,44,8
+    EDITTEXT        IDC_EDIT_T,52,77,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "秒 (0表示影片長度)",IDC_STATIC,90,80,78,8
+    LTEXT           "字體:",IDC_STATIC,146,56,21,8
+    COMBOBOX        IDC_ACOMBO_FONT,170,54,97,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PREVIEW_DIALOG_EN DIALOGEX 0, 0, 282, 148
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Thumbnails"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Generate",IDOK,164,127,50,14
+    PUSHBUTTON      "Close",IDCANCEL,225,127,50,14
+    EDITTEXT        IDC_EDIT_FILE,52,7,223,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Source File:",IDC_STATIC,7,10,41,8
+    LTEXT           "Thumbnails:",IDC_STATIC,7,34,41,8
+    LTEXT           "Image width:",IDC_STATIC,7,58,45,8
+    EDITTEXT        IDC_EDIT_SAVEFILE,52,100,176,14,ES_AUTOHSCROLL
+    LTEXT           "Filename:",IDC_STATIC,7,103,35,8
+    PUSHBUTTON      "browse",IDC_BUTTON_B,235,100,40,14
+    EDITTEXT        IDC_EDIT_R,52,31,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_R,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,88,30,10,14
+    EDITTEXT        IDC_EDIT_V,140,31,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_V,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,177,30,10,14
+    LTEXT           "rows",IDC_STATIC,104,34,31,8
+    LTEXT           "columns",IDC_STATIC,193,33,31,8
+    EDITTEXT        IDC_EDIT_W,52,54,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_W,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,88,53,10,14
+    LTEXT           "pixels",IDC_STATIC,104,56,31,8
+    CONTROL         "Shows the generated thumbnails",IDC_CHECK_SHOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,128,124,10
+    LTEXT           "Length:",IDC_STATIC,7,80,44,8
+    EDITTEXT        IDC_EDIT_T,52,77,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Sec (0 is video length)",IDC_STATIC,90,80,78,8
+    LTEXT           "Font:",IDC_STATIC,146,56,21,8
+    COMBOBOX        IDC_ACOMBO_FONT,170,54,97,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PREVIEW_DIALOG DIALOGEX 0, 0, 282, 148
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "缩略图"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "生成",IDOK,164,127,50,14
+    PUSHBUTTON      "关闭",IDCANCEL,225,127,50,14
+    EDITTEXT        IDC_EDIT_FILE,52,7,223,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "源文件:",IDC_STATIC,7,10,35,8
+    LTEXT           "缩略图:",IDC_STATIC,7,34,31,8
+    LTEXT           "图像宽度:",IDC_STATIC,7,58,45,8
+    EDITTEXT        IDC_EDIT_SAVEFILE,52,100,176,14,ES_AUTOHSCROLL
+    LTEXT           "文件名:",IDC_STATIC,7,103,35,8
+    PUSHBUTTON      "浏览",IDC_BUTTON_B,235,100,40,14
+    EDITTEXT        IDC_EDIT_R,52,31,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_R,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,88,30,10,14
+    EDITTEXT        IDC_EDIT_V,143,31,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_V,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,180,30,10,14
+    LTEXT           "行",IDC_STATIC,104,34,31,8
+    LTEXT           "列",IDC_STATIC,196,33,31,8
+    EDITTEXT        IDC_EDIT_W,52,54,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_W,"msctls_updown32",UDS_SETBUDDYINT | UDS_ARROWKEYS,88,53,10,14
+    LTEXT           "像素",IDC_STATIC,104,56,31,8
+    CONTROL         "显示生成的缩略图",IDC_CHECK_SHOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,128,91,10
+    LTEXT           "结束时间:",IDC_STATIC,7,80,44,8
+    EDITTEXT        IDC_EDIT_T,52,77,34,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "秒 (0表示影片长度)",IDC_STATIC,90,80,78,8
+    LTEXT           "字体:",IDC_STATIC,146,56,21,8
+    COMBOBOX        IDC_ACOMBO_FONT,170,54,97,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DIALOG_P DIALOGEX 0, 0, 195, 31
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,7,181,17
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -76,7 +174,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -93,6 +191,42 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 247
     END
+
+    IDD_DIALOG_PLAYER, DIALOG
+    BEGIN
+    END
+
+    IDD_PREVIEW_DIALOG_TC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 275
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_PREVIEW_DIALOG_EN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 275
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_PREVIEW_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 275
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_DIALOG_P, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 188
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 24
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -102,7 +236,7 @@ END
 // Accelerator
 //
 
-IDR_MAINFRAME ACCELERATORS 
+IDR_MAINFRAME ACCELERATORS
 BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
@@ -202,15 +336,22 @@ IDB_BITMAP_TAB          BITMAP                  "res\\TabItems.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// LOGO
+//
+
+IDR_LOGO                LOGO                    "res\\logo.jpg"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "meditor3"
 END
 
-#endif    // 中文(中华人民共和国) resources
+#endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
