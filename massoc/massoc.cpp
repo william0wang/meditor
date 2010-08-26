@@ -45,13 +45,13 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	CString program_dir;
 	program_dir.Format(_T("%s"),szFilePath);
 
-	CString right = program_dir.Right(8);
-	if(right == _T("\\codecs\\"))
-		program_dir = program_dir.Left(program_dir.GetLength() - 7);
+	CString right = program_dir.Right(7);
+	if(right == _T("\\tools\\"))
+		program_dir = program_dir.Left(program_dir.GetLength() - 6);
 	else {
-		right = program_dir.Right(7);
-		if(right == _T("\\tools\\"))
-			program_dir = program_dir.Left(program_dir.GetLength() - 6);
+		right = program_dir.Right(8);
+		if(right == _T("\\codecs\\"))
+			program_dir = program_dir.Left(program_dir.GetLength() - 7);
 	}
 
 	if(IsFileExist(program_dir + _T("tools\\meditor2.tc.dll")))

@@ -96,13 +96,13 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 	else
 		inifile = m_program_dir + _T("massoc.ini");
 
-	CString right = m_program_dir.Right(8);
-	if(right == _T("\\codecs\\"))
-		m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 7);
+	CString right = m_program_dir.Right(7);
+	if(right == _T("\\tools\\"))
+		m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 6);
 	else {
-		right = m_program_dir.Right(7);
-		if(right == _T("\\tools\\"))
-			m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 6);
+		right = m_program_dir.Right(8);
+		if(right == _T("\\codecs\\"))
+			m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 7);
 	}
 
 	m_mpc_exe = m_program_dir + _T("tools\\mplayerc.exe");
