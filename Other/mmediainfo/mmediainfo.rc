@@ -98,13 +98,13 @@ BEGIN
     BEGIN
         BLOCK "080404b0"
         BEGIN
-            VALUE "FileDescription", "MMediaInfo"
-            VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "mmediainfo"
-            VALUE "LegalCopyright", "Copyright 2010 william0wang"
+            VALUE "FileDescription", "MediaInfo"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "MediaInfo"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "mmediainfo.exe"
-            VALUE "ProductName", "MMediaInfo"
-            VALUE "ProductVersion", "1, 0, 0, 1"
+            VALUE "ProductName", "MediaInfo"
+            VALUE "ProductVersion", "1.0.0.1"
         END
     END
     BLOCK "VarFileInfo"

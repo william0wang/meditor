@@ -261,8 +261,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 3,0,0,1
+ PRODUCTVERSION 3,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -275,15 +275,15 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "040904B0"
+        BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "meditor3 Module"
-            VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "meditor3"
-            VALUE "LegalCopyright", "Copyright 2010"
-            VALUE "OriginalFilename", "meditor3.exe"
-            VALUE "ProductName", "meditor3 Module"
-            VALUE "ProductVersion", "1, 0, 0, 1"
+            VALUE "FileDescription", "meditor v3"
+            VALUE "FileVersion", "3.0.0.1"
+            VALUE "InternalName", "meditor v3"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2010 william0wang"
+            VALUE "OriginalFilename", "meditor.exe"
+            VALUE "ProductName", "meditor v3"
+            VALUE "ProductVersion", "3.0.0.1"
         END
     END
     BLOCK "VarFileInfo"
