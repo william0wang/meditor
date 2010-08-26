@@ -5,9 +5,7 @@
 #include "MEditor2.h"
 #include "MEditor2Dlg.h"
 #include "MDSPlayer.h"
-#include "PreviewDlg.h"
 #include "MFlashPlayer.h"
-#include "MediaInfoDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -97,10 +95,6 @@ BOOL CMEditor2App::InitInstance()
 			OpenType = 2;
 		else if(sCmdLine.Find(_T("Open Editor")) >= 0)
 			OpenType = 3;
-		else if(sCmdLine.Find(_T("--generate-preview")) >= 0)
-			OpenType = START_PREVIEW;
-		else if(sCmdLine.Find(_T("--Show Media Info")) >= 0)
-			OpenType = START_MEDIAINFO;
 		else if(sCmdLine.Find(_T("--Open FlashPlayer")) >= 0)
 		{
 			OpenType = START_FLASHPLAYER;
@@ -128,73 +122,7 @@ BOOL CMEditor2App::InitInstance()
 		}
 	}
 
-	if(OpenType == START_MEDIAINFO)
-	{
-		CMediaInfoDlg info;
-		m_pMainWnd = &info;
-		INT_PTR nResponse = info.DoModal();
-	}
-	else if(OpenType == START_PREVIEW)
-	{
-		HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor2 - Preview"));
-		if(GetLastError() == ERROR_ALREADY_EXISTS)
-			return FALSE;
-
-		int offset = sCmdLine.Find(_T("--filename"));
-		if(offset < 0)
-			return FALSE;
-		offset = sCmdLine.Find(_T("\""), offset);
-		if(offset < 0)
-			return FALSE;
-		CString name = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
-		name.Trim();
-		offset = name.Find(_T("\""));
-		if(offset <= 0)
-			return FALSE;
-		name = name.Left(offset);
-
-		offset = sCmdLine.Find(_T("--duration"));
-		if(offset < 0)
-			return FALSE;
-		CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 10);
-		len.Trim();
-		long time = _ttol(len);
-		if(time < 10)
-			return FALSE;
-
-		AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
-		if(AppLanguage == 0)
-		{
-			LANGID   _SysLangId   =   GetSystemDefaultLangID();
-			if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
-			{
-				if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
-					AppLanguage = 1;		//Simplified Chinese GBK
-				else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
-					AppLanguage = 4;		//Traditional Chinese Big5
-				else
-					AppLanguage = 3;		//ANSI
-			}
-			else
-				AppLanguage = 2;			//ANSI
-		}
-
-		if(AppLanguage == 2) {
-			DialogIDD = IDD_PREVIEW_DIALOG_EN;
-		} else if(AppLanguage == 3 || AppLanguage == 4) {
-			DialogIDD = IDD_PREVIEW_DIALOG_TC;
-		}
-
-		CPreviewDlg preview;
-		preview.m_filename = name;
-		preview.ltime = time;
-		m_pMainWnd = &preview;
-		INT_PTR nResponse = preview.DoModal();
-
-		if(gUniqueEvent)
-			CloseHandle(gUniqueEvent);
-	}
-	else if(OpenType == START_FLASHPLAYER)
+	if(OpenType == START_FLASHPLAYER)
 	{
 		CMFlashPlayer flashplayer;
 		m_pMainWnd = &flashplayer;

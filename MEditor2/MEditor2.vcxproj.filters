@@ -39,9 +39,6 @@
     <ClCompile Include="MEditor2Dlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="PreviewDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="MAssosPage.cpp">
       <Filter>源文件\Page</Filter>
     </ClCompile>
@@ -90,9 +87,6 @@
     <ClCompile Include="MDSPlayer.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
-    <ClCompile Include="MediaInfoDlg.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
     <ClCompile Include="MFlashPlayer.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
@@ -106,9 +100,6 @@
       <Filter>源文件\Other</Filter>
     </ClCompile>
     <ClCompile Include="MShowInfoDlg.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="ProgressDlg.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
     <ClCompile Include="shockwaveflash.cpp">
@@ -180,9 +171,6 @@
     <ClInclude Include="MEditor2Dlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PreviewDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="MAssosPage.h">
       <Filter>头文件\Page</Filter>
     </ClInclude>
@@ -231,9 +219,6 @@
     <ClInclude Include="MDSPlayer.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
-    <ClInclude Include="MediaInfoDlg.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
     <ClInclude Include="MFlashPlayer.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
@@ -247,9 +232,6 @@
       <Filter>头文件\Other</Filter>
     </ClInclude>
     <ClInclude Include="MShowInfoDlg.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="ProgressDlg.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">

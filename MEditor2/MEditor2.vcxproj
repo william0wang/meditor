@@ -128,8 +128,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>7zD.lib;AdvComboBoxD.lib;CxImageD.lib;jpegD.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>7zD.lib;AdvComboBoxD.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -202,8 +202,8 @@ del /F codecs.7z
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>7zR.lib;AdvComboBoxR.lib;CxImageR.lib;jpegR.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>7zR.lib;AdvComboBoxR.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -256,7 +256,6 @@ del /F codecs.7z
   <ItemGroup>
     <ClCompile Include="MEditor2.cpp" />
     <ClCompile Include="MEditor2Dlg.cpp" />
-    <ClCompile Include="PreviewDlg.cpp" />
     <ClCompile Include="MAssosPage.cpp" />
     <ClCompile Include="MAudioPage.cpp" />
     <ClCompile Include="MDecodePage.cpp" />
@@ -273,13 +272,11 @@ del /F codecs.7z
     <ClCompile Include="explorer_html.cpp" />
     <ClCompile Include="FontComboBox.cpp" />
     <ClCompile Include="MDSPlayer.cpp" />
-    <ClCompile Include="MediaInfoDlg.cpp" />
     <ClCompile Include="MFlashPlayer.cpp" />
     <ClCompile Include="MLinkDlg.cpp" />
     <ClCompile Include="MPlayList.cpp" />
     <ClCompile Include="MProfileDlg.cpp" />
     <ClCompile Include="MShowInfoDlg.cpp" />
-    <ClCompile Include="ProgressDlg.cpp" />
     <ClCompile Include="shockwaveflash.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -312,7 +309,6 @@ del /F codecs.7z
   <ItemGroup>
     <ClInclude Include="MEditor2.h" />
     <ClInclude Include="MEditor2Dlg.h" />
-    <ClInclude Include="PreviewDlg.h" />
     <ClInclude Include="MAssosPage.h" />
     <ClInclude Include="MAudioPage.h" />
     <ClInclude Include="MDecodePage.h" />
@@ -329,13 +325,11 @@ del /F codecs.7z
     <ClInclude Include="explorer_html.h" />
     <ClInclude Include="FontComboBox.h" />
     <ClInclude Include="MDSPlayer.h" />
-    <ClInclude Include="MediaInfoDlg.h" />
     <ClInclude Include="MFlashPlayer.h" />
     <ClInclude Include="MLinkDlg.h" />
     <ClInclude Include="MPlayList.h" />
     <ClInclude Include="MProfileDlg.h" />
     <ClInclude Include="MShowInfoDlg.h" />
-    <ClInclude Include="ProgressDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="shockwaveflash.h" />
     <ClInclude Include="stdafx.h" />
