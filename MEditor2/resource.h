@@ -36,7 +36,6 @@
 #define IDD_DIALOG_LINK                 171
 #define IDD_DIALOG_PROFILE_ADD          175
 #define IDD_DIALOG_INFO                 176
-#define IDD_DIALOG_MEDIAINFO            179
 #define IDB_BITMAP_96                   188
 #define IDD_PROFILE_DIALOG              190
 #define IDR_CODECS_INI1                 190
@@ -295,7 +294,6 @@
 #define IDC_RADIOAUTO                   1144
 #define IDC_CHECKWB                     1145
 #define IDC_RADIOMANUAL                 1145
-#define IDC_EXPLORER_HTML               1145
 #define IDC_CHECK_FONTCONFIG            1148
 #define IDC_CHECK_B                     1149
 #define IDC_CHECK_I                     1150

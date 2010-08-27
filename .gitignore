@@ -22,6 +22,7 @@
 *.pot
 *.so*
 *.swp
+*.ipch
 .svn
 Bin
 Debug
@@ -45,3 +46,18 @@ Release Unicode
 /7z/Archive/7z/LzmaDec.asm
 
 /MEditor2/res/codecs.7z
+
+/Libs/7z/Archive/7z/7zBuf.asm
+/Libs/7z/Archive/7z/7zCrc.asm
+/Libs/7z/Archive/7z/7zFile.asm
+/Libs/7z/Archive/7z/7zStream.asm
+/Libs/7z/Archive/7z/Bcj2.asm
+/Libs/7z/Archive/7z/Bra86.asm
+/Libs/7z/Archive/7z/LzmaDec.asm
+/Libs/7z/Archive/7z/7zAlloc.asm
+/Libs/7z/Archive/7z/7zDec.asm
+/Libs/7z/Archive/7z/7zDecode.asm
+/Libs/7z/Archive/7z/7zExtract.asm
+/Libs/7z/Archive/7z/7zHeader.asm
+/Libs/7z/Archive/7z/7zIn.asm
+/Libs/7z/Archive/7z/7zItem.asm

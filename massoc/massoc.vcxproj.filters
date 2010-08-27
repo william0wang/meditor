@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{62e768e2-ad0a-4557-8676-ca311b9f39bd}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{1a5fc86e-1e1e-4aaa-b4a1-2c619ec8b907}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Depend">
+      <UniqueIdentifier>{a1b2196d-f3af-4574-9652-841f6f8d15a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{9ba8f98e-bebf-4f72-a12c-1504a873714f}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AVS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="massoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Real.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AtlStdioFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AVS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Real.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvCombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlAux2.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="DragDrop.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="DropArrows.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="kFlatCombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCtrl.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListDate.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListEdit.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ListTypes.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="shared.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleTip.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\divider.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\hand.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListItems.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\massoc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="massoc.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

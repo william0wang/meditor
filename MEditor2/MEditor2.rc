@@ -16,13 +16,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// 中文(简体，中国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
-#ifdef _WIN32
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -310,7 +308,7 @@ BEGIN
     PUSHBUTTON      "创建快捷方式",IDC_BUTTON_LINK,277,17,60,16
     CONTROL         "使用MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,300,107,37,10
     CONTROL         "播放时不禁用系统屏幕保护",IDC_CHECK_SCREENSAVER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,118,114,10
-    CONTROL         "使用HTML格式媒体信息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,131,122,10
+    CONTROL         "使用高级媒体信息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,131,104,10
     PUSHBUTTON      "安装 AviSynth (AVS)",IDC_BUTTON_AVS,184,52,73,16
 END
 
@@ -518,15 +516,6 @@ BEGIN
     CONTROL         "",IDC_COMBO_OSD_SIZE,"AdvComboBoxCtrl",WS_TABSTOP | 0x2,47,161,50,12
     CONTROL         "",IDC_COMBO_ASSEXPAND,"AdvComboBoxCtrl",WS_TABSTOP | 0x2,294,108,43,12
     CONTROL         "将所有字幕按ASS方式渲染",IDC_CHECK_ASS_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,248,78,93,10
-END
-
-IDD_DIALOG_MEDIAINFO DIALOGEX 0, 0, 380, 280
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Media Info"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    CONTROL         "",IDC_EXPLORER_HTML,
-                    "{8856F961-340A-11D0-A96B-00C04FD705A2}",WS_TABSTOP,0,0,380,280
 END
 
 IDD_PLAYER_DIALOG_EN DIALOGEX 0, 0, 350, 200
@@ -769,8 +758,7 @@ BEGIN
     CONTROL         "MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,310,100,24,10
     CONTROL         "Do not disable screen saver when playing",IDC_CHECK_SCREENSAVER,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,113,143,10
-    CONTROL         "Use HTML format Media Information",IDC_CHECK_INFO,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,126,143,10
+    CONTROL         "Use Advanced Media Information",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,126,143,10
     PUSHBUTTON      "Install AviSynth (AVS)",IDC_BUTTON_AVS,184,44,84,16
 END
 
@@ -1089,7 +1077,7 @@ BEGIN
     PUSHBUTTON      "創建快捷方式",IDC_BUTTON_LINK,276,15,60,14
     CONTROL         "使用MPC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,300,100,37,10
     CONTROL         "播放時不禁用系統螢幕保護",IDC_CHECK_SCREENSAVER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,116,114,10
-    CONTROL         "使用HTML格式媒體訊息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,128,126,10
+    CONTROL         "使用高級媒體訊息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,128,126,10
     PUSHBUTTON      "安裝 AviSynth (AVS)",IDC_BUTTON_AVS,184,45,73,16
 END
 
@@ -1307,7 +1295,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -1641,7 +1629,7 @@ END
 // Menu
 //
 
-IDR_MAINFRAME MENU 
+IDR_MAINFRAME MENU
 BEGIN
     POPUP "文件"
     BEGIN
@@ -1674,7 +1662,7 @@ BEGIN
     END
 END
 
-IDR_MENU_FLASH MENU 
+IDR_MENU_FLASH MENU
 BEGIN
     POPUP "POPUP"
     BEGIN
@@ -1700,7 +1688,7 @@ BEGIN
     END
 END
 
-IDR_MENU_WMP MENU 
+IDR_MENU_WMP MENU
 BEGIN
     POPUP "文件"
     BEGIN
@@ -1724,7 +1712,7 @@ BEGIN
     END
 END
 
-IDR_MENU_DSHOW MENU 
+IDR_MENU_DSHOW MENU
 BEGIN
     POPUP "文件"
     BEGIN
@@ -1787,21 +1775,6 @@ BEGIN
     0
 END
 
-IDD_DIALOG_MEDIAINFO DLGINIT
-BEGIN
-    IDC_EXPLORER_HTML, 0x376, 160, 0
-0x0000, 0x0000, 0x004c, 0x0000, 0x3ae9, 0x0000, 0x2f07, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x004c, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 
-0x0000, 0xd0e0, 0x0057, 0x3573, 0x11cf, 0x69ae, 0x0008, 0x2e2b, 0x6212, 
-0x0001, 0x0000, 0x0000, 0x0000, 0x004c, 0x0000, 0x1401, 0x0002, 0x0000, 
-0x0000, 0x00c0, 0x0000, 0x0000, 0x4600, 0x0080, 0x0000, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 0x0000, 
-0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 
-    0
-END
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1836,12 +1809,12 @@ IDB_BITMAP_96           BITMAP                  "res\\btn_96.bmp"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ABOUTBOX            "关于 MEditor2(&A)..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_NAME         "MPlayer 首选项"
     IDS_TAB_PLAYER          "播放器"
@@ -1854,7 +1827,7 @@ BEGIN
     IDS_TAB_ASSOS           "文件关联"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_ALLWAYS      "始终"
     IDS_RESUME_NORMAL       "默认"
@@ -1874,7 +1847,7 @@ BEGIN
     IDS_ASSOS_MOV           "影片文件"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_AUTOSEL      "自动选择"
     IDS_PLAYER_AUTO         "自动"
@@ -1894,7 +1867,7 @@ BEGIN
     IDS_PLAYER_PLNORMAL     "低于标准(不推荐)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_PIDLE        "空闲(不推荐)"
     IDS_PLAYER_FILE         "单文件"
@@ -1914,7 +1887,7 @@ BEGIN
     IDS_PLAYER_T2           "时:分 (12小时制)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_T3           "时:分:秒 (24小时制)"
     IDS_PLAYER_T4           "时:分:秒 (12小时制)"
@@ -1934,7 +1907,7 @@ BEGIN
     IDS_PLAYER_EX           "增强"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ASSOS_AVI           "视频剪辑"
     IDS_ASSOS_CT            "动画文件"
@@ -1954,7 +1927,7 @@ BEGIN
     IDS_OTHER_REALAGAIN     "Real 在线支持已注册，是否重新注册 ?"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OTHER_TOOL4         "FLVExtract"
     IDS_OTHER_TOOL5         "字幕下载器"
@@ -1972,7 +1945,7 @@ BEGIN
     IDS_DECODE_SKIP4        "跳过除了关键帧的所有帧"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DECODE_SKIP5        "跳过所有的帧"
     IDS_DECODE_CODEFILE1    "MPlayer 内置的解码器配置"
@@ -1992,7 +1965,7 @@ BEGIN
     IDS_AUDIO_REINT         "多相过滤器组整数处理"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OTHER_REALON        "Real 在线支持尚未注册 !"
     IDS_OTHER_REALFAILS     "Real 在线支持注册失败，未找到需要的文件 !"
@@ -2012,7 +1985,7 @@ BEGIN
     IDS_OTHER_TOOL3         "FLV 修复器"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_AUDIO_REFOA         "多相过滤器组浮点处理"
     IDS_SUB_NORMAL_COL      "默认颜色"
@@ -2032,7 +2005,7 @@ BEGIN
     IDS_AUDIO_WIN           "Win32 WaveOut"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_AUDIO_FILE          "输出到PCM/Wave文件"
     IDS_AUDIO_NULL          "无音频输出"
@@ -2052,7 +2025,7 @@ BEGIN
     IDS_VIDEO_ROTA2         "顺时针90度"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_ROTA3         "逆时针90度"
     IDS_VIDEO_ROTA4         "逆时针90度并翻转"
@@ -2072,7 +2045,7 @@ BEGIN
     IDS_VIDEO_VO5           "矩阵特效(低分辨率)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_VO6           "矩阵特效(高分辨率)"
     IDS_VIDEO_VO7           "输出每帧到JPG图片"
@@ -2092,7 +2065,7 @@ BEGIN
     IDS_VIDEO_EXP           "分辨率扩展"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_EXPI          "字幕放置在该滤镜的黑边中(expand)"
     IDS_VIDEO_EXPIT         "扩展比例，值为空格时自动扩展"
@@ -2112,7 +2085,7 @@ BEGIN
     IDS_VIDEO_DEI           "反隔行扫描滤镜"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_DEII          "解除视频隔行扫描(拉丝/交错/水波纹)"
     IDS_VIDEO_DEB           "反块效应滤镜"
@@ -2132,7 +2105,7 @@ BEGIN
     IDS_PROFILE_ALN_INFO    "设置音轨语言优先级"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROFILE_SLN         "字幕语言"
     IDS_PROFILE_SLN_INFO    "设置字幕语言优先级"
@@ -2152,7 +2125,7 @@ BEGIN
     IDS_INPUT_ENTER         "回车"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_LC            "单击左键"
     IDS_INPUT_LD            "双击左键"
@@ -2172,7 +2145,7 @@ BEGIN
     IDS_INPUT_JR            "手柄－右"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_JU            "手柄－上"
     IDS_INPUT_JD            "手柄－下"
@@ -2192,7 +2165,7 @@ BEGIN
     IDS_INPUT_PAUS          "暂停/播放"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SCRS          "视频截图"
     IDS_INPUT_KEEP          "是否保持视频比例"
@@ -2212,7 +2185,7 @@ BEGIN
     IDS_INPUT_SPES          "设置播放速度  1.0为正常速度"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SPEI          "加速/减速播放  1.0为正常速度"
     IDS_INPUT_BALA          "左/右声道平衡(声道切换)  -1.0~1.0"
@@ -2232,7 +2205,7 @@ BEGIN
     IDS_INPUT_SET           "快捷键设置"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SETNONE       "未找到快捷键设置，是否使用默认快捷键设置？"
     IDS_INPUT_INNER         "内置快捷键"
@@ -2252,7 +2225,7 @@ BEGIN
     IDS_INPUT_FSRIF         "鼠标移动到屏幕最上方"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_CHAP          "上/下章节 (DVD/dvdnav、MKV)"
     IDS_INPUT_ANGLE         "切换视角 (DVD/dvdnav)"
@@ -2272,7 +2245,7 @@ BEGIN
     IDS_INFO_REALTIME       "实时优先级在某些电脑上会造成系统失去响应，请谨慎使用！"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DECODE_THREADS      "多线程MPEG/H.264解码"
     IDS_DECODE_THREADS_INFO "1~8线程解码(可能导致错误，请慎用)"
@@ -2292,7 +2265,7 @@ BEGIN
     IDS_VIDEO_VOGLAUTO      "OpenGL(自动检测)"
 END
 
-#endif    // 中文(中华人民共和国) resources
+#endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

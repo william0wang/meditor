@@ -42,8 +42,10 @@ class CListImpl : public CWindowImpl< CListImpl< T > >,
 public:
 	CListImpl()
 	{
+		m_bShowBorder = TRUE;
 		m_bShowHeader = TRUE;
 		m_bShowThemed = TRUE;
+		m_bShowSelected = TRUE;
 		m_bSortAscending = TRUE;
 		m_bButtonDown = FALSE;
 		m_bMouseOver = FALSE;
@@ -56,6 +58,7 @@ public:
 		m_bEnableVertScroll = FALSE;
 		m_bShowHorizScroll = TRUE;
 		m_bShowVertScroll = TRUE;
+		m_bShowProgressText = TRUE;
 		m_bShowSort = TRUE;
 		m_bResizeTimer = FALSE;
 		m_bDragDrop = FALSE;
@@ -100,7 +103,9 @@ public:
 	}
 
 protected:
+	BOOL m_bShowBorder;
 	BOOL m_bShowHeader;
+	BOOL m_bShowSelected;
 	BOOL m_bShowThemed;
 	BOOL m_bShowSort;
 	BOOL m_bSortAscending;
@@ -113,6 +118,7 @@ protected:
 	BOOL m_bGroupSelect;
 	BOOL m_bShowHorizScroll;
 	BOOL m_bShowVertScroll;
+	BOOL m_bShowProgressText;
 	BOOL m_bEnableHorizScroll;
 	BOOL m_bEnableVertScroll;
 	BOOL m_bResizeTimer;
@@ -229,8 +235,10 @@ public:
 			return FALSE;
 			
 		// give control a static border
-		ModifyStyle( WS_BORDER, WS_CLIPCHILDREN );
-		ModifyStyleEx( WS_EX_CLIENTEDGE, WS_EX_STATICEDGE, SWP_FRAMECHANGED );		
+		if(m_bShowBorder) {
+			ModifyStyle( WS_BORDER, WS_CLIPCHILDREN );
+			ModifyStyleEx( WS_EX_CLIENTEDGE, WS_EX_STATICEDGE, SWP_FRAMECHANGED );		
+		}
 		
 		// register drag drop
 		m_oleDragDrop.Register( this );
@@ -345,6 +353,16 @@ public:
 		m_bShowHeader = bShowHeader;		
 		ResetScrollBars();
 		Invalidate();
+	}
+
+	void ShowBorder( BOOL bShowBorder = TRUE )
+	{
+		m_bShowBorder = bShowBorder;
+	}
+
+	void ShowSelected( BOOL bShowSelected = TRUE )
+	{
+		m_bShowSelected = bShowSelected;
 	}
 
 	void ShowHeaderSort( BOOL bShowSort = TRUE )
@@ -664,7 +682,12 @@ public:
 	{
 		return _T( "" ); // may be implemented in a derived class
 	}
-	
+
+	int GetItemComboIndex( int nItem, int nSubItem )
+	{
+		return -1; // may be implemented in a derived class
+	}
+
 	BOOL SetItemText( int nItem, int nSubItem, LPCTSTR lpszText )
 	{
 		ATLASSERT( FALSE ); // must be implemented in a derived class
@@ -1805,7 +1828,7 @@ public:
 		listNotify.m_lpItemDate = NULL;
 
 		// forward notification to parent
-		FORWARD_WM_NOTIFY( pT->GetParent(), listNotify.m_hdrNotify.idFrom, &listNotify.m_hdrNotify, ::SendMessage );
+		FORWARD_WM_NOTIFY( pT->GetParent(), listNotify.m_nItem, &listNotify.m_hdrNotify, ::SendMessage );
 	}
 	
 	BOOL ShowTitleTip( CPoint point, int nItem, int nSubItem )
@@ -1927,6 +1950,7 @@ public:
 		MSG_WM_FONTCHANGE(OnSettingsChange)
 		MSG_WM_THEMECHANGED(OnSettingsChange)
 		NOTIFY_CODE_HANDLER_EX(LCN_ENDEDIT,OnEndEdit)
+		NOTIFY_CODE_HANDLER_EX(LCN_SELCHANEG,OnSelChange)
 		MESSAGE_HANDLER(WM_CTLCOLORLISTBOX, OnCtlColorListBox)
 		MESSAGE_HANDLER(WM_CTLCOLOREDIT, OnCtlColorListBox)
 		CHAIN_MSG_MAP(CDoubleBufferImpl< CListImpl >)
@@ -2477,24 +2501,26 @@ public:
 					InvalidateItem( m_nHotItem, m_nHotSubItem );
 					SetCursor( m_curHyperLink );
 				}
+
+				if(!( nItemFlags & ITEM_FLAGS_EDIT_PASSWORD )) {
+					// get tooltip for this item
+					CString strToolTip = pT->GetItemToolTip( m_nHotItem, nIndex );
 				
-				// get tooltip for this item
-				CString strToolTip = pT->GetItemToolTip( m_nHotItem, nIndex );
+					CRect rcSubItem;
+					if ( !strToolTip.IsEmpty() && GetItemRect( m_nHotItem, rcSubItem ) )
+					{
+						m_ttToolTip.Activate( TRUE );
+						m_ttToolTip.AddTool( m_hWnd, (LPCTSTR)strToolTip.Left( SHRT_MAX ), rcSubItem, TOOLTIP_TOOL_ID );
+					}
+					else
+					{
+						m_ttToolTip.Activate( FALSE );
+						m_ttToolTip.DelTool( m_hWnd, TOOLTIP_TOOL_ID );
+					}
 				
-				CRect rcSubItem;
-				if ( !strToolTip.IsEmpty() && GetItemRect( m_nHotItem, rcSubItem ) )
-				{
-					m_ttToolTip.Activate( TRUE );
-					m_ttToolTip.AddTool( m_hWnd, (LPCTSTR)strToolTip.Left( SHRT_MAX ), rcSubItem, TOOLTIP_TOOL_ID );
+					// show titletips for this item
+					ShowTitleTip( point, m_nHotItem, m_nHotSubItem );
 				}
-				else
-				{
-					m_ttToolTip.Activate( FALSE );
-					m_ttToolTip.DelTool( m_hWnd, TOOLTIP_TOOL_ID );
-				}
-				
-				// show titletips for this item
-				ShowTitleTip( point, m_nHotItem, m_nHotSubItem );
 			}
 		}
 	}
@@ -2747,6 +2773,18 @@ public:
 	LRESULT OnCtlColorListBox( UINT nMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 	{
 		return DefWindowProc( nMsg, wParam, lParam );
+	}
+	
+	LRESULT OnSelChange( LPNMHDR lpNMHDR )
+	{
+		T* pT = static_cast<T*>(this);
+		CListNotify *pListNotify = reinterpret_cast<CListNotify *>( lpNMHDR );
+
+		int nIndex = GetColumnIndex( pListNotify->m_nSubItem );
+		pT->SetItemText( pListNotify->m_nItem, nIndex, pListNotify->m_lpszItemText );
+		NotifyParent( pListNotify->m_nItem, pListNotify->m_nSubItem, LCN_SELCHANEG );
+	
+		return 0;
 	}
 	
 	LRESULT OnEndEdit( LPNMHDR lpNMHDR )
@@ -3177,9 +3215,85 @@ public:
 		
 		BOOL bSelectedItem = IsSelected( nItem );
 		BOOL bControlFocus = ( GetFocus() == m_hWnd || m_bEditItem );
-		
+
+		CRect rcSubItem( rcItem );
+		rcSubItem.right = rcSubItem.left;
+
+		for ( int nSubItem = 0, nColumnCount = GetColumnCount(); nSubItem < nColumnCount; rcSubItem.left = rcSubItem.right + 1, nSubItem++ )
+		{
+			CListColumn listColumn;
+			if ( !GetColumn( nSubItem, listColumn ) )
+				break;
+
+			rcSubItem.right = rcSubItem.left + listColumn.m_nWidth - 1;
+
+			if ( rcSubItem.right < rcClip.left || rcSubItem.Width() == 0 )
+				continue;
+			if ( rcSubItem.left > rcClip.right )
+				break;
+
+			CString strItemText = pT->GetItemText( nItem, listColumn.m_nIndex );
+			int nItemImage = pT->GetItemImage( nItem, listColumn.m_nIndex );
+			UINT nItemFormat = pT->GetItemFormat( nItem, listColumn.m_nIndex );
+			UINT nItemFlags = pT->GetItemFlags( nItem, listColumn.m_nIndex );
+
+			BOOL bFocusSubItem = ( m_bFocusSubItem && nFocusItem == nItem && nFocusSubItem == nSubItem );
+
+			COLORREF rgbBackground = m_rgbBackground;
+			COLORREF rgbText = m_rgbItemText;
+
+			if ( bFocusSubItem )
+			{
+				if ( m_bShowThemed && !m_thmHeader.IsThemeNull() )
+				{
+					// only draw subitem focus if control has focus
+					if ( bControlFocus )
+					{
+						// draw select border
+						DrawRoundRect( dcPaint, rcSubItem, bControlFocus ? m_rgbSelectOuter : m_rgbNoFocusOuter, bControlFocus ? m_rgbSelectInner : m_rgbNoFocusInner );
+
+						CRect rcSelect( rcSubItem );
+						rcSelect.DeflateRect( 2, 2 );
+
+						// fill selected area
+						if ( !m_bEditItem )
+							DrawGradient( dcPaint, rcSelect, m_rgbFocusTop, m_rgbFocusBottom );
+						else
+						{
+							dcPaint.SetBkColor( m_rgbBackground );
+							dcPaint.ExtTextOut( rcSelect.left, rcSelect.top, ETO_OPAQUE, rcSelect, _T( "" ), 0, NULL );
+						}
+					}
+				}
+				else
+				{
+					dcPaint.SetBkColor( m_bEditItem ? m_rgbBackground : m_rgbItemFocus );
+					dcPaint.ExtTextOut( rcSubItem.left, rcSubItem.top, ETO_OPAQUE, rcSubItem, _T( "" ), 0, NULL );
+
+					if ( m_bEditItem )
+					{
+						CBrush bshSelectFrame;
+						bshSelectFrame.CreateSolidBrush( m_rgbItemFocus );
+						dcPaint.FrameRect( rcSubItem, bshSelectFrame );
+					}
+				}
+			}
+			else if ( pT->GetItemColours( nItem, nSubItem, rgbBackground, rgbText ) && rgbBackground != m_rgbBackground )
+			{
+				CPen penBorder;
+				penBorder.CreatePen( PS_SOLID, 1, rgbBackground );
+				CBrush bshInterior;
+				bshInterior.CreateSolidBrush( rgbBackground );
+
+				dcPaint.SelectPen( penBorder );
+				dcPaint.SelectBrush( bshInterior );
+
+				dcPaint.RoundRect( rcSubItem, CPoint( 3, 3 ) );
+			}
+
+		}
 		// draw selected background
-		if ( bSelectedItem )
+		if ( bSelectedItem && m_bShowSelected)
 		{
 			if ( m_bShowThemed && !m_thmHeader.IsThemeNull() )
 			{
@@ -3199,7 +3313,7 @@ public:
 			}
 		}
 		
-		CRect rcSubItem( rcItem );
+		rcSubItem = rcItem;
 		rcSubItem.right = rcSubItem.left;
 		
 		for ( int nSubItem = 0, nColumnCount = GetColumnCount(); nSubItem < nColumnCount; rcSubItem.left = rcSubItem.right + 1, nSubItem++ )
@@ -3231,56 +3345,6 @@ public:
 			
 			COLORREF rgbBackground = m_rgbBackground;
 			COLORREF rgbText = m_rgbItemText;
-			
-			if ( bFocusSubItem )
-			{
-				if ( m_bShowThemed && !m_thmHeader.IsThemeNull() )
-				{
-					// only draw subitem focus if control has focus
-					if ( bControlFocus )
-					{
-						// draw select border
-						DrawRoundRect( dcPaint, rcSubItem, bControlFocus ? m_rgbSelectOuter : m_rgbNoFocusOuter, bControlFocus ? m_rgbSelectInner : m_rgbNoFocusInner );
-				
-						CRect rcSelect( rcSubItem );
-						rcSelect.DeflateRect( 2, 2 );
-				
-						// fill selected area
-						if ( !m_bEditItem )
-							DrawGradient( dcPaint, rcSelect, m_rgbFocusTop, m_rgbFocusBottom );
-						else
-						{
-							dcPaint.SetBkColor( m_rgbBackground );
-							dcPaint.ExtTextOut( rcSelect.left, rcSelect.top, ETO_OPAQUE, rcSelect, _T( "" ), 0, NULL );
-						}
-					}
-				}
-				else
-				{
-					dcPaint.SetBkColor( m_bEditItem ? m_rgbBackground : m_rgbItemFocus );
-					dcPaint.ExtTextOut( rcSubItem.left, rcSubItem.top, ETO_OPAQUE, rcSubItem, _T( "" ), 0, NULL );
-					
-					if ( m_bEditItem )
-					{
-						CBrush bshSelectFrame;
-						bshSelectFrame.CreateSolidBrush( m_rgbItemFocus );
-						dcPaint.FrameRect( rcSubItem, bshSelectFrame );
-					}
-				}
-			}
-			else if ( pT->GetItemColours( nItem, nSubItem, rgbBackground, rgbText ) && rgbBackground != m_rgbBackground )
-			{
-				CPen penBorder;
-				penBorder.CreatePen( PS_SOLID, 1, rgbBackground );
-				CBrush bshInterior;
-				bshInterior.CreateSolidBrush( rgbBackground );
-				
-				dcPaint.SelectPen( penBorder );
-				dcPaint.SelectBrush( bshInterior );
-				
-				dcPaint.RoundRect( rcSubItem, CPoint( 3, 3 ) );
-			}
-			
 			CRect rcItemText( rcSubItem );
 			
 			// margin item text
@@ -3390,11 +3454,24 @@ public:
 														rcProgress.right = rcProgress.left + (int)( (double)rcProgress.Width() * ( ( max( min( _tstof( strItemText ), 100 ), 0 ) ) / 100.0 ) );
 														DrawGradient( dcPaint, rcProgress, m_rgbProgressTop, m_rgbProgressBottom );
 													}					
+													if(m_bShowProgressText && strItemText.GetLength() > 0) {
+														CRect rc = rcItemText;
+														rc.top += 3;
+														CString precent = strItemText + _T("%");
+														dcPaint.DrawText( precent, precent.GetLength(), rc, DT_CENTER );
+													}
 													break;
 				case ITEM_FORMAT_HYPERLINK:			if ( nItem == m_nHotItem && nSubItem == m_nHotSubItem && !( nItemFlags & ITEM_FLAGS_READ_ONLY ) )
 													{
 														dcPaint.SelectFont( m_fntUnderlineFont );
 														dcPaint.SetTextColor( m_rgbHyperLink );
+													}
+
+				case ITEM_FORMAT_EDIT:
+													if(nItemFlags & ITEM_FLAGS_EDIT_PASSWORD)
+													{
+														if( !strItemText.IsEmpty() )
+															strItemText = _T("***");
 													}
 				default:							// draw item text
 													if ( !strItemText.IsEmpty() )
@@ -3649,7 +3726,24 @@ public:
 		tData = listItem.m_tData;
 		return TRUE;
 	}
-	
+
+	int GetItemComboIndex( int nItem, int nSubItem )
+	{
+		CListArray < CString > aComboList;
+		if ( !GetItemComboList( nItem, nSubItem, aComboList ) )
+			return -1;
+
+		CSubItem listSubItem;
+		if(!GetSubItem( nItem, nSubItem, listSubItem ))
+			return -1;
+		
+		for(int i = 0; i < aComboList.GetSize(); i++) {
+			if(!aComboList[i].Compare(listSubItem.m_strText))
+				return i;
+		}
+		return -1;
+	}
+
 	BOOL SetItemText( int nItem, int nSubItem, LPCTSTR lpszText )
 	{
 		if ( nItem < 0 || nItem >= GetItemCount() ) 

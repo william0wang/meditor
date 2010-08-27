@@ -45,7 +45,10 @@ public:
 		
 		if ( nFlags & ITEM_FLAGS_EDIT_UPPER )
 			dwStyle |= ES_UPPERCASE;
-		
+
+		if ( nFlags & ITEM_FLAGS_EDIT_PASSWORD )
+			dwStyle |= ES_PASSWORD;
+
 		// create edit control
 		if ( CWindowImpl< CListEdit, CEdit >::Create( hWndParent, CRect( rcRect.left + 2, rcRect.top + 3, rcRect.right - 3, rcRect.bottom - 2 ), NULL, dwStyle ) == NULL )
 			return FALSE;

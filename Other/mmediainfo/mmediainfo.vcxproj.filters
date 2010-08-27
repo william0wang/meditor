@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{12448239-4e32-4f7c-8f68-e5d4e90abc67}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{6cd89f04-6922-4286-90b5-a3aa148cbb12}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{06c549fb-b145-491a-8d48-932e3c3cfac5}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ListCtrl">
+      <UniqueIdentifier>{6fc5a131-cc4c-4844-8dbe-363e82df3f61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mmediainfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaInfoDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaInfoDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\DragDrop.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\DropArrows.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\ListCombo.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\ListCtrl.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\ListDate.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\ListEdit.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\ListTypes.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListCtrl\TitleTip.h">
+      <Filter>Header Files\ListCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlStdioFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="mmediainfo.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\mmediainfo.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListItems.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TabItems.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\hand.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\divider.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

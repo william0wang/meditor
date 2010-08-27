@@ -205,6 +205,8 @@ public:
 			CPen penBorder;
 			penBorder.CreatePen( PS_SOLID, 1, m_rgbBorderOuter );
 			
+			dcPaint.FillRect(rcTitleTip, RGB(160, 160, 160));
+
 			dcPaint.SelectPen( penBorder );
 			dcPaint.SelectStockBrush( HOLLOW_BRUSH );
 			

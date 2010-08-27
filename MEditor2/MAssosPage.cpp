@@ -29,10 +29,10 @@ CMAssosPage::CMAssosPage(CWnd* pParent /*=NULL*/)
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
 
-	m_assoc_exe = m_program_dir + _T("\\codecs\\massoc.exe");
+	m_assoc_exe = m_program_dir + _T("\\tools\\massoc.exe");
 
 	if(!IsFileExist(m_assoc_exe))
-		m_assoc_exe = m_program_dir + _T("\\tools\\massoc.exe");
+		m_assoc_exe = m_program_dir + _T("\\codecs\\massoc.exe");
 
 	if(!IsFileExist(m_assoc_exe))
 		m_assoc_exe = m_program_dir + _T("\\massoc.exe");

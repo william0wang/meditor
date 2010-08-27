@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
+			OutputDirectory="$(SolutionDir)\Bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
@@ -103,8 +103,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\Bin"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\massoc"
+			OutputDirectory="$(SolutionDir)\Bin\"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			ATLMinimizesCRunTimeLibraryUsage="true"
 			CharacterSet="1"
