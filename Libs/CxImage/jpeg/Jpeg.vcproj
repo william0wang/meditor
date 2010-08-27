@@ -21,7 +21,7 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			OutputDirectory="$(SolutionDir)\lib\"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
@@ -168,7 +168,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\MEditor2\lib"
+			OutputDirectory="$(SolutionDir)\lib\"
 			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"

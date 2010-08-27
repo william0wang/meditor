@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="meditor"
-	ProjectGUID="{DAD7EBAE-E7BE-4617-BD38-4BCE8D5C1007}"
-	RootNamespace="meditor3"
+	Name="minfo"
+	ProjectGUID="{23CDE119-5165-41E0-92BE-C597D9B03ABF}"
+	RootNamespace="mmediainfo"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\Bin\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)\Bin\$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)\"
 			ConfigurationType="1"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
@@ -41,16 +41,16 @@
 				MkTypLibCompatible="false"
 				TargetEnvironment="1"
 				GenerateStublessProxies="true"
-				TypeLibraryName="$(IntDir)/meditor3.tlb"
-				HeaderFileName="meditor3.h"
+				TypeLibraryName="$(IntDir)/mmediainfo.tlb"
+				HeaderFileName="mmediainfo.h"
 				DLLDataFileName=""
-				InterfaceIdentifierFileName="meditor3_i.c"
-				ProxyFileName="meditor3_p.c"
+				InterfaceIdentifierFileName="mmediainfo_i.c"
+				ProxyFileName="mmediainfo_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../include"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -65,7 +65,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="2052"
+				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
 			/>
 			<Tool
@@ -73,9 +73,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="CxImageD.lib jpegD.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -105,7 +103,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\Bin\"
-			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)"
+			IntermediateDirectory="$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)\"
 			ConfigurationType="1"
 			ATLMinimizesCRunTimeLibraryUsage="true"
 			CharacterSet="1"
@@ -128,15 +126,15 @@
 				MkTypLibCompatible="false"
 				TargetEnvironment="1"
 				GenerateStublessProxies="true"
-				TypeLibraryName="$(IntDir)/meditor3.tlb"
-				HeaderFileName="meditor3.h"
+				TypeLibraryName="$(IntDir)/mmediainfo.tlb"
+				HeaderFileName="mmediainfo.h"
 				DLLDataFileName=""
-				InterfaceIdentifierFileName="meditor3_i.c"
-				ProxyFileName="meditor3_p.c"
+				InterfaceIdentifierFileName="mmediainfo_i.c"
+				ProxyFileName="mmediainfo_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../include"
+				AdditionalIncludeDirectories="../../include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
@@ -150,7 +148,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="2052"
+				Culture="1033"
 				AdditionalIncludeDirectories="$(IntDir)"
 			/>
 			<Tool
@@ -158,9 +156,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="CxImageR.lib jpegR.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../lib"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -195,31 +191,11 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\AboutDlg.cpp"
+				RelativePath=".\MediaInfoDlg.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MainDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\meditor3.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PlayerPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PreviewDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ProgressDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\shared.cpp"
+				RelativePath=".\mmediainfo.cpp"
 				>
 			</File>
 			<File
@@ -252,19 +228,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MainDlg.h"
+				RelativePath=".\AtlStdioFile.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PlayerPage.h"
+				RelativePath=".\MainFrm.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PreviewDlg.h"
+				RelativePath=".\MediaInfoDlg.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ProgressDlg.h"
+				RelativePath=".\mmediainfoView.h"
 				>
 			</File>
 			<File
@@ -272,96 +248,24 @@
 				>
 			</File>
 			<File
-				RelativePath=".\shared.h"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
-			<File
-				RelativePath=".\Win7ShellApi.h"
-				>
-			</File>
-			<Filter
-				Name="Depend"
-				>
-				<File
-					RelativePath=".\AdvCombo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtlAux2.h"
-					>
-				</File>
-				<File
-					RelativePath=".\AtlStdioFile.h"
-					>
-				</File>
-				<File
-					RelativePath=".\DragDrop.h"
-					>
-				</File>
-				<File
-					RelativePath=".\DropArrows.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kFlatCombo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ListCombo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ListCtrl.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ListDate.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ListEdit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ListTypes.h"
-					>
-				</File>
-				<File
-					RelativePath=".\TitleTip.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest"
 			>
 			<File
-				RelativePath=".\res\divider.cur"
+				RelativePath=".\res\mmediainfo.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\res\hand.cur"
+				RelativePath=".\mmediainfo.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ListItems.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\meditor3.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\meditor3.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\res\TabItems.bmp"
+				RelativePath=".\res\toolbar.bmp"
 				>
 			</File>
 		</Filter>
