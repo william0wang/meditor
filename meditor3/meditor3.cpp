@@ -123,7 +123,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			DialogIDD = IDD_PREVIEW_DIALOG_TC;
 		}
 
-		CPreviewDlg dlgPreview;
+		CPreviewDlg dlgPreview(DialogIDD);
 		dlgPreview.m_filename = name;
 		dlgPreview.ltime = time;
 
