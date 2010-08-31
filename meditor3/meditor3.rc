@@ -277,12 +277,12 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "meditor v3"
+            VALUE "FileDescription", "meditor"
             VALUE "FileVersion", "3.0.0.1"
-            VALUE "InternalName", "meditor v3"
+            VALUE "InternalName", "meditor3"
             VALUE "LegalCopyright", "Copyright (C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "meditor.exe"
-            VALUE "ProductName", "meditor v3"
+            VALUE "ProductName", "meditor"
             VALUE "ProductVersion", "3.0.0.1"
         END
     END
