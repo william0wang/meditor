@@ -1,0 +1,10 @@
+; Downloader.def : Declares the module parameters for the DLL.
+
+LIBRARY      "download"
+
+EXPORTS
+    ; Explicit exports can go here
+
+StartDownloader			PRIVATE
+StartDownloaderW		PRIVATE
+StopDownloader			PRIVATE

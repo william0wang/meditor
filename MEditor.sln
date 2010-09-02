@@ -38,6 +38,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mloader", "Other\mloader\ml
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minfo", "Other\mmediainfo\mmediainfo.vcproj", "{23CDE119-5165-41E0-92BE-C597D9B03ABF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Download", "Libs\Download\Download.vcproj", "{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -182,6 +184,15 @@ Global
 		{23CDE119-5165-41E0-92BE-C597D9B03ABF}.Release|Win32.ActiveCfg = Release|Win32
 		{23CDE119-5165-41E0-92BE-C597D9B03ABF}.Release|Win32.Build.0 = Release|Win32
 		{23CDE119-5165-41E0-92BE-C597D9B03ABF}.Release|x64.ActiveCfg = Release|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Debug|Win32.Build.0 = Debug|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Debug|x64.ActiveCfg = Debug|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Release_Large|Win32.ActiveCfg = Release|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Release_Large|Win32.Build.0 = Release|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Release_Large|x64.ActiveCfg = Release|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Release|Win32.ActiveCfg = Release|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Release|Win32.Build.0 = Release|Win32
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,5 +208,6 @@ Global
 		{3F4FF3AA-7D81-4D1B-A9D0-8BBFF4FB01F3} = {BA13D234-67C2-46FA-A0E4-726B13365D0D}
 		{9592355B-59BD-4654-9D3E-904A99FFA615} = {BA13D234-67C2-46FA-A0E4-726B13365D0D}
 		{445560C2-7FBE-4157-BDF8-22DFB6CEDC12} = {BA13D234-67C2-46FA-A0E4-726B13365D0D}
+		{1B0C5F93-3C5B-438E-A2B5-CF32BCD569C2} = {BA13D234-67C2-46FA-A0E4-726B13365D0D}
 	EndGlobalSection
 EndGlobal
