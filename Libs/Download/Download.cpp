@@ -39,22 +39,23 @@ UINT CDownloader::DownloadThread(LPVOID pParam)
 {
 	CDownloader *downloader = (CDownloader *)pParam;
 	downloader->StartHttpDownload();
-	downloader->hThreadDownload = NULL;
+	SetEvent(downloader->hDownloadFinished);
 	return 0;
 }
 
 CDownloader::CDownloader()
 {
 	bStop = false;
-	hThreadDownload = NULL;
-
 	m_CallBack = NULL;
+	hDownloadFinished = NULL;
 	m_wPrarm = 0;
 }
 
 CDownloader::~CDownloader()
 {
-	StopDownload();
+	if(!bStop)
+		StopDownload();
+	m_CallBack = NULL;
 }
 
 void CDownloader::StartDownload(wstring url, wstring path, wstring filename)
@@ -63,17 +64,17 @@ void CDownloader::StartDownload(wstring url, wstring path, wstring filename)
 	download_url = url;
 	file_path = path;
 	file_name = filename;
-	
-	hThreadDownload = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)DownloadThread, this, 0, 0);
+
+	hDownloadFinished = CreateEvent(NULL, FALSE, FALSE, NULL);
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)DownloadThread, this, 0, 0);
 }
 
 void CDownloader::StopDownload()
 {
 	bStop = true;
-
-	if(hThreadDownload)
-		Sleep(50);
-
+	
+	WaitForSingleObject(hDownloadFinished, INFINITE);
+	return;
 }
 
 void CDownloader::SetCallBack(FUNC_CallBack callback, WPARAM wParam)
@@ -230,7 +231,8 @@ void CDownloader::UpdateInfo(FILE *fpinfo, DWORD download_size)
 
 	fseek(fpinfo, sizeof(DWORD) + sizeof(SYSTEMTIME), SEEK_SET);
 	fwrite(&download_size, sizeof(DWORD), 1, fpinfo);
-	DoCallBack(0, NOTIFY_TYPE_THREAD_DOWNLOADED_SIZE, (LPVOID)download_size);
+	if(!bStop)
+		DoCallBack(0, NOTIFY_TYPE_THREAD_DOWNLOADED_SIZE, (LPVOID)download_size);
 }
 
 void CDownloader::CloseInfoFile(FILE *fpinfo, wstring infofile, DWORD file_size, DWORD download_size)
@@ -445,7 +447,26 @@ void CDownloader::HttpGetFile(wstring url, wstring path, wstring filename)
 			wostringstream tmp;
 			tmp << L"Range:bytes=" << seek_pos << L"-";
 			header = tmp.str();
-			
+
+
+			InternetCloseHandle(hRequest);
+			HINTERNET hRequest = HttpOpenRequest(hConnect, _T("GET"), fileName.c_str(), _T("HTTP/1.1"), NULL, (LPCTSTR *)p, INTERNET_FLAG_RELOAD, 0);
+			if(!hRequest) {
+				InternetCloseHandle(hConnect);
+				InternetCloseHandle(hSession);
+				DoCallBack(0, NOTIFY_TYPE_END_DOWNLOAD, (LPVOID)eDownloadResult);
+				return;
+			}
+
+			if(bStop) {
+				InternetCloseHandle(hRequest);
+				InternetCloseHandle(hConnect);
+				InternetCloseHandle(hSession);
+				eDownloadResult = ENUM_DOWNLOAD_RESULT_CANCEL;
+				DoCallBack(0, NOTIFY_TYPE_END_DOWNLOAD, (LPVOID)eDownloadResult);
+				return;
+			}
+
 			if(!HttpSendRequest(hRequest, header.c_str(), header.length(), NULL, 0))
 				seek_pos = 0;
 

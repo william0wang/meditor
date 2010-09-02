@@ -29,7 +29,6 @@ typedef void (*FUNC_CallBack) ( t_DownloadNotifyPara *pDownloadNotifyPara, WPARA
 class CDownloader {
 private:
 	bool			bStop;
-	HANDLE			hThreadDownload;
 
 	wstring			download_url;
 	wstring			file_name;
@@ -37,6 +36,8 @@ private:
 
 	FUNC_CallBack	m_CallBack;
 	WPARAM			m_wPrarm;
+
+	HANDLE			hDownloadFinished;
 
 	static UINT DownloadThread(LPVOID pParam);
 
