@@ -81,7 +81,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>meidainfo.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>meidainfo.dll;uxtheme.dll</DelayLoadDLLs>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <DelayLoadDLLs>meidainfo.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>meidainfo.dll;uxtheme.dll</DelayLoadDLLs>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -151,7 +151,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <DelayLoadDLLs>meidainfo.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>meidainfo.dll;uxtheme.dll</DelayLoadDLLs>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
