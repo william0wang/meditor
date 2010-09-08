@@ -144,7 +144,15 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 	} else if(OpenType == START_UPDATE) {
 
-		CUpdateDlg dlgUpdate;
+		UINT DialogIDD = IDD_DIALOG_UPDATE;
+
+		if(AppLanguage == 2) {
+			DialogIDD = IDD_DIALOG_UPDATE_EN;
+		} else if(AppLanguage == 3 || AppLanguage == 4) {
+			DialogIDD = IDD_DIALOG_UPDATE_TC;
+		}
+
+		CUpdateDlg dlgUpdate(DialogIDD);
 
 		int offset = sCmdLine.Find(_T("--version"));
 		if(offset < 0)

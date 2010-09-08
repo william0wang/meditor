@@ -230,8 +230,10 @@ NOUPDATE:
 
 }
 
-CUpdateDlg::CUpdateDlg()
+CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 {
+	IDD = DialogIDD;
+
 	updatedlg = this;
 	g_pTaskbarList = NULL;
 	s_uTBBC = WM_NULL;
@@ -242,6 +244,50 @@ CUpdateDlg::CUpdateDlg()
 
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_ProPath.Format(_T("%s"),szFilePath);
+
+	if(DialogIDD == IDD_DIALOG_UPDATE_EN) {
+		str_checkupdate = _T("Checking for updates, please wait...");
+		str_downloading = _T("Downloading new version, please wait...");
+		str_downloadok = _T("Download is complete, wait to update...");
+		str_downloadfail = _T("Download fails, try download again...");
+		str_newversion = _T("New version");
+		str_newversionbeta = _T("You are using the beta version\n\nNew beta version");
+		str_nversion = _T("You are using the latest version of MPlayer");
+		str_relversion = _T("You are using the latest release version of MPlayer");
+		str_betaversion = _T("You are using the latest beta version of MPlayer");
+		str_checkfail = _T("Check for Updates failed!");
+		str_un7ziping = _T("Extracting file, please wait...");
+		str_updatefinished = _T("The update is complete\nYou had upgrade to the latest version of MPlayer！");
+
+	} else if(DialogIDD == IDD_DIALOG_UPDATE_TC) {
+		str_checkupdate = _T("正在檢查更新，請稍等...");
+		str_downloading = _T("正在下載新版本，請稍等...");
+		str_downloadok = _T("下載完成，確認升級...");
+		str_downloadfail = _T("下載失敗，請嘗試重新下載...");
+		str_newversion = _T("發現新版本");
+		str_newversionbeta = _T("您正在使用測試版 MPlayer\n\n發現新測試版");
+		str_nversion = _T("您正在使用最新版本的 MPlayer");
+		str_relversion = _T("您正在使用最新發佈版的 MPlayer");
+		str_betaversion = _T("您正在使用最新測試版的 MPlayer");
+		str_checkfail = _T("檢查更新失敗！");
+		str_un7ziping = _T("正在解壓檔，請稍等...");
+		str_updatefinished = _T("更新完成，您已經升級到最新版 MPlayer！");
+
+	} else {
+		str_checkupdate = _T("正在检查更新，请稍等...");
+		str_downloading = _T("正在下载新版本，请稍等...");
+		str_downloadok = _T("下载完成，确认升级...");
+		str_downloadfail = _T("下载失败，请尝试重新下载...");
+		str_newversion = _T("发现新版本");
+		str_newversionbeta = _T("您正在使用测试版 MPlayer\n\n发现新测试版");
+		str_nversion = _T("您正在使用最新版本的 MPlayer");
+		str_relversion = _T("您正在使用最新发布版的 MPlayer");
+		str_betaversion = _T("您正在使用最新测试版的 MPlayer");
+		str_checkfail = _T("检查更新失败！");
+		str_un7ziping = _T("正在解压文件，请稍等...");
+		str_updatefinished = _T("更新完成，您已经升级到最新版 MPlayer！");
+	}
+
 
 }
 
@@ -273,20 +319,6 @@ LRESULT CUpdateDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPar
 	if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
 
 	SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE);
-
-	SetWindowText(_T("MPlayer 更新程序"));
-	str_checkupdate = _T("正在检查更新，请稍等...");
-	str_downloading = _T("正在下载新版本，请稍等...");
-	str_downloadok = _T("下载完成，确认升级...");
-	str_downloadfail = _T("下载失败，请尝试重新下载...");
-	str_newversion = _T("发现新版本");
-	str_newversionbeta = _T("您正在使用测试版 MPlayer\n\n发现新测试版");
-	str_nversion = _T("您正在使用最新版本的 MPlayer");
-	str_relversion = _T("您正在使用最新发布版的 MPlayer");
-	str_betaversion = _T("您正在使用最新测试版的 MPlayer");
-	str_checkfail = _T("检查更新失败！");
-	str_un7ziping = _T("正在解压文件，请稍等...");
-	str_updatefinished = _T("更新完成，您已经升级到最新版 MPlayer！");
 
 	m_info1 = str_checkupdate;
 

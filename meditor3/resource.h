@@ -16,6 +16,9 @@
 #define IDD_PREVIEW_DIALOG_TC           213
 #define IDD_PREVIEW_DIALOG_EN           214
 #define IDD_PREVIEW_DIALOG              215
+#define IDD_DIALOG_UPDATE_TC            216
+#define IDD_DIALOG_UPDATE2              217
+#define IDD_DIALOG_UPDATE_EN            217
 #define IDC_EDIT_FILE                   1000
 #define IDC_BUTTON_B                    1001
 #define IDC_LIST_TAB                    1002
@@ -41,7 +44,6 @@
 #define IDC_BUTTON_UPDATE2              1016
 #define IDC_BUTTON_CHECK                1016
 #define IDC_CHECK_INI                   1017
-#define IDC_BUTTON_CHECK2               1018
 #define IDC_BUTTON_MPLAYER              1018
 #define IDC_CHECK_SHOW                  1030
 #define IDC_ACOMBO_FONT                 1152

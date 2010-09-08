@@ -16,6 +16,8 @@ class CUpdateDlg : public CDialogImpl<CUpdateDlg>,
 	public CWinDataExchange<CUpdateDlg>
 {
 public:
+	UINT					IDD;
+
 	BOOL					m_ini;
 	CString					m_info2;
 	CString					m_info1;
@@ -50,14 +52,12 @@ public:
 	int nsvn;
 	int ndate;
 
-	CUpdateDlg();
+	CUpdateDlg(UINT DialogIDD);
 
 	void CloseDialog(int nVal);
 
 	void StrartDownload();
-
-	enum { IDD = IDD_DIALOG_UPDATE };
-
+	
 	BEGIN_DDX_MAP(CUpdateDlg)
 		DDX_CHECK(IDC_CHECK_INI, m_ini)
 		DDX_TEXT(IDC_STATIC_INFO1, m_info1)
