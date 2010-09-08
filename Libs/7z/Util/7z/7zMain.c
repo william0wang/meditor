@@ -312,7 +312,8 @@ void SetTimeStamp(HANDLE fhandle, CNtfsFileTime last_time)
 	SetFileTime(fhandle, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime);
 }
 
-int Decode7zipFile(const char *zfilename, const wchar_t *decode_path, const wchar_t *only_filename, const wchar_t *ignore_path_name, const wchar_t *ignore_files[], int ignore_num)
+int Decode7zipFile(const char *zfilename, const wchar_t *decode_path, const wchar_t *only_filename
+	, const wchar_t *ignore_path_name, const wchar_t *ignore_files[], int ignore_num, Un7z_CallBack call_back)
 {
 	CFileInStream archiveStream;
 	CLookToRead lookStream;
@@ -379,6 +380,10 @@ int Decode7zipFile(const char *zfilename, const wchar_t *decode_path, const wcha
 			size_t outSizeProcessed = 0;
 			const CSzFileItem *f = db.db.Files + i;
 			size_t len;
+
+			if(call_back)
+				(*call_back)(i* 100 / db.db.NumFiles);
+
 			if (f->IsDir)
 				continue;
 

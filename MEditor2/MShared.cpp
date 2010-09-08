@@ -287,7 +287,7 @@ bool Decode7zFile(CString filename , CString Path , CString ex_name)
 	}
 	char *file = UnicodeToLocal(filename, len);
 
-	int result = Decode7zipFile(file, dpath, exfile, NULL, ign_list, 0);
+	int result = Decode7zipFile(file, dpath, exfile, NULL, ign_list, 0, 0);
 
 	delete file;
 	if(dpath)

@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include "shared.h"
-#include "../Libs/7z/Util/7z/7zMain.h"
 
 #include <wininet.h>
 #pragma comment(lib, "wininet.lib")
@@ -224,7 +223,8 @@ bool get_url_string(wstring url, string &out)
 	return getre;
 }
 
-bool Decode7zFile(wstring filename , wstring decpach, wstring ignore_path, vector<wstring> ignore_list, wstring exfile)
+bool Decode7zFile(wstring filename , wstring decpach, wstring ignore_path
+	, vector<wstring> ignore_list, wstring exfile, Un7z_CallBack call_back)
 {
 	if(filename.empty())
 		return false;
@@ -235,7 +235,7 @@ bool Decode7zFile(wstring filename , wstring decpach, wstring ignore_path, vecto
 	for(int i = 0; i < ign_num; i++)
 		ign_list[i] = _wcsdup(ignore_list[i].c_str());
 
-	int result = Decode7zipFile(zfile, decpach.c_str(), exfile.c_str(), ignore_path.c_str(), ign_list, ign_num);
+	int result = Decode7zipFile(zfile, decpach.c_str(), exfile.c_str(), ignore_path.c_str(), ign_list, ign_num, call_back);
 
 	for(int i = 0; i < ign_num; i++)
 		delete ign_list[i];

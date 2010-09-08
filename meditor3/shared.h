@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "../Libs/7z/Util/7z/7zMain.h"
 using namespace std;
 
 #define FileExist(lpszFileName) (::GetFileAttributes((lpszFileName))   !=   INVALID_FILE_ATTRIBUTES)
@@ -19,4 +20,5 @@ std::wstring mutil2unicode(std::string mut_str, UINT code_page);
 std::wstring local2unicode(std::string mut_str);
 std::wstring utf2unicode(std::string mut_str);
 
-bool Decode7zFile(std::wstring filename , std::wstring decpach, std::wstring ignore_path, vector<wstring> ignore_list, std::wstring exfile = L"");
+bool Decode7zFile(std::wstring filename , std::wstring decpach, std::wstring ignore_path
+	, vector<wstring> ignore_list, std::wstring exfile = L"", Un7z_CallBack call_back = NULL);
