@@ -12,7 +12,7 @@ static vector<CDownloader *> downloader_list;
 
 static int sys_language_id = CP_ACP;	//ANSI
 
-void GetLanguageID()
+static void GetLanguageID()
 {
 	LANGID   _SysLangId   =   GetSystemDefaultLangID();
 
@@ -35,7 +35,7 @@ void GetLanguageID()
 		sys_language_id = CP_ACP;			//ANSI
 }
 
-std::wstring mutil2unicode(std::string mut_str, UINT code_page)
+static std::wstring mutil2unicode(std::string mut_str, UINT code_page)
 {
 	std::wstring outstr;
 
@@ -55,7 +55,7 @@ std::wstring mutil2unicode(std::string mut_str, UINT code_page)
 	return outstr;
 }
 
-std::wstring local2unicode(std::string mut_str)
+static std::wstring local2unicode(std::string mut_str)
 {
 	return mutil2unicode(mut_str, sys_language_id);
 }

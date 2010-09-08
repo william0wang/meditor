@@ -421,7 +421,6 @@ void CDownloader::HttpGetFile(wstring url, wstring path, wstring filename)
 		return;
 	}
 
-	byte buffer[HTTP_BUFFER_LEN];
 	DWORD bytes_read = 1;
 	FILE *fpinfo = NULL;
 	long seek_pos = 0;
@@ -430,8 +429,12 @@ void CDownloader::HttpGetFile(wstring url, wstring path, wstring filename)
 
 		wstring flag = L"w+b";
 
-		if(FileExist(filename.c_str()))
-			flag = L"r+b";
+		if(FileExist(filename.c_str())) {
+			if(seek_pos > 0)
+				flag = L"r+b";
+			else
+				DeleteFile(filename.c_str());
+		}
 
 		FILE *downfile = _wfopen(filename.c_str(), flag.c_str());
 
@@ -480,7 +483,6 @@ void CDownloader::HttpGetFile(wstring url, wstring path, wstring filename)
 				return;
 			}
 		}
-
 		
 		DWORD writelen = seek_pos;
 		if(downfile) {
@@ -490,6 +492,7 @@ void CDownloader::HttpGetFile(wstring url, wstring path, wstring filename)
 			DWORD willsize = fsize - seek_pos;
 			DoCallBack(0, NOTIFY_TYPE_WILL_DOWNLOAD_SIZE, (LPVOID)willsize);
 
+			byte *buffer = new byte[HTTP_BUFFER_LEN * 10];
 			while(bytes_read > 0) {
 				if(bStop) {
 					eDownloadResult = ENUM_DOWNLOAD_RESULT_CANCEL;
@@ -504,6 +507,7 @@ void CDownloader::HttpGetFile(wstring url, wstring path, wstring filename)
 
 				UpdateInfo(fpinfo, writelen);
 			}
+			delete buffer;
 			fclose(downfile);
 		}
 
