@@ -21,6 +21,46 @@ enum START_TYPE
 
 CAppModule _Module;
 
+bool IsFileNew(LPCTSTR oldfile, LPCTSTR newfile)
+{
+	FILETIME lpCreationTime;
+	FILETIME lpLastAccessTime;
+	FILETIME lpLastWriteTime;
+	FILETIME lpLastWriteTime2;
+
+	HANDLE file = CreateFile(oldfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	file = CreateFile(newfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime2)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	if(lpLastWriteTime2.dwHighDateTime > lpLastWriteTime.dwHighDateTime ||
+		lpLastWriteTime2.dwLowDateTime > lpLastWriteTime.dwLowDateTime)
+		return true;
+
+	return false;
+}
+
 int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
 	CMessageLoop theLoop;
@@ -172,13 +212,14 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			dlgUpdate.ndate = _ttoi(len);
 		}
 
-
 #ifndef _DEBUG
 		if(ProgramName.Compare(_T("mupdater.exe"))) {
-			if(CopyFileW(program_dir + ProgramName, program_dir + _T("mupdater.exe"), FALSE)) {
-				ShellExecute(NULL, _T("open"), program_dir + _T("mupdater.exe"), sCmdLine, NULL, SW_SHOW);
-				return 0;
-			}
+			CString updater = program_dir + _T("mupdater.exe");
+			if(!FileExist(updater) || IsFileNew(updater, program_dir + ProgramName))
+				CopyFileW(program_dir + ProgramName, updater, FALSE);
+			if(FileExist(updater))
+				ShellExecute(NULL, _T("open"), updater, sCmdLine, NULL, SW_SHOW);
+			return 0;
 		}
 #endif
 
