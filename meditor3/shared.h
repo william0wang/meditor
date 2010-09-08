@@ -22,3 +22,5 @@ std::wstring utf2unicode(std::string mut_str);
 
 bool Decode7zFile(std::wstring filename , std::wstring decpach, std::wstring ignore_path
 	, vector<wstring> ignore_list, std::wstring exfile = L"", Un7z_CallBack call_back = NULL);
+
+bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date);

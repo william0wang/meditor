@@ -3,6 +3,7 @@
 
 #include <wininet.h>
 #pragma comment(lib, "wininet.lib")
+#pragma comment(lib, "version.lib")
 
 #define HTTP_BUFFER_LEN 2048
 
@@ -245,4 +246,38 @@ bool Decode7zFile(wstring filename , wstring decpach, wstring ignore_path
 		return true;
 
 	return false;
+}
+
+bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date)
+{
+	int   iVerInfoSize;
+	BYTE   *pBuf;
+	unsigned int iFileInfoSize = sizeof(VS_FIXEDFILEINFO);
+	wstring values;
+	bool res = false;
+	version = 0;
+	date = 0;
+
+	iVerInfoSize = GetFileVersionInfoSize(filepath, NULL);
+
+	if(iVerInfoSize != 0) {  
+		pBuf = new BYTE[iVerInfoSize];
+		TCHAR *ver;
+		if(GetFileVersionInfo(filepath, 0, iVerInfoSize, pBuf) )
+			if(VerQueryValue(pBuf, _T("\\StringFileInfo\\000004b0\\FileVersion"), (void **)&ver, &iFileInfoSize)) {
+				values = ver;
+				int index = values.find(L"SVN-r");
+
+				if(index != wstring::npos)
+					version = _ttoi(values.substr(index + 5, 5).c_str());
+				index = values.find(L"(", index + 5);
+				if(index != wstring::npos)
+					date = _ttoi(values.substr(index + 1, 8).c_str());
+
+				res = true;
+			}
+			delete pBuf;  
+	}
+
+	return res;
 }

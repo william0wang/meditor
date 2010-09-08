@@ -8,6 +8,7 @@
 #include "aboutdlg.h"
 #include "PreviewDlg.h"
 #include "UpdateDlg.h"
+#include "shared.h"
 
 enum START_TYPE
 {
@@ -154,20 +155,23 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 		CUpdateDlg dlgUpdate(DialogIDD);
 
-		int offset = sCmdLine.Find(_T("--version"));
-		if(offset < 0)
-			return FALSE;
-		CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 9);
-		len.Trim();
+		GetMPlayerVersion(program_dir + _T("mplayer.exe"), dlgUpdate.nsvn, dlgUpdate.ndate);
 
-		dlgUpdate.nsvn = _ttoi(len);
+		int offset = sCmdLine.Find(_T("--version"));
+		if(offset >= 0) {
+			CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 9);
+			len.Trim();
+
+			dlgUpdate.nsvn = _ttoi(len);
+		}
 		
 		offset = sCmdLine.Find(_T("--date"));
-		if(offset < 0)
-			return FALSE;
-		len = sCmdLine.Right(sCmdLine.GetLength() - offset - 6);
-		len.Trim();
-		dlgUpdate.ndate = _ttoi(len);
+		if(offset >= 0) {
+			CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 6);
+			len.Trim();
+			dlgUpdate.ndate = _ttoi(len);
+		}
+
 
 #ifndef _DEBUG
 		if(ProgramName.Compare(_T("mupdater.exe"))) {

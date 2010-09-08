@@ -93,7 +93,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <DelayLoadDLLs>uxtheme.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>uxtheme.dll;version.dll</DelayLoadDLLs>
       <AdditionalDependencies>7zDecD.lib;CxImageD.lib;jpegD.lib;downloadLibD.lib;tinyxmlD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
@@ -130,7 +130,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <DelayLoadDLLs>uxtheme.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>uxtheme.dll;version.dll</DelayLoadDLLs>
       <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
@@ -167,7 +167,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <DelayLoadDLLs>uxtheme.dll</DelayLoadDLLs>
+      <DelayLoadDLLs>uxtheme.dll;version.dll</DelayLoadDLLs>
       <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
