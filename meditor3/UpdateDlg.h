@@ -38,6 +38,7 @@ public:
 	CString					str_nversion;
 	CString					str_un7ziping;
 	CString					str_updatefinished;
+	CString					str_running;
 
 	int						m_filesize;
 	int						m_down_index;

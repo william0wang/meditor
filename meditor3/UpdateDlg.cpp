@@ -6,6 +6,7 @@
 #include "shared.h"
 #include "../Libs/tinyxml/tinyxml.h"
 #include "Win7ShellApi.h"
+#include <tlhelp32.h> 
 
 #include "UpdateDlg.h"
 
@@ -107,9 +108,46 @@ void Callback_Un7zip(int percent)
 	PostMessage(updatedlg->m_hWnd, WM_MSG_UN7ZIP_PERCENT, percent, 0);
 }
 
+void MyTerminateProcess(LPCTSTR proname)
+{
+	HANDLE hProcess = NULL;
+	PROCESSENTRY32 pe32;
+	HANDLE hProcessSnap;
+
+	pe32.dwSize = sizeof(pe32); 
+	hProcessSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if(hProcessSnap == INVALID_HANDLE_VALUE) {
+		return;
+	}
+
+	BOOL bMore = ::Process32First(hProcessSnap, &pe32);
+	while(bMore) {
+		if(_tcsicmp(pe32.szExeFile, proname) == 0) {
+			hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, pe32.th32ProcessID);
+			if(hProcess) {
+				TerminateProcess(hProcess, 0);
+				CloseHandle(hProcess);
+			}
+			break;
+		}
+		bMore = ::Process32Next(hProcessSnap, &pe32);
+	}
+
+	::CloseHandle(hProcessSnap);
+}
+
 UINT Un7zipThread(LPVOID pParam)
 {
 	CUpdateDlg *update = (CUpdateDlg *)pParam;
+
+	Sleep(100);
+
+	MyTerminateProcess(_T("SubDownloader.exe"));
+	MyTerminateProcess(_T("meditor2.exe"));
+	MyTerminateProcess(_T("meditor.exe"));
+	MyTerminateProcess(_T("massoc.exe"));
+	MyTerminateProcess(_T("minfo.exe"));
+	MyTerminateProcess(_T("mplayer.exe"));
 
 	vector<wstring> ignore_list;
 	if(!update->m_ini) {
@@ -186,7 +224,6 @@ UINT CheckUpdate(LPVOID pParam)
 
 	bdate = itemElement->GetText();
 
-	
 NOUPDATE:
 	int svn = update->nsvn;
 	int date = update->ndate;
@@ -257,7 +294,8 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 		str_betaversion = _T("You are using the latest beta version of MPlayer");
 		str_checkfail = _T("Check for Updates failed!");
 		str_un7ziping = _T("Extracting file, please wait...");
-		str_updatefinished = _T("The update is complete\nYou had upgrade to the latest version of MPlayer！");
+		str_updatefinished = _T("The update is complete\nYou had update to the latest version of MPlayer！");
+		str_running = _T("MPlayer is running\n\nClick \"OK\" to close MPlayer and continue!");
 
 	} else if(DialogIDD == IDD_DIALOG_UPDATE_TC) {
 		str_checkupdate = _T("正在檢查更新，請稍等...");
@@ -272,6 +310,7 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 		str_checkfail = _T("檢查更新失敗！");
 		str_un7ziping = _T("正在解壓檔，請稍等...");
 		str_updatefinished = _T("更新完成，您已經升級到最新版 MPlayer！");
+		str_running = _T("發現 MPlayer 正在運行\n\n單擊\"確定\"關閉 MPlayer 並繼續更新！");
 
 	} else {
 		str_checkupdate = _T("正在检查更新，请稍等...");
@@ -286,6 +325,7 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 		str_checkfail = _T("检查更新失败！");
 		str_un7ziping = _T("正在解压文件，请稍等...");
 		str_updatefinished = _T("更新完成，您已经升级到最新版 MPlayer！");
+		str_running = _T("发现 MPlayer 正在运行\n\n单击\"确定\"关闭 MPlayer 并继续更新！");
 	}
 
 
@@ -515,9 +555,14 @@ LRESULT CUpdateDlg::OnBnClickedButtonUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	return 0;
 }
 
-
 LRESULT CUpdateDlg::OnBnClickedButtonUn7zip(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
+	HWND hWnd = FindWindow(_T("MPlayer WW for Windows"), NULL);
+	if(::IsWindow(hWnd)) {
+		MessageBox(str_running);
+		::SendMessage(hWnd, WM_CLOSE, 0, 0);
+	}
+
 	DoDataExchange(TRUE);
 	GetDlgItem(IDC_BUTTON_UN7ZIP).ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_CHECK_INI).ShowWindow(SW_HIDE);
