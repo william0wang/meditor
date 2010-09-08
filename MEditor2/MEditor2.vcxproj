@@ -167,7 +167,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>7zD.lib;AdvComboBoxD.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>7zDecD.lib;AdvComboBoxD.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -241,7 +241,7 @@ del /F codecs.7z
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>7zR.lib;AdvComboBoxR.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>7zDecR.lib;AdvComboBoxR.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -288,7 +288,7 @@ del /F codecs.7z
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>7zR.lib;AdvComboBoxR.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>7zDecR.lib;AdvComboBoxR.lib;Strmiids.lib;Quartz.lib;GdiPlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>false</GenerateDebugInformation>
