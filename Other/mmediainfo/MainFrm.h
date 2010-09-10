@@ -23,6 +23,13 @@ public:
 		if(CFrameWindowImpl<CMainFrame>::PreTranslateMessage(pMsg))
 			return TRUE;
 
+		if(pMsg->message == WM_KEYUP) {
+			UINT nChar = (TCHAR)pMsg->wParam;
+
+			if(nChar == VK_ESCAPE)
+				PostMessage(WM_CLOSE, 0, 0);
+		}
+
 		return m_view.PreTranslateMessage(pMsg);
 	}
 

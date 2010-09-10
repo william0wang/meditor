@@ -24,40 +24,28 @@
 *.swp
 *.ipch
 .svn
+lib
 Bin
 Debug
 Release
 Debug Unicode
 Release Unicode
 
-/7z/Archive/7z/7zAlloc.asm
-/7z/Archive/7z/7zBuf.asm
-/7z/Archive/7z/7zCrc.asm
-/7z/Archive/7z/7zDec.asm
-/7z/Archive/7z/7zDecode.asm
-/7z/Archive/7z/7zExtract.asm
-/7z/Archive/7z/7zFile.asm
-/7z/Archive/7z/7zHeader.asm
-/7z/Archive/7z/7zIn.asm
-/7z/Archive/7z/7zItem.asm
-/7z/Archive/7z/7zStream.asm
-/7z/Archive/7z/Bcj2.asm
-/7z/Archive/7z/Bra86.asm
-/7z/Archive/7z/LzmaDec.asm
-
 /MEditor2/res/codecs.7z
 
-/Libs/7z/Archive/7z/7zBuf.asm
-/Libs/7z/Archive/7z/7zCrc.asm
-/Libs/7z/Archive/7z/7zFile.asm
-/Libs/7z/Archive/7z/7zStream.asm
-/Libs/7z/Archive/7z/Bcj2.asm
-/Libs/7z/Archive/7z/Bra86.asm
-/Libs/7z/Archive/7z/LzmaDec.asm
-/Libs/7z/Archive/7z/7zAlloc.asm
-/Libs/7z/Archive/7z/7zDec.asm
-/Libs/7z/Archive/7z/7zDecode.asm
-/Libs/7z/Archive/7z/7zExtract.asm
-/Libs/7z/Archive/7z/7zHeader.asm
-/Libs/7z/Archive/7z/7zIn.asm
-/Libs/7z/Archive/7z/7zItem.asm
+/Libs/7z/Util/7z/7zCrcOpt.asm
+/Libs/7z/Util/7z/7zMain.asm
+/Libs/7z/Util/7z/CpuArch.asm
+/Libs/7z/Util/7z/Lzma2Dec.asm
+/Libs/7z/Util/7z/Ppmd7.asm
+/Libs/7z/Util/7z/Ppmd7Dec.asm
+/Libs/7z/Util/7z/7zAlloc.asm
+/Libs/7z/Util/7z/7zBuf.asm
+/Libs/7z/Util/7z/7zCrc.asm
+/Libs/7z/Util/7z/7zDec.asm
+/Libs/7z/Util/7z/7zFile.asm
+/Libs/7z/Util/7z/7zIn.asm
+/Libs/7z/Util/7z/7zStream.asm
+/Libs/7z/Util/7z/Bcj2.asm
+/Libs/7z/Util/7z/Bra86.asm
+/Libs/7z/Util/7z/LzmaDec.asm

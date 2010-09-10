@@ -167,6 +167,54 @@ BEGIN
     CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,7,181,17
 END
 
+IDD_DIALOG_UPDATE DIALOGEX 0, 0, 218, 104
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MPlayer 更新程序"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CTEXT           "",IDC_STATIC_INFO1,7,10,204,30
+    PUSHBUTTON      "关闭",IDCANCEL,161,83,50,15
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",0x0,7,41,204,17
+    CTEXT           "",IDC_STATIC_INFO2,7,68,204,11
+    PUSHBUTTON      "开始下载",IDC_BUTTON_UPDATE,72,41,74,18,NOT WS_VISIBLE
+    PUSHBUTTON      "开始升级",IDC_BUTTON_UN7ZIP,72,41,74,18,NOT WS_VISIBLE
+    PUSHBUTTON      "重新检查",IDC_BUTTON_CHECK,72,41,74,18,NOT WS_VISIBLE
+    CONTROL         "升级时覆盖配置文件(恢复默认设置)",IDC_CHECK_INI,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,7,87,141,10
+    PUSHBUTTON      "启动 MPlayer",IDC_BUTTON_MPLAYER,72,41,74,18,NOT WS_VISIBLE
+END
+
+IDD_DIALOG_UPDATE_TC DIALOGEX 0, 0, 218, 104
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MPlayer 更新程式"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CTEXT           "",IDC_STATIC_INFO1,7,10,204,30
+    PUSHBUTTON      "關閉",IDCANCEL,161,83,50,15
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",0x0,7,41,204,17
+    CTEXT           "",IDC_STATIC_INFO2,7,68,204,11
+    PUSHBUTTON      "開始下載",IDC_BUTTON_UPDATE,72,41,74,18,NOT WS_VISIBLE
+    PUSHBUTTON      "開始升級",IDC_BUTTON_UN7ZIP,72,41,74,18,NOT WS_VISIBLE
+    PUSHBUTTON      "重新檢查",IDC_BUTTON_CHECK,72,41,74,18,NOT WS_VISIBLE
+    CONTROL         "升級時覆蓋配置檔(恢復默認設置)",IDC_CHECK_INI,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,7,87,133,10
+    PUSHBUTTON      "啟動 MPlayer",IDC_BUTTON_MPLAYER,72,41,74,18,NOT WS_VISIBLE
+END
+
+IDD_DIALOG_UPDATE_EN DIALOGEX 0, 0, 218, 104
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MPlayer Updater"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CTEXT           "",IDC_STATIC_INFO1,7,10,204,30
+    PUSHBUTTON      "Close",IDCANCEL,161,83,50,15
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",0x0,7,41,204,17
+    CTEXT           "",IDC_STATIC_INFO2,7,68,204,11
+    PUSHBUTTON      "Start Download",IDC_BUTTON_UPDATE,72,41,74,18,NOT WS_VISIBLE
+    PUSHBUTTON      "Start Update",IDC_BUTTON_UN7ZIP,72,41,74,18,NOT WS_VISIBLE
+    PUSHBUTTON      "Check Again",IDC_BUTTON_CHECK,72,41,74,18,NOT WS_VISIBLE
+    CONTROL         "Overwrite configuration files",IDC_CHECK_INI,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,7,87,107,10
+    PUSHBUTTON      "Run MPlayer",IDC_BUTTON_MPLAYER,72,41,74,18,NOT WS_VISIBLE
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -227,6 +275,30 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 24
     END
+
+    IDD_DIALOG_UPDATE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 97
+    END
+
+    IDD_DIALOG_UPDATE_TC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 97
+    END
+
+    IDD_DIALOG_UPDATE_EN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 97
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -277,12 +349,12 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "meditor v3"
+            VALUE "FileDescription", "meditor"
             VALUE "FileVersion", "3.0.0.1"
-            VALUE "InternalName", "meditor v3"
+            VALUE "InternalName", "meditor3"
             VALUE "LegalCopyright", "Copyright (C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "meditor.exe"
-            VALUE "ProductName", "meditor v3"
+            VALUE "ProductName", "meditor"
             VALUE "ProductVersion", "3.0.0.1"
         END
     END

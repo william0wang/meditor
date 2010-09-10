@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "MShared.h"
 #include "unrar.h"
-#include "7z.h"
+#include "../Libs/7z/Util/7z/7zMain.h"
 #include "resource.h"
 //#include "zlib.h"
 #include <wininet.h>
@@ -272,19 +272,32 @@ bool Decode7zFile(CString filename , CString Path , CString ex_name)
 	if(filename.GetLength() < 1)
 		return false;
 	int len = 0;
-	char * dpath = NULL;
-	char * exfile = NULL;
-	if(Path.GetLength() > 1)
-		dpath =  UnicodeToLocal(Path, len);
-	if(ex_name.GetLength() > 1)
-		exfile =  UnicodeToLocal(ex_name, len);
-	char * file = UnicodeToLocal(filename, len);
-	int result = Un7zFile(file,dpath,exfile);
+	wchar_t * dpath = NULL;
+	wchar_t * exfile = NULL;
+
+	const wchar_t **ign_list = new const wchar_t *[1];
+
+	if(Path.GetLength() > 1) {
+		dpath =  _wcsdup(Path.GetBuffer());
+		Path.ReleaseBuffer();
+	}
+	if(ex_name.GetLength() > 1) {
+		exfile =  _wcsdup(ex_name.GetBuffer());
+		ex_name.ReleaseBuffer();
+	}
+	char *file = UnicodeToLocal(filename, len);
+
+	int result = Decode7zipFile(file, dpath, exfile, NULL, ign_list, 0, 0);
+
+	delete file;
 	if(dpath)
 		delete dpath;
-	delete file;
+	if(exfile)
+		delete exfile;
+
 	if(result)
 		return true;
+
 	return false;
 }
 

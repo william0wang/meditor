@@ -7,6 +7,8 @@
 
 #include "aboutdlg.h"
 #include "PreviewDlg.h"
+#include "UpdateDlg.h"
+#include "shared.h"
 
 enum START_TYPE
 {
@@ -14,9 +16,50 @@ enum START_TYPE
 	START_MEDIAPLAYER,
 	START_MEDIAINFO,
 	START_PREVIEW,
+	START_UPDATE,
 };
 
 CAppModule _Module;
+
+bool IsFileNew(LPCTSTR oldfile, LPCTSTR newfile)
+{
+	FILETIME lpCreationTime;
+	FILETIME lpLastAccessTime;
+	FILETIME lpLastWriteTime;
+	FILETIME lpLastWriteTime2;
+
+	HANDLE file = CreateFile(oldfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	file = CreateFile(newfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime2)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	if(lpLastWriteTime2.dwHighDateTime > lpLastWriteTime.dwHighDateTime ||
+		lpLastWriteTime2.dwLowDateTime > lpLastWriteTime.dwLowDateTime)
+		return true;
+
+	return false;
+}
 
 int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
@@ -24,17 +67,19 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	_Module.AddMessageLoop(&theLoop);
 
 	CString   sCmdLine(lpstrCmdLine);
-	int OpenType = 0;
+	int OpenType = START_UPDATE;
 	int nRet;
 	CString ProgramName;
 	CString program_dir;
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
-	ProgramName.Format(_T("%s"),szFilePath);
-	ProgramName = ProgramName.Right(15);
+
+	ProgramName.Format(_T("%s"), _tcsrchr(szFilePath, _T('\\')) + 1);
 	ProgramName.MakeLower();
+
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	program_dir.Format(_T("%s"),szFilePath);
+
 
 	if( ProgramName == _T("mediaplayer.exe"))
 	{
@@ -50,6 +95,8 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			OpenType = 3;
 		else if(sCmdLine.Find(_T("--generate-preview")) >= 0)
 			OpenType = START_PREVIEW;
+		else if(sCmdLine.Find(_T("--check-update")) >= 0)
+			OpenType = START_UPDATE;
 		else if(sCmdLine.Find(_T("--Show Media Info")) >= 0)
 			OpenType = START_MEDIAINFO;
 		else if(sCmdLine.Find(_T("--Open MediaPlayer")) >= 0)
@@ -72,6 +119,23 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			//delete out;
 			//return FALSE;
 		}
+	}
+
+	int AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
+	if(AppLanguage == 0)
+	{
+		LANGID   _SysLangId   =   GetSystemDefaultLangID();
+		if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
+		{
+			if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
+				AppLanguage = 1;		//Simplified Chinese GBK
+			else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
+				AppLanguage = 4;		//Traditional Chinese Big5
+			else
+				AppLanguage = 3;		//ANSI
+		}
+		else
+			AppLanguage = 2;			//ANSI
 	}
 
 	if(OpenType == START_PREVIEW)
@@ -99,24 +163,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			return FALSE;
 
 		UINT DialogIDD = IDD_PREVIEW_DIALOG;
-
-		int AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
-		if(AppLanguage == 0)
-		{
-			LANGID   _SysLangId   =   GetSystemDefaultLangID();
-			if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
-			{
-				if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
-					AppLanguage = 1;		//Simplified Chinese GBK
-				else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
-					AppLanguage = 4;		//Traditional Chinese Big5
-				else
-					AppLanguage = 3;		//ANSI
-			}
-			else
-				AppLanguage = 2;			//ANSI
-		}
-
+		
 		if(AppLanguage == 2) {
 			DialogIDD = IDD_PREVIEW_DIALOG_EN;
 		} else if(AppLanguage == 3 || AppLanguage == 4) {
@@ -136,7 +183,56 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		dlgPreview.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
 
-	} 
+	} else if(OpenType == START_UPDATE) {
+
+		UINT DialogIDD = IDD_DIALOG_UPDATE;
+
+		if(AppLanguage == 2) {
+			DialogIDD = IDD_DIALOG_UPDATE_EN;
+		} else if(AppLanguage == 3 || AppLanguage == 4) {
+			DialogIDD = IDD_DIALOG_UPDATE_TC;
+		}
+
+		CUpdateDlg dlgUpdate(DialogIDD);
+
+		GetMPlayerVersion(program_dir + _T("mplayer.exe"), dlgUpdate.nsvn, dlgUpdate.ndate);
+
+		int offset = sCmdLine.Find(_T("--version"));
+		if(offset >= 0) {
+			CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 9);
+			len.Trim();
+
+			dlgUpdate.nsvn = _ttoi(len);
+		}
+		
+		offset = sCmdLine.Find(_T("--date"));
+		if(offset >= 0) {
+			CString len = sCmdLine.Right(sCmdLine.GetLength() - offset - 6);
+			len.Trim();
+			dlgUpdate.ndate = _ttoi(len);
+		}
+
+#ifndef _DEBUG
+		if(ProgramName.Compare(_T("mupdater.exe"))) {
+			CString updater = program_dir + _T("mupdater.exe");
+			if(!FileExist(updater) || IsFileNew(updater, program_dir + ProgramName))
+				CopyFileW(program_dir + ProgramName, updater, FALSE);
+			if(FileExist(updater))
+				ShellExecute(NULL, _T("open"), updater, sCmdLine, NULL, SW_SHOW);
+			return 0;
+		}
+#endif
+
+		if(dlgUpdate.Create(NULL) == NULL)
+		{
+			ATLTRACE(_T("Update dialog creation failed!\n"));
+			return 0;
+		}
+
+		dlgUpdate.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+	}
+
 	_Module.RemoveMessageLoop();
 	return nRet;
 }
