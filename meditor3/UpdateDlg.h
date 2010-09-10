@@ -32,6 +32,7 @@ public:
 	CString					str_downloadfail;
 	CString					str_newversion;
 	CString					str_newversionbeta;
+	CString					str_newversionrel;
 	CString					str_relversion;
 	CString					str_betaversion;
 	CString					str_checkfail;

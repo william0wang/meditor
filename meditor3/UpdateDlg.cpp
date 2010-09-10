@@ -243,7 +243,10 @@ NOUPDATE:
 	} else if((svn < be_svn && date <= be_date) || (svn <= be_svn && date < be_date)) {
 		filename.Format(_T("mplayer-SVN-r%d.7z"), be_svn);
 		url.Format(_T("http://downloads.sourceforge.net/project/mplayer-ww/MPlayer_Beta/%s"), filename);
-		str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversionbeta, be_svn, be_date);
+		if(svn == re_svn && date == re_date)
+			str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversionrel, be_svn, be_date);
+		else
+			str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversionbeta, be_svn, be_date);
 		update->GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
 	} else if(svn == re_svn && date == re_date)
 		str = update->str_relversion;
@@ -288,6 +291,7 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 		str_downloadok = _T("Download is complete, wait to update...");
 		str_downloadfail = _T("Download fails, try download again...");
 		str_newversion = _T("New version");
+		str_newversionrel = _T("You are using the last release version\n\nNew beta version");
 		str_newversionbeta = _T("You are using the beta version\n\nNew beta version");
 		str_nversion = _T("You are using the latest version of MPlayer");
 		str_relversion = _T("You are using the latest release version of MPlayer");
@@ -303,6 +307,7 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 		str_downloadok = _T("下載完成，確認升級...");
 		str_downloadfail = _T("下載失敗，請嘗試重新下載...");
 		str_newversion = _T("發現新版本");
+		str_newversionrel = _T("您正在使用最新發佈版 MPlayer\n\n發現新測試版");
 		str_newversionbeta = _T("您正在使用測試版 MPlayer\n\n發現新測試版");
 		str_nversion = _T("您正在使用最新版本的 MPlayer");
 		str_relversion = _T("您正在使用最新發佈版的 MPlayer");
@@ -318,6 +323,7 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 		str_downloadok = _T("下载完成，确认升级...");
 		str_downloadfail = _T("下载失败，请尝试重新下载...");
 		str_newversion = _T("发现新版本");
+		str_newversionrel = _T("您正在使用最新发布版 MPlayer\n\n发现新测试版");
 		str_newversionbeta = _T("您正在使用测试版 MPlayer\n\n发现新测试版");
 		str_nversion = _T("您正在使用最新版本的 MPlayer");
 		str_relversion = _T("您正在使用最新发布版的 MPlayer");
