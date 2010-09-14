@@ -4,7 +4,7 @@
 class CAtlStdioFile : public CAtlFile
 {
 private:
-	static const int buffer_size = 128;
+	static const int buffer_size = 512;
 	TCHAR *buffer;
 
 public:
@@ -15,6 +15,31 @@ public:
 	~CAtlStdioFile()
 	{
 		delete buffer;
+	}
+
+	HRESULT OpenFile(LPCTSTR szFilename, DWORD dwDesiredAccess, DWORD dwShareMode,
+		DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes = FILE_ATTRIBUTE_NORMAL)
+	{
+		BYTE buffer_byte[2];
+		DWORD readsize = 0;
+		if(SUCCEEDED(Create(szFilename, dwDesiredAccess, dwShareMode, dwCreationDisposition, dwFlagsAndAttributes))) {
+			if((dwDesiredAccess & GENERIC_READ) && (dwCreationDisposition & OPEN_EXISTING)) {
+				if(FAILED(Read(buffer_byte, 2, readsize))){
+					Close();
+				} else {
+					if(readsize == 2) {
+						if((buffer_byte[0] == 0xff && buffer_byte[1] == 0xfe) ||
+							(buffer_byte[0] == 0xfe && buffer_byte[1] == 0xff))
+							return S_OK;
+					}
+					Seek(0, FILE_BEGIN);
+					return S_OK;
+				}
+			} else {
+				return S_OK;
+			}
+		}
+		return S_FALSE;
 	}
 
 	BOOL ReadLine(CString &str)
