@@ -281,3 +281,42 @@ bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date)
 
 	return res;
 }
+bool IsFileNew(LPCTSTR oldfile, LPCTSTR newfile)
+{
+	FILETIME lpCreationTime;
+	FILETIME lpLastAccessTime;
+	FILETIME lpLastWriteTime;
+	FILETIME lpLastWriteTime2;
+
+	HANDLE file = CreateFile(oldfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	file = CreateFile(newfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime2)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	if(lpLastWriteTime2.dwHighDateTime > lpLastWriteTime.dwHighDateTime ||
+		lpLastWriteTime2.dwLowDateTime > lpLastWriteTime.dwLowDateTime)
+		return true;
+
+	return false;
+}

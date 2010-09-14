@@ -19,12 +19,14 @@ public:
 	UINT					IDD;
 
 	BOOL					m_ini;
+	BOOL					m_bDownload;
 	CString					m_info2;
 	CString					m_info1;
 	UINT					s_uTBBC;
 	ITaskbarList3			*g_pTaskbarList;
 	CProgressBarCtrl		m_progress;
 	CString					m_ProPath;
+	CString					m_Progrom;
 
 	CString					str_checkupdate;
 	CString					str_downloading;
@@ -58,8 +60,8 @@ public:
 
 	void CloseDialog(int nVal);
 
-	void StrartDownload();
-	
+	void StartDownload();
+
 	BEGIN_DDX_MAP(CUpdateDlg)
 		DDX_CHECK(IDC_CHECK_INI, m_ini)
 		DDX_TEXT(IDC_STATIC_INFO1, m_info1)

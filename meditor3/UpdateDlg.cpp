@@ -155,7 +155,7 @@ UINT Un7zipThread(LPVOID pParam)
 		ignore_list.push_back(L"mplayer/input.ini");
 		ignore_list.push_back(L"mplayer/mplayer.ini");
 	}
-	
+
 	wstring file = update->m_path;
 	if (file.find_last_of(L"\\") != file.size() - 1)
 		file += L"\\";
@@ -278,10 +278,12 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 	g_pTaskbarList = NULL;
 	s_uTBBC = WM_NULL;
 	m_down_index = -1;
+	m_bDownload = FALSE;
 
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 
+	m_Progrom = szFilePath;
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_ProPath.Format(_T("%s"),szFilePath);
 
@@ -372,8 +374,12 @@ LRESULT CUpdateDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPar
 	m_ProPath.ReleaseBuffer();
 	m_path += L"update_mp";
 
-	SetTimer(0, 100, 0);
-	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CheckUpdate, this, 0, 0);
+	if(m_bDownload)
+		StartDownload();
+	else {
+		SetTimer(0, 100, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CheckUpdate, this, 0, 0);
+	}
 	return TRUE;
 }
 
@@ -448,11 +454,32 @@ LRESULT CUpdateDlg::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHa
 {
 	if(m_down_index >= 0)
 		StopDownloader(m_down_index);
+
+	if(m_bDownload)
+		ShellExecute(NULL, _T("open"), m_ProPath + _T("meditor.exe"), _T("--clean-up"), NULL, SW_SHOW);
+
 	return 0;
 }
 
-void CUpdateDlg::StrartDownload()
+void CUpdateDlg::StartDownload()
 {
+	m_info1.Format(_T("%s\n\n%s"), str_downloading, m_filename.c_str());
+
+	m_filesize = 0;
+	m_DownSize = 0;
+	m_LastTimer = 0;
+	m_LastTimerSize = 0;
+
+	if(!FileExist(m_path.c_str()))
+		CreateDirectory(m_path.c_str(), NULL);
+	else if(!FileIsDirectory(m_path.c_str())) {
+		DeleteFile(m_path.c_str());
+		CreateDirectory(m_path.c_str(), NULL);
+	}
+
+	m_progress.ShowWindow(SW_SHOW);
+	DoDataExchange();
+
 	m_down_index = StartDownloaderW(m_url.c_str(), m_path.c_str(), m_filename.c_str(),
 		(FUNC_CallBack)Callback_Download, DOWNLOAD_WPARAM);
 }
@@ -541,24 +568,18 @@ LRESULT CUpdateDlg::OnBnClickedButtonUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, 
 {
 	GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_HIDE);
 
-	m_info1.Format(_T("%s\n\n%s"), str_downloading, m_filename.c_str());
+	CString updater = m_ProPath + _T("mupdater.exe");
+	CopyFileW(m_Progrom, updater, FALSE);
+	if(FileExist(updater)) {
+		CString sCmdLine;
+		sCmdLine.Format(_T("--download-update --filename \"%s\" --url \"%s\" "), m_filename.c_str(), m_url.c_str());
+		ShellExecute(NULL, _T("open"), updater, sCmdLine, NULL, SW_SHOW);
 
-	m_filesize = 0;
-	m_DownSize = 0;
-	m_LastTimer = 0;
-	m_LastTimerSize = 0;
-
-	if(!FileExist(m_path.c_str()))
-		CreateDirectory(m_path.c_str(), NULL);
-	else if(!FileIsDirectory(m_path.c_str())) {
-		DeleteFile(m_path.c_str());
-		CreateDirectory(m_path.c_str(), NULL);
+		PostMessage(WM_CLOSE, 0, 0);
+	} else {
+		StartDownload();
 	}
 
-	StrartDownload();
-
-	m_progress.ShowWindow(SW_SHOW);
-	DoDataExchange();
 	return 0;
 }
 
