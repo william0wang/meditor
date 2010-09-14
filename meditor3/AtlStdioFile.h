@@ -45,8 +45,8 @@ public:
 		if(readsize <= 0)
 			return FALSE;
 
-		str.TrimRight(_T('\r'));
 		str.TrimRight(_T('\n'));
+		str.TrimRight(_T('\r'));
 
 		return TRUE;
 	}
