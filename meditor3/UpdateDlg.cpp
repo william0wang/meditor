@@ -391,11 +391,11 @@ LRESULT CUpdateDlg::OnDownSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bH
 				if(precent > 0 && precent <= 100) {
 					m_progress.SetPos(precent);
 					m_info2.Format(_T("%d%%,  %d KB / %d KB, %d KB/S"), precent, m_DownSize/1024, m_filesize/1024, bps);
-					DoDataExchange();
+					GetDlgItem(IDC_STATIC_INFO2).SetWindowText(m_info2);
 				}
 			} else if(bps > 0) {
 				m_info2.Format(_T("%d KB, %d KB/S"), m_DownSize/1024, bps);
-				DoDataExchange();
+				GetDlgItem(IDC_STATIC_INFO2).SetWindowText(m_info2);
 			}
 			m_LastTimer = timer;
 		}
@@ -558,6 +558,7 @@ LRESULT CUpdateDlg::OnBnClickedButtonUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	StrartDownload();
 
 	m_progress.ShowWindow(SW_SHOW);
+	DoDataExchange();
 	return 0;
 }
 
