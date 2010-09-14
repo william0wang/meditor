@@ -9,6 +9,7 @@
 #include "PreviewDlg.h"
 #include "UpdateDlg.h"
 #include "shared.h"
+#include "AtlStdioFile.h"
 
 enum START_TYPE
 {
@@ -18,6 +19,7 @@ enum START_TYPE
 	START_PREVIEW,
 	START_CHECK_UPDATE,
 	START_DOWNLOAD_UPDATE,
+	START_CLEAN_UP,
 };
 
 CAppModule _Module;
@@ -61,6 +63,8 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			OpenType = START_CHECK_UPDATE;
 		else if(sCmdLine.Find(_T("--download-update")) >= 0)
 			OpenType = START_DOWNLOAD_UPDATE;
+		else if(sCmdLine.Find(_T("--clean-up")) >= 0)
+			OpenType = START_CLEAN_UP;
 		else if(sCmdLine.Find(_T("--Show Media Info")) >= 0)
 			OpenType = START_MEDIAINFO;
 		else if(sCmdLine.Find(_T("--Open MediaPlayer")) >= 0)
@@ -83,6 +87,31 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			//delete out;
 			//return FALSE;
 		}
+	}
+
+	if(OpenType == START_CLEAN_UP) {
+		CString line;
+		CString listfile = program_dir + _T("help\\mcleanup.lst");
+		Sleep(3000);
+
+		CAtlStdioFile file;
+		if(SUCCEEDED(file.OpenFile(listfile,  GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING)))	{
+			while(file.ReadLine(line)) {
+				if(line.GetLength() < 3)
+					continue;
+				line = program_dir + line;
+				if(FileExist(line)) {
+					if(FileIsDirectory(line))
+						DeleteFolder(line);
+					else
+						DeleteFile(line);
+				}
+			}
+			file.Close();
+		}
+
+		_Module.RemoveMessageLoop();
+		return 0;
 	}
 
 	int AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
