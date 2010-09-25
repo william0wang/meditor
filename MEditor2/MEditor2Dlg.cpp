@@ -56,7 +56,6 @@ CMEditor2Dlg::CMEditor2Dlg(CWnd* pParent /*=NULL*/)
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
-	gUniqueEvent = NULL;
 	g_pTaskbarList = NULL;
 	s_uTBBC = WM_NULL;
 	isVista = false;
@@ -117,10 +116,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	bool value_b;
 	if(m_config.GetValue_Boolean(_T("meditor_one_editor"),value_b,true))
 	{
-		if(value_b)
-		{
-//			gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("MEditorII - MPlayer Ê×Ñ¡Ïî"));
-//			if(GetLastError() == ERROR_ALREADY_EXISTS)
+		if(value_b)	{
 			CWnd *m_wnd = FindWindow(NULL, ResStr(IDS_PLAYER_NAME) + _T("    "));
 			if(m_wnd != NULL)
 			{
@@ -348,7 +344,7 @@ void CMEditor2Dlg::OnBnClickedApply()
 	m_progress_apply.SetPos(m_pos);
 	m_progress_apply.ShowWindow(SW_SHOW);
 	SetTimer(0,10,NULL);
-	//if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
+	if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
 	SaveAll();
 }
 
@@ -396,21 +392,18 @@ void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
 			m_progress_apply.SetPos(m_pos);
 	} else {
 		KillTimer(0);
-		//if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
+		if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
 	}
 	CDialog::OnTimer(nIDEvent);
 }
 
 BOOL CMEditor2Dlg::DestroyWindow()
 {
-	if(gUniqueEvent)
-		CloseHandle(gUniqueEvent);
-
-	//if (g_pTaskbarList)
-	//{
-	//	g_pTaskbarList->Release();
-	//	g_pTaskbarList = NULL;
-	//}
+	if (g_pTaskbarList)
+	{
+		g_pTaskbarList->Release();
+		g_pTaskbarList = NULL;
+	}
 
 	return CDialog::DestroyWindow();
 }
@@ -559,28 +552,28 @@ void CMEditor2Dlg::ShowInfo(int type)
 
 BOOL CMEditor2Dlg::PreTranslateMessage(MSG* pMsg)
 {
-	//if (isVista && pMsg->message == s_uTBBC)
-	//{
-	//	// Once we get the TaskbarButtonCreated message, we can call methods
-	//	// specific to our window on a TaskbarList instance. Note that it's
-	//	// possible this message can be received multiple times over the lifetime
-	//	// of this window (if explorer terminates and restarts, for example).
-	//	if (!g_pTaskbarList)
-	//	{
-	//		HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
-	//		if (SUCCEEDED(hr))
-	//		{
-	//			hr = g_pTaskbarList->HrInit();
-	//			if (FAILED(hr))
-	//			{
-	//				g_pTaskbarList->Release();
-	//				g_pTaskbarList = NULL;
-	//			}
+	if (isVista && pMsg->message == s_uTBBC)
+	{
+		// Once we get the TaskbarButtonCreated message, we can call methods
+		// specific to our window on a TaskbarList instance. Note that it's
+		// possible this message can be received multiple times over the lifetime
+		// of this window (if explorer terminates and restarts, for example).
+		if (!g_pTaskbarList)
+		{
+			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+			if (SUCCEEDED(hr))
+			{
+				hr = g_pTaskbarList->HrInit();
+				if (FAILED(hr))
+				{
+					g_pTaskbarList->Release();
+					g_pTaskbarList = NULL;
+				}
 
-	//			if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
-	//		}
-	//	}
-	//}
+				if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+			}
+		}
+	}
 
 	return CDialog::PreTranslateMessage(pMsg);
 }

@@ -51,7 +51,6 @@ protected:
 	UINT	s_uTBBC;
 	ITaskbarList3 *g_pTaskbarList;
 
-	HANDLE gUniqueEvent;
 	HICON m_hIcon;
 	CTabSheet m_TabSheet;
 	CMPlayerPage m_player;

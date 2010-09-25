@@ -176,6 +176,8 @@ BOOL CMEditor2App::InitInstance()
 		else if((AppLanguage == 3 || AppLanguage == 4) && langfile_tc.GetLength() > 1)
 			strSatellite = langfile_tc;
 
+		hResourceHandleOld = NULL;
+		hResourceHandleMod = NULL;
 		if (strSatellite.GetLength() > 2) {
 			hResourceHandleOld = AfxGetResourceHandle();
 			hResourceHandleMod = LoadLibrary(strSatellite);
@@ -187,6 +189,10 @@ BOOL CMEditor2App::InitInstance()
 		m_pMainWnd = &dlg;
 		dlg.m_OpenType = OpenType;
 		INT_PTR nResponse = dlg.DoModal();
+
+		if (hResourceHandleMod)
+			FreeLibrary(hResourceHandleMod);
+
 		if (nResponse == IDOK)
 		{
 			//  “确定”来关闭对话框的代码
