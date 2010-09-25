@@ -70,9 +70,8 @@ BEGIN_MESSAGE_MAP(CMOtherPage, CDialog)
 	ON_BN_CLICKED(IDC_RADIO_MPLAYER, OnRadioMplayer)
 	ON_BN_CLICKED(IDC_RADIO_MEDITOR, OnRadioMeditor)
 	ON_BN_CLICKED(IDC_BUTTON_LINK, OnBnClickedButtonLink)
+	ON_BN_CLICKED(IDC_BUTTON_AVS, OnBnClickedButtonAvs)
 	ON_WM_KEYDOWN()
-	ON_BN_CLICKED(IDC_BUTTON_AVS, &CMOtherPage::OnBnClickedButtonAvs)
-	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -603,11 +602,4 @@ void CMOtherPage::OnBnClickedButtonAvs()
 	ShellExecute(0, _T("open"), massoc, cmd, NULL, SW_HIDE);
 
 	MessageBox(ResStr(IDS_MESSAGE_AVS), _T("AviSynth(AVS)"), MB_TOPMOST);
-}
-
-void CMOtherPage::OnDestroy()
-{
-	CDialog::OnDestroy();
-
-	if(hWndMA) ::SendMessage(hWndMA, WM_CLOSE, NULL, NULL);
 }

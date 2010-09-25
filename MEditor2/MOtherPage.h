@@ -51,7 +51,6 @@ public:
 protected:
 	CString m_program_dir;
 	CString m_program;
-	HWND hWndMA;
 
 	// Generated message map functions
 	//{{AFX_MSG(CMOtherPage)
@@ -80,7 +79,6 @@ public:
 	BOOL m_screensaver;
 	BOOL m_info_html;
 	afx_msg void OnBnClickedButtonAvs();
-	afx_msg void OnDestroy();
 };
 
 //{{AFX_INSERT_LOCATION}}
