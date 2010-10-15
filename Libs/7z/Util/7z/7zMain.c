@@ -409,7 +409,7 @@ int Decode7zipFile(const char *zfilename, const wchar_t *decode_path, const wcha
 			if(pathlen > 0 && !wcsncmp(ignore_path_name, temp, pathlen))
 				tmpname += pathlen + 1;
 
-			if(only_filename && !wcscmp(only_filename, temp)) {
+			if(only_filename && wcscmp(only_filename, temp)) {
 				continue;
 			} else if(ignore_num > 0) {
 				int i, bconitnue = 0;
