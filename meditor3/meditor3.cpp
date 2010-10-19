@@ -92,13 +92,15 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	if(OpenType == START_CLEAN_UP) {
 		CString line;
 		CString listfile = program_dir + _T("help\\mcleanup.lst");
-		Sleep(3000);
+		Sleep(1000);
 
 		CAtlStdioFile file;
 		if(SUCCEEDED(file.OpenFile(listfile,  GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING)))	{
 			while(file.ReadLine(line)) {
 				if(line.GetLength() < 3)
 					continue;
+				if(line.Find(_T(".exe")) > 0 && line.Find(_T("\\")) <= 0)
+					MyTerminateProcess(line);
 				line = program_dir + line;
 				if(FileExist(line)) {
 					if(FileIsDirectory(line))

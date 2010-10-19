@@ -2,6 +2,7 @@
 #include "shared.h"
 
 #include <wininet.h>
+#include <tlhelp32.h> 
 #pragma comment(lib, "wininet.lib")
 #pragma comment(lib, "version.lib")
 
@@ -319,4 +320,32 @@ bool IsFileNew(LPCTSTR oldfile, LPCTSTR newfile)
 		return true;
 
 	return false;
+}
+
+void MyTerminateProcess(LPCTSTR proname)
+{
+	HANDLE hProcess = NULL;
+	PROCESSENTRY32 pe32;
+	HANDLE hProcessSnap;
+
+	pe32.dwSize = sizeof(pe32); 
+	hProcessSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if(hProcessSnap == INVALID_HANDLE_VALUE) {
+		return;
+	}
+
+	BOOL bMore = ::Process32First(hProcessSnap, &pe32);
+	while(bMore) {
+		if(_tcsicmp(pe32.szExeFile, proname) == 0) {
+			hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, pe32.th32ProcessID);
+			if(hProcess) {
+				TerminateProcess(hProcess, 0);
+				CloseHandle(hProcess);
+			}
+			break;
+		}
+		bMore = ::Process32Next(hProcessSnap, &pe32);
+	}
+
+	::CloseHandle(hProcessSnap);
 }

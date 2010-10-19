@@ -24,3 +24,5 @@ bool Decode7zFile(std::wstring filename , std::wstring decpach, std::wstring ign
 	, vector<wstring> ignore_list, std::wstring exfile = L"", Un7z_CallBack call_back = NULL);
 
 bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date);
+
+void MyTerminateProcess(LPCTSTR proname);
