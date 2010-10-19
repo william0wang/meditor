@@ -230,8 +230,8 @@ BOOL CMPlayerPage::OnInitDialog()
 	m_ontop.SetCurSel(top_none);
 
 	m_colorkey.AddString(m_no_s);
-	m_colorkey.AddString(_T("0x101010"));
-	m_colorkey_s = _T("0x101010");
+	m_colorkey.AddString(_T("0x010203"));
+	m_colorkey_s = _T("0x010203");
 
 	for(int i = 0; i < m_str_autosync.GetCount(); i++)
 		m_autosync.AddString(m_str_autosync[i]);
@@ -340,7 +340,7 @@ void CMPlayerPage::SetNormal()
 	m_def = _T("");
 	m_start = _T("0:0:0");
 	m_auto_fuzziness = _T("6");
-	m_colorkey_s = _T("0x000001");
+	m_colorkey_s = _T("0x010203");
 	m_monitor_s = m_auto_s;
 	m_language.SetCurSel(lang_auto);
 	m_cache.SetCurSel(0);
@@ -385,7 +385,7 @@ void CMPlayerPage::InitFromConfig()
 	}
 	if(m_cfg->GetValue_String(_T("colorkey"),value_s))
 	{
-		if(value_s != _T("0x101010"))
+		if(value_s != _T("0x010203"))
 			m_colorkey.AddString(value_s);
 		m_colorkey_s = value_s;
 	}
