@@ -43,6 +43,8 @@ public:
 	CString					str_updatefinished;
 	CString					str_running;
 
+	int						m_avgbps;
+	int						m_avgnumber;
 	int						m_filesize;
 	int						m_down_index;
 	int						m_DownSize;

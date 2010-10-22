@@ -367,11 +367,15 @@ LRESULT CUpdateDlg::OnDownSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bH
 				int precent = (int)((double)m_DownSize / (double)m_filesize * 100);
 				if(precent > 0 && precent <= 100) {
 					m_progress.SetPos(precent);
-					m_info2.Format(_T("%d%%,  %d KB / %d KB, %d KB/S"), precent, m_DownSize/1024, m_filesize/1024, bps);
+					m_avgnumber++;
+					m_avgbps += (bps - m_avgbps) / m_avgnumber;
+					m_info2.Format(_T("%d%%,  %d KB / %d KB, %d KB/S"), precent, m_DownSize/1024, m_filesize/1024, m_avgbps);
 					GetDlgItem(IDC_STATIC_INFO2).SetWindowText(m_info2);
 				}
 			} else if(bps > 0) {
-				m_info2.Format(_T("%d KB, %d KB/S"), m_DownSize/1024, bps);
+				m_avgnumber++;
+				m_avgbps += (bps - m_avgbps) / m_avgnumber;
+				m_info2.Format(_T("%d KB, %d KB/S"), m_DownSize/1024, m_avgbps);
 				GetDlgItem(IDC_STATIC_INFO2).SetWindowText(m_info2);
 			}
 			m_LastTimer = timer;
@@ -436,6 +440,8 @@ void CUpdateDlg::StartDownload()
 {
 	m_info1.Format(_T("%s\n\n%s"), str_downloading, m_filename.c_str());
 
+	m_avgbps = 0;
+	m_avgnumber = 0;
 	m_filesize = 0;
 	m_DownSize = 0;
 	m_LastTimer = 0;
