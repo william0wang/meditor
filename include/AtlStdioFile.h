@@ -6,15 +6,18 @@ class CAtlStdioFile : public CAtlFile
 private:
 	static const int buffer_size = 512;
 	TCHAR *buffer;
+	char *buffera;
 
 public:
 	CAtlStdioFile()
 	{
 		buffer = new TCHAR[buffer_size];
+		buffera = new char[buffer_size];
 	}
 	~CAtlStdioFile()
 	{
 		delete buffer;
+		delete buffera;
 	}
 
 	HRESULT OpenFile(LPCTSTR szFilename, DWORD dwDesiredAccess, DWORD dwShareMode,
@@ -76,6 +79,40 @@ public:
 		return TRUE;
 	}
 
+	BOOL ReadLineA(CStringA &str)
+	{
+		int sp, pos;
+		CStringA tmp;
+		DWORD readsize = 0, size;
+		str = "";
+
+		ZeroMemory(buffera, buffer_size*sizeof(char));
+		while(Read(buffera, buffer_size, size) == S_OK) {
+			if(size <= 0)
+				break;
+			readsize += size;
+			tmp += buffera;
+			sp = tmp.Find('\n');
+			if(sp >= 0) {
+				++sp;
+				str = tmp.Left(sp);
+				pos = sp*sizeof(char) - size;
+				readsize+=pos;
+				Seek(pos, FILE_CURRENT);
+				break;
+			}
+			ZeroMemory(buffera, buffer_size*sizeof(char));
+		}
+
+		if(readsize <= 0)
+			return FALSE;
+
+		str.TrimRight('\n');
+		str.TrimRight('\r');
+
+		return TRUE;
+	}
+
 	HRESULT WriteLine(CString str)
 	{
 		HRESULT hr = S_OK;
@@ -83,6 +120,18 @@ public:
 		int len = str.GetLength();
 		if(len > 1) {
 			hr = Write(str.GetBuffer(), len*sizeof(TCHAR));
+			str.ReleaseBuffer();
+		}
+		return hr;
+	}
+
+	HRESULT WriteLineA(CStringA str)
+	{
+		HRESULT hr = S_OK;
+		str += "\r\n";
+		int len = str.GetLength();
+		if(len > 1) {
+			hr = Write(str.GetBuffer(), len*sizeof(char));
 			str.ReleaseBuffer();
 		}
 		return hr;
