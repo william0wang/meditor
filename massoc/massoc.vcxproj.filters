@@ -9,9 +9,6 @@
       <UniqueIdentifier>{1a5fc86e-1e1e-4aaa-b4a1-2c619ec8b907}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Header Files\Depend">
-      <UniqueIdentifier>{a1b2196d-f3af-4574-9652-841f6f8d15a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{9ba8f98e-bebf-4f72-a12c-1504a873714f}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
@@ -38,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AtlStdioFile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AVS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -59,41 +53,8 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AdvCombo.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="AtlAux2.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="DragDrop.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="DropArrows.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="kFlatCombo.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="ListCombo.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="ListCtrl.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="ListDate.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="ListEdit.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="ListTypes.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
     <ClInclude Include="shared.h">
-      <Filter>Header Files\Depend</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleTip.h">
-      <Filter>Header Files\Depend</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
