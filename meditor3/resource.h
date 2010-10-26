@@ -8,7 +8,6 @@
 #define IDD_MAINDLG                     129
 #define IDR_MAINFRAME_EN                129
 #define IDD_DIALOG_PAGE_INPUT           130
-#define IDR_MAINFRAME2                  130
 #define IDR_MAINFRAME_TC                130
 #define IDZ_INPUT                       170
 #define IDC_DIVIDER                     201
@@ -50,6 +49,7 @@
 #define IDC_ASSOC                       1012
 #define IDC_STATIC_INFO2                1013
 #define IDC_ASSOC_DEF                   1013
+#define IDC_PROGRESS_APPLEY             1013
 #define IDC_APPLY                       1014
 #define IDC_BUTTON_UPDATE               1014
 #define IDC_BUTTON_UN7ZIP               1015

@@ -12,8 +12,13 @@ class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
 		public CMessageFilter, public CIdleHandler, public CWinDataExchange<CMainDlg>
 {
 public:
+	CProgressBarCtrl	m_progress_apply;
 	enum { IDD = IDD_MAINDLG };
+	int			m_pos;
 	int			m_appLang;
+	bool		isVista;
+	UINT		s_uTBBC;
+	ITaskbarList3 *g_pTaskbarList;
 
 	CListCtrl	m_tablist;
 	CImageList	m_Images;
@@ -24,6 +29,7 @@ public:
 	CString		m_program_dir;
 
 	BEGIN_DDX_MAP(CMainDlg)
+		DDX_CONTROL_HANDLE(IDC_PROGRESS_APPLEY, m_progress_apply)
 	END_DDX_MAP();
 	
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
@@ -35,6 +41,7 @@ public:
 	END_UPDATE_UI_MAP()
 
 	BEGIN_MSG_MAP(CMainDlg)
+		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 		COMMAND_ID_HANDLER(IDC_APPLY, OnApply)
@@ -77,4 +84,5 @@ public:
 	LRESULT OnShowfaq(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 	LRESULT OnAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnBnClickedUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 };

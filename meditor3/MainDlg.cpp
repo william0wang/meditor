@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "resource.h"
 
+#include "Win7ShellApi.h"
 #include "MainDlg.h"
 #include "InputDlg.h"
 #include "AssocDlg.h"
@@ -18,6 +19,8 @@ enum
 	TAB_PAGE_ASSOC,
 };
 
+static ChangeWindowMessageFilterFunction ChangeWindowMessageFilterDLL = NULL;
+
 CMainDlg::CMainDlg()
 {
 	m_tablist.ShowBorder(FALSE);
@@ -25,7 +28,12 @@ CMainDlg::CMainDlg()
 
 	m_InputDlg = NULL;
 	m_AssocDlg = NULL;
-	
+	m_pos = 0;
+
+	g_pTaskbarList = NULL;
+	s_uTBBC = WM_NULL;
+	isVista = false;
+
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
@@ -34,6 +42,28 @@ CMainDlg::CMainDlg()
 
 BOOL CMainDlg::PreTranslateMessage(MSG* pMsg)
 {
+	if (isVista && pMsg->message == s_uTBBC)
+	{
+		// Once we get the TaskbarButtonCreated message, we can call methods
+		// specific to our window on a TaskbarList instance. Note that it's
+		// possible this message can be received multiple times over the lifetime
+		// of this window (if explorer terminates and restarts, for example).
+		if (!g_pTaskbarList)
+		{
+			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+			if (SUCCEEDED(hr))
+			{
+				hr = g_pTaskbarList->HrInit();
+				if (FAILED(hr))
+				{
+					g_pTaskbarList->Release();
+					g_pTaskbarList = NULL;
+				}
+
+				if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+			}
+		}
+	}
 	return CWindow::IsDialogMessage(pMsg);
 }
 
@@ -82,6 +112,8 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	::SetWindowText(GetDlgItem(IDCANCEL), rStr.btn_cancle);	
 	::SetWindowText(GetDlgItem(IDC_APPLY), rStr.btn_apply);
 
+	m_progress_apply.Attach(GetDlgItem(IDC_PROGRESS_APPLEY));
+
 	m_Images.CreateFromImage(IDB_BITMAP_TAB, 16, 0, RGB( 255, 0, 255 ), IMAGE_BITMAP, LR_CREATEDIBSECTION );
 	
 	m_tablist.SetImageList(m_Images);
@@ -117,6 +149,18 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	//page->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
 	//page->ShowWindow(SW_SHOW);
 
+	OSVERSIONINFO version;
+
+	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	if(GetVersionEx(&version)) {
+		if(version.dwMajorVersion >= 6) {
+			isVista = true;
+			s_uTBBC = RegisterWindowMessage(L"TaskbarButtonCreated");
+			HINSTANCE user32 = GetModuleHandle(L"user32.dll");
+			if(user32) ChangeWindowMessageFilterDLL = (ChangeWindowMessageFilterFunction)GetProcAddress(user32, "ChangeWindowMessageFilter");
+			if(ChangeWindowMessageFilterDLL) ChangeWindowMessageFilterDLL(s_uTBBC, MSGFLT_ADD);
+		}
+	}
 
 	return TRUE;
 }
@@ -134,12 +178,21 @@ LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 
 	if(m_AssocDlg)
 		m_InputDlg->SendMessage(WM_CLOSE);
+
+
+	if (g_pTaskbarList)
+	{
+		g_pTaskbarList->Release();
+		g_pTaskbarList = NULL;
+	}
 	return 0;
 }
 
 LRESULT CMainDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	// TODO: Add validation code 
+	if(m_InputDlg)
+		m_InputDlg->SaveInputConfig();
+
 	CloseDialog(wID);
 	return 0;
 }
@@ -158,6 +211,13 @@ void CMainDlg::CloseDialog(int nVal)
 
 LRESULT CMainDlg::OnApply(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
+	m_pos = 0;
+	m_progress_apply.SetPos(0);
+	m_progress_apply.ShowWindow(SW_SHOW);
+	SetTimer(0, 30, NULL);
+	if(g_pTaskbarList)
+		g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
+
 	if(m_InputDlg)
 		m_InputDlg->SaveInputConfig();
 	return 0;
@@ -265,5 +325,28 @@ LRESULT CMainDlg::OnAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, 
 LRESULT CMainDlg::OnBnClickedUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	ShellExecute(0, _T("open"), m_program_dir +_T("meditor.exe"), _T("--check-update"), NULL, SW_SHOW);
+	return 0;
+}
+
+
+LRESULT CMainDlg::OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	//UINT_PTR nIDEvent = (UINT_PTR)wParam;
+	m_pos++;
+	if(m_pos <= 30) {
+		if(m_pos <= 10) {
+			if(isVista)
+				m_progress_apply.SetPos(100);
+			else
+				m_progress_apply.SetPos(10 * m_pos);
+
+			if(m_pos == 10)
+				m_progress_apply.ShowWindow(SW_HIDE);
+		}
+	} else {
+		KillTimer(0);
+		if(g_pTaskbarList)
+			g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
+	}
 	return 0;
 }
