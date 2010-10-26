@@ -97,6 +97,10 @@
       <AdditionalDependencies>7zDecD.lib;CxImageD.lib;jpegD.lib;downloadLibD.lib;tinyxmlD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -134,6 +138,10 @@
       <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_vc90|Win32'">
     <Midl>
@@ -171,13 +179,23 @@
       <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
+    <ClCompile Include="AssocDlg.cpp" />
+    <ClCompile Include="InputDlg.cpp" />
+    <ClCompile Include="InputList.cpp" />
+    <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="meditor3.cpp" />
     <ClCompile Include="PlayerPage.cpp" />
     <ClCompile Include="PreviewDlg.cpp" />
     <ClCompile Include="ProgressDlg.cpp" />
+    <ClCompile Include="Reg.cpp" />
+    <ClCompile Include="ResStr.cpp" />
     <ClCompile Include="shared.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -187,23 +205,34 @@
     <ClCompile Include="UpdateDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\AtlStdioFile.h" />
+    <ClInclude Include="..\include\ListCtrl\DragDrop.h" />
+    <ClInclude Include="..\include\ListCtrl\DropArrows.h" />
+    <ClInclude Include="..\include\ListCtrl\ListCombo.h" />
+    <ClInclude Include="..\include\ListCtrl\ListCtrl.h" />
+    <ClInclude Include="..\include\ListCtrl\ListDate.h" />
+    <ClInclude Include="..\include\ListCtrl\ListEdit.h" />
+    <ClInclude Include="..\include\ListCtrl\ListTypes.h" />
+    <ClInclude Include="..\include\ListCtrl\TitleTip.h" />
     <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="AssocDlg.h" />
+    <ClInclude Include="InputDlg.h" />
+    <ClInclude Include="InputList.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="PlayerPage.h" />
     <ClInclude Include="PreviewDlg.h" />
     <ClInclude Include="ProgressDlg.h" />
+    <ClInclude Include="Reg.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ResStr.h" />
     <ClInclude Include="shared.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="AdvCombo.h" />
-    <ClInclude Include="AtlAux2.h" />
-    <ClInclude Include="AtlStdioFile.h" />
-    <ClInclude Include="kFlatCombo.h" />
     <ClInclude Include="UpdateDlg.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\divider.cur" />
     <None Include="res\hand.cur" />
+    <None Include="res\input.7z" />
     <None Include="res\ListItems.bmp" />
     <None Include="res\logo.jpg" />
     <None Include="res\meditor3.ico" />

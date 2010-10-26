@@ -2,9 +2,14 @@
 #include <string>
 #include <vector>
 #include "../Libs/7z/Util/7z/7zMain.h"
+#include "ResStr.h"
 using namespace std;
 
+extern CResStr rStr;
+
 #define FileExist(lpszFileName) (::GetFileAttributes((lpszFileName))   !=   INVALID_FILE_ATTRIBUTES)
+
+#define ResStr(id) CString(MAKEINTRESOURCE(id))
 
 BOOL FileIsDirectory(LPCTSTR lpszFileName);
 
@@ -22,6 +27,8 @@ std::wstring utf2unicode(std::string mut_str);
 
 bool Decode7zFile(std::wstring filename , std::wstring decpach, std::wstring ignore_path
 	, vector<wstring> ignore_list, std::wstring exfile = L"", Un7z_CallBack call_back = NULL);
+
+bool ExtractResource(LPCTSTR lpName, LPCTSTR lpType, LPCTSTR lpFilePath, bool bOverWrite , bool unzip,CString ex_filename);
 
 bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date);
 

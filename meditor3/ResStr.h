@@ -1,0 +1,124 @@
+#pragma once
+class CResStr
+{
+public:
+	void LoadString();
+
+
+public:
+	CString title;
+
+	CString assoc;
+	CString hotkey;
+
+	CString add;
+	CString del;
+
+	CString DECODE_INF;
+
+	CString INPUT_NONE;
+	CString INPUT_CMD;
+	CString INPUT_VAL;
+	CString INPUT_KEY;
+	CString INPUT_LEFT;
+	CString INPUT_RIGHT;
+	CString INPUT_UP;
+	CString INPUT_DOWN;
+	CString INPUT_INS;
+	CString INPUT_DEL;
+	CString INPUT_SPACE;
+	CString INPUT_ENTER;
+	CString INPUT_LC;
+	CString INPUT_LD;
+	CString INPUT_RC;
+	CString INPUT_RD;
+	CString INPUT_MC;
+	CString INPUT_MD;
+	CString INPUT_WF;
+	CString INPUT_WB;
+	CString INPUT_X1C;
+	CString INPUT_X1D;
+	CString INPUT_X2C;
+	CString INPUT_X2D;
+	CString INPUT_RF;
+	CString INPUT_RB;
+
+	CString INPUT_JL;
+	CString INPUT_JR;
+	CString INPUT_JU;
+	CString INPUT_JD;
+	CString INPUT_J1;
+	CString INPUT_J2;
+	CString INPUT_J3;
+	CString INPUT_J4;
+
+	CString INPUT_INNER;
+	CString INPUT_SUBSZ;
+	CString INPUT_ADD;
+	CString INPUT_SETNONE;
+	CString INPUT_SET;
+	CString INPUT_CONF;
+	CString INPUT_REUS;
+	CString INPUT_CUST;
+	CString INPUT_CDEL;
+
+	CString INPUT_DEC;
+	CString INPUT_LOOP;
+	CString INPUT_LOOPIF;
+	CString INPUT_WINRESIZE;
+	CString INPUT_RESIZE;
+	CString INPUT_POS;
+	CString INPUT_POSIF;
+	CString INPUT_FS;
+	CString INPUT_SYS;
+	CString INPUT_DVDDIR2;
+	CString INPUT_DVDDIR;
+	CString INPUT_DVDROOT;
+	CString INPUT_DVDSEL;
+	CString INPUT_DVDPRE;
+	CString INPUT_FSR;
+	CString INPUT_FSRIF;
+	
+	CString INPUT_SEEK;
+	CString INPUT_SUBT;
+	CString INPUT_PTUS;
+	CString INPUT_PTS;
+	CString INPUT_ALTS;
+	CString INPUT_PANS;
+	CString INPUT_PAUS;
+	CString INPUT_SCRS;
+	CString INPUT_KEEP;
+	CString INPUT_FRAD;
+	CString INPUT_OSD;
+	CString INPUT_QUIT;
+	CString INPUT_MUTE;
+
+	CString INPUT_SWIA;
+	CString INPUT_SWIF;
+	CString INPUT_CHAP;
+	CString INPUT_TITLE;
+	CString INPUT_ANGLE;
+
+	CString INPUT_SUBS;
+	CString INPUT_SUBA;
+	CString INPUT_SWIV;
+	CString INPUT_VOFS;
+	CString INPUT_VOOT;
+	CString INPUT_RELO;
+	CString INPUT_FRAS;
+	CString INPUT_SPES;
+	CString INPUT_SPEI;
+	CString INPUT_BALA;
+
+	CString INPUT_VOLU;
+	CString INPUT_SUBP;
+	CString INPUT_CONT;
+	CString INPUT_BRIG;
+	CString INPUT_SATU;
+	CString INPUT_GAMM;
+	CString INPUT_HUE;
+
+	CString INPUT_AUDD;
+	CString INPUT_SUBD;
+};
+

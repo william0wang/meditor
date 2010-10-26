@@ -249,6 +249,92 @@ bool Decode7zFile(wstring filename , wstring decpach, wstring ignore_path
 	return false;
 }
 
+bool Decode7zFileOne(CString filename , CString Path , CString ex_name)
+{
+	if(filename.GetLength() < 1)
+		return false;
+	wchar_t * dpath = NULL;
+	wchar_t * exfile = NULL;
+
+	const wchar_t **ign_list = new const wchar_t *[1];
+
+	if(Path.GetLength() > 1) {
+		dpath =  _wcsdup(Path.GetBuffer());
+		Path.ReleaseBuffer();
+	}
+	if(ex_name.GetLength() > 1) {
+		exfile =  _wcsdup(ex_name.GetBuffer());
+		ex_name.ReleaseBuffer();
+	}
+
+	int result = Decode7zipFile(unicode2local(filename.GetBuffer()).c_str(), dpath, exfile, NULL, ign_list, 0, 0);
+	filename.ReleaseBuffer();
+
+	if(dpath)
+		delete dpath;
+	if(exfile)
+		delete exfile;
+
+	if(result)
+		return true;
+
+	return false;
+}
+
+bool ExtractResource( LPCTSTR lpName, LPCTSTR lpType, LPCTSTR lpFilePath, bool bOverWrite , bool unzip,CString ex_filename)
+{
+	if(!bOverWrite && FileExist(lpFilePath))
+		return false;
+
+	HRSRC  res = FindResource(NULL,  lpName,  lpType);
+	if(!res)
+		return false;
+
+	HGLOBAL  gl = ::LoadResource(NULL,res);
+	if(!gl)
+		return false;
+
+	LPVOID  lp = ::LockResource(gl);   //  查找，加载，锁定资源
+	if(!lp)
+		return false;
+
+	CString ex_filepath = _T(""),tmp_path = _T("");
+	if(unzip) {
+		TCHAR szFilePath[MAX_PATH + 1];
+		::GetTempPath(MAX_PATH,szFilePath);
+		tmp_path.Format(_T("%s"),szFilePath);
+		ex_filepath = tmp_path + _T("tmpzfile");
+	} else {
+		ex_filepath.Format(_T("%s"),lpFilePath);
+	}
+
+	HANDLE fp;
+	if(bOverWrite)
+		fp = CreateFile(ex_filepath, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, 0, NULL);
+	else
+		fp = CreateFile(ex_filepath, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_NEW, 0, NULL);
+
+	bool ret = false;
+
+	if(fp != INVALID_HANDLE_VALUE) {
+		DWORD aa;
+		if (WriteFile (fp,lp,::SizeofResource(NULL,res),&aa,NULL))
+			ret = true;
+	}
+	::CloseHandle (fp);       //关闭句柄
+	::FreeResource (gl);     //释放内存
+
+	if(ret && unzip) {
+		if(Decode7zFileOne(ex_filepath , tmp_path , ex_filename)) {
+			DeleteFile(ex_filepath);
+			CopyFile(tmp_path + ex_filename , lpFilePath,FALSE);
+			DeleteFile(tmp_path + ex_filename );
+		}
+	}
+
+	return ret;
+}
+
 bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date)
 {
 	int   iVerInfoSize;

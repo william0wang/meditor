@@ -5,14 +5,15 @@
 
 #include "resource.h"
 
-#include "aboutdlg.h"
 #include "PreviewDlg.h"
 #include "UpdateDlg.h"
+#include "MainDlg.h"
 #include "shared.h"
 #include "AtlStdioFile.h"
 
 enum START_TYPE
 {
+	START_NORMAL = 0,
 	START_FLASHPLAYER = 1001,
 	START_MEDIAPLAYER,
 	START_MEDIAINFO,
@@ -31,7 +32,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	_Module.AddMessageLoop(&theLoop);
 
 	CString   sCmdLine(lpstrCmdLine);
-	int OpenType = START_CHECK_UPDATE;
+	int OpenType = START_NORMAL;
 	int nRet;
 	CString ProgramName;
 	CString program_dir;
@@ -266,6 +267,17 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		}
 
 		dlgUpdate.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+	} else {
+		CMainDlg dlgMain;
+
+		if(dlgMain.Create(NULL) == NULL)
+		{
+			ATLTRACE(_T("Main dialog creation failed!\n"));
+			return 0;
+		}
+
+		dlgMain.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
 	}
 
