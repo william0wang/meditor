@@ -54,9 +54,9 @@ LRESULT CAssocDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 {
 	UIAddChildWindowContainer(m_hWnd);
 	
-	::SetWindowText(GetDlgItem(IDC_BUTTON_ADD), rStr.add);
-	::SetWindowText(GetDlgItem(IDC_BUTTON_DEL), rStr.del);
-
+	::SetWindowText(GetDlgItem(IDC_ASSOC), rStr.set_assoc);
+	::SetWindowText(GetDlgItem(IDC_ASSOC_DEF), rStr.set_assoc + _T(" (Win7/Vista)"));
+	::SetWindowText(GetDlgItem(IDC_CHECK_UPDATE), rStr.update_assoc);	
 	
 	DoDataExchange();
 	

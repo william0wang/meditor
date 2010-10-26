@@ -25,9 +25,7 @@ CMainDlg::CMainDlg()
 
 	m_InputDlg = NULL;
 	m_AssocDlg = NULL;
-
-	rStr.LoadString();
-
+	
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
@@ -72,10 +70,20 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 	UIAddChildWindowContainer(m_hWnd);
 
-	m_Images.CreateFromImage(IDB_BITMAP_TAB, 16, 0, RGB( 255, 0, 255 ), IMAGE_BITMAP, LR_CREATEDIBSECTION );
-
 	SetWindowText(rStr.title);
 
+	if(m_appLang == 2)
+		SetMenu(LoadMenu(NULL, MAKEINTRESOURCE(IDR_MAINFRAME_EN)));
+	else if(m_appLang == 3 || m_appLang == 4)
+		SetMenu(LoadMenu(NULL, MAKEINTRESOURCE(IDR_MAINFRAME_TC)));
+
+	::SetWindowText(GetDlgItem(ID_UPDATE), rStr.check_update);
+	::SetWindowText(GetDlgItem(IDOK), rStr.btn_ok);
+	::SetWindowText(GetDlgItem(IDCANCEL), rStr.btn_cancle);	
+	::SetWindowText(GetDlgItem(IDC_APPLY), rStr.btn_apply);
+
+	m_Images.CreateFromImage(IDB_BITMAP_TAB, 16, 0, RGB( 255, 0, 255 ), IMAGE_BITMAP, LR_CREATEDIBSECTION );
+	
 	m_tablist.SetImageList(m_Images);
 	m_tablist.AddColumn(_T(""), 141, ITEM_IMAGE_NONE, FALSE);
 	m_tablist.AddItem(rStr.hotkey, 0);
@@ -251,5 +259,11 @@ LRESULT CMainDlg::OnAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, 
 	CAboutDlg dlg;
 	dlg.DoModal();
 
+	return 0;
+}
+
+LRESULT CMainDlg::OnBnClickedUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	ShellExecute(0, _T("open"), m_program_dir +_T("meditor.exe"), _T("--check-update"), NULL, SW_SHOW);
 	return 0;
 }

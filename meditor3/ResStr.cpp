@@ -15,7 +15,13 @@ void CResStr::LoadString()
 
 	add = ResStr(IDS_STRING30221);
 	del = ResStr(IDS_STRING30222);
-
+	set_assoc = ResStr(IDS_STRING30223);
+	update_assoc = ResStr(IDS_STRING30224);
+	btn_ok = ResStr(IDS_STRING30225);
+	btn_cancle = ResStr(IDS_STRING30226);
+	btn_apply = ResStr(IDS_STRING30227);
+	check_update = ResStr(IDS_STRING30228);
+	
 	INPUT_NONE = ResStr(IDS_INPUT_NONE);
 	INPUT_LEFT = ResStr(IDS_INPUT_LEFT);
 	INPUT_RIGHT = ResStr(IDS_INPUT_RIGHT);

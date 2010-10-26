@@ -47,16 +47,15 @@ END
 IDD_MAINDLG DIALOGEX 0, 0, 423, 276
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
 CAPTION "meditor"
-MENU IDR_MAINFRAME
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    PUSHBUTTON      "检查更新",ID_APP_ABOUT,7,255,50,14
     LTEXT           "静态",IDC_STATIC_PAGE,94,8,319,240
     CONTROL         "ListCtrl",IDC_LIST_TAB,"ListCtrl",WS_TABSTOP,7,7,81,243
     GROUPBOX        "",IDC_STATIC,93,2,323,248
     DEFPUSHBUTTON   "Apply",IDC_APPLY,366,255,50,14
-    PUSHBUTTON      "OK",IDOK,230,255,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,298,255,50,14
+    PUSHBUTTON      "OK",IDOK,252,255,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,309,255,50,14
+    PUSHBUTTON      "Check Update",ID_UPDATE,7,255,62,14
 END
 
 IDD_DIALOG_PLAYER DIALOGEX 0, 0, 372, 236
@@ -230,9 +229,9 @@ IDD_DIALOG_PAGE_ASSOC DIALOGEX 0, 0, 319, 238
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "设置文件关联",IDC_ASSOC,42,90,99,43
-    DEFPUSHBUTTON   "设置文件关联 (Win7/Vista)",IDC_ASSOC_DEF,177,90,99,43
-    CONTROL         "更新关联格式列表",IDC_CHECK_UPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,193,139,68,10
+    DEFPUSHBUTTON   "设置文件关联",IDC_ASSOC,37,90,105,43
+    DEFPUSHBUTTON   "设置文件关联 (Win7/Vista)",IDC_ASSOC_DEF,176,90,105,43
+    CONTROL         "更新关联格式列表",IDC_CHECK_UPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,139,83,10
 END
 
 
@@ -473,6 +472,58 @@ BEGIN
     END
 END
 
+IDR_MAINFRAME_EN MENU
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Save",                        1004
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                        IDCANCEL
+    END
+    POPUP "View"
+    BEGIN
+        MENUITEM "mplayer.ini",                 ID_MPLAYER_INI
+        MENUITEM "input.ini",                   ID_INPUT_INI
+        MENUITEM "kk.ini",                      ID_KK_INI
+        MENUITEM "Log File",                    ID_LOG_TXT
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "Home Page",                   IDC_GOTOHOME
+        MENUITEM "Help",                        IDC_SHOWHELP
+        MENUITEM "Changlog",                    IDC_SHOWLOG
+        MENUITEM "FAQ",                         IDC_SHOWFAQ
+        MENUITEM SEPARATOR
+        MENUITEM "About",                       ID_ABOUT
+    END
+END
+
+IDR_MAINFRAME_TC MENU
+BEGIN
+    POPUP "檔案"
+    BEGIN
+        MENUITEM "保存",                          1004
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+    POPUP "查看"
+    BEGIN
+        MENUITEM "mplayer.ini",                 ID_MPLAYER_INI
+        MENUITEM "input.ini",                   ID_INPUT_INI
+        MENUITEM "kk.ini",                      ID_KK_INI
+        MENUITEM "日誌檔案",                        ID_LOG_TXT
+    END
+    POPUP "說明"
+    BEGIN
+        MENUITEM "主頁",                          IDC_GOTOHOME
+        MENUITEM "說明檔案",                        IDC_SHOWHELP
+        MENUITEM "更新日誌",                        IDC_SHOWLOG
+        MENUITEM "FAQ",                         IDC_SHOWFAQ
+        MENUITEM SEPARATOR
+        MENUITEM "關於",                          ID_ABOUT
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -506,6 +557,7 @@ BEGIN
     IDS_STRING30220         "其它"
     IDS_STRING30221         "添加"
     IDS_STRING30222         "删除"
+    IDS_STRING30223         "设置文件关联"
 END
 
 STRINGTABLE
@@ -957,6 +1009,15 @@ BEGIN
     IDS_AUDIO_DSP_INFO      "选择准备使用的 Winamp DSP 音效增强插件"
     IDS_INPUT_WINRESIZE     "播放器窗口尺寸"
     IDS_VIDEO_VOGLAUTO      "OpenGL(自动检测)"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30224         "更新文件关联列表"
+    IDS_STRING30225         "确定"
+    IDS_STRING30226         "取消"
+    IDS_STRING30227         "应用"
+    IDS_STRING30228         "检查更新"
 END
 
 #endif    // 中文(简体，中国) resources

@@ -481,7 +481,7 @@ bool CInputDlg::SaveInputConfig()
 	}
 	CAtlStdioFile inputcfg;
 	CString key, cmd, vals, keyinfo;
-	CString inifile = m_program_dir + _T("input1.ini");
+	CString inifile = m_program_dir + _T("input.ini");
 	if(SUCCEEDED(inputcfg.OpenFile(inifile.GetBuffer(), GENERIC_WRITE, 0, CREATE_ALWAYS))) {
 		inputcfg.WriteLineA("## MPlayer input control file\r\n");
 		int number = m_wndListCtrl.GetItemCount();

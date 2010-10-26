@@ -10,6 +10,13 @@ public:
 
 	CString assoc;
 	CString hotkey;
+	CString set_assoc;
+	CString update_assoc;
+
+	CString	check_update;
+	CString	btn_ok;
+	CString	btn_cancle;
+	CString	btn_apply;
 
 	CString add;
 	CString del;

@@ -6,7 +6,10 @@
 #define ID_APPLY                        5
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
+#define IDR_MAINFRAME_EN                129
 #define IDD_DIALOG_PAGE_INPUT           130
+#define IDR_MAINFRAME2                  130
+#define IDR_MAINFRAME_TC                130
 #define IDZ_INPUT                       170
 #define IDC_DIVIDER                     201
 #define IDC_HYPERLINK                   202
@@ -34,6 +37,7 @@
 #define IDC_EDIT_R                      1004
 #define IDC_BUTTON3                     1005
 #define IDC_SPIN_R                      1005
+#define IDC_SHOWHELP                    1005
 #define IDC_BUTTON4                     1006
 #define IDC_EDIT_V                      1006
 #define IDC_SPIN_V                      1007
@@ -53,6 +57,7 @@
 #define IDC_BUTTON_CHECK                1016
 #define IDC_CHECK_INI                   1017
 #define IDC_BUTTON_MPLAYER              1018
+#define ID_UPDATE                       1018
 #define IDC_CHECK_SHOW                  1030
 #define IDC_BUTTON_ADD                  1074
 #define IDC_BUTTON_DEL                  1075
@@ -71,6 +76,12 @@
 #define IDS_STRING30220                 30220
 #define IDS_STRING30221                 30221
 #define IDS_STRING30222                 30222
+#define IDS_STRING30223                 30223
+#define IDS_STRING30224                 30224
+#define IDS_STRING30225                 30225
+#define IDS_STRING30226                 30226
+#define IDS_STRING30227                 30227
+#define IDS_STRING30228                 30228
 #define ID_32775                        32775
 #define ID_ABOUT                        32776
 #define IDM_LOWER                       32800
@@ -450,7 +461,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        212
 #define _APS_NEXT_COMMAND_VALUE         32777
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1019
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

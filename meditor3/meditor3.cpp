@@ -118,24 +118,20 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	}
 
 	int AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
-	if(AppLanguage == 0)
-	{
+	if(AppLanguage == 0) {
 		LANGID   _SysLangId   =   GetSystemDefaultLangID();
-		if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
-		{
+		if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE) {
 			if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
 				AppLanguage = 1;		//Simplified Chinese GBK
 			else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
 				AppLanguage = 4;		//Traditional Chinese Big5
 			else
 				AppLanguage = 3;		//ANSI
-		}
-		else
+		} else
 			AppLanguage = 2;			//ANSI
 	}
 
-	if(OpenType == START_PREVIEW)
-	{
+	if(OpenType == START_PREVIEW) {
 		int offset = sCmdLine.Find(_T("--filename"));
 		if(offset < 0)
 			return FALSE;
@@ -269,7 +265,38 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		dlgUpdate.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
 	} else {
+		CString langfile_tc, langfile_en;
+		HINSTANCE instance_dll = NULL, instance_org = NULL;
+
+		if(FileExist(program_dir + _T("meditor2.en.dll")))
+			langfile_en = program_dir + _T("meditor2.en.dll");
+		else if(FileExist(program_dir + _T("tools\\meditor2.en.dll")))
+			langfile_en = program_dir + _T("tools\\meditor2.en.dll");
+
+		if(FileExist(program_dir + _T("meditor2.tc.dll")))
+			langfile_tc = program_dir + _T("meditor2.tc.dll");
+		else if(FileExist(program_dir + _T("tools\\meditor2.tc.dll")))
+			langfile_tc = program_dir + _T("tools\\meditor2.tc.dll");
+
+		CString strSatellite = _T("");
+		if(AppLanguage == 2 && langfile_en.GetLength() > 1)
+			strSatellite = langfile_en;
+		else if((AppLanguage == 3 || AppLanguage == 4) && langfile_tc.GetLength() > 1)
+			strSatellite = langfile_tc;
+
+		if (strSatellite.GetLength() > 2)
+			instance_dll = LoadLibrary(strSatellite);
+		
+		if(instance_dll)
+			instance_org = _Module.SetResourceInstance(instance_dll);
+
+		rStr.LoadString();
+
+		if(instance_org)
+			_Module.SetResourceInstance(instance_org);
+
 		CMainDlg dlgMain;
+		dlgMain.m_appLang = AppLanguage;
 
 		if(dlgMain.Create(NULL) == NULL)
 		{
