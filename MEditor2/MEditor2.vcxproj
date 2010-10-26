@@ -209,10 +209,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
-      <Command>cd res
-del /F codecs.7z
-..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf
-</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -256,10 +254,8 @@ del /F codecs.7z
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_vc90|Win32'">
     <PreBuildEvent>
-      <Command>cd res
-del /F codecs.7z
-..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf
-</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
