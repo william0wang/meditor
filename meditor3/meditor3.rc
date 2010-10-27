@@ -236,6 +236,17 @@ BEGIN
     CONTROL         "更新关联格式列表",IDC_CHECK_UPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,139,83,10
 END
 
+IDD_DIALOG_FLASH DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
+CAPTION "FlashPlayer"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER_CONTROL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+    CONTROL         "",IDC_SHOCKWAVEFLASH,
+                    "{D27CDB6E-AE6D-11CF-96B8-444553540000}",WS_TABSTOP,0,0,320,240
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -327,6 +338,10 @@ BEGIN
     END
 
     IDD_DIALOG_PAGE_ASSOC, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_FLASH, DIALOG
     BEGIN
     END
 END
@@ -435,6 +450,7 @@ IDC_HYPERLINK           CURSOR                  "res\\hand.cur"
 
 IDB_LISTITEMS           BITMAP                  "res\\ListItems.bmp"
 IDB_BITMAP_TAB          BITMAP                  "res\\TabItems.bmp"
+IDB_BITMAP_96           BITMAP                  "res\\btn_96.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -526,6 +542,84 @@ BEGIN
     END
 END
 
+IDR_MENU_FLASH MENU
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        POPUP "文件"
+        BEGIN
+            MENUITEM "打开文件",                        ID_FLASH_OPEN
+            MENUITEM "播放列表",                        ID_MPLAYLIST, GRAYED
+            MENUITEM SEPARATOR
+            MENUITEM "退出",                          IDCANCEL
+        END
+        POPUP "播放"
+        BEGIN
+            MENUITEM "播放",                          ID_MPLAY
+            MENUITEM "停止",                          ID_MSTOP
+            MENUITEM SEPARATOR
+            MENUITEM "上一个",                         ID_MPRE
+            MENUITEM "下一个",                         ID_MNEXT
+        END
+        POPUP "视图"
+        BEGIN
+            MENUITEM "使用Flash右键菜单",                 IDM_RMENU
+        END
+    END
+END
+
+IDR_MENU_FLASH_EN MENU
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        POPUP "File"
+        BEGIN
+            MENUITEM "Open",                        ID_FLASH_OPEN
+            MENUITEM "Playlist",                    ID_MPLAYLIST, GRAYED
+            MENUITEM SEPARATOR
+            MENUITEM "Exit",                        IDCANCEL
+        END
+        POPUP "Play"
+        BEGIN
+            MENUITEM "Play",                        ID_MPLAY
+            MENUITEM "Stop",                        ID_MSTOP
+            MENUITEM SEPARATOR
+            MENUITEM "Previous",                    ID_MPRE
+            MENUITEM "Next",                        ID_MNEXT
+        END
+        POPUP "View"
+        BEGIN
+            MENUITEM "Use Flash Right-Click Menu",  IDM_RMENU
+        END
+    END
+END
+
+IDR_MENU_FLASH_TC MENU
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        POPUP "檔案"
+        BEGIN
+            MENUITEM "開啟檔案",                        ID_FLASH_OPEN
+            MENUITEM "播放列表",                        ID_MPLAYLIST, GRAYED
+            MENUITEM SEPARATOR
+            MENUITEM "退出",                          IDCANCEL
+        END
+        POPUP "播放"
+        BEGIN
+            MENUITEM "播放",                          ID_MPLAY
+            MENUITEM "停止",                          ID_MSTOP
+            MENUITEM SEPARATOR
+            MENUITEM "上一個",                         ID_MPRE
+            MENUITEM "下一個",                         ID_MNEXT
+        END
+        POPUP "視圖"
+        BEGIN
+            MENUITEM "使用Flash右鍵菜單",                 IDM_RMENU
+        END
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -533,6 +627,34 @@ END
 //
 
 IDZ_INPUT               INPUT_INI               "res\\input.7z"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG_FLASH DLGINIT
+BEGIN
+    IDC_SHOCKWAVEFLASH, 0x376, 282, 0
+0x0000, 0x0000, 0x5567, 0x5566, 0x0900, 0x0000, 0x39e1, 0x0000, 0x2b69, 
+0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 
+0x0000, 0x0000, 0x0008, 0x000e, 0x0000, 0x0057, 0x0069, 0x006e, 0x0064, 
+0x006f, 0x0077, 0x0000, 0x0008, 0x0006, 0x0000, 0x002d, 0x0031, 0x0000, 
+0x0008, 0x0004, 0x0000, 0x0030, 0x0000, 0x0008, 0x000a, 0x0000, 0x0048, 
+0x0069, 0x0067, 0x0068, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x0008, 
+0x0006, 0x0000, 0x002d, 0x0031, 0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 
+0x0002, 0x0000, 0x0000, 0x0008, 0x0010, 0x0000, 0x0053, 0x0068, 0x006f, 
+0x0077, 0x0041, 0x006c, 0x006c, 0x0000, 0x0008, 0x0004, 0x0000, 0x0030, 
+0x0000, 0x0008, 0x0004, 0x0000, 0x0030, 0x0000, 0x0008, 0x0002, 0x0000, 
+0x0000, 0x0008, 0x0000, 0x0000, 0x0008, 0x0002, 0x0000, 0x0000, 0x000d, 
+0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0008, 
+0x0004, 0x0000, 0x0031, 0x0000, 0x0008, 0x0004, 0x0000, 0x0030, 0x0000, 
+0x0008, 0x0000, 0x0000, 0x0008, 0x0004, 0x0000, 0x0030, 0x0000, 0x0008, 
+0x0008, 0x0000, 0x0061, 0x006c, 0x006c, 0x0000, 0x0008, 0x000c, 0x0000, 
+0x0066, 0x0061, 0x006c, 0x0073, 0x0065, 0x0000, 
+    0
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

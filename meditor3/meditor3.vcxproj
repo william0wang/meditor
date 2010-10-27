@@ -187,6 +187,7 @@
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="AssocDlg.cpp" />
+    <ClCompile Include="FlashPlayerDlg.cpp" />
     <ClCompile Include="InputDlg.cpp" />
     <ClCompile Include="InputList.cpp" />
     <ClCompile Include="MainDlg.cpp" />
@@ -216,6 +217,8 @@
     <ClInclude Include="..\include\ListCtrl\TitleTip.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="AssocDlg.h" />
+    <ClInclude Include="flash10h.h" />
+    <ClInclude Include="FlashPlayerDlg.h" />
     <ClInclude Include="InputDlg.h" />
     <ClInclude Include="InputList.h" />
     <ClInclude Include="MainDlg.h" />
@@ -230,6 +233,7 @@
     <ClInclude Include="UpdateDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\btn_96.bmp" />
     <None Include="res\divider.cur" />
     <None Include="res\hand.cur" />
     <None Include="res\input.7z" />

@@ -72,6 +72,9 @@
     <ClCompile Include="AboutDlg.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
+    <ClCompile Include="FlashPlayerDlg.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainDlg.h">
@@ -143,6 +146,12 @@
     <ClInclude Include="AboutDlg.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
+    <ClInclude Include="FlashPlayerDlg.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="flash10h.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\divider.cur">
@@ -164,6 +173,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\input.7z">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\btn_96.bmp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

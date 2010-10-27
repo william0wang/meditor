@@ -9,7 +9,13 @@
 #define IDR_MAINFRAME_EN                129
 #define IDD_DIALOG_PAGE_INPUT           130
 #define IDR_MAINFRAME_TC                130
+#define IDR_MENU_FLASH                  141
+#define IDR_MENU_FLASH_EN               142
+#define IDR_MENU_FLASH2                 143
+#define IDR_MENU_FLASH_TC               143
+#define IDD_DIALOG_FLASH                145
 #define IDZ_INPUT                       170
+#define IDB_BITMAP_96                   188
 #define IDC_DIVIDER                     201
 #define IDC_HYPERLINK                   202
 #define IDB_LISTITEMS                   203
@@ -61,6 +67,8 @@
 #define IDC_CHECK_SHOW                  1030
 #define IDC_BUTTON_ADD                  1074
 #define IDC_BUTTON_DEL                  1075
+#define IDC_SHOCKWAVEFLASH              1090
+#define IDC_SLIDER_CONTROL              1091
 #define IDC_ACOMBO_FONT                 1152
 #define IDC_CHECK_UPDATE                1157
 #define IDS_STRING30210                 30210
@@ -83,7 +91,14 @@
 #define IDS_STRING30227                 30227
 #define IDS_STRING30228                 30228
 #define ID_32775                        32775
+#define ID_FLASH_OPEN                   32775
 #define ID_ABOUT                        32776
+#define ID_MPLAYLIST                    32776
+#define ID_MPLAY                        32777
+#define ID_MSTOP                        32778
+#define ID_MNEXT                        32781
+#define ID_MPRE                         32782
+#define IDM_RMENU                       32790
 #define IDM_LOWER                       32800
 #define ID_MPLAYER_INI                  32805
 #define ID_INPUT_INI                    32806
@@ -459,9 +474,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        212
+#define _APS_NEXT_RESOURCE_VALUE        214
 #define _APS_NEXT_COMMAND_VALUE         32777
-#define _APS_NEXT_CONTROL_VALUE         1019
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
