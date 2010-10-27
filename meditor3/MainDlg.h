@@ -8,6 +8,7 @@
 class CInputDlg;
 class CAssocDlg;
 
+
 class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
 		public CMessageFilter, public CIdleHandler, public CWinDataExchange<CMainDlg>
 {
@@ -16,6 +17,7 @@ public:
 	enum { IDD = IDD_MAINDLG };
 	int			m_pos;
 	int			m_appLang;
+	int			m_OpenType;
 	bool		isVista;
 	UINT		s_uTBBC;
 	ITaskbarList3 *g_pTaskbarList;

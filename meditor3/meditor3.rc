@@ -48,6 +48,7 @@ IDD_MAINDLG DIALOGEX 0, 0, 423, 276
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
 CAPTION "meditor"
 MENU IDR_MAINFRAME
+CLASS "MEDITOR_V3_CLASS"
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     LTEXT           "静态",IDC_STATIC_PAGE,94,8,319,240
@@ -550,8 +551,6 @@ BEGIN
         BEGIN
             MENUITEM "打开文件",                        ID_FLASH_OPEN
             MENUITEM "播放列表",                        ID_MPLAYLIST, GRAYED
-            MENUITEM SEPARATOR
-            MENUITEM "退出",                          IDCANCEL
         END
         POPUP "播放"
         BEGIN
@@ -565,6 +564,8 @@ BEGIN
         BEGIN
             MENUITEM "使用Flash右键菜单",                 IDM_RMENU
         END
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
     END
 END
 
@@ -576,8 +577,6 @@ BEGIN
         BEGIN
             MENUITEM "Open",                        ID_FLASH_OPEN
             MENUITEM "Playlist",                    ID_MPLAYLIST, GRAYED
-            MENUITEM SEPARATOR
-            MENUITEM "Exit",                        IDCANCEL
         END
         POPUP "Play"
         BEGIN
@@ -591,6 +590,8 @@ BEGIN
         BEGIN
             MENUITEM "Use Flash Right-Click Menu",  IDM_RMENU
         END
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                        IDCANCEL
     END
 END
 
@@ -602,8 +603,6 @@ BEGIN
         BEGIN
             MENUITEM "開啟檔案",                        ID_FLASH_OPEN
             MENUITEM "播放列表",                        ID_MPLAYLIST, GRAYED
-            MENUITEM SEPARATOR
-            MENUITEM "退出",                          IDCANCEL
         END
         POPUP "播放"
         BEGIN
@@ -617,6 +616,8 @@ BEGIN
         BEGIN
             MENUITEM "使用Flash右鍵菜單",                 IDM_RMENU
         END
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
     END
 END
 

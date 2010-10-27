@@ -13,6 +13,14 @@
 #include "AboutDlg.h"
 #include "PlayerPage.h"
 
+enum START_TYPE
+{
+	START_NORMAL = 0,
+	START_HOTKEY,
+	START_ASSOC,
+	START_ONTOP,
+};
+
 enum 
 {
 	TAB_PAGE_INPUT = 0,
@@ -42,20 +50,16 @@ CMainDlg::CMainDlg()
 
 BOOL CMainDlg::PreTranslateMessage(MSG* pMsg)
 {
-	if (isVista && pMsg->message == s_uTBBC)
-	{
+	if (isVista && pMsg->message == s_uTBBC) {
 		// Once we get the TaskbarButtonCreated message, we can call methods
 		// specific to our window on a TaskbarList instance. Note that it's
 		// possible this message can be received multiple times over the lifetime
 		// of this window (if explorer terminates and restarts, for example).
-		if (!g_pTaskbarList)
-		{
+		if (!g_pTaskbarList) {
 			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
-			if (SUCCEEDED(hr))
-			{
+			if (SUCCEEDED(hr)) {
 				hr = g_pTaskbarList->HrInit();
-				if (FAILED(hr))
-				{
+				if (FAILED(hr)) {
 					g_pTaskbarList->Release();
 					g_pTaskbarList = NULL;
 				}
@@ -123,8 +127,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	//m_tablist.AddItem( _T("TEST2"), 3);
 	//m_tablist.AddItem( _T("TEST2"), 4);
 	//m_tablist.AddItem( _T("TEST2"), 5);
-	m_tablist.SelectItem(0, 0);
-
+	
 	RECT rc;
 	POINT pos;
 	::GetWindowRect(GetDlgItem(IDC_STATIC_PAGE), &rc);
@@ -137,13 +140,23 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_InputDlg = new CInputDlg(IDD_DIALOG_PAGE_INPUT);
 	m_InputDlg->Create(m_hWnd);
 	m_InputDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
-	m_InputDlg->ShowWindow(SW_SHOW);
+	//m_InputDlg->ShowWindow(SW_SHOW);
 
 	m_AssocDlg = new CAssocDlg(IDD_DIALOG_PAGE_ASSOC);
 	m_AssocDlg->Create(m_hWnd);
 	m_AssocDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
 	//m_AssocDlg->ShowWindow(SW_SHOW);
-	
+
+	if(m_OpenType == START_HOTKEY) {
+		::SetWindowPos(m_hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+		m_tablist.SelectItem(0, TAB_PAGE_INPUT);
+	} else if(m_OpenType == START_HOTKEY) {
+		m_tablist.SelectItem(0, TAB_PAGE_ASSOC);
+	} else if(m_OpenType == START_ONTOP) {
+		::SetWindowPos(m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+	} else
+		m_tablist.SelectItem(0, 0);
+
 	//CPlayerPage *page = new CPlayerPage;
 	//page->Create(this->m_hWnd);
 	//page->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);

@@ -9,14 +9,18 @@
 #include "UpdateDlg.h"
 #include "MainDlg.h"
 #include "shared.h"
+#include "InputList.h"
 #include "AtlStdioFile.h"
+#include "FlashPlayerDlg.h"
 
 enum START_TYPE
 {
 	START_NORMAL = 0,
+	START_HOTKEY,
+	START_ASSOC,
+	START_ONTOP,
 	START_FLASHPLAYER = 1001,
 	START_MEDIAPLAYER,
-	START_MEDIAINFO,
 	START_PREVIEW,
 	START_CHECK_UPDATE,
 	START_DOWNLOAD_UPDATE,
@@ -24,7 +28,6 @@ enum START_TYPE
 };
 
 CAppModule _Module;
-
 
 int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
@@ -45,38 +48,34 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	program_dir.Format(_T("%s"),szFilePath);
 
-
-	if( ProgramName == _T("mediaplayer.exe"))
-	{
+	if( ProgramName == _T("mediaplayer.exe")) {
 		OpenType = START_MEDIAPLAYER;
-	}
-	else if(sCmdLine != _T(""))
-	{
-		if(sCmdLine.Find(_T("Open Input Editor")) >= 0)
-			OpenType = 1;
-		else if(sCmdLine.Find(_T("Open Assoc")) >= 0)
-			OpenType = 2;
-		else if(sCmdLine.Find(_T("Open Editor")) >= 0)
-			OpenType = 3;
-		else if(sCmdLine.Find(_T("--generate-preview")) >= 0)
+	} else if(ProgramName == _T("flashplayer.exe")) {
+		OpenType = START_FLASHPLAYER;
+	} else if(sCmdLine != _T("")) {
+		if(sCmdLine.Find(_T("--open-hotkey")) >= 0) {
+			OpenType = START_HOTKEY;
+		} else if(sCmdLine.Find(_T("--open-assoc")) >= 0) {
+			OpenType = START_ASSOC;
+		} else if(sCmdLine.Find(_T("--open-ontop")) >= 0) {
+			OpenType = START_ONTOP;
+		} else if(sCmdLine.Find(_T("--generate-preview")) >= 0) {
 			OpenType = START_PREVIEW;
-		else if(sCmdLine.Find(_T("--check-update")) >= 0)
+		} else if(sCmdLine.Find(_T("--check-update")) >= 0) {
 			OpenType = START_CHECK_UPDATE;
-		else if(sCmdLine.Find(_T("--download-update")) >= 0)
+		} else if(sCmdLine.Find(_T("--download-update")) >= 0) {
 			OpenType = START_DOWNLOAD_UPDATE;
-		else if(sCmdLine.Find(_T("--clean-up")) >= 0)
+		} else if(sCmdLine.Find(_T("--clean-up")) >= 0) {
 			OpenType = START_CLEAN_UP;
-		else if(sCmdLine.Find(_T("--Show Media Info")) >= 0)
-			OpenType = START_MEDIAINFO;
-		else if(sCmdLine.Find(_T("--Open MediaPlayer")) >= 0)
-		{
+		} else if(sCmdLine.Find(_T("--flash-player")) >= 0) {
+			OpenType = START_FLASHPLAYER;
+			sCmdLine.Replace(_T("--flash-player"),_T(""));
+		} else if(sCmdLine.Find(_T("--dshow-player")) >= 0) {
 			OpenType = START_MEDIAPLAYER;
-			sCmdLine.Replace(_T("--Open MediaPlayer"),_T(""));
-		}
-		else if(sCmdLine.Find(_T("prer://")) >= 0)
+			sCmdLine.Replace(_T("--dshow-player"),_T(""));
+		} else if(sCmdLine.Find(_T("prer://")) >= 0) {
 			OpenType = START_MEDIAPLAYER;
-		else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0)
-		{
+		} else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0) {
 			sCmdLine.Replace(_T("prek://") ,_T("http://"));
 			sCmdLine.Replace(_T("prea://") ,_T("http://"));
 			sCmdLine.Replace(_T("prem://") ,_T("http://"));
@@ -264,7 +263,33 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 		dlgUpdate.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
+
+	} else if(OpenType == START_FLASHPLAYER) {
+		CFlashPlayerDlg flashplayer;
+		if(flashplayer.Create(NULL) == NULL) {
+			ATLTRACE(_T("Flashplayer dialog creation failed!\n"));
+			return 0;
+		}
+		flashplayer.m_applang = AppLanguage;
+
+		flashplayer.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
 	} else {
+		HANDLE gUniqueCheckEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor v3 - MPlayer Preferences version 3"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS) {
+
+			HWND hWnd = FindWindow(_T("MEDITOR_V3_CLASS"), NULL);
+			if(IsWindow(hWnd))	{
+				if(OpenType > 0)
+					SetWindowPos(hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+				if (IsIconic(hWnd))
+					ShowWindow(hWnd, SW_RESTORE);
+				HWND hWndChild = GetLastActivePopup(hWnd);
+				SetForegroundWindow(hWndChild);
+			}
+			return FALSE;
+		}
+
 		CString langfile_tc, langfile_en;
 		HINSTANCE instance_dll = NULL, instance_org = NULL;
 
@@ -295,8 +320,15 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		if(instance_org)
 			_Module.SetResourceInstance(instance_org);
 
+		WNDCLASS wcx;
+		memset(&wcx, 0, sizeof(wcx));
+		GetClassInfo(NULL, WC_DIALOG, &wcx);
+		wcx.lpszClassName = _T("MEDITOR_V3_CLASS");
+		RegisterClass(&wcx);
+
 		CMainDlg dlgMain;
 		dlgMain.m_appLang = AppLanguage;
+		dlgMain.m_OpenType = OpenType;
 
 		if(dlgMain.Create(NULL) == NULL)
 		{
@@ -306,6 +338,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 		dlgMain.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
+		CloseHandle(gUniqueCheckEvent);
 	}
 
 	_Module.RemoveMessageLoop();
@@ -327,6 +360,8 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 
 	hRes = _Module.Init(NULL, hInstance);
 	ATLASSERT(SUCCEEDED(hRes));
+
+	AtlAxWinInit();
 
 	int nRet = Run(lpstrCmdLine, nCmdShow);
 
