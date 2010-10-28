@@ -94,7 +94,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <DelayLoadDLLs>uxtheme.dll;version.dll</DelayLoadDLLs>
-      <AdditionalDependencies>7zDecD.lib;CxImageD.lib;jpegD.lib;downloadLibD.lib;tinyxmlD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>7zDecD.lib;CxImageD.lib;jpegD.lib;downloadLibD.lib;tinyxmlD.lib;Strmiids.lib;Quartz.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -135,7 +135,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <DelayLoadDLLs>uxtheme.dll;version.dll</DelayLoadDLLs>
-      <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;Strmiids.lib;Quartz.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -176,7 +176,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <DelayLoadDLLs>uxtheme.dll;version.dll</DelayLoadDLLs>
-      <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>7zDecR.lib;CxImageR.lib;jpegR.lib;downloadLibR.lib;tinyxmlR.lib;Strmiids.lib;Quartz.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -187,6 +187,8 @@
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="AssocDlg.cpp" />
+    <ClCompile Include="CDXGraph.cpp" />
+    <ClCompile Include="DshowPlayerDlg.cpp" />
     <ClCompile Include="FlashPlayerDlg.cpp" />
     <ClCompile Include="InputDlg.cpp" />
     <ClCompile Include="InputList.cpp" />
@@ -217,6 +219,8 @@
     <ClInclude Include="..\include\ListCtrl\TitleTip.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="AssocDlg.h" />
+    <ClInclude Include="CDXGraph.h" />
+    <ClInclude Include="DshowPlayerDlg.h" />
     <ClInclude Include="flash10h.h" />
     <ClInclude Include="FlashPlayerDlg.h" />
     <ClInclude Include="InputDlg.h" />

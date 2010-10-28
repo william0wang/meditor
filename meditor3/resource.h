@@ -13,7 +13,12 @@
 #define IDR_MENU_FLASH_EN               142
 #define IDR_MENU_FLASH2                 143
 #define IDR_MENU_FLASH_TC               143
+#define IDR_MENU_DSHOW                  144
 #define IDD_DIALOG_FLASH                145
+#define IDR_MENU_DSHOW_EN               145
+#define IDR_MENU_DSHOW2                 146
+#define IDR_MENU_DSHOW_TC               146
+#define IDD_DIALOG_DSHOW                151
 #define IDZ_INPUT                       170
 #define IDB_BITMAP_96                   188
 #define IDC_DIVIDER                     201
@@ -69,6 +74,7 @@
 #define IDC_BUTTON_DEL                  1075
 #define IDC_SHOCKWAVEFLASH              1090
 #define IDC_SLIDER_CONTROL              1091
+#define IDC_SLIDER_CTRL                 1107
 #define IDC_ACOMBO_FONT                 1152
 #define IDC_CHECK_UPDATE                1157
 #define IDS_STRING30210                 30210
@@ -105,6 +111,10 @@
 #define ID_KK_INI                       32807
 #define ID_LOG_TXT                      32808
 #define IDM_ABOUT                       32811
+#define ID_DS_OPEN                      32812
+#define IDM_DSPLAY                      32813
+#define IDM_DSSTOP                      32814
+#define IDM_DSFULLSCREEN                32815
 #define IDC_GOTOHOME                    32817
 #define IDC_SHOWLOG                     32819
 #define IDC_SHOWFAQ                     32821

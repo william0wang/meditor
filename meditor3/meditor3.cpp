@@ -12,6 +12,7 @@
 #include "InputList.h"
 #include "AtlStdioFile.h"
 #include "FlashPlayerDlg.h"
+#include "DShowPlayerDlg.h"
 
 enum START_TYPE
 {
@@ -20,7 +21,7 @@ enum START_TYPE
 	START_ASSOC,
 	START_ONTOP,
 	START_FLASHPLAYER = 1001,
-	START_MEDIAPLAYER,
+	START_DSHOWPLAYER,
 	START_PREVIEW,
 	START_CHECK_UPDATE,
 	START_DOWNLOAD_UPDATE,
@@ -48,8 +49,8 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	program_dir.Format(_T("%s"),szFilePath);
 
-	if( ProgramName == _T("mediaplayer.exe")) {
-		OpenType = START_MEDIAPLAYER;
+	if( ProgramName == _T("dshowplayer.exe")) {
+		OpenType = START_DSHOWPLAYER;
 	} else if(ProgramName == _T("flashplayer.exe")) {
 		OpenType = START_FLASHPLAYER;
 	} else if(sCmdLine != _T("")) {
@@ -71,10 +72,10 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			OpenType = START_FLASHPLAYER;
 			sCmdLine.Replace(_T("--flash-player"),_T(""));
 		} else if(sCmdLine.Find(_T("--dshow-player")) >= 0) {
-			OpenType = START_MEDIAPLAYER;
+			OpenType = START_DSHOWPLAYER;
 			sCmdLine.Replace(_T("--dshow-player"),_T(""));
 		} else if(sCmdLine.Find(_T("prer://")) >= 0) {
-			OpenType = START_MEDIAPLAYER;
+			OpenType = START_DSHOWPLAYER;
 		} else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0) {
 			sCmdLine.Replace(_T("prek://") ,_T("http://"));
 			sCmdLine.Replace(_T("prea://") ,_T("http://"));
@@ -266,13 +267,23 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 	} else if(OpenType == START_FLASHPLAYER) {
 		CFlashPlayerDlg flashplayer;
+		flashplayer.IninFileName(sCmdLine);
+		flashplayer.m_applang = AppLanguage;
 		if(flashplayer.Create(NULL) == NULL) {
 			ATLTRACE(_T("Flashplayer dialog creation failed!\n"));
 			return 0;
 		}
-		flashplayer.m_applang = AppLanguage;
-
 		flashplayer.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+	} else if(OpenType == START_DSHOWPLAYER) {
+		CDShowPlayerDlg dshowplayer;
+		dshowplayer.IninFileName(sCmdLine);
+		dshowplayer.m_applang = AppLanguage;
+		if(dshowplayer.Create(NULL) == NULL) {
+			ATLTRACE(_T("Flashplayer dialog creation failed!\n"));
+			return 0;
+		}
+		dshowplayer.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
 	} else {
 		HANDLE gUniqueCheckEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor v3 - MPlayer Preferences version 3"));

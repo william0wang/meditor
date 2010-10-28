@@ -248,6 +248,15 @@ BEGIN
                     "{D27CDB6E-AE6D-11CF-96B8-444553540000}",WS_TABSTOP,0,0,320,240
 END
 
+IDD_DIALOG_DSHOW DIALOGEX 0, 0, 320, 250
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "DShowPlayer"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER_CTRL,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,240,320,10
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -343,6 +352,10 @@ BEGIN
     END
 
     IDD_DIALOG_FLASH, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_DSHOW, DIALOG
     BEGIN
     END
 END
@@ -616,6 +629,52 @@ BEGIN
         BEGIN
             MENUITEM "使用Flash右鍵菜單",                 IDM_RMENU
         END
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+END
+
+IDR_MENU_DSHOW MENU
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        MENUITEM "打开文件",                        ID_DS_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "播放/暂停",                       IDM_DSPLAY
+        MENUITEM "停止",                          IDM_DSSTOP
+        MENUITEM SEPARATOR
+        MENUITEM "全屏幕",                         IDM_DSFULLSCREEN
+        MENUITEM SEPARATOR
+        MENUITEM "退出",                          IDCANCEL
+    END
+END
+
+IDR_MENU_DSHOW_EN MENU
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        MENUITEM "Open",                        ID_DS_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "Play/Pause",                  IDM_DSPLAY
+        MENUITEM "Stop",                        IDM_DSSTOP
+        MENUITEM SEPARATOR
+        MENUITEM "FullScreen",                  IDM_DSFULLSCREEN
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                        IDCANCEL
+    END
+END
+
+IDR_MENU_DSHOW_TC MENU
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        MENUITEM "開啟檔案",                        ID_DS_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "播放/暫停",                       IDM_DSPLAY
+        MENUITEM "停止",                          IDM_DSSTOP
+        MENUITEM "全螢幕",                         IDM_DSFULLSCREEN
+        MENUITEM SEPARATOR
+        MENUITEM "全螢幕",                         IDM_DSFULLSCREEN
         MENUITEM SEPARATOR
         MENUITEM "退出",                          IDCANCEL
     END
