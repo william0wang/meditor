@@ -369,7 +369,7 @@ LRESULT CPreviewDlg::OnBnClickedButtonB(WORD /*wNotifyCode*/, WORD /*wID*/, HWND
 	if(Name) ++Name;
 
 	TCHAR strBuffer[MAX_PATH * 2]  = {0};
-	CFileDialog dlg(FALSE, 0, Name, OFN_HIDEREADONLY, _T("JPEG File (*.jpg)\0*.jpg||"));
+	CFileDialog dlg(FALSE, 0, Name, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, _T("JPEG File (*.jpg)\0*.jpg\0"));
 	dlg.m_ofn.lpstrInitialDir= Path;
 	dlg.m_ofn.lpstrFile = strBuffer;
 	dlg.m_ofn.nMaxFile = MAX_PATH * 2;
