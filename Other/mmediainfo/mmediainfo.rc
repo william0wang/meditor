@@ -49,7 +49,9 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
 EXSTYLE WS_EX_ACCEPTFILES
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "ListCtrl",IDC_LISTCTRL,"ListCtrl",WS_TABSTOP,0,0,424,340
+    CONTROL         "ListCtrl",IDC_LISTCTRL,"ListCtrl",WS_TABSTOP,0,0,424,318
+    PUSHBUTTON      "Save to file",IDC_BUTTON_SAVE,5,321,74,14
+    PUSHBUTTON      "Close",IDC_BUTTON_CLOSE,370,321,50,14
 END
 
 
@@ -138,6 +140,9 @@ IDC_DIVIDER             CURSOR                  "res\\divider.cur"
 STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "MediaInfo"
+    IDS_STRING129           "关闭"
+    IDS_STRING130           "保存到文件"
+    IDS_STRING131           "保存到檔"
 END
 
 #endif    // 中文(简体，中国) resources
