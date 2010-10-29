@@ -181,6 +181,35 @@ void DeleteFolder(CString dir)
 	}
 }
 
+void TestURL(CString url, int fullbyte)
+{
+	TCHAR buffer[HTTP_BUFFER_LEN];//下载文件的缓冲区
+	DWORD bytes_read;//下载的字节数
+	//打开一个internet连接
+	HINTERNET internet=InternetOpen(_T("HTTP"), INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
+
+	if(!internet)
+		return;
+	//打开一个http url地址
+
+	HINTERNET file_handle=InternetOpenUrl(internet, url, NULL, 0, INTERNET_FLAG_RELOAD, 0);
+
+	if(!file_handle)
+		return;
+	//从url地址中读取文件内容到缓冲区buffer
+	BOOL b = 0;
+	int readbyte = 0, time = 0;
+	while(readbyte < HTTP_BUFFER_LEN && time < 3000) {
+		b = InternetReadFile(file_handle, buffer, 128 , &bytes_read);
+		readbyte += bytes_read;
+		time++;
+	}
+	if(!b)
+		return;
+	//关闭连接
+	InternetCloseHandle(internet);
+}
+
 bool get_url_string(wstring url, string &out)
 {
 	char buffer[HTTP_BUFFER_LEN];//下载文件的缓冲区

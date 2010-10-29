@@ -239,6 +239,8 @@
   <ItemGroup>
     <None Include="res\btn_96.bmp" />
     <None Include="res\divider.cur" />
+    <None Include="res\dshow.ico" />
+    <None Include="res\flash.ico" />
     <None Include="res\hand.cur" />
     <None Include="res\input.7z" />
     <None Include="res\ListItems.bmp" />

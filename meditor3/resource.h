@@ -14,10 +14,11 @@
 #define IDR_MENU_FLASH2                 143
 #define IDR_MENU_FLASH_TC               143
 #define IDR_MENU_DSHOW                  144
+#define IDI_ICON_SWF                    144
 #define IDD_DIALOG_FLASH                145
 #define IDR_MENU_DSHOW_EN               145
-#define IDR_MENU_DSHOW2                 146
 #define IDR_MENU_DSHOW_TC               146
+#define IDI_ICON_DS                     150
 #define IDD_DIALOG_DSHOW                151
 #define IDZ_INPUT                       170
 #define IDB_BITMAP_96                   188

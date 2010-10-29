@@ -33,3 +33,5 @@ bool ExtractResource(LPCTSTR lpName, LPCTSTR lpType, LPCTSTR lpFilePath, bool bO
 bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date);
 
 void MyTerminateProcess(LPCTSTR proname);
+
+void TestURL(CString url, int fullbyte);

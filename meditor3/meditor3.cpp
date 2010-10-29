@@ -80,13 +80,11 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			sCmdLine.Replace(_T("prek://") ,_T("http://"));
 			sCmdLine.Replace(_T("prea://") ,_T("http://"));
 			sCmdLine.Replace(_T("prem://") ,_T("http://"));
-			//TestURL(sCmdLine,128);
-			//sCmdLine = _T("mplayer.exe -nocache ") + sCmdLine;
-			//int outlen = 0;
-			//char *out = UnicodeToLocal(sCmdLine,outlen);
-			//WinExec(out, SW_SHOW);
-			//delete out;
-			//return FALSE;
+			TestURL(sCmdLine, 128);
+			sCmdLine = _T("mplayer.exe -nocache ") + sCmdLine;
+			WinExec(unicode2local(sCmdLine.GetBuffer()).c_str(), SW_SHOW);
+			sCmdLine.ReleaseBuffer();
+			return FALSE;
 		}
 	}
 
