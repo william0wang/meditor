@@ -205,8 +205,8 @@ FILE * CDownloader::OpenInfoFile(wstring infofile, wstring etag, SYSTEMTIME last
 			str = wbuffer;
 			wtrimRight(str, L" ");
 
-			if(str.compare(etag))
-				goto ReWriteInfoFile;
+			//if(str.compare(etag))
+			//	goto ReWriteInfoFile;
 			download_size = dsize;
 		}
 	} else {
