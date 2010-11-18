@@ -12,6 +12,8 @@ using namespace std;
 #define WM_MSG_UN7ZIP_PERCENT				WM_USER + 2122
 #define WM_MSG_UN7ZIP_FINISHED				WM_USER + 2123
 
+#define MAX_DOWNLOAD_SERVER		6
+
 class CUpdateDlg : public CDialogImpl<CUpdateDlg>,
 	public CWinDataExchange<CUpdateDlg>
 {
@@ -43,6 +45,7 @@ public:
 	CString					str_updatefinished;
 	CString					str_running;
 
+	int						m_failtime;
 	int						m_avgbps;
 	int						m_avgnumber;
 	int						m_filesize;
@@ -52,6 +55,7 @@ public:
 	DWORD					m_LastTimer;
 
 	wstring					m_url;
+	wstring					m_urlbase;
 	wstring					m_filename;
 	wstring					m_path;
 

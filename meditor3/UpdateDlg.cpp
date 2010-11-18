@@ -205,15 +205,17 @@ NOUPDATE:
 
 	CString str;
 
-	CString url, filename;
+	CString url, urlbase, filename;
 	if((svn < re_svn && date <= re_date) || (svn <= re_svn && date < re_date)) {
 		filename.Format(_T("mplayer_lite_r%d.7z"), re_svn);
 		url.Format(_T("http://downloads.sourceforge.net/project/mplayer-ww/MPlayer_Release/Revision%%20%d/%s"), re_svn, filename);
 		str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversion, re_svn, re_date);
+		urlbase.Format(_T(".dl.sourceforge.net/project/mplayer-ww/MPlayer_Release/Revision%%20%d/%s"), re_svn, filename);
 		update->GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
 	} else if((svn < be_svn && date <= be_date) || (svn <= be_svn && date < be_date)) {
 		filename.Format(_T("mplayer-SVN-r%d.7z"), be_svn);
 		url.Format(_T("http://downloads.sourceforge.net/project/mplayer-ww/MPlayer_Beta/%s"), filename);
+		urlbase.Format(_T(".dl.sourceforge.net/project/mplayer-ww/MPlayer_Beta/%s"), filename);
 		if(svn == re_svn && date == re_date)
 			str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversionrel, be_svn, be_date);
 		else
@@ -231,7 +233,9 @@ NOUPDATE:
 	}
 
 	update->m_url = url.GetBuffer();
+	update->m_urlbase = urlbase.GetBuffer();
 	url.ReleaseBuffer();
+	urlbase.ReleaseBuffer();
 	update->m_filename = filename.GetBuffer();
 	filename.ReleaseBuffer();
 
@@ -457,6 +461,8 @@ void CUpdateDlg::StartDownload()
 	m_progress.ShowWindow(SW_SHOW);
 	DoDataExchange();
 
+	m_failtime = 0;
+
 	m_down_index = StartDownloaderW(m_url.c_str(), m_path.c_str(), m_filename.c_str(),
 		(FUNC_CallBack)Callback_Download, DOWNLOAD_WPARAM);
 }
@@ -534,8 +540,40 @@ LRESULT CUpdateDlg::OnFinished(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bH
 		m_info1 = str_downloadok;
 		DoDataExchange();
 	} else {
-		m_info1 = str_downloadfail;
-		GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
+		m_failtime++;
+		if(m_failtime < MAX_DOWNLOAD_SERVER) {
+			wstring server;
+			switch(m_failtime)
+			{
+			case 1:
+				server = L"http://ncu";
+				break;
+			case 2:
+				server = L"http://surfnet";
+				break;
+			case 3:
+				server = L"http://jaist";
+				break;
+			case 4:
+				server = L"http://softlayer";
+				break;
+			case 5:
+				server = L"http://nchc";
+				break;
+			default:
+				server = L"http://kent";
+				break;
+			}
+			wstring url_x =  server + m_urlbase;
+			m_progress.ShowWindow(SW_SHOW);
+			m_down_index = StartDownloaderW(url_x.c_str(), m_path.c_str(), m_filename.c_str(),
+				(FUNC_CallBack)Callback_Download, DOWNLOAD_WPARAM);
+
+		} else {
+			GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
+			m_info1 = str_downloadfail;
+			DoDataExchange();
+		}
 	}
 	
 	return 0;
@@ -549,7 +587,8 @@ LRESULT CUpdateDlg::OnBnClickedButtonUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	CopyFileW(m_Progrom, updater, FALSE);
 	if(FileExist(updater)) {
 		CString sCmdLine;
-		sCmdLine.Format(_T("--download-update --filename \"%s\" --url \"%s\" "), m_filename.c_str(), m_url.c_str());
+		sCmdLine.Format(_T("--download-update --filename \"%s\" --url \"%s\" --urlbase \"%s\""),
+			m_filename.c_str(), m_url.c_str(), m_urlbase.c_str());
 		ShellExecute(NULL, _T("open"), updater, sCmdLine, NULL, SW_SHOW);
 
 		PostMessage(WM_CLOSE, 0, 0);

@@ -202,18 +202,35 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		if(offset < 0)
 			return FALSE;
 		CString url = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
-		name.Trim();
+		url.Trim();
 		offset = url.Find(_T("\""));
 		if(offset <= 0)
 			return FALSE;
 		url = url.Left(offset);
 
+		CString urlbase = _T("");
+		offset = sCmdLine.Find(_T("--urlbase"));
+		if(offset >= 0) {
+			offset = sCmdLine.Find(_T("\""), offset);
+			if(offset > 0) {
+				urlbase = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+				urlbase.Trim();
+				offset = urlbase.Find(_T("\""));
+				if(offset > 0)
+					urlbase = urlbase.Left(offset);
+			}
+		}
 
 		CUpdateDlg dlgUpdate(DialogIDD);
 
 		dlgUpdate.m_bDownload = TRUE;
-		dlgUpdate.m_filename = name;
-		dlgUpdate.m_url = url;
+		dlgUpdate.m_filename = name.GetBuffer();
+		dlgUpdate.m_url = url.GetBuffer();
+		dlgUpdate.m_urlbase = urlbase.GetBuffer();
+
+		url.ReleaseBuffer();
+		name.ReleaseBuffer();
+		urlbase.ReleaseBuffer();
 
 		if(dlgUpdate.Create(NULL) == NULL)
 		{
