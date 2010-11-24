@@ -7,6 +7,9 @@
 
 class CInputDlg;
 class CAssocDlg;
+class CPlayerDlg;
+class CExtraDlg;
+class CGuiDlg;
 
 
 class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
@@ -27,8 +30,13 @@ public:
 
 	CInputDlg	*m_InputDlg;
 	CAssocDlg	*m_AssocDlg;
+	CPlayerDlg	*m_PlayerDlg;
+	CExtraDlg	*m_ExtraDlg;
+	CGuiDlg		*m_GuiDlg;
 
 	CString		m_program_dir;
+
+	void SaveConfig();
 
 	BEGIN_DDX_MAP(CMainDlg)
 		DDX_CONTROL_HANDLE(IDC_PROGRESS_APPLEY, m_progress_apply)

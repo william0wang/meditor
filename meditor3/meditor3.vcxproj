@@ -189,11 +189,15 @@
     <ClCompile Include="AssocDlg.cpp" />
     <ClCompile Include="CDXGraph.cpp" />
     <ClCompile Include="DshowPlayerDlg.cpp" />
+    <ClCompile Include="ExtraDlg.cpp" />
     <ClCompile Include="FlashPlayerDlg.cpp" />
+    <ClCompile Include="GuiDlg.cpp" />
     <ClCompile Include="InputDlg.cpp" />
     <ClCompile Include="InputList.cpp" />
     <ClCompile Include="MainDlg.cpp" />
+    <ClCompile Include="MConfig.cpp" />
     <ClCompile Include="meditor3.cpp" />
+    <ClCompile Include="PlayerDlg.cpp" />
     <ClCompile Include="PlayerPage.cpp" />
     <ClCompile Include="PreviewDlg.cpp" />
     <ClCompile Include="ProgressDlg.cpp" />
@@ -208,6 +212,7 @@
     <ClCompile Include="UpdateDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\ACombo.h" />
     <ClInclude Include="..\include\AtlStdioFile.h" />
     <ClInclude Include="..\include\ListCtrl\DragDrop.h" />
     <ClInclude Include="..\include\ListCtrl\DropArrows.h" />
@@ -221,11 +226,15 @@
     <ClInclude Include="AssocDlg.h" />
     <ClInclude Include="CDXGraph.h" />
     <ClInclude Include="DshowPlayerDlg.h" />
+    <ClInclude Include="ExtraDlg.h" />
     <ClInclude Include="flash10h.h" />
     <ClInclude Include="FlashPlayerDlg.h" />
+    <ClInclude Include="GuiDlg.h" />
     <ClInclude Include="InputDlg.h" />
     <ClInclude Include="InputList.h" />
     <ClInclude Include="MainDlg.h" />
+    <ClInclude Include="MConfig.h" />
+    <ClInclude Include="PlayerDlg.h" />
     <ClInclude Include="PlayerPage.h" />
     <ClInclude Include="PreviewDlg.h" />
     <ClInclude Include="ProgressDlg.h" />

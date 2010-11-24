@@ -8,16 +8,39 @@ public:
 public:
 	CString title;
 
+	CString	player;
+	CString	gui;
+	CString	extra;
 	CString assoc;
 	CString hotkey;
 	CString set_assoc;
 	CString update_assoc;
+
+	CString	lang;
+	CString skin;
+	CString ctlalpha;
+	CString ontop;
+	CString autohide;
+	CString mintray;
+
+	CString systheme;
+	CString ontop_none;
+	CString ontop_always;
+	CString ontop_playing;
+	CString hide_no;
+	CString hide_m;
+	CString hide_a;
+	CString tray_ta;
+	CString tray_tr;
+	CString tray_trs;
 
 	CString	check_update;
 	CString	btn_ok;
 	CString	btn_cancle;
 	CString	btn_apply;
 
+	CString	autos;
+	CString	nos;
 	CString add;
 	CString del;
 

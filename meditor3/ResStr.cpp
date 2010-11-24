@@ -10,6 +10,8 @@ void CResStr::LoadString()
 {
 
 	title = ResStr(IDS_PLAYER_NAME);
+	player = ResStr(IDS_STRING30210);
+	gui = ResStr(IDS_STRING30215);
 	assoc = ResStr(IDS_STRING30217);
 	hotkey = ResStr(IDS_STRING30216);
 
@@ -21,6 +23,28 @@ void CResStr::LoadString()
 	btn_cancle = ResStr(IDS_STRING30226);
 	btn_apply = ResStr(IDS_STRING30227);
 	check_update = ResStr(IDS_STRING30228);
+
+	lang = ResStr(IDS_STRING30229);
+	skin = ResStr(IDS_STRING30230);
+	ctlalpha = ResStr(IDS_STRING30231);
+	ontop = ResStr(IDS_STRING30232);
+	autohide = ResStr(IDS_STRING30233);
+	mintray = ResStr(IDS_STRING30234);
+	extra = ResStr(IDS_STRING30235);
+
+	systheme = ResStr(IDS_PLAYER_THEME);
+
+	ontop_none = ResStr(IDS_PLAYER_NONE);
+	ontop_always = ResStr(IDS_PLAYER_ALLWAYS);
+	ontop_playing = ResStr(IDS_PLAYER_PLAYING);
+
+	hide_no = ResStr(IDS_PLAYER_HIDE_NO);
+	hide_m = ResStr(IDS_PLAYER_HIDE_M);
+	hide_a = ResStr(IDS_PLAYER_HIDE_A);
+
+	tray_ta = ResStr(IDS_PLAYER_TASK);
+	tray_tr = ResStr(IDS_PLAYER_TRAY);
+	tray_trs = ResStr(IDS_PLAYER_TRAYSTOP);
 	
 	INPUT_NONE = ResStr(IDS_INPUT_NONE);
 	INPUT_LEFT = ResStr(IDS_INPUT_LEFT);
@@ -139,5 +163,8 @@ void CResStr::LoadString()
 
 	INPUT_AUDD= ResStr(IDS_INPUT_AUDD);
 	INPUT_SUBD= ResStr(IDS_INPUT_SUBD);
+
+	autos = ResStr(IDS_PLAYER_AUTO);
+	nos = ResStr(IDS_PLAYER_NO);
 }
 

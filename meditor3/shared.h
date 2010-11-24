@@ -3,13 +3,23 @@
 #include <vector>
 #include "../Libs/7z/Util/7z/7zMain.h"
 #include "ResStr.h"
+#include "MConfig.h"
 using namespace std;
 
 extern CResStr rStr;
+extern CMConfig mconfig;
 
 #define FileExist(lpszFileName) (::GetFileAttributes((lpszFileName))   !=   INVALID_FILE_ATTRIBUTES)
 
 #define ResStr(id) CString(MAKEINTRESOURCE(id))
+
+#ifndef _ttof
+#ifdef _UNICODE
+#define _ttof	_wtof
+#else
+#define _ttof	atof
+#endif
+#endif
 
 BOOL FileIsDirectory(LPCTSTR lpszFileName);
 

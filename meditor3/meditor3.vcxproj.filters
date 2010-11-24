@@ -81,6 +81,18 @@
     <ClCompile Include="CDXGraph.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
+    <ClCompile Include="MConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtraDlg.cpp">
+      <Filter>Source Files\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiDlg.cpp">
+      <Filter>Source Files\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDlg.cpp">
+      <Filter>Source Files\Page</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainDlg.h">
@@ -163,6 +175,21 @@
     </ClInclude>
     <ClInclude Include="CDXGraph.h">
       <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ACombo.h">
+      <Filter>Header Files\Depend</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraDlg.h">
+      <Filter>Header Files\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiDlg.h">
+      <Filter>Header Files\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDlg.h">
+      <Filter>Header Files\Page</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

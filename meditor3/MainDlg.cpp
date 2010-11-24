@@ -6,12 +6,17 @@
 #include "resource.h"
 
 #include "Win7ShellApi.h"
-#include "MainDlg.h"
 #include "InputDlg.h"
 #include "AssocDlg.h"
+#include "PlayerDlg.h"
+#include "ExtraDlg.h"
+#include "GuiDlg.h"
 #include "shared.h"
 #include "AboutDlg.h"
-#include "PlayerPage.h"
+#include "MConfig.h"
+#include "MainDlg.h"
+
+CMConfig mconfig;
 
 enum START_TYPE
 {
@@ -23,7 +28,10 @@ enum START_TYPE
 
 enum 
 {
-	TAB_PAGE_INPUT = 0,
+	TAB_PAGE_GUI = 0,
+	//TAB_PAGE_PLAYER,
+	TAB_PAGE_EXTRA,
+	TAB_PAGE_INPUT,
 	TAB_PAGE_ASSOC,
 };
 
@@ -36,6 +44,9 @@ CMainDlg::CMainDlg()
 
 	m_InputDlg = NULL;
 	m_AssocDlg = NULL;
+	m_PlayerDlg = NULL;
+	m_ExtraDlg = NULL;
+	m_GuiDlg = NULL;
 	m_pos = 0;
 
 	g_pTaskbarList = NULL;
@@ -81,12 +92,15 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	// center the dialog on the screen
 	CenterWindow();
 
+	m_tablist.Show3DColor();
+	m_tablist.ShowAlwaysForce();
 	m_tablist.SubclassWindow(GetDlgItem(IDC_LIST_TAB));
 
 	m_tablist.SetFocusSubItem( FALSE );
 	m_tablist.ShowHeaderSort(FALSE);
 	m_tablist.ShowHeader(FALSE);
 	m_tablist.SetSingleSelect(TRUE);
+
 
 	// set icons
 	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
@@ -122,12 +136,15 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	
 	m_tablist.SetImageList(m_Images);
 	m_tablist.AddColumn(_T(""), 141, ITEM_IMAGE_NONE, FALSE);
-	m_tablist.AddItem(rStr.hotkey, 0);
-	m_tablist.AddItem(rStr.assoc, 1);
-	//m_tablist.AddItem( _T("TEST2"), 3);
-	//m_tablist.AddItem( _T("TEST2"), 4);
-	//m_tablist.AddItem( _T("TEST2"), 5);
-	
+	m_tablist.AddItem(rStr.gui, 0);
+	//m_tablist.AddItem(rStr.player, 1);
+	m_tablist.AddItem(rStr.extra, 2);
+	m_tablist.AddItem(rStr.hotkey, 3);
+	m_tablist.AddItem(rStr.assoc, 4);
+
+	mconfig.LoadConfig(m_program_dir + _T("kk.ini"), true);
+	mconfig.LoadConfig(m_program_dir + _T("mplayer.ini"));
+
 	RECT rc;
 	POINT pos;
 	::GetWindowRect(GetDlgItem(IDC_STATIC_PAGE), &rc);
@@ -137,15 +154,25 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	rc.right -= rc.left;
 	ScreenToClient(&pos);
 
+	m_PlayerDlg = new CPlayerDlg(IDD_DIALOG_PAGE_PLAYER);
+	m_PlayerDlg->Create(m_hWnd);
+	m_PlayerDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
+
+	m_GuiDlg = new CGuiDlg(IDD_DIALOG_PAGE_GUI);
+	m_GuiDlg->Create(m_hWnd);
+	m_GuiDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
+
+	m_ExtraDlg = new CExtraDlg(IDD_DIALOG_PAGE_EXTRA);
+	m_ExtraDlg->Create(m_hWnd);
+	m_ExtraDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
+
 	m_InputDlg = new CInputDlg(IDD_DIALOG_PAGE_INPUT);
 	m_InputDlg->Create(m_hWnd);
 	m_InputDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
-	//m_InputDlg->ShowWindow(SW_SHOW);
 
 	m_AssocDlg = new CAssocDlg(IDD_DIALOG_PAGE_ASSOC);
 	m_AssocDlg->Create(m_hWnd);
 	m_AssocDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
-	//m_AssocDlg->ShowWindow(SW_SHOW);
 
 	if(m_OpenType == START_HOTKEY) {
 		::SetWindowPos(m_hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
@@ -186,12 +213,20 @@ LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 	pLoop->RemoveMessageFilter(this);
 	pLoop->RemoveIdleHandler(this);
 
+	if(m_PlayerDlg)
+		m_PlayerDlg->SendMessage(WM_CLOSE);
+
+	if(m_GuiDlg)
+		m_GuiDlg->SendMessage(WM_CLOSE);
+
+	if(m_ExtraDlg)
+		m_ExtraDlg->SendMessage(WM_CLOSE);
+
 	if(m_InputDlg)
 		m_InputDlg->SendMessage(WM_CLOSE);
 
 	if(m_AssocDlg)
 		m_InputDlg->SendMessage(WM_CLOSE);
-
 
 	if (g_pTaskbarList)
 	{
@@ -203,8 +238,7 @@ LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 
 LRESULT CMainDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	if(m_InputDlg)
-		m_InputDlg->SaveInputConfig();
+	SaveConfig();
 
 	CloseDialog(wID);
 	return 0;
@@ -222,6 +256,21 @@ void CMainDlg::CloseDialog(int nVal)
 	::PostQuitMessage(nVal);
 }
 
+void CMainDlg::SaveConfig()
+{
+	if(m_InputDlg)
+		m_InputDlg->SaveInputConfig();
+	if(m_GuiDlg)
+		m_GuiDlg->SaveConfig();
+	if(m_PlayerDlg)
+		m_PlayerDlg->SaveConfig();
+	if(m_ExtraDlg)
+		m_ExtraDlg->SaveConfig();
+
+	mconfig.SaveConfig(m_program_dir + _T("kk.ini"), true);
+	mconfig.SaveConfig(m_program_dir + _T("mplayer.ini"));
+}
+
 LRESULT CMainDlg::OnApply(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	m_pos = 0;
@@ -231,10 +280,63 @@ LRESULT CMainDlg::OnApply(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandl
 	if(g_pTaskbarList)
 		g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
 
-	if(m_InputDlg)
-		m_InputDlg->SaveInputConfig();
+	SaveConfig();
 	return 0;
 }
+
+LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
+{
+	CListNotify *pListNotify = reinterpret_cast<CListNotify *>( lpNMHDR );
+
+	if(!m_InputDlg || !m_AssocDlg)
+		return 0;
+
+	switch(pListNotify->m_nItem)
+	{
+	case TAB_PAGE_GUI:
+		m_GuiDlg->ShowWindow(SW_SHOW);
+		m_PlayerDlg->ShowWindow(SW_HIDE);
+		m_ExtraDlg->ShowWindow(SW_HIDE);
+		m_InputDlg->ShowWindow(SW_HIDE);
+		m_AssocDlg->ShowWindow(SW_HIDE);
+		break;
+		//case TAB_PAGE_PLAYER:
+		//	m_GuiDlg->ShowWindow(SW_HIDE);
+		//	m_PlayerDlg->ShowWindow(SW_SHOW);
+		//	m_ExtraDlg->ShowWindow(SW_HIDE);
+		//	m_InputDlg->ShowWindow(SW_HIDE);
+		//	m_AssocDlg->ShowWindow(SW_HIDE);
+		//	break;
+	case TAB_PAGE_EXTRA:
+		m_GuiDlg->ShowWindow(SW_HIDE);
+		m_PlayerDlg->ShowWindow(SW_HIDE);
+		m_ExtraDlg->ShowWindow(SW_SHOW);
+		m_InputDlg->ShowWindow(SW_HIDE);
+		m_AssocDlg->ShowWindow(SW_HIDE);
+		break;
+	case TAB_PAGE_INPUT:
+		m_GuiDlg->ShowWindow(SW_HIDE);
+		m_PlayerDlg->ShowWindow(SW_HIDE);
+		m_ExtraDlg->ShowWindow(SW_HIDE);
+		m_InputDlg->ShowWindow(SW_SHOW);
+		m_AssocDlg->ShowWindow(SW_HIDE);
+		break;
+	case TAB_PAGE_ASSOC:
+		m_PlayerDlg->ShowWindow(SW_HIDE);
+		m_GuiDlg->ShowWindow(SW_HIDE);
+		m_ExtraDlg->ShowWindow(SW_HIDE);
+		m_InputDlg->ShowWindow(SW_HIDE);
+		m_AssocDlg->ShowWindow(SW_SHOW);
+		break;
+	default:
+		ATLTRACE(_T("User Selected: %d\n"), pListNotify->m_nItem);
+		break;
+	}
+
+
+	return 0;
+}
+
 
 LRESULT CMainDlg::OnMplayerIni(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
@@ -299,33 +401,6 @@ LRESULT CMainDlg::OnShowfaq(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHan
 		ShellExecute(0, _T("open"),_T("http://mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
 	return 0;
 }
-
-LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
-{
-	CListNotify *pListNotify = reinterpret_cast<CListNotify *>( lpNMHDR );
-
-	if(!m_InputDlg || !m_AssocDlg)
-		return 0;
-
-	switch(pListNotify->m_nItem)
-	{
-	case TAB_PAGE_INPUT:
-		m_InputDlg->ShowWindow(SW_SHOW);
-		m_AssocDlg->ShowWindow(SW_HIDE);
-		break;
-	case TAB_PAGE_ASSOC:
-		m_InputDlg->ShowWindow(SW_HIDE);
-		m_AssocDlg->ShowWindow(SW_SHOW);
-		break;
-	default:
-		ATLTRACE(_T("User Selected: %d\n"), pListNotify->m_nItem);
-		break;
-	}
-
-
-	return 0;
-}
-
 
 LRESULT CMainDlg::OnAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
