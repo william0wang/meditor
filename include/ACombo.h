@@ -64,6 +64,16 @@ public:
 		SetItemComboIndex(0, 1, index);
 	}
 
+	int FindStringExactNoCase(UINT index, CString str)
+	{
+		for(int i = index; i < tComboList.GetSize(); i++) {
+			if(!str.CompareNoCase(tComboList[i]))
+				return i;
+		}
+
+		return -1;
+	}
+
 	int FindStringExact(UINT index, CString str)
 	{
 		for(int i = index; i < tComboList.GetSize(); i++) {
