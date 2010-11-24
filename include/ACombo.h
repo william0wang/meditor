@@ -64,4 +64,26 @@ public:
 		SetItemComboIndex(0, 1, index);
 	}
 
+	int FindStringExact(UINT index, CString str)
+	{
+		CListArray<CString> aComboList;
+		GetItemComboList(0, 1, aComboList);
+
+		for(int i = index; i < aComboList.GetSize(); i++) {
+			if(!str.Compare(aComboList[i]))
+				return i;
+		}
+
+		return -1;
+	}
+
+	CString GetSelectedString()
+	{
+		return GetItemText(0, 1);
+	}
+
+	int GetSelectedIndex()
+	{
+		return GetItemComboIndex(0, 1);
+	}
 };
