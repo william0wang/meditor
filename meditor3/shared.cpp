@@ -6,6 +6,15 @@
 #pragma comment(lib, "wininet.lib")
 #pragma comment(lib, "version.lib")
 
+
+#ifndef BIF_USENEWUI
+#define BIF_USENEWUI           (BIF_NEWDIALOGSTYLE | BIF_EDITBOX)
+#endif
+
+#ifndef BIF_NEWDIALOGSTYLE
+#define BIF_NEWDIALOGSTYLE     0x0040
+#endif
+
 #define HTTP_BUFFER_LEN 2048
 
 static int sys_language_id = CP_ACP;	//ANSI
@@ -463,4 +472,43 @@ void MyTerminateProcess(LPCTSTR proname)
 	}
 
 	::CloseHandle(hProcessSnap);
+}
+
+bool SelectFolder(HWND hWnd, CString &strFolder, bool bCreate, std::wstring title)
+{
+	LPMALLOC lpMalloc; 
+	if (::SHGetMalloc(&lpMalloc) != NOERROR)
+		return false; 
+	bool result = false;
+	TCHAR szDisplayName[_MAX_PATH];
+	TCHAR szBuffer[_MAX_PATH];
+	BROWSEINFO browseInfo;
+	memset(&browseInfo, 0, sizeof(BROWSEINFO));
+	strFolder = _T(""); 
+	if(title.length() > 1)
+		browseInfo.lpszTitle = title.c_str();
+
+	browseInfo.hwndOwner = hWnd; 
+	browseInfo.pidlRoot = NULL; // set root at Desktop
+	browseInfo.pszDisplayName = szDisplayName;
+	browseInfo.ulFlags = BIF_RETURNONLYFSDIRS | BIF_DONTGOBELOWDOMAIN | BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
+	if(!bCreate) browseInfo.ulFlags |= BIF_NONEWFOLDERBUTTON;
+	browseInfo.lpfn = NULL;
+	browseInfo.lParam = 0;
+	LPITEMIDLIST lpItemIDList;
+	if ((lpItemIDList = SHBrowseForFolder(&browseInfo)) != NULL) {
+		// Get the path of the selected folder from the item ID list.
+		if (::SHGetPathFromIDList(lpItemIDList, szBuffer)) {
+			// At this point, szBuffer contains the path the user chose. 
+			// We have a path in szBuffer! Return it. 
+			if (!szBuffer[0] == _T('\0')) {
+				strFolder = szBuffer;
+				result = true;
+			}
+		}  
+		lpMalloc->Free(lpItemIDList);
+		lpMalloc->Release();
+	} 
+
+	return result;
 }
