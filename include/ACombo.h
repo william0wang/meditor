@@ -66,11 +66,8 @@ public:
 
 	int FindStringExact(UINT index, CString str)
 	{
-		CListArray<CString> aComboList;
-		GetItemComboList(0, 1, aComboList);
-
-		for(int i = index; i < aComboList.GetSize(); i++) {
-			if(!str.Compare(aComboList[i]))
+		for(int i = index; i < tComboList.GetSize(); i++) {
+			if(!str.Compare(tComboList[i]))
 				return i;
 		}
 
