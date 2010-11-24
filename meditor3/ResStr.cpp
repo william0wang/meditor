@@ -32,6 +32,14 @@ void CResStr::LoadString()
 	mintray = ResStr(IDS_STRING30234);
 	extra = ResStr(IDS_STRING30235);
 
+	cwindow = ResStr(IDS_STRING30236);
+	cskinb = ResStr(IDS_STRING30237);
+	cskinc = ResStr(IDS_STRING30238);
+	cautoh = ResStr(IDS_STRING30239);
+	ctitle = ResStr(IDS_STRING30240);
+	cmenu = ResStr(IDS_STRING30241);
+	crmenu = ResStr(IDS_STRING30242);
+
 	systheme = ResStr(IDS_PLAYER_THEME);
 
 	ontop_none = ResStr(IDS_PLAYER_NONE);

@@ -191,6 +191,14 @@ LRESULT CGuiDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*
 	int width = 120;
 	CString values;
 
+	SetDlgItemText(IDC_CHECK_SHOW, rStr.cwindow);
+	SetDlgItemText(IDC_CHECK_BSKIN, rStr.cskinb);
+	SetDlgItemText(IDC_CHECK_CTLSKIN, rStr.cskinc);
+	SetDlgItemText(IDC_CHECK_CTLALPHA, rStr.cautoh);
+	SetDlgItemText(IDC_CHECK_TITLE, rStr.ctitle);
+	SetDlgItemText(IDC_CHECK_MENU, rStr.cmenu);
+	SetDlgItemText(IDC_CHECK_RIGHTMENU, rStr.crmenu);
+
 	InitCheckBox();
 
 	aComboLang.SetInfoWidth(width);
@@ -236,30 +244,29 @@ LRESULT CGuiDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*
 	if(finder.FindFile(_T("*.*"))) {
 		while(finder.FindNextFile()) {
 			if(finder.IsDirectory() && !finder.IsDots())
-				aComboSkin.AddString(finder.GetFileName().MakeLower());
+				aComboSkin.AddString(finder.GetFileName());
 		}
 		CString str = finder.GetFileName();
-		if(finder.IsDirectory() && !finder.IsDots() && str.GetLength() > 1) {
+		if(finder.IsDirectory() && !finder.IsDots() && str.GetLength() > 1)
 			aComboSkin.AddString(str);
-		}
 	}
 	::SetCurrentDirectory(szCurPath);
 
 	if(mconfig.GetBoolean(_T("show_controlbar"), true, true)) {
 		if(mconfig.GetString(_T("skin"), values, true)) {
-			int index = aComboSkin.FindStringExact(0, values);
+			int index = aComboSkin.FindStringExactNoCase(0, values);
 			if(index < 0) {
 				values = _T("default");
-				index = aComboSkin.FindStringExact(0, values);
+				index = aComboSkin.FindStringExactNoCase(0, values);
 			}
-			if(!m_ctlskin && values == _T("inner"))
+			if(!m_ctlskin && !values.CompareNoCase(_T("inner")))
 				aComboSkin.SelecteIndex(1);
 			else if(index > 0)
 				aComboSkin.SelecteIndex(index);
 			else
 				aComboSkin.SelecteIndex(0);
 		} else {
-			int index = aComboSkin.FindStringExact(0, _T("default"));
+			int index = aComboSkin.FindStringExactNoCase(0, _T("default"));
 			if(index > 0)
 				aComboSkin.SelecteIndex(index);
 			else

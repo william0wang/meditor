@@ -32,13 +32,13 @@ public:
 	void SaveConfig();
 
 	BEGIN_DDX_MAP(CGuiDlg)
-		DDX_CHECK(IDC_CHECK_CTLSKIN, m_ctlskin)
-		DDX_CHECK(IDC_CHECK_BSKIN, m_bskin)
-		DDX_CHECK(IDC_CHECK_MENU, m_menu)
 		DDX_CHECK(IDC_CHECK_SHOW, m_show)
-		DDX_CHECK(IDC_CHECK_TITLE, m_filename)
-		DDX_CHECK(IDC_CHECK_RIGHTMENU, m_rightmenu)
+		DDX_CHECK(IDC_CHECK_BSKIN, m_bskin)
+		DDX_CHECK(IDC_CHECK_CTLSKIN, m_ctlskin)
 		DDX_CHECK(IDC_CHECK_CTLALPHA, m_alpha_control)
+		DDX_CHECK(IDC_CHECK_TITLE, m_filename)
+		DDX_CHECK(IDC_CHECK_MENU, m_menu)
+		DDX_CHECK(IDC_CHECK_RIGHTMENU, m_rightmenu)
 	END_DDX_MAP();
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);

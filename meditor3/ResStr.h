@@ -23,6 +23,14 @@ public:
 	CString autohide;
 	CString mintray;
 
+	CString cwindow;
+	CString cskinb;
+	CString cskinc;
+	CString cautoh;
+	CString ctitle;
+	CString cmenu;
+	CString crmenu;
+
 	CString systheme;
 	CString ontop_none;
 	CString ontop_always;
