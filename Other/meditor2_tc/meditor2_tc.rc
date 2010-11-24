@@ -822,7 +822,7 @@ BEGIN
     IDS_STRING30212         "音頻"
     IDS_STRING30213         "OSD/字幕"
     IDS_STRING30214         "解碼器/分離器"
-    IDS_STRING30215         "分离器"
+    IDS_STRING30215         "外觀"
     IDS_STRING30216         "快捷鍵"
     IDS_STRING30217         "檔案關聯"
     IDS_STRING30218         "配置集"
@@ -840,6 +840,24 @@ BEGIN
     IDS_STRING30226         "取消"
     IDS_STRING30227         "應用"
     IDS_STRING30228         "檢查更新"
+    IDS_STRING30229         "語言:"
+    IDS_STRING30230         "外觀:"
+    IDS_STRING30231         "控制欄透明度:"
+    IDS_STRING30232         "前端顯示:"
+    IDS_STRING30233         "隱藏邊框:"
+    IDS_STRING30234         "最小化到託盤:"
+    IDS_STRING30235         "額外參數"
+    IDS_STRING30236         "顯示播放器窗口"
+    IDS_STRING30237         "使用邊框皮膚"
+    IDS_STRING30238         "使用控制欄皮膚"
+    IDS_STRING30239         "自動隱藏控制欄"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30240         "標題欄顯示檔案名"
+    IDS_STRING30241         "顯示菜單欄"
+    IDS_STRING30242         "右鍵彈出菜單"
 END
 
 #endif    // 中文(简体，中国) resources

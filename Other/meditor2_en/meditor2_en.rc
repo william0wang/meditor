@@ -823,7 +823,7 @@ BEGIN
     IDS_STRING30212         "Audio"
     IDS_STRING30213         "OSD/Subtitle"
     IDS_STRING30214         "Decoder/Demuxer"
-    IDS_STRING30215         "Demuxer"
+    IDS_STRING30215         "GUI"
     IDS_STRING30216         "Hotkey"
     IDS_STRING30217         "Associate"
     IDS_STRING30218         "Profile"
@@ -841,6 +841,24 @@ BEGIN
     IDS_STRING30226         "Cancel"
     IDS_STRING30227         "Apply"
     IDS_STRING30228         "Check Update"
+    IDS_STRING30229         "Language:"
+    IDS_STRING30230         "Skin:"
+    IDS_STRING30231         "Controlbar Alpha:"
+    IDS_STRING30232         "OnTop:"
+    IDS_STRING30233         "Hide Borders:"
+    IDS_STRING30234         "Minimize:"
+    IDS_STRING30235         "Extra"
+    IDS_STRING30236         "Display Player window"
+    IDS_STRING30237         "Border Skin"
+    IDS_STRING30238         "Controlbar Skin"
+    IDS_STRING30239         "Auto hide Controlbar"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30240         "Show Filename on Title"
+    IDS_STRING30241         "Show Menu bar"
+    IDS_STRING30242         "Right key Menu"
 END
 
 #endif    // 中文(简体，中国) resources
