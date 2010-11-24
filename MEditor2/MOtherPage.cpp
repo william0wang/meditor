@@ -280,20 +280,12 @@ void CMOtherPage::OnButtonVideo()
 
 void CMOtherPage::OnButtonFlash() 
 {
-	CString m_program;
-	TCHAR szFilePath[MAX_PATH + 1];
-	GetModuleFileName(NULL, szFilePath, MAX_PATH);
-	m_program.Format(_T("%s"),szFilePath);
-	ShellExecute(0, _T("open"), m_program , _T(" --Open FlashPlayer"), NULL, SW_SHOW);
+	ShellExecute(0, _T("open"), m_program_dir + _T("meditor.exe"), _T(" --flash-player"), NULL, SW_SHOW);
 }
 
 void CMOtherPage::OnButtonMedia() 
 {
-	CString m_program;
-	TCHAR szFilePath[MAX_PATH + 1];
-	GetModuleFileName(NULL, szFilePath, MAX_PATH);
-	m_program.Format(_T("%s"),szFilePath);
-	ShellExecute(0, _T("open"), m_program , _T(" --Open MediaPlayer"), NULL, SW_SHOW);
+	ShellExecute(0, _T("open"), m_program_dir + _T("meditor.exe"), _T(" --dshow-player"), NULL, SW_SHOW);
 }
 
 void CMOtherPage::OnButtonOnline() 
