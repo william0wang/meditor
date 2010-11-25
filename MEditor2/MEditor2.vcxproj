@@ -209,10 +209,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
-      <Command>cd res
-del /F codecs.7z
-..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf
-</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -256,10 +254,8 @@ del /F codecs.7z
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_vc90|Win32'">
     <PreBuildEvent>
-      <Command>cd res
-del /F codecs.7z
-..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf
-</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -380,28 +376,21 @@ del /F codecs.7z
   <ItemGroup>
     <ClCompile Include="MEditor2.cpp" />
     <ClCompile Include="MEditor2Dlg.cpp" />
-    <ClCompile Include="MAssosPage.cpp" />
     <ClCompile Include="MAudioPage.cpp" />
     <ClCompile Include="MDecodePage.cpp" />
-    <ClCompile Include="MInputPage.cpp" />
     <ClCompile Include="MOtherPage.cpp" />
     <ClCompile Include="MPlayerPage.cpp" />
     <ClCompile Include="MProfilePage.cpp" />
     <ClCompile Include="MResumePage.cpp" />
+    <ClCompile Include="MShowInfoDlg.cpp" />
     <ClCompile Include="MSubPage.cpp" />
     <ClCompile Include="MVideoPage.cpp" />
-    <ClCompile Include="CDXGraph.cpp" />
     <ClCompile Include="ColorButton.cpp" />
     <ClCompile Include="ColourPopup.cpp" />
-    <ClCompile Include="explorer_html.cpp" />
     <ClCompile Include="FontComboBox.cpp" />
-    <ClCompile Include="MDSPlayer.cpp" />
-    <ClCompile Include="MFlashPlayer.cpp" />
     <ClCompile Include="MLinkDlg.cpp" />
     <ClCompile Include="MPlayList.cpp" />
     <ClCompile Include="MProfileDlg.cpp" />
-    <ClCompile Include="MShowInfoDlg.cpp" />
-    <ClCompile Include="shockwaveflash.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -411,7 +400,6 @@ del /F codecs.7z
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_vc90|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="MConfig.cpp" />
-    <ClCompile Include="MInputList.cpp" />
     <ClCompile Include="MShared.cpp" />
     <ClCompile Include="Reg.cpp" />
     <ClCompile Include="TabSheet.cpp" />
@@ -435,33 +423,25 @@ del /F codecs.7z
   <ItemGroup>
     <ClInclude Include="MEditor2.h" />
     <ClInclude Include="MEditor2Dlg.h" />
-    <ClInclude Include="MAssosPage.h" />
     <ClInclude Include="MAudioPage.h" />
     <ClInclude Include="MDecodePage.h" />
-    <ClInclude Include="MInputPage.h" />
     <ClInclude Include="MOtherPage.h" />
     <ClInclude Include="MPlayerPage.h" />
     <ClInclude Include="MProfilePage.h" />
     <ClInclude Include="MResumePage.h" />
+    <ClInclude Include="MShowInfoDlg.h" />
     <ClInclude Include="MSubPage.h" />
     <ClInclude Include="MVideoPage.h" />
-    <ClInclude Include="CDXGraph.h" />
     <ClInclude Include="ColorButton.h" />
     <ClInclude Include="ColourPopup.h" />
-    <ClInclude Include="explorer_html.h" />
     <ClInclude Include="FontComboBox.h" />
-    <ClInclude Include="MDSPlayer.h" />
-    <ClInclude Include="MFlashPlayer.h" />
     <ClInclude Include="MLinkDlg.h" />
     <ClInclude Include="MPlayList.h" />
     <ClInclude Include="MProfileDlg.h" />
-    <ClInclude Include="MShowInfoDlg.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="shockwaveflash.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="MConfig.h" />
-    <ClInclude Include="MInputList.h" />
     <ClInclude Include="MShared.h" />
     <ClInclude Include="Reg.h" />
     <ClInclude Include="TabSheet.h" />

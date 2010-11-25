@@ -68,9 +68,6 @@
     <ClInclude Include="..\..\include\ListCtrl\TitleTip.h">
       <Filter>Header Files\ListCtrl</Filter>
     </ClInclude>
-    <ClInclude Include="AtlStdioFile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="mmediainfo.rc">

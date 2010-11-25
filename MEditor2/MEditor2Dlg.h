@@ -11,8 +11,6 @@
 #include "MOtherPage.h"
 #include "MResumePage.h"
 #include "MProfilePage.h"
-#include "MInputPage.h"
-#include "MAssosPage.h"
 #include "MShowInfoDlg.h"
 #include "MConfig.h"
 
@@ -26,8 +24,6 @@ enum Views
 	Resume,
 	Other,
 	Profile,
-	Input,
-	Assos
 };
 
 // CMEditor2Dlg ¶Ô»°¿ò
@@ -51,7 +47,6 @@ protected:
 	UINT	s_uTBBC;
 	ITaskbarList3 *g_pTaskbarList;
 
-	HANDLE gUniqueEvent;
 	HICON m_hIcon;
 	CTabSheet m_TabSheet;
 	CMPlayerPage m_player;
@@ -62,8 +57,6 @@ protected:
 	CMOtherPage m_other;
 	CMProfilePage m_profile;
 	CMResumePage m_resume;
-	CMInputPage m_Input;
-	CMAssosPage m_assos;
 	CMShowInfoDlg infoDlg;
 	CMConfig m_config;
 	CString m_program_dir;

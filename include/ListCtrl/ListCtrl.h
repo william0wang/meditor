@@ -42,6 +42,8 @@ class CListImpl : public CWindowImpl< CListImpl< T > >,
 public:
 	CListImpl()
 	{
+		m_b3DbkgColor = FALSE;
+		m_bAlwaysForce = FALSE;
 		m_bShowBorder = TRUE;
 		m_bShowHeader = TRUE;
 		m_bShowThemed = TRUE;
@@ -103,6 +105,8 @@ public:
 	}
 
 protected:
+	BOOL m_b3DbkgColor;
+	BOOL m_bAlwaysForce;
 	BOOL m_bShowBorder;
 	BOOL m_bShowHeader;
 	BOOL m_bShowSelected;
@@ -255,7 +259,10 @@ public:
 	
 	BOOL LoadSettings()
 	{
-		m_rgbBackground = GetSysColor( COLOR_WINDOW );
+		if(m_b3DbkgColor)
+			m_rgbBackground = GetSysColor( COLOR_3DFACE );
+		else
+			m_rgbBackground = GetSysColor( COLOR_WINDOW );
 		m_rgbHeaderBackground = GetSysColor( COLOR_BTNFACE );
 		m_rgbHeaderBorder = GetSysColor( COLOR_3DHIGHLIGHT );
 		m_rgbHeaderShadow = GetSysColor( COLOR_3DSHADOW );
@@ -268,10 +275,17 @@ public:
 		m_rgbSelectInner = RGB( 230, 250, 250 );
 		m_rgbSelectTop = RGB( 210, 240, 250 );
 		m_rgbSelectBottom = RGB( 185, 215, 250 );
-		m_rgbNoFocusTop = RGB( 250, 250, 250 );
-		m_rgbNoFocusBottom = RGB( 235, 235, 235 );
-		m_rgbNoFocusOuter = RGB( 220, 220, 220 );
-		m_rgbNoFocusInner = RGB( 245, 245, 245 );
+		if(m_bAlwaysForce) {
+			m_rgbNoFocusOuter = m_rgbSelectOuter;
+			m_rgbNoFocusInner = m_rgbSelectInner;
+			m_rgbNoFocusTop = m_rgbSelectTop;
+			m_rgbNoFocusBottom = m_rgbSelectBottom;
+		} else {
+			m_rgbNoFocusOuter = RGB( 220, 220, 220 );
+			m_rgbNoFocusInner = RGB( 245, 245, 245 );
+			m_rgbNoFocusTop = RGB( 250, 250, 250 );
+			m_rgbNoFocusBottom = RGB( 235, 235, 235 );
+		}
 		m_rgbFocusTop = RGB( 235, 245, 245 );
 		m_rgbFocusBottom = RGB( 225, 235, 245 );
 		m_rgbProgressTop = RGB( 170, 240, 170 );
@@ -353,6 +367,16 @@ public:
 		m_bShowHeader = bShowHeader;		
 		ResetScrollBars();
 		Invalidate();
+	}
+
+	void Show3DColor( BOOL b3DColor = TRUE )
+	{
+		m_b3DbkgColor = b3DColor;
+	}
+
+	void ShowAlwaysForce( BOOL bForce = TRUE )
+	{
+		m_bAlwaysForce = bForce;
 	}
 
 	void ShowBorder( BOOL bShowBorder = TRUE )

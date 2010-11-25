@@ -2,8 +2,18 @@
 #include "shared.h"
 
 #include <wininet.h>
+#include <tlhelp32.h> 
 #pragma comment(lib, "wininet.lib")
 #pragma comment(lib, "version.lib")
+
+
+#ifndef BIF_USENEWUI
+#define BIF_USENEWUI           (BIF_NEWDIALOGSTYLE | BIF_EDITBOX)
+#endif
+
+#ifndef BIF_NEWDIALOGSTYLE
+#define BIF_NEWDIALOGSTYLE     0x0040
+#endif
 
 #define HTTP_BUFFER_LEN 2048
 
@@ -180,6 +190,35 @@ void DeleteFolder(CString dir)
 	}
 }
 
+void TestURL(CString url, int fullbyte)
+{
+	TCHAR buffer[HTTP_BUFFER_LEN];//下载文件的缓冲区
+	DWORD bytes_read;//下载的字节数
+	//打开一个internet连接
+	HINTERNET internet=InternetOpen(_T("HTTP"), INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
+
+	if(!internet)
+		return;
+	//打开一个http url地址
+
+	HINTERNET file_handle=InternetOpenUrl(internet, url, NULL, 0, INTERNET_FLAG_RELOAD, 0);
+
+	if(!file_handle)
+		return;
+	//从url地址中读取文件内容到缓冲区buffer
+	BOOL b = 0;
+	int readbyte = 0, time = 0;
+	while(readbyte < HTTP_BUFFER_LEN && time < 3000) {
+		b = InternetReadFile(file_handle, buffer, 128 , &bytes_read);
+		readbyte += bytes_read;
+		time++;
+	}
+	if(!b)
+		return;
+	//关闭连接
+	InternetCloseHandle(internet);
+}
+
 bool get_url_string(wstring url, string &out)
 {
 	char buffer[HTTP_BUFFER_LEN];//下载文件的缓冲区
@@ -248,6 +287,92 @@ bool Decode7zFile(wstring filename , wstring decpach, wstring ignore_path
 	return false;
 }
 
+bool Decode7zFileOne(CString filename , CString Path , CString ex_name)
+{
+	if(filename.GetLength() < 1)
+		return false;
+	wchar_t * dpath = NULL;
+	wchar_t * exfile = NULL;
+
+	const wchar_t **ign_list = new const wchar_t *[1];
+
+	if(Path.GetLength() > 1) {
+		dpath =  _wcsdup(Path.GetBuffer());
+		Path.ReleaseBuffer();
+	}
+	if(ex_name.GetLength() > 1) {
+		exfile =  _wcsdup(ex_name.GetBuffer());
+		ex_name.ReleaseBuffer();
+	}
+
+	int result = Decode7zipFile(unicode2local(filename.GetBuffer()).c_str(), dpath, exfile, NULL, ign_list, 0, 0);
+	filename.ReleaseBuffer();
+
+	if(dpath)
+		delete dpath;
+	if(exfile)
+		delete exfile;
+
+	if(result)
+		return true;
+
+	return false;
+}
+
+bool ExtractResource( LPCTSTR lpName, LPCTSTR lpType, LPCTSTR lpFilePath, bool bOverWrite , bool unzip,CString ex_filename)
+{
+	if(!bOverWrite && FileExist(lpFilePath))
+		return false;
+
+	HRSRC  res = FindResource(NULL,  lpName,  lpType);
+	if(!res)
+		return false;
+
+	HGLOBAL  gl = ::LoadResource(NULL,res);
+	if(!gl)
+		return false;
+
+	LPVOID  lp = ::LockResource(gl);   //  查找，加载，锁定资源
+	if(!lp)
+		return false;
+
+	CString ex_filepath = _T(""),tmp_path = _T("");
+	if(unzip) {
+		TCHAR szFilePath[MAX_PATH + 1];
+		::GetTempPath(MAX_PATH,szFilePath);
+		tmp_path.Format(_T("%s"),szFilePath);
+		ex_filepath = tmp_path + _T("tmpzfile");
+	} else {
+		ex_filepath.Format(_T("%s"),lpFilePath);
+	}
+
+	HANDLE fp;
+	if(bOverWrite)
+		fp = CreateFile(ex_filepath, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, 0, NULL);
+	else
+		fp = CreateFile(ex_filepath, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_NEW, 0, NULL);
+
+	bool ret = false;
+
+	if(fp != INVALID_HANDLE_VALUE) {
+		DWORD aa;
+		if (WriteFile (fp,lp,::SizeofResource(NULL,res),&aa,NULL))
+			ret = true;
+	}
+	::CloseHandle (fp);       //关闭句柄
+	::FreeResource (gl);     //释放内存
+
+	if(ret && unzip) {
+		if(Decode7zFileOne(ex_filepath , tmp_path , ex_filename)) {
+			DeleteFile(ex_filepath);
+			CopyFile(tmp_path + ex_filename , lpFilePath,FALSE);
+			DeleteFile(tmp_path + ex_filename );
+		}
+	}
+
+	return ret;
+}
+
 bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date)
 {
 	int   iVerInfoSize;
@@ -280,4 +405,110 @@ bool GetMPlayerVersion(LPCTSTR filepath, int &version, int &date)
 	}
 
 	return res;
+}
+bool IsFileNew(LPCTSTR oldfile, LPCTSTR newfile)
+{
+	FILETIME lpCreationTime;
+	FILETIME lpLastAccessTime;
+	FILETIME lpLastWriteTime;
+	FILETIME lpLastWriteTime2;
+
+	HANDLE file = CreateFile(oldfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	file = CreateFile(newfile, GENERIC_READ, FILE_SHARE_READ
+		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+
+	if(file == INVALID_HANDLE_VALUE)
+		return false;
+
+	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime2)) {
+		CloseHandle(file);
+		return false;
+	}
+
+	CloseHandle(file);
+
+	if(lpLastWriteTime2.dwHighDateTime > lpLastWriteTime.dwHighDateTime ||
+		lpLastWriteTime2.dwLowDateTime > lpLastWriteTime.dwLowDateTime)
+		return true;
+
+	return false;
+}
+
+void MyTerminateProcess(LPCTSTR proname)
+{
+	HANDLE hProcess = NULL;
+	PROCESSENTRY32 pe32;
+	HANDLE hProcessSnap;
+
+	pe32.dwSize = sizeof(pe32); 
+	hProcessSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if(hProcessSnap == INVALID_HANDLE_VALUE) {
+		return;
+	}
+
+	BOOL bMore = ::Process32First(hProcessSnap, &pe32);
+	while(bMore) {
+		if(_tcsicmp(pe32.szExeFile, proname) == 0) {
+			hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, pe32.th32ProcessID);
+			if(hProcess) {
+				TerminateProcess(hProcess, 0);
+				CloseHandle(hProcess);
+			}
+			break;
+		}
+		bMore = ::Process32Next(hProcessSnap, &pe32);
+	}
+
+	::CloseHandle(hProcessSnap);
+}
+
+bool SelectFolder(HWND hWnd, CString &strFolder, bool bCreate, std::wstring title)
+{
+	LPMALLOC lpMalloc; 
+	if (::SHGetMalloc(&lpMalloc) != NOERROR)
+		return false; 
+	bool result = false;
+	TCHAR szDisplayName[_MAX_PATH];
+	TCHAR szBuffer[_MAX_PATH];
+	BROWSEINFO browseInfo;
+	memset(&browseInfo, 0, sizeof(BROWSEINFO));
+	strFolder = _T(""); 
+	if(title.length() > 1)
+		browseInfo.lpszTitle = title.c_str();
+
+	browseInfo.hwndOwner = hWnd; 
+	browseInfo.pidlRoot = NULL; // set root at Desktop
+	browseInfo.pszDisplayName = szDisplayName;
+	browseInfo.ulFlags = BIF_RETURNONLYFSDIRS | BIF_DONTGOBELOWDOMAIN | BIF_NEWDIALOGSTYLE | BIF_RETURNONLYFSDIRS;
+	if(!bCreate) browseInfo.ulFlags |= BIF_NONEWFOLDERBUTTON;
+	browseInfo.lpfn = NULL;
+	browseInfo.lParam = 0;
+	LPITEMIDLIST lpItemIDList;
+	if ((lpItemIDList = SHBrowseForFolder(&browseInfo)) != NULL) {
+		// Get the path of the selected folder from the item ID list.
+		if (::SHGetPathFromIDList(lpItemIDList, szBuffer)) {
+			// At this point, szBuffer contains the path the user chose. 
+			// We have a path in szBuffer! Return it. 
+			if (!szBuffer[0] == _T('\0')) {
+				strFolder = szBuffer;
+				result = true;
+			}
+		}  
+		lpMalloc->Free(lpItemIDList);
+		lpMalloc->Release();
+	} 
+
+	return result;
 }

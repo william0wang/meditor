@@ -56,7 +56,6 @@ CMEditor2Dlg::CMEditor2Dlg(CWnd* pParent /*=NULL*/)
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
-	gUniqueEvent = NULL;
 	g_pTaskbarList = NULL;
 	s_uTBBC = WM_NULL;
 	isVista = false;
@@ -117,10 +116,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	bool value_b;
 	if(m_config.GetValue_Boolean(_T("meditor_one_editor"),value_b,true))
 	{
-		if(value_b)
-		{
-//			gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("MEditorII - MPlayer 首选项"));
-//			if(GetLastError() == ERROR_ALREADY_EXISTS)
+		if(value_b)	{
 			CWnd *m_wnd = FindWindow(NULL, ResStr(IDS_PLAYER_NAME) + _T("    "));
 			if(m_wnd != NULL)
 			{
@@ -193,8 +189,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	int ResumePage = IDD_RESUME_DIALOG;
 	int OtherPage = IDD_OTHER_DIALOG;
 	int ProfilePage = IDD_PROFILE_DIALOG;
-	int InputPage = IDD_INPUT_DIALOG;
-	int AssosPage = IDD_ASSOS_DIALOG;
 	if(theApp.AppLanguage == 2){
 		PlayerPage = IDD_PLAYER_DIALOG_EN;
 		VideoPage = IDD_VIDEO_DIALOG_EN;
@@ -204,8 +198,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		ResumePage = IDD_RESUME_DIALOG_EN;
 		OtherPage = IDD_OTHER_DIALOG_EN;
 		ProfilePage = IDD_PROFILE_DIALOG_EN;
-		InputPage = IDD_INPUT_DIALOG_EN;
-		AssosPage = IDD_ASSOS_DIALOG_EN;
 	} else if (theApp.AppLanguage == 3 || theApp.AppLanguage == 4) {
 		PlayerPage = IDD_PLAYER_DIALOG_TC;
 		VideoPage = IDD_VIDEO_DIALOG_TC;
@@ -215,8 +207,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		ResumePage = IDD_RESUME_DIALOG_TC;
 		OtherPage = IDD_OTHER_DIALOG_TC;
 		ProfilePage = IDD_PROFILE_DIALOG_TC;
-		InputPage = IDD_INPUT_DIALOG_TC;
-		AssosPage = IDD_ASSOS_DIALOG_TC;
 	}
 	if(theApp.hResourceHandleOld)
 		AfxSetResourceHandle(theApp.hResourceHandleOld);
@@ -228,8 +218,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_TabSheet.AddPage( r_str , &m_resume, ResumePage);
 	m_TabSheet.AddPage( o_str , &m_other, OtherPage);
 	m_TabSheet.AddPage( f_str , &m_profile, ProfilePage);
-	m_TabSheet.AddPage( i_str , &m_Input, InputPage);
-	m_TabSheet.AddPage( s_str , &m_assos, AssosPage);
 	m_TabSheet.Show();
 	if(theApp.hResourceHandleMod)
 		AfxSetResourceHandle(theApp.hResourceHandleMod);
@@ -237,26 +225,12 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	int value_i;
 	if(m_config.GetValue_Integer(_T("meditor_last_page"),value_i,true))
 	{
-		if(value_i >= Player && value_i <= Assos)
+		if(value_i >= Player && value_i <= Profile)
 			m_TabSheet.SetCurSel(value_i);
 	}
 
-	if(m_OpenType == 1)
-	{
-		//快捷键设置
+	if(m_OpenType == 3)
 		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-		m_TabSheet.SetCurSel(Input);
-	}
-	else if(m_OpenType == 2)
-	{
-		//文件关联设置
-		m_TabSheet.SetCurSel(Assos);
-	}
-	else if(m_OpenType == 3)
-	{
-		//由MPlayer调用
-		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-	}
 
 	GetDlgItem(IDC_APPLY)->SetFocus();
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -313,8 +287,6 @@ HCURSOR CMEditor2Dlg::OnQueryDragIcon()
 
 bool CMEditor2Dlg::SaveAll()
 {
-	if(!m_Input.SaveInputConfig())
-		return false;
 	m_player.SaveConfig();
 	m_decode.SaveConfig();
 	m_subtitle.SaveConfig();
@@ -348,7 +320,7 @@ void CMEditor2Dlg::OnBnClickedApply()
 	m_progress_apply.SetPos(m_pos);
 	m_progress_apply.ShowWindow(SW_SHOW);
 	SetTimer(0,10,NULL);
-	//if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
+	if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_INDETERMINATE);
 	SaveAll();
 }
 
@@ -396,21 +368,18 @@ void CMEditor2Dlg::OnTimer(UINT_PTR nIDEvent)
 			m_progress_apply.SetPos(m_pos);
 	} else {
 		KillTimer(0);
-		//if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
+		if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NOPROGRESS);
 	}
 	CDialog::OnTimer(nIDEvent);
 }
 
 BOOL CMEditor2Dlg::DestroyWindow()
 {
-	if(gUniqueEvent)
-		CloseHandle(gUniqueEvent);
-
-	//if (g_pTaskbarList)
-	//{
-	//	g_pTaskbarList->Release();
-	//	g_pTaskbarList = NULL;
-	//}
+	if (g_pTaskbarList)
+	{
+		g_pTaskbarList->Release();
+		g_pTaskbarList = NULL;
+	}
 
 	return CDialog::DestroyWindow();
 }
@@ -559,28 +528,28 @@ void CMEditor2Dlg::ShowInfo(int type)
 
 BOOL CMEditor2Dlg::PreTranslateMessage(MSG* pMsg)
 {
-	//if (isVista && pMsg->message == s_uTBBC)
-	//{
-	//	// Once we get the TaskbarButtonCreated message, we can call methods
-	//	// specific to our window on a TaskbarList instance. Note that it's
-	//	// possible this message can be received multiple times over the lifetime
-	//	// of this window (if explorer terminates and restarts, for example).
-	//	if (!g_pTaskbarList)
-	//	{
-	//		HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
-	//		if (SUCCEEDED(hr))
-	//		{
-	//			hr = g_pTaskbarList->HrInit();
-	//			if (FAILED(hr))
-	//			{
-	//				g_pTaskbarList->Release();
-	//				g_pTaskbarList = NULL;
-	//			}
+	if (isVista && pMsg->message == s_uTBBC)
+	{
+		// Once we get the TaskbarButtonCreated message, we can call methods
+		// specific to our window on a TaskbarList instance. Note that it's
+		// possible this message can be received multiple times over the lifetime
+		// of this window (if explorer terminates and restarts, for example).
+		if (!g_pTaskbarList)
+		{
+			HRESULT hr = CoCreateInstance(CLSID_TaskbarList, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&g_pTaskbarList));
+			if (SUCCEEDED(hr))
+			{
+				hr = g_pTaskbarList->HrInit();
+				if (FAILED(hr))
+				{
+					g_pTaskbarList->Release();
+					g_pTaskbarList = NULL;
+				}
 
-	//			if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
-	//		}
-	//	}
-	//}
+				if(g_pTaskbarList) g_pTaskbarList->SetProgressState(this->m_hWnd, TBPF_NORMAL);
+			}
+		}
+	}
 
 	return CDialog::PreTranslateMessage(pMsg);
 }

@@ -5,61 +5,30 @@
 
 #include "resource.h"
 
-#include "aboutdlg.h"
 #include "PreviewDlg.h"
 #include "UpdateDlg.h"
+#include "MainDlg.h"
 #include "shared.h"
+#include "InputList.h"
+#include "AtlStdioFile.h"
+#include "FlashPlayerDlg.h"
+#include "DShowPlayerDlg.h"
 
 enum START_TYPE
 {
+	START_NORMAL = 0,
+	START_HOTKEY,
+	START_ASSOC,
+	START_ONTOP,
 	START_FLASHPLAYER = 1001,
-	START_MEDIAPLAYER,
-	START_MEDIAINFO,
+	START_DSHOWPLAYER,
 	START_PREVIEW,
-	START_UPDATE,
+	START_CHECK_UPDATE,
+	START_DOWNLOAD_UPDATE,
+	START_CLEAN_UP,
 };
 
 CAppModule _Module;
-
-bool IsFileNew(LPCTSTR oldfile, LPCTSTR newfile)
-{
-	FILETIME lpCreationTime;
-	FILETIME lpLastAccessTime;
-	FILETIME lpLastWriteTime;
-	FILETIME lpLastWriteTime2;
-
-	HANDLE file = CreateFile(oldfile, GENERIC_READ, FILE_SHARE_READ
-		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
-
-	if(file == INVALID_HANDLE_VALUE)
-		return false;
-
-	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime)) {
-		CloseHandle(file);
-		return false;
-	}
-
-	CloseHandle(file);
-
-	file = CreateFile(newfile, GENERIC_READ, FILE_SHARE_READ
-		, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
-
-	if(file == INVALID_HANDLE_VALUE)
-		return false;
-
-	if(!GetFileTime(file, &lpCreationTime, &lpLastAccessTime, &lpLastWriteTime2)) {
-		CloseHandle(file);
-		return false;
-	}
-
-	CloseHandle(file);
-
-	if(lpLastWriteTime2.dwHighDateTime > lpLastWriteTime.dwHighDateTime ||
-		lpLastWriteTime2.dwLowDateTime > lpLastWriteTime.dwLowDateTime)
-		return true;
-
-	return false;
-}
 
 int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
@@ -67,7 +36,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	_Module.AddMessageLoop(&theLoop);
 
 	CString   sCmdLine(lpstrCmdLine);
-	int OpenType = START_UPDATE;
+	int OpenType = START_NORMAL;
 	int nRet;
 	CString ProgramName;
 	CString program_dir;
@@ -80,66 +49,87 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	program_dir.Format(_T("%s"),szFilePath);
 
-
-	if( ProgramName == _T("mediaplayer.exe"))
-	{
-		OpenType = START_MEDIAPLAYER;
-	}
-	else if(sCmdLine != _T(""))
-	{
-		if(sCmdLine.Find(_T("Open Input Editor")) >= 0)
-			OpenType = 1;
-		else if(sCmdLine.Find(_T("Open Assoc")) >= 0)
-			OpenType = 2;
-		else if(sCmdLine.Find(_T("Open Editor")) >= 0)
-			OpenType = 3;
-		else if(sCmdLine.Find(_T("--generate-preview")) >= 0)
+	if( ProgramName == _T("dshowplayer.exe")) {
+		OpenType = START_DSHOWPLAYER;
+	} else if(ProgramName == _T("flashplayer.exe")) {
+		OpenType = START_FLASHPLAYER;
+	} else if(sCmdLine != _T("")) {
+		if(sCmdLine.Find(_T("--open-hotkey")) >= 0) {
+			OpenType = START_HOTKEY;
+		} else if(sCmdLine.Find(_T("--open-assoc")) >= 0) {
+			OpenType = START_ASSOC;
+		} else if(sCmdLine.Find(_T("--open-ontop")) >= 0) {
+			OpenType = START_ONTOP;
+		} else if(sCmdLine.Find(_T("--generate-preview")) >= 0) {
 			OpenType = START_PREVIEW;
-		else if(sCmdLine.Find(_T("--check-update")) >= 0)
-			OpenType = START_UPDATE;
-		else if(sCmdLine.Find(_T("--Show Media Info")) >= 0)
-			OpenType = START_MEDIAINFO;
-		else if(sCmdLine.Find(_T("--Open MediaPlayer")) >= 0)
-		{
-			OpenType = START_MEDIAPLAYER;
-			sCmdLine.Replace(_T("--Open MediaPlayer"),_T(""));
-		}
-		else if(sCmdLine.Find(_T("prer://")) >= 0)
-			OpenType = START_MEDIAPLAYER;
-		else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0)
-		{
+		} else if(sCmdLine.Find(_T("--check-update")) >= 0) {
+			OpenType = START_CHECK_UPDATE;
+		} else if(sCmdLine.Find(_T("--download-update")) >= 0) {
+			OpenType = START_DOWNLOAD_UPDATE;
+		} else if(sCmdLine.Find(_T("--clean-up")) >= 0) {
+			OpenType = START_CLEAN_UP;
+		} else if(sCmdLine.Find(_T("--flash-player")) >= 0) {
+			OpenType = START_FLASHPLAYER;
+			sCmdLine.Replace(_T("--flash-player"),_T(""));
+		} else if(sCmdLine.Find(_T("--dshow-player")) >= 0) {
+			OpenType = START_DSHOWPLAYER;
+			sCmdLine.Replace(_T("--dshow-player"),_T(""));
+		} else if(sCmdLine.Find(_T("prer://")) >= 0) {
+			OpenType = START_DSHOWPLAYER;
+		} else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0) {
 			sCmdLine.Replace(_T("prek://") ,_T("http://"));
 			sCmdLine.Replace(_T("prea://") ,_T("http://"));
 			sCmdLine.Replace(_T("prem://") ,_T("http://"));
-			//TestURL(sCmdLine,128);
-			//sCmdLine = _T("mplayer.exe -nocache ") + sCmdLine;
-			//int outlen = 0;
-			//char *out = UnicodeToLocal(sCmdLine,outlen);
-			//WinExec(out, SW_SHOW);
-			//delete out;
-			//return FALSE;
+			TestURL(sCmdLine, 128);
+			sCmdLine = _T("mplayer.exe -nocache ") + sCmdLine;
+			WinExec(unicode2local(sCmdLine.GetBuffer()).c_str(), SW_SHOW);
+			sCmdLine.ReleaseBuffer();
+			return FALSE;
 		}
 	}
 
+	if(OpenType == START_CLEAN_UP) {
+		CString line;
+		CString listfile = program_dir + _T("help\\mcleanup.lst");
+		Sleep(1000);
+
+		CAtlStdioFile file;
+		if(SUCCEEDED(file.OpenFile(listfile,  GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING)))	{
+			while(file.ReadLine(line)) {
+				if(line.GetLength() < 3)
+					continue;
+				if(line.Find(_T(".exe")) > 0 && line.Find(_T("\\")) <= 0)
+					MyTerminateProcess(line);
+				line = program_dir + line;
+				if(FileExist(line)) {
+					if(FileIsDirectory(line))
+						DeleteFolder(line);
+					else
+						DeleteFile(line);
+				}
+			}
+			file.Close();
+		}
+
+		_Module.RemoveMessageLoop();
+		return 0;
+	}
+
 	int AppLanguage = GetPrivateProfileInt(_T("Option"),_T("Language"),0,program_dir + _T("kk.ini"));
-	if(AppLanguage == 0)
-	{
+	if(AppLanguage == 0) {
 		LANGID   _SysLangId   =   GetSystemDefaultLangID();
-		if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE)
-		{
+		if(PRIMARYLANGID(_SysLangId)   ==   LANG_CHINESE) {
 			if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_SIMPLIFIED)
 				AppLanguage = 1;		//Simplified Chinese GBK
 			else if(SUBLANGID(_SysLangId)   ==   SUBLANG_CHINESE_TRADITIONAL)
 				AppLanguage = 4;		//Traditional Chinese Big5
 			else
 				AppLanguage = 3;		//ANSI
-		}
-		else
+		} else
 			AppLanguage = 2;			//ANSI
 	}
 
-	if(OpenType == START_PREVIEW)
-	{
+	if(OpenType == START_PREVIEW) {
 		int offset = sCmdLine.Find(_T("--filename"));
 		if(offset < 0)
 			return FALSE;
@@ -183,7 +173,75 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		dlgPreview.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
 
-	} else if(OpenType == START_UPDATE) {
+	} else if(OpenType == START_DOWNLOAD_UPDATE) {
+		UINT DialogIDD = IDD_DIALOG_UPDATE;
+
+		if(AppLanguage == 2) {
+			DialogIDD = IDD_DIALOG_UPDATE_EN;
+		} else if(AppLanguage == 3 || AppLanguage == 4) {
+			DialogIDD = IDD_DIALOG_UPDATE_TC;
+		}
+
+		int offset = sCmdLine.Find(_T("--filename"));
+		if(offset < 0)
+			return FALSE;
+		offset = sCmdLine.Find(_T("\""), offset);
+		if(offset < 0)
+			return FALSE;
+		CString name = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+		name.Trim();
+		offset = name.Find(_T("\""));
+		if(offset <= 0)
+			return FALSE;
+		name = name.Left(offset);
+
+		offset = sCmdLine.Find(_T("--url"));
+		if(offset < 0)
+			return FALSE;
+		offset = sCmdLine.Find(_T("\""), offset);
+		if(offset < 0)
+			return FALSE;
+		CString url = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+		url.Trim();
+		offset = url.Find(_T("\""));
+		if(offset <= 0)
+			return FALSE;
+		url = url.Left(offset);
+
+		CString urlbase = _T("");
+		offset = sCmdLine.Find(_T("--urlbase"));
+		if(offset >= 0) {
+			offset = sCmdLine.Find(_T("\""), offset);
+			if(offset > 0) {
+				urlbase = sCmdLine.Right(sCmdLine.GetLength() - offset - 1);
+				urlbase.Trim();
+				offset = urlbase.Find(_T("\""));
+				if(offset > 0)
+					urlbase = urlbase.Left(offset);
+			}
+		}
+
+		CUpdateDlg dlgUpdate(DialogIDD);
+
+		dlgUpdate.m_bDownload = TRUE;
+		dlgUpdate.m_filename = name.GetBuffer();
+		dlgUpdate.m_url = url.GetBuffer();
+		dlgUpdate.m_urlbase = urlbase.GetBuffer();
+
+		url.ReleaseBuffer();
+		name.ReleaseBuffer();
+		urlbase.ReleaseBuffer();
+
+		if(dlgUpdate.Create(NULL) == NULL)
+		{
+			ATLTRACE(_T("Update dialog creation failed!\n"));
+			return 0;
+		}
+
+		dlgUpdate.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+
+	} else if(OpenType == START_CHECK_UPDATE) {
 
 		UINT DialogIDD = IDD_DIALOG_UPDATE;
 
@@ -212,16 +270,6 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 			dlgUpdate.ndate = _ttoi(len);
 		}
 
-#ifndef _DEBUG
-		if(ProgramName.Compare(_T("mupdater.exe"))) {
-			CString updater = program_dir + _T("mupdater.exe");
-			if(!FileExist(updater) || IsFileNew(updater, program_dir + ProgramName))
-				CopyFileW(program_dir + ProgramName, updater, FALSE);
-			if(FileExist(updater))
-				ShellExecute(NULL, _T("open"), updater, sCmdLine, NULL, SW_SHOW);
-			return 0;
-		}
-#endif
 
 		if(dlgUpdate.Create(NULL) == NULL)
 		{
@@ -231,6 +279,92 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 		dlgUpdate.ShowWindow(nCmdShow);
 		nRet = theLoop.Run();
+
+	} else if(OpenType == START_FLASHPLAYER) {
+		CFlashPlayerDlg flashplayer;
+		flashplayer.IninFileName(sCmdLine);
+		flashplayer.m_applang = AppLanguage;
+		if(flashplayer.Create(NULL) == NULL) {
+			ATLTRACE(_T("Flashplayer dialog creation failed!\n"));
+			return 0;
+		}
+		flashplayer.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+	} else if(OpenType == START_DSHOWPLAYER) {
+		CDShowPlayerDlg dshowplayer;
+		dshowplayer.IninFileName(sCmdLine);
+		dshowplayer.m_applang = AppLanguage;
+		if(dshowplayer.Create(NULL) == NULL) {
+			ATLTRACE(_T("Flashplayer dialog creation failed!\n"));
+			return 0;
+		}
+		dshowplayer.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+	} else {
+		HANDLE gUniqueCheckEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor v3 - MPlayer Preferences version 3"));
+		if(GetLastError() == ERROR_ALREADY_EXISTS) {
+
+			HWND hWnd = FindWindow(_T("MEDITOR_V3_CLASS"), NULL);
+			if(IsWindow(hWnd))	{
+				if(OpenType > 0)
+					SetWindowPos(hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+				if (IsIconic(hWnd))
+					ShowWindow(hWnd, SW_RESTORE);
+				HWND hWndChild = GetLastActivePopup(hWnd);
+				SetForegroundWindow(hWndChild);
+			}
+			return FALSE;
+		}
+
+		CString langfile_tc, langfile_en;
+		HINSTANCE instance_dll = NULL, instance_org = NULL;
+
+		if(FileExist(program_dir + _T("meditor2.en.dll")))
+			langfile_en = program_dir + _T("meditor2.en.dll");
+		else if(FileExist(program_dir + _T("tools\\meditor2.en.dll")))
+			langfile_en = program_dir + _T("tools\\meditor2.en.dll");
+
+		if(FileExist(program_dir + _T("meditor2.tc.dll")))
+			langfile_tc = program_dir + _T("meditor2.tc.dll");
+		else if(FileExist(program_dir + _T("tools\\meditor2.tc.dll")))
+			langfile_tc = program_dir + _T("tools\\meditor2.tc.dll");
+
+		CString strSatellite = _T("");
+		if(AppLanguage == 2 && langfile_en.GetLength() > 1)
+			strSatellite = langfile_en;
+		else if((AppLanguage == 3 || AppLanguage == 4) && langfile_tc.GetLength() > 1)
+			strSatellite = langfile_tc;
+
+		if (strSatellite.GetLength() > 2)
+			instance_dll = LoadLibrary(strSatellite);
+		
+		if(instance_dll)
+			instance_org = _Module.SetResourceInstance(instance_dll);
+
+		rStr.LoadString();
+
+		if(instance_org)
+			_Module.SetResourceInstance(instance_org);
+
+		WNDCLASS wcx;
+		memset(&wcx, 0, sizeof(wcx));
+		GetClassInfo(NULL, WC_DIALOG, &wcx);
+		wcx.lpszClassName = _T("MEDITOR_V3_CLASS");
+		RegisterClass(&wcx);
+
+		CMainDlg dlgMain;
+		dlgMain.m_appLang = AppLanguage;
+		dlgMain.m_OpenType = OpenType;
+
+		if(dlgMain.Create(NULL) == NULL)
+		{
+			ATLTRACE(_T("Main dialog creation failed!\n"));
+			return 0;
+		}
+
+		dlgMain.ShowWindow(nCmdShow);
+		nRet = theLoop.Run();
+		CloseHandle(gUniqueCheckEvent);
 	}
 
 	_Module.RemoveMessageLoop();
@@ -252,6 +386,8 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 
 	hRes = _Module.Init(NULL, hInstance);
 	ATLASSERT(SUCCEEDED(hRes));
+
+	AtlAxWinInit();
 
 	int nRet = Run(lpstrCmdLine, nCmdShow);
 

@@ -96,8 +96,8 @@ public:
 		
 		if ( ( dwStyle & CBS_DROPDOWNLIST ) == CBS_DROPDOWNLIST )
 		{
-			int nIndex = FindStringExact( -1, lpszItemText );
-			if ( nIndex != CB_ERR )
+			int nIndex = aComboList.Find(lpszItemText);
+			if (nIndex >= 0)
 				SetCurSel( nIndex );
 		}
 		else

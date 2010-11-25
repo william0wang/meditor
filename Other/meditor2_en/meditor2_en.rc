@@ -16,13 +16,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// 中文(简体，中国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
-#ifdef _WIN32
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -190,7 +188,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -239,7 +237,7 @@ END
 // Menu
 //
 
-IDR_MAINFRAME MENU 
+IDR_MAINFRAME MENU
 BEGIN
     POPUP "File"
     BEGIN
@@ -271,7 +269,7 @@ BEGIN
     END
 END
 
-IDR_MENU_FLASH MENU 
+IDR_MENU_FLASH MENU
 BEGIN
     POPUP "File"
     BEGIN
@@ -294,7 +292,7 @@ BEGIN
     END
 END
 
-IDR_MENU_WMP MENU 
+IDR_MENU_WMP MENU
 BEGIN
     POPUP "File"
     BEGIN
@@ -318,7 +316,7 @@ BEGIN
     END
 END
 
-IDR_MENU_DSHOW MENU 
+IDR_MENU_DSHOW MENU
 BEGIN
     POPUP "File"
     BEGIN
@@ -343,12 +341,12 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ABOUTBOX            "About MEditor2(&A)..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_NAME         "MPlayer Preferences"
     IDS_TAB_PLAYER          "Player"
@@ -357,11 +355,11 @@ BEGIN
     IDS_TAB_DECODE          "Decoder"
     IDS_TAB_RESUME          "Favorite"
     IDS_TAB_OTHER           "Other"
-    IDS_TAB_INPUT           "Input"
+    IDS_TAB_INPUT           "Hotkey"
     IDS_TAB_ASSOS           "Associate"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_ALLWAYS      "Always"
     IDS_RESUME_NORMAL       "Default"
@@ -381,7 +379,7 @@ BEGIN
     IDS_ASSOS_MOV           "Media File"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_AUTOSEL      "Auto Select"
     IDS_PLAYER_AUTO         "Auto"
@@ -401,7 +399,7 @@ BEGIN
     IDS_PLAYER_PLNORMAL     "below normal(Not Recommend)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_PIDLE        "idle(Not Recommend)"
     IDS_PLAYER_FILE         "Single File"
@@ -421,7 +419,7 @@ BEGIN
     IDS_PLAYER_T2           "H:M (12-Hour)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_T3           "H:M:S (24-Hour)"
     IDS_PLAYER_T4           "H:M:S (12-Hour)"
@@ -441,7 +439,7 @@ BEGIN
     IDS_PLAYER_EX           "Enhance"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ASSOS_AVI           "Video Clip"
     IDS_ASSOS_CT            "Animation file"
@@ -461,7 +459,7 @@ BEGIN
     IDS_OTHER_REALAGAIN     "Real Online Support has already Registered，Register Again ?"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OTHER_TOOL4         "FLVExtract"
     IDS_OTHER_TOOL5         "Subtitle Downloader"
@@ -479,7 +477,7 @@ BEGIN
     IDS_DECODE_SKIP4        "all Frame Except Key Frame"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DECODE_SKIP5        "Ship all Frame"
     IDS_DECODE_CODEFILE1    "MPlayer BuiltIn"
@@ -500,7 +498,7 @@ BEGIN
     IDS_AUDIO_REINT         "polyphase filterbank(integer)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OTHER_REALON        "Real Online Support has NOT Registered!"
     IDS_OTHER_REALFAILS     "Fail in Registering Real Online Support，Requisite File Missing !"
@@ -520,7 +518,7 @@ BEGIN
     IDS_OTHER_TOOL3         "FLV Fixer"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_AUDIO_REFOA         "polyphase filterbank(floating)"
     IDS_SUB_NORMAL_COL      "Normal Color"
@@ -540,7 +538,7 @@ BEGIN
     IDS_AUDIO_WIN           "Win32 WaveOut"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_AUDIO_FILE          "Output PCM/Wave file"
     IDS_AUDIO_NULL          "None Output"
@@ -560,7 +558,7 @@ BEGIN
     IDS_VIDEO_ROTA2         "90° clockwise"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_ROTA3         "90° counterclockwise"
     IDS_VIDEO_ROTA4         "90° counterclockwise & flip"
@@ -580,7 +578,7 @@ BEGIN
     IDS_VIDEO_VO5           "Matrix(low resolution)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_VO6           "Matrix(high resolution)"
     IDS_VIDEO_VO7           "Output frames to JPG"
@@ -600,7 +598,7 @@ BEGIN
     IDS_VIDEO_EXP           "Expand"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_EXPI          "Subtitles planted in the black side of the filters"
     IDS_VIDEO_EXPIT         "spaces is automatically extended"
@@ -620,7 +618,7 @@ BEGIN
     IDS_VIDEO_DEI           "Deinterlacing"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_DEII          "Deinterlacing"
     IDS_VIDEO_DEB           "deblocking"
@@ -640,7 +638,7 @@ BEGIN
     IDS_PROFILE_ALN_INFO    "Soundtrack language Priority"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROFILE_SLN         "Subtitles Language"
     IDS_PROFILE_SLN_INFO    "Subtitles Language Priority"
@@ -660,7 +658,7 @@ BEGIN
     IDS_INPUT_ENTER         "Ender"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_LC            "Left Click"
     IDS_INPUT_LD            "Left Double-Click"
@@ -680,7 +678,7 @@ BEGIN
     IDS_INPUT_JR            "Joy right"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_JU            "Joy up"
     IDS_INPUT_JD            "Joy down"
@@ -700,7 +698,7 @@ BEGIN
     IDS_INPUT_PAUS          "pause/play"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SCRS          "Screenshots"
     IDS_INPUT_KEEP          "keep aspect"
@@ -720,7 +718,7 @@ BEGIN
     IDS_INPUT_SPES          "set play speed , 1.0 is normal"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SPEI          "add/dec speed  , 1.0 is normal"
     IDS_INPUT_BALA          "Adjust audio balance of left/right channel  -1.0~1.0"
@@ -740,7 +738,7 @@ BEGIN
     IDS_INPUT_SET           "Input Setting"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SETNONE       "Not found input settings, use the default settings ?"
     IDS_INPUT_INNER         "internal hot key"
@@ -760,7 +758,7 @@ BEGIN
     IDS_INPUT_FSRIF         "mouse over the top of the screen"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_CHAP          "next/previous chapter (DVD/dvdnav、MKV)"
     IDS_INPUT_ANGLE         "switch angle (DVD/dvdnav)"
@@ -780,7 +778,7 @@ BEGIN
     IDS_INFO_REALTIME       "Real-time priority in some computer systems will cause loss of response , please use extreme caution."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DECODE_THREADS      "Multithreading MPEG/H.264 decoding"
     IDS_DECODE_THREADS_INFO "1~8 threads(May cause errors, please use caution)"
@@ -800,7 +798,7 @@ BEGIN
     IDS_VIDEO_VOGLAUTO      "OpenGL(Auto)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ASSOC_AVS           "AviSynth Script"
     IDS_ASSOC_ICO           "Icon"
@@ -818,7 +816,90 @@ BEGIN
     IDS_ASSOC_BOK           "OK"
 END
 
-#endif    // 中文(中华人民共和国) resources
+STRINGTABLE
+BEGIN
+    IDS_STRING30210         "Player"
+    IDS_STRING30211         "Video"
+    IDS_STRING30212         "Audio"
+    IDS_STRING30213         "OSD/Subtitle"
+    IDS_STRING30214         "Decoder/Demuxer"
+    IDS_STRING30215         "GUI"
+    IDS_STRING30216         "Hotkey"
+    IDS_STRING30217         "Associate"
+    IDS_STRING30218         "Profile"
+    IDS_STRING30219         "Favorite"
+    IDS_STRING30220         "Other"
+    IDS_STRING30221         "Add"
+    IDS_STRING30222         "Delete"
+    IDS_STRING30223         "File Associations"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30224         "Updated list of formats"
+    IDS_STRING30225         "OK"
+    IDS_STRING30226         "Cancel"
+    IDS_STRING30227         "Apply"
+    IDS_STRING30228         "Check Update"
+    IDS_STRING30229         "Language:"
+    IDS_STRING30230         "Skin:"
+    IDS_STRING30231         "Controlbar Alpha:"
+    IDS_STRING30232         "OnTop:"
+    IDS_STRING30233         "Hide Borders:"
+    IDS_STRING30234         "Minimize:"
+    IDS_STRING30235         "Extra"
+    IDS_STRING30236         "Display Player window"
+    IDS_STRING30237         "Border Skin"
+    IDS_STRING30238         "Controlbar Skin"
+    IDS_STRING30239         "Auto hide Controlbar"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30240         "Show Filename on Title"
+    IDS_STRING30241         "Show Menu bar"
+    IDS_STRING30242         "Right key Menu"
+    IDS_STRING30243         "Priority:"
+    IDS_STRING30244         "Monitor Aspect:"
+    IDS_STRING30245         "A/V Synchronous:"
+    IDS_STRING30246         "Loop:"
+    IDS_STRING30247         "Auto Playback:"
+    IDS_STRING30248         "Cache:"
+    IDS_STRING30249         "Log:"
+    IDS_STRING30250         "Console"
+    IDS_STRING30251         "Warning"
+    IDS_STRING30252         "Do not prompt again"
+    IDS_STRING30253         "Open with Fullscreen"
+    IDS_STRING30254         "Controlbar real-time response"
+    IDS_STRING30255         "One MPlayer Only"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30256         "Multithreading GUI"
+    IDS_STRING30257         "High GUI priority"
+    IDS_STRING30258         "URL use GBK pagecode"
+    IDS_STRING30259         "Exit when playback finished"
+    IDS_STRING30260         "Low console output (Recommend)"
+    IDS_STRING30261         "Double Buffer (Recommend)"
+    IDS_STRING30262         "use file-specific config"
+    IDS_STRING30263         "High Accuracy Timer"
+    IDS_STRING30264         "No DVD Menu Support"
+    IDS_STRING30265         "Reload when open file"
+    IDS_STRING30266         "Drop Frame (Recommend)"
+    IDS_STRING30267         "Re-create the index"
+    IDS_STRING30268         "Screenshot Folder:"
+    IDS_STRING30269         "Default Open Folder:"
+    IDS_STRING30270         "Skip Start"
+    IDS_STRING30271         "Skip End"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30272         "Browse"
+END
+
+#endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

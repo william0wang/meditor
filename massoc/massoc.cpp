@@ -105,6 +105,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 		CRealDlg dlg;
 		dlg.m_cmdline = sCmdLine;
+		dlg.m_dir = program_dir + _T("codecs\\");
 		dlg.InstallReal();
 
 		if(gUniqueEvent)

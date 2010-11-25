@@ -16,13 +16,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// 中文(简体，中国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
-#ifdef _WIN32
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -189,7 +187,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -238,7 +236,7 @@ END
 // Menu
 //
 
-IDR_MAINFRAME MENU 
+IDR_MAINFRAME MENU
 BEGIN
     POPUP "檔案"
     BEGIN
@@ -271,7 +269,7 @@ BEGIN
     END
 END
 
-IDR_MENU_FLASH MENU 
+IDR_MENU_FLASH MENU
 BEGIN
     POPUP "檔案"
     BEGIN
@@ -294,7 +292,7 @@ BEGIN
     END
 END
 
-IDR_MENU_WMP MENU 
+IDR_MENU_WMP MENU
 BEGIN
     POPUP "檔案"
     BEGIN
@@ -318,7 +316,7 @@ BEGIN
     END
 END
 
-IDR_MENU_DSHOW MENU 
+IDR_MENU_DSHOW MENU
 BEGIN
     POPUP "檔案"
     BEGIN
@@ -343,12 +341,12 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ABOUTBOX            "關於 MEditor2(&A)..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_NAME         "MPlayer 首選項"
     IDS_TAB_PLAYER          "播放器"
@@ -361,7 +359,7 @@ BEGIN
     IDS_TAB_ASSOS           "檔案關聯"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_ALLWAYS      "始終"
     IDS_RESUME_NORMAL       "預設"
@@ -381,7 +379,7 @@ BEGIN
     IDS_ASSOS_MOV           "影片"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_AUTOSEL      "自動選擇"
     IDS_PLAYER_AUTO         "自動"
@@ -401,7 +399,7 @@ BEGIN
     IDS_PLAYER_PLNORMAL     "低於標準(不推薦)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_PIDLE        "空閑(不推薦)"
     IDS_PLAYER_FILE         "單檔案"
@@ -421,7 +419,7 @@ BEGIN
     IDS_PLAYER_T2           "時:分 (12小時制)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PLAYER_T3           "時:分:秒 (24小時制)"
     IDS_PLAYER_T4           "時:分:秒 (12小時制)"
@@ -441,7 +439,7 @@ BEGIN
     IDS_PLAYER_EX           "增強"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ASSOS_AVI           "視頻剪輯"
     IDS_ASSOS_CT            "動畫"
@@ -461,7 +459,7 @@ BEGIN
     IDS_OTHER_REALAGAIN     "Real 在線支持已注冊，是否重新注冊 ?"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OTHER_TOOL4         "FLVExtract"
     IDS_OTHER_TOOL5         "Subtitle Downloader"
@@ -479,7 +477,7 @@ BEGIN
     IDS_DECODE_SKIP4        "跳過除了關鍵幀的所有幀"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DECODE_SKIP5        "跳過所有的幀"
     IDS_DECODE_CODEFILE1    "MPlayer 內置的解碼器配置"
@@ -499,7 +497,7 @@ BEGIN
     IDS_AUDIO_REINT         "多相過濾器組整數處理"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_OTHER_REALON        "Real 在線支持尚未注冊 !"
     IDS_OTHER_REALFAILS     "Real 在線支持注冊失敗，未找到需要的檔案 !"
@@ -519,7 +517,7 @@ BEGIN
     IDS_OTHER_TOOL3         "FLV Fixer"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_AUDIO_REFOA         "多相過濾器組浮點處理"
     IDS_SUB_NORMAL_COL      "預設顏色"
@@ -539,7 +537,7 @@ BEGIN
     IDS_AUDIO_WIN           "Win32 WaveOut"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_AUDIO_FILE          "輸出到PCM/Wave檔案"
     IDS_AUDIO_NULL          "無音頻輸出"
@@ -559,7 +557,7 @@ BEGIN
     IDS_VIDEO_ROTA2         "順時針90度"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_ROTA3         "逆時針90度"
     IDS_VIDEO_ROTA4         "逆時針90度並翻轉"
@@ -579,7 +577,7 @@ BEGIN
     IDS_VIDEO_VO5           "矩陣特效 (低解析度)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_VO6           "矩陣特效 (高解析度)"
     IDS_VIDEO_VO7           "輸出每幀到JPG圖片"
@@ -599,7 +597,7 @@ BEGIN
     IDS_VIDEO_EXP           "解析度擴展"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_EXPI          "字幕放置在該濾鏡的黑邊中(expand)"
     IDS_VIDEO_EXPIT         "擴展比例，值為空格時自動擴展"
@@ -619,7 +617,7 @@ BEGIN
     IDS_VIDEO_DEI           "反隔行掃描濾鏡"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_VIDEO_DEII          "解除視頻隔行掃描(拉絲/交錯/水波紋)"
     IDS_VIDEO_DEB           "反塊效應濾鏡"
@@ -639,7 +637,7 @@ BEGIN
     IDS_PROFILE_ALN_INFO    "設置音軌語言優先級"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROFILE_SLN         "字幕語言"
     IDS_PROFILE_SLN_INFO    "設置字幕語言優先級"
@@ -659,7 +657,7 @@ BEGIN
     IDS_INPUT_ENTER         "回車"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_LC            "單擊左鍵"
     IDS_INPUT_LD            "雙擊左鍵"
@@ -679,7 +677,7 @@ BEGIN
     IDS_INPUT_JR            "手柄－右"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_JU            "手柄－上"
     IDS_INPUT_JD            "手柄－下"
@@ -699,7 +697,7 @@ BEGIN
     IDS_INPUT_PAUS          "暫停/播放"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SCRS          "視頻截圖"
     IDS_INPUT_KEEP          "是否保持視頻比例"
@@ -719,7 +717,7 @@ BEGIN
     IDS_INPUT_SPES          "設置播放速度  1.0為正常速度"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SPEI          "加速/減速播放  1.0為正常速度"
     IDS_INPUT_BALA          "左/右聲道平衡(聲道轉換)  -1.0~1.0"
@@ -739,7 +737,7 @@ BEGIN
     IDS_INPUT_SET           "快捷鍵設置"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_SETNONE       "未找到快捷鍵設置，是否使用默認快捷鍵設置？"
     IDS_INPUT_INNER         "內置快捷鍵"
@@ -759,7 +757,7 @@ BEGIN
     IDS_INPUT_FSRIF         "鼠標移動到螢幕最上方"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_INPUT_CHAP          "上/下章節 (DVD/DVDNAV、MKV)"
     IDS_INPUT_ANGLE         "切換視角 (DVD/DVDNAV)"
@@ -779,7 +777,7 @@ BEGIN
     IDS_INFO_REALTIME       "實時優先級在某些電腦上會造成系統失去響應，請謹慎使用！"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DECODE_THREADS      "多線程MPEG/H.264解碼"
     IDS_DECODE_THREADS_INFO "1~8線程解碼(可能導致錯誤，請慎用)"
@@ -799,7 +797,7 @@ BEGIN
     IDS_VIDEO_VOGLAUTO      "OpenGL(自動檢測)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ASSOC_AVS           "AviSynth 脚本"
     IDS_ASSOC_ICO           "圖示"
@@ -817,7 +815,90 @@ BEGIN
     IDS_ASSOC_BOK           "確定"
 END
 
-#endif    // 中文(中华人民共和国) resources
+STRINGTABLE
+BEGIN
+    IDS_STRING30210         "播放器"
+    IDS_STRING30211         "視頻"
+    IDS_STRING30212         "音頻"
+    IDS_STRING30213         "OSD/字幕"
+    IDS_STRING30214         "解碼器/分離器"
+    IDS_STRING30215         "外觀"
+    IDS_STRING30216         "快捷鍵"
+    IDS_STRING30217         "檔案關聯"
+    IDS_STRING30218         "配置集"
+    IDS_STRING30219         "我的最愛"
+    IDS_STRING30220         "其他"
+    IDS_STRING30221         "添加"
+    IDS_STRING30222         "刪除"
+    IDS_STRING30223         "設置檔案關聯"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30224         "更新關聯格式列表"
+    IDS_STRING30225         "確定"
+    IDS_STRING30226         "取消"
+    IDS_STRING30227         "應用"
+    IDS_STRING30228         "檢查更新"
+    IDS_STRING30229         "語言:"
+    IDS_STRING30230         "外觀:"
+    IDS_STRING30231         "控制欄透明度:"
+    IDS_STRING30232         "前端顯示:"
+    IDS_STRING30233         "隱藏邊框:"
+    IDS_STRING30234         "最小化到:"
+    IDS_STRING30235         "額外參數"
+    IDS_STRING30236         "顯示播放器窗口"
+    IDS_STRING30237         "使用邊框皮膚"
+    IDS_STRING30238         "使用控制欄皮膚"
+    IDS_STRING30239         "自動隱藏控制欄"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30240         "標題欄顯示檔案名"
+    IDS_STRING30241         "顯示菜單欄"
+    IDS_STRING30242         "右鍵彈出菜單"
+    IDS_STRING30243         "播放器優先順序:"
+    IDS_STRING30244         "顯示器長寬比:"
+    IDS_STRING30245         "音視頻同步:"
+    IDS_STRING30246         "迴圈播放:"
+    IDS_STRING30247         "自動連續播放:"
+    IDS_STRING30248         "緩存容量:"
+    IDS_STRING30249         "日誌檔:"
+    IDS_STRING30250         "顯示控制臺"
+    IDS_STRING30251         "注意"
+    IDS_STRING30252         "不再提示"
+    IDS_STRING30253         "打開檔後全螢幕"
+    IDS_STRING30254         "進度條拖動即時回應"
+    IDS_STRING30255         "只打開一個播放器"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30256         "使用窗口獨立線程"
+    IDS_STRING30257         "提高窗口(GUI)優先順序"
+    IDS_STRING30258         "URL使用GBK編碼"
+    IDS_STRING30259         "播放結束後退出"
+    IDS_STRING30260         "減少控制臺資訊(推薦)"
+    IDS_STRING30261         "雙緩衝(推薦)"
+    IDS_STRING30262         "支持特定檔單獨配置"
+    IDS_STRING30263         "使用高精度計時器"
+    IDS_STRING30264         "不使用DVD菜單支持"
+    IDS_STRING30265         "打開新檔時刷新設置(不推薦)"
+    IDS_STRING30266         "允許丟幀(推薦)"
+    IDS_STRING30267         "重建檔索引"
+    IDS_STRING30268         "截圖保存檔夾:"
+    IDS_STRING30269         "默認打開檔夾:"
+    IDS_STRING30270         "跳過片頭:"
+    IDS_STRING30271         "跳過片尾:"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30272         "瀏覽"
+END
+
+#endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

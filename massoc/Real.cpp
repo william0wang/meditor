@@ -90,18 +90,14 @@ BOOL CRealDlg::RegRealOnline()
 {
 	TCHAR szPath[MAX_PATH + 1];
 	TCHAR szCurPath[MAX_PATH + 1];
-	CString m_dir, m_sysdir, m_prodir, m_datadir;
+	CString m_sysdir, m_prodir, m_datadir;
 
 	if(CheckRealOnline() &&
 		MessageBox(NULL, ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
 		return FALSE;
-
-	GetModuleFileName(NULL, szPath, MAX_PATH);
-	(_tcsrchr(szPath, _T('\\')))[1] = 0;
-	m_dir.Format(_T("%s"),szPath);
-
+	
 	::GetCurrentDirectory(MAX_PATH, szCurPath);
-	::SetCurrentDirectory(szPath);
+	::SetCurrentDirectory(m_dir);
 
 	::GetSystemDirectory(szPath, MAX_PATH);
 	m_sysdir.Format(_T("%s\\"), szPath);
@@ -155,19 +151,15 @@ BOOL CRealDlg::DRegRealOnline()
 {
 	TCHAR szPath[MAX_PATH + 1];
 	TCHAR szCurPath[MAX_PATH + 1];
-	CString m_dir, m_sysdir, m_prodir, m_datadir;
+	CString m_sysdir, m_prodir, m_datadir;
 
 	if(!CheckRealOnline()) {
 		MessageBox(NULL, ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
 		return FALSE;
 	}
-
-	GetModuleFileName(NULL, szPath, MAX_PATH);
-	(_tcsrchr(szPath, _T('\\')))[1] = 0;
-	m_dir.Format(_T("%s"), szPath);
-
+	
 	::GetCurrentDirectory(MAX_PATH, szCurPath);
-	::SetCurrentDirectory(szPath);
+	::SetCurrentDirectory(m_dir);
 
 	::GetSystemDirectory(szPath, MAX_PATH);
 	m_sysdir.Format(_T("%s\\"), szPath);

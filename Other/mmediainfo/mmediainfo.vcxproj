@@ -190,7 +190,6 @@
     <ClInclude Include="..\..\include\ListCtrl\ListTypes.h" />
     <ClInclude Include="..\..\include\ListCtrl\TitleTip.h" />
     <ClInclude Include="AboutDlg.h" />
-    <ClInclude Include="AtlStdioFile.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MediaInfoDlg.h" />
     <ClInclude Include="resource.h" />
@@ -210,4 +209,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="mmediainfo.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

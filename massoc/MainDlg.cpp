@@ -112,9 +112,7 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 	m_icons_dll = _T("micons.dll");
 	m_icons_org = m_program_dir + _T("micons.dll");
 	m_player_exe = m_program_dir + _T("mplayer.exe");
-	m_editor_exe = m_program_dir + _T("meditor2.exe");
-	if(!IsFileExist(m_editor_exe))
-		m_editor_exe = m_program_dir + _T("meditor.exe");
+	m_editor_exe = m_program_dir + _T("meditor.exe");
 
 	LoadAssocINI();
 
@@ -743,7 +741,7 @@ bool CMainDlg::AssocExtDefault(CString ext, CString info, CString icons, int typ
 		if(is_playlist)
 			Content =  _T("\"") +m_player_exe +_T("\" -playlist \"%1\"");
 		else if(is_flash)
-			Content =  _T("\"") +m_editor_exe +_T("\" --Open FlashPlayer \"%1\"");
+			Content =  _T("\"") +m_editor_exe +_T("\" --flash-player \"%1\"");
 		else
 			Content =  _T("\"") +m_player_exe +_T("\" \"%1\"");
 
@@ -862,14 +860,14 @@ bool CMainDlg::AssocExtension(CString ext, CString info, CString icons, int type
 		if(is_playlist)
 			Content =  _T("\"") +m_player_exe +_T("\" -playlist \"%1\"");
 		else if(is_flash) {
-			Player = _T(" MFlashPlayer ");
-			Content =  _T("\"") + m_editor_exe +_T("\" --Open FlashPlayer \"%1\"");
+			Player = _T(" FlashPlayer ");
+			Content =  _T("\"") + m_editor_exe +_T("\" --flash-player \"%1\"");
 		} else if(is_inner && m_mpc) {
 			Player = _T(" MPC-HC ");
 			Content =  _T("\"") + m_mpc_exe +_T("\" \"%1\"");
 		} else if(is_inner) {
-			Player = _T(" MSimplePlayer ");
-			Content =  _T("\"") + m_editor_exe +_T("\" --Open MediaPlayer \"%1\"");
+			Player = _T(" DShowPlayer ");
+			Content =  _T("\"") + m_editor_exe +_T("\" --dshow-player \"%1\"");
 		} else
 			Content =  _T("\"") +m_player_exe +_T("\" \"%1\"");
 

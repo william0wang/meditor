@@ -6,7 +6,6 @@
 #include "shared.h"
 #include "../Libs/tinyxml/tinyxml.h"
 #include "Win7ShellApi.h"
-#include <tlhelp32.h> 
 
 #include "UpdateDlg.h"
 
@@ -108,34 +107,6 @@ void Callback_Un7zip(int percent)
 	PostMessage(updatedlg->m_hWnd, WM_MSG_UN7ZIP_PERCENT, percent, 0);
 }
 
-void MyTerminateProcess(LPCTSTR proname)
-{
-	HANDLE hProcess = NULL;
-	PROCESSENTRY32 pe32;
-	HANDLE hProcessSnap;
-
-	pe32.dwSize = sizeof(pe32); 
-	hProcessSnap = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if(hProcessSnap == INVALID_HANDLE_VALUE) {
-		return;
-	}
-
-	BOOL bMore = ::Process32First(hProcessSnap, &pe32);
-	while(bMore) {
-		if(_tcsicmp(pe32.szExeFile, proname) == 0) {
-			hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, pe32.th32ProcessID);
-			if(hProcess) {
-				TerminateProcess(hProcess, 0);
-				CloseHandle(hProcess);
-			}
-			break;
-		}
-		bMore = ::Process32Next(hProcessSnap, &pe32);
-	}
-
-	::CloseHandle(hProcessSnap);
-}
-
 UINT Un7zipThread(LPVOID pParam)
 {
 	CUpdateDlg *update = (CUpdateDlg *)pParam;
@@ -155,7 +126,7 @@ UINT Un7zipThread(LPVOID pParam)
 		ignore_list.push_back(L"mplayer/input.ini");
 		ignore_list.push_back(L"mplayer/mplayer.ini");
 	}
-	
+
 	wstring file = update->m_path;
 	if (file.find_last_of(L"\\") != file.size() - 1)
 		file += L"\\";
@@ -234,15 +205,17 @@ NOUPDATE:
 
 	CString str;
 
-	CString url, filename;
+	CString url, urlbase, filename;
 	if((svn < re_svn && date <= re_date) || (svn <= re_svn && date < re_date)) {
 		filename.Format(_T("mplayer_lite_r%d.7z"), re_svn);
 		url.Format(_T("http://downloads.sourceforge.net/project/mplayer-ww/MPlayer_Release/Revision%%20%d/%s"), re_svn, filename);
 		str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversion, re_svn, re_date);
+		urlbase.Format(_T(".dl.sourceforge.net/project/mplayer-ww/MPlayer_Release/Revision%%20%d/%s"), re_svn, filename);
 		update->GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
 	} else if((svn < be_svn && date <= be_date) || (svn <= be_svn && date < be_date)) {
 		filename.Format(_T("mplayer-SVN-r%d.7z"), be_svn);
 		url.Format(_T("http://downloads.sourceforge.net/project/mplayer-ww/MPlayer_Beta/%s"), filename);
+		urlbase.Format(_T(".dl.sourceforge.net/project/mplayer-ww/MPlayer_Beta/%s"), filename);
 		if(svn == re_svn && date == re_date)
 			str.Format(_T("%s MPlayer SVN-r%d(%d)"), update->str_newversionrel, be_svn, be_date);
 		else
@@ -260,7 +233,9 @@ NOUPDATE:
 	}
 
 	update->m_url = url.GetBuffer();
+	update->m_urlbase = urlbase.GetBuffer();
 	url.ReleaseBuffer();
+	urlbase.ReleaseBuffer();
 	update->m_filename = filename.GetBuffer();
 	filename.ReleaseBuffer();
 
@@ -278,10 +253,12 @@ CUpdateDlg::CUpdateDlg(UINT DialogIDD)
 	g_pTaskbarList = NULL;
 	s_uTBBC = WM_NULL;
 	m_down_index = -1;
+	m_bDownload = FALSE;
 
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
 
+	m_Progrom = szFilePath;
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_ProPath.Format(_T("%s"),szFilePath);
 
@@ -372,8 +349,12 @@ LRESULT CUpdateDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPar
 	m_ProPath.ReleaseBuffer();
 	m_path += L"update_mp";
 
-	SetTimer(0, 100, 0);
-	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CheckUpdate, this, 0, 0);
+	if(m_bDownload)
+		StartDownload();
+	else {
+		SetTimer(0, 100, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CheckUpdate, this, 0, 0);
+	}
 	return TRUE;
 }
 
@@ -390,12 +371,16 @@ LRESULT CUpdateDlg::OnDownSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bH
 				int precent = (int)((double)m_DownSize / (double)m_filesize * 100);
 				if(precent > 0 && precent <= 100) {
 					m_progress.SetPos(precent);
-					m_info2.Format(_T("%d%%,  %d KB / %d KB, %d KB/S"), precent, m_DownSize/1024, m_filesize/1024, bps);
-					DoDataExchange();
+					m_avgnumber++;
+					m_avgbps += (bps - m_avgbps) / m_avgnumber;
+					m_info2.Format(_T("%d%%,  %d KB / %d KB, %d KB/S"), precent, m_DownSize/1024, m_filesize/1024, m_avgbps);
+					GetDlgItem(IDC_STATIC_INFO2).SetWindowText(m_info2);
 				}
 			} else if(bps > 0) {
-				m_info2.Format(_T("%d KB, %d KB/S"), m_DownSize/1024, bps);
-				DoDataExchange();
+				m_avgnumber++;
+				m_avgbps += (bps - m_avgbps) / m_avgnumber;
+				m_info2.Format(_T("%d KB, %d KB/S"), m_DownSize/1024, m_avgbps);
+				GetDlgItem(IDC_STATIC_INFO2).SetWindowText(m_info2);
 			}
 			m_LastTimer = timer;
 		}
@@ -448,11 +433,36 @@ LRESULT CUpdateDlg::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHa
 {
 	if(m_down_index >= 0)
 		StopDownloader(m_down_index);
+
+	if(m_bDownload)
+		ShellExecute(NULL, _T("open"), m_ProPath + _T("meditor.exe"), _T("--clean-up"), NULL, SW_SHOW);
+
 	return 0;
 }
 
-void CUpdateDlg::StrartDownload()
+void CUpdateDlg::StartDownload()
 {
+	m_info1.Format(_T("%s\n\n%s"), str_downloading, m_filename.c_str());
+
+	m_avgbps = 0;
+	m_avgnumber = 0;
+	m_filesize = 0;
+	m_DownSize = 0;
+	m_LastTimer = 0;
+	m_LastTimerSize = 0;
+
+	if(!FileExist(m_path.c_str()))
+		CreateDirectory(m_path.c_str(), NULL);
+	else if(!FileIsDirectory(m_path.c_str())) {
+		DeleteFile(m_path.c_str());
+		CreateDirectory(m_path.c_str(), NULL);
+	}
+
+	m_progress.ShowWindow(SW_SHOW);
+	DoDataExchange();
+
+	m_failtime = 0;
+
 	m_down_index = StartDownloaderW(m_url.c_str(), m_path.c_str(), m_filename.c_str(),
 		(FUNC_CallBack)Callback_Download, DOWNLOAD_WPARAM);
 }
@@ -530,8 +540,40 @@ LRESULT CUpdateDlg::OnFinished(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bH
 		m_info1 = str_downloadok;
 		DoDataExchange();
 	} else {
-		m_info1 = str_downloadfail;
-		GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
+		m_failtime++;
+		if(m_failtime < MAX_DOWNLOAD_SERVER) {
+			wstring server;
+			switch(m_failtime)
+			{
+			case 1:
+				server = L"http://ncu";
+				break;
+			case 2:
+				server = L"http://surfnet";
+				break;
+			case 3:
+				server = L"http://jaist";
+				break;
+			case 4:
+				server = L"http://softlayer";
+				break;
+			case 5:
+				server = L"http://nchc";
+				break;
+			default:
+				server = L"http://kent";
+				break;
+			}
+			wstring url_x =  server + m_urlbase;
+			m_progress.ShowWindow(SW_SHOW);
+			m_down_index = StartDownloaderW(url_x.c_str(), m_path.c_str(), m_filename.c_str(),
+				(FUNC_CallBack)Callback_Download, DOWNLOAD_WPARAM);
+
+		} else {
+			GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_SHOW);
+			m_info1 = str_downloadfail;
+			DoDataExchange();
+		}
 	}
 	
 	return 0;
@@ -541,23 +583,19 @@ LRESULT CUpdateDlg::OnBnClickedButtonUpdate(WORD /*wNotifyCode*/, WORD /*wID*/, 
 {
 	GetDlgItem(IDC_BUTTON_UPDATE).ShowWindow(SW_HIDE);
 
-	m_info1.Format(_T("%s\n\n%s"), str_downloading, m_filename.c_str());
+	CString updater = m_ProPath + _T("mupdater.exe");
+	CopyFileW(m_Progrom, updater, FALSE);
+	if(FileExist(updater)) {
+		CString sCmdLine;
+		sCmdLine.Format(_T("--download-update --filename \"%s\" --url \"%s\" --urlbase \"%s\""),
+			m_filename.c_str(), m_url.c_str(), m_urlbase.c_str());
+		ShellExecute(NULL, _T("open"), updater, sCmdLine, NULL, SW_SHOW);
 
-	m_filesize = 0;
-	m_DownSize = 0;
-	m_LastTimer = 0;
-	m_LastTimerSize = 0;
-
-	if(!FileExist(m_path.c_str()))
-		CreateDirectory(m_path.c_str(), NULL);
-	else if(!FileIsDirectory(m_path.c_str())) {
-		DeleteFile(m_path.c_str());
-		CreateDirectory(m_path.c_str(), NULL);
+		PostMessage(WM_CLOSE, 0, 0);
+	} else {
+		StartDownload();
 	}
 
-	StrartDownload();
-
-	m_progress.ShowWindow(SW_SHOW);
 	return 0;
 }
 
