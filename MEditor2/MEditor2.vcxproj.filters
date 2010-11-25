@@ -39,16 +39,10 @@
     <ClCompile Include="MEditor2Dlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MAssosPage.cpp">
-      <Filter>源文件\Page</Filter>
-    </ClCompile>
     <ClCompile Include="MAudioPage.cpp">
       <Filter>源文件\Page</Filter>
     </ClCompile>
     <ClCompile Include="MDecodePage.cpp">
-      <Filter>源文件\Page</Filter>
-    </ClCompile>
-    <ClCompile Include="MInputPage.cpp">
       <Filter>源文件\Page</Filter>
     </ClCompile>
     <ClCompile Include="MOtherPage.cpp">
@@ -69,25 +63,13 @@
     <ClCompile Include="MVideoPage.cpp">
       <Filter>源文件\Page</Filter>
     </ClCompile>
-    <ClCompile Include="CDXGraph.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
     <ClCompile Include="ColorButton.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
     <ClCompile Include="ColourPopup.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
-    <ClCompile Include="explorer_html.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
     <ClCompile Include="FontComboBox.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="MDSPlayer.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="MFlashPlayer.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
     <ClCompile Include="MLinkDlg.cpp">
@@ -99,19 +81,10 @@
     <ClCompile Include="MProfileDlg.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
-    <ClCompile Include="MShowInfoDlg.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="shockwaveflash.cpp">
-      <Filter>源文件\Other</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件\Other</Filter>
     </ClCompile>
     <ClCompile Include="MConfig.cpp">
-      <Filter>源文件\Share</Filter>
-    </ClCompile>
-    <ClCompile Include="MInputList.cpp">
       <Filter>源文件\Share</Filter>
     </ClCompile>
     <ClCompile Include="MShared.cpp">
@@ -122,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="TabSheet.cpp">
       <Filter>源文件\Share</Filter>
+    </ClCompile>
+    <ClCompile Include="MShowInfoDlg.cpp">
+      <Filter>源文件\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,16 +147,10 @@
     <ClInclude Include="MEditor2Dlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MAssosPage.h">
-      <Filter>头文件\Page</Filter>
-    </ClInclude>
     <ClInclude Include="MAudioPage.h">
       <Filter>头文件\Page</Filter>
     </ClInclude>
     <ClInclude Include="MDecodePage.h">
-      <Filter>头文件\Page</Filter>
-    </ClInclude>
-    <ClInclude Include="MInputPage.h">
       <Filter>头文件\Page</Filter>
     </ClInclude>
     <ClInclude Include="MOtherPage.h">
@@ -201,25 +171,13 @@
     <ClInclude Include="MVideoPage.h">
       <Filter>头文件\Page</Filter>
     </ClInclude>
-    <ClInclude Include="CDXGraph.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
     <ClInclude Include="ColorButton.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
     <ClInclude Include="ColourPopup.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
-    <ClInclude Include="explorer_html.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
     <ClInclude Include="FontComboBox.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="MDSPlayer.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="MFlashPlayer.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
     <ClInclude Include="MLinkDlg.h">
@@ -231,13 +189,7 @@
     <ClInclude Include="MProfileDlg.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
-    <ClInclude Include="MShowInfoDlg.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>头文件\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="shockwaveflash.h">
       <Filter>头文件\Other</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -249,9 +201,6 @@
     <ClInclude Include="MConfig.h">
       <Filter>头文件\Share</Filter>
     </ClInclude>
-    <ClInclude Include="MInputList.h">
-      <Filter>头文件\Share</Filter>
-    </ClInclude>
     <ClInclude Include="MShared.h">
       <Filter>头文件\Share</Filter>
     </ClInclude>
@@ -260,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="TabSheet.h">
       <Filter>头文件\Share</Filter>
+    </ClInclude>
+    <ClInclude Include="MShowInfoDlg.h">
+      <Filter>头文件\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

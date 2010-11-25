@@ -189,8 +189,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	int ResumePage = IDD_RESUME_DIALOG;
 	int OtherPage = IDD_OTHER_DIALOG;
 	int ProfilePage = IDD_PROFILE_DIALOG;
-	int InputPage = IDD_INPUT_DIALOG;
-	int AssosPage = IDD_ASSOS_DIALOG;
 	if(theApp.AppLanguage == 2){
 		PlayerPage = IDD_PLAYER_DIALOG_EN;
 		VideoPage = IDD_VIDEO_DIALOG_EN;
@@ -200,8 +198,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		ResumePage = IDD_RESUME_DIALOG_EN;
 		OtherPage = IDD_OTHER_DIALOG_EN;
 		ProfilePage = IDD_PROFILE_DIALOG_EN;
-		InputPage = IDD_INPUT_DIALOG_EN;
-		AssosPage = IDD_ASSOS_DIALOG_EN;
 	} else if (theApp.AppLanguage == 3 || theApp.AppLanguage == 4) {
 		PlayerPage = IDD_PLAYER_DIALOG_TC;
 		VideoPage = IDD_VIDEO_DIALOG_TC;
@@ -211,8 +207,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		ResumePage = IDD_RESUME_DIALOG_TC;
 		OtherPage = IDD_OTHER_DIALOG_TC;
 		ProfilePage = IDD_PROFILE_DIALOG_TC;
-		InputPage = IDD_INPUT_DIALOG_TC;
-		AssosPage = IDD_ASSOS_DIALOG_TC;
 	}
 	if(theApp.hResourceHandleOld)
 		AfxSetResourceHandle(theApp.hResourceHandleOld);
@@ -224,8 +218,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_TabSheet.AddPage( r_str , &m_resume, ResumePage);
 	m_TabSheet.AddPage( o_str , &m_other, OtherPage);
 	m_TabSheet.AddPage( f_str , &m_profile, ProfilePage);
-	m_TabSheet.AddPage( i_str , &m_Input, InputPage);
-	m_TabSheet.AddPage( s_str , &m_assos, AssosPage);
 	m_TabSheet.Show();
 	if(theApp.hResourceHandleMod)
 		AfxSetResourceHandle(theApp.hResourceHandleMod);
@@ -233,26 +225,12 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	int value_i;
 	if(m_config.GetValue_Integer(_T("meditor_last_page"),value_i,true))
 	{
-		if(value_i >= Player && value_i <= Assos)
+		if(value_i >= Player && value_i <= Profile)
 			m_TabSheet.SetCurSel(value_i);
 	}
 
-	if(m_OpenType == 1)
-	{
-		//快捷键设置
+	if(m_OpenType == 3)
 		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-		m_TabSheet.SetCurSel(Input);
-	}
-	else if(m_OpenType == 2)
-	{
-		//文件关联设置
-		m_TabSheet.SetCurSel(Assos);
-	}
-	else if(m_OpenType == 3)
-	{
-		//由MPlayer调用
-		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-	}
 
 	GetDlgItem(IDC_APPLY)->SetFocus();
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -309,8 +287,6 @@ HCURSOR CMEditor2Dlg::OnQueryDragIcon()
 
 bool CMEditor2Dlg::SaveAll()
 {
-	if(!m_Input.SaveInputConfig())
-		return false;
 	m_player.SaveConfig();
 	m_decode.SaveConfig();
 	m_subtitle.SaveConfig();

@@ -868,7 +868,7 @@ void CMPlayerPage::SaveConfig()
 		m_cfg->SetValue(_T("use-filedir-conf"),_T("1"));
 	else
 		m_cfg->RemoveValue(_T("use-filedir-conf"));
-	
+
 	if(m_colorkey_s == m_no_s)
 	{
 		m_cfg->SetValue(_T("nocolorkey"),_T("1"));
@@ -1009,12 +1009,12 @@ void CMPlayerPage::SaveConfig()
 			m_cfg->RemoveValue(_T("autoplay_fuzziness"),true);
 		break;
 	}
-	
+
 	if(m_monitor_s != m_auto_s)
 		m_cfg->SetValue(_T("monitoraspect"),m_monitor_s );
 	else
 		m_cfg->RemoveValue(_T("monitoraspect"));
-	
+
 	
 	if(m_dvd != _T(""))
 		m_cfg->SetValue(_T("dvd-device"),m_dvd );
