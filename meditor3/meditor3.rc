@@ -813,7 +813,7 @@ BEGIN
     IDS_STRING30212         "音频"
     IDS_STRING30213         "OSD/字幕"
     IDS_STRING30214         "解码器/分离器"
-    IDS_STRING30215         "界面外观"
+    IDS_STRING30215         "外观"
     IDS_STRING30216         "快捷键"
     IDS_STRING30217         "文件关联"
     IDS_STRING30218         "配置集"

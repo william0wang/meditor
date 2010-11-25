@@ -179,6 +179,8 @@ void CPlayerDlg::InitCheckBox()
 
 void CPlayerDlg::SaveConfig()
 {
+	DoDataExchange(TRUE);
+
 	if(m_conf)
 		mconfig.SetValue(_T("use-filedir-conf"), _T("1"));
 	else
