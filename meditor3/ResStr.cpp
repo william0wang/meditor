@@ -40,6 +40,14 @@ void CResStr::LoadString()
 	cmenu = ResStr(IDS_STRING30241);
 	crmenu = ResStr(IDS_STRING30242);
 
+	piority = ResStr(IDS_STRING30243);
+	monitor = ResStr(IDS_STRING30244);
+	async = ResStr(IDS_STRING30245);
+	loops = ResStr(IDS_STRING30246);
+	aplay = ResStr(IDS_STRING30247);
+	cache = ResStr(IDS_STRING30248);
+	log = ResStr(IDS_STRING30249);
+
 	systheme = ResStr(IDS_PLAYER_THEME);
 
 	ontop_none = ResStr(IDS_PLAYER_NONE);
@@ -53,7 +61,67 @@ void CResStr::LoadString()
 	tray_ta = ResStr(IDS_PLAYER_TASK);
 	tray_tr = ResStr(IDS_PLAYER_TRAY);
 	tray_trs = ResStr(IDS_PLAYER_TRAYSTOP);
-	
+		
+	piority1 = ResStr(IDS_PLAYER_PREALTIME);
+	piority2 = ResStr(IDS_PLAYER_PHIGH);
+	piority3 = ResStr(IDS_PLAYER_PHNORMAL);
+	piority4 = ResStr(IDS_PLAYER_PNORMAL);
+	piority5 = ResStr(IDS_PLAYER_PLNORMAL);
+	piority6 = ResStr(IDS_PLAYER_PIDLE);
+
+	async0 = ResStr(IDS_PLAYER_AS_NO);
+	async1 = ResStr(IDS_PLAYER_AS_NORMAL);
+	async2 = ResStr(IDS_PLAYER_AS_FAST);
+	async3 = ResStr(IDS_PLAYER_AS_FLV);
+	async4 = ResStr(IDS_PLAYER_AS_FLVEX);
+	async5 = ResStr(IDS_PLAYER_AS_AVI);
+
+	playna = ResStr(IDS_PLAYER_NOUSE);
+	playex = ResStr(IDS_PLAYER_EX);
+
+	loopf = ResStr(IDS_PLAYER_FILE);
+	loopl = ResStr(IDS_PLAYER_LIST);
+
+	logn = ResStr(IDS_PLAYER_LOG_NO);
+	log0 = ResStr(IDS_PLAYER_LOG);
+	log1 = ResStr(IDS_PLAYER_LOG_V1);
+	log2 = ResStr(IDS_PLAYER_LOG_V2);
+	log3 = ResStr(IDS_PLAYER_LOG_V3);
+	log4 = ResStr(IDS_PLAYER_LOG_V4);
+	log5 = ResStr(IDS_PLAYER_LOG_V5);
+	logc = ResStr(IDS_STRING30250);
+
+	warning = ResStr(IDS_STRING30251);
+	notshow = ResStr(IDS_STRING30252);
+	winfo[0] = ResStr(IDS_INFO_RELOAD);
+	winfo[1] = ResStr(IDS_INFO_COREAVC);
+	winfo[2] = ResStr(IDS_INFO_ASSEXP);
+	winfo[3] = ResStr(IDS_INFO_BOOST);
+	winfo[4] = ResStr(IDS_INFO_REALTIME);
+
+	browser = ResStr(IDS_STRING30272);
+
+	cfulls = ResStr(IDS_STRING30253);
+	crseek = ResStr(IDS_STRING30254);
+	conep = ResStr(IDS_STRING30255);
+	cguit = ResStr(IDS_STRING30256);
+	cguip = ResStr(IDS_STRING30257);
+	curl = ResStr(IDS_STRING30258);
+	cquit = ResStr(IDS_STRING30259);
+	cquiet = ResStr(IDS_STRING30260);
+	cdouble = ResStr(IDS_STRING30261);
+	cconf = ResStr(IDS_STRING30262);
+	chtime = ResStr(IDS_STRING30263);
+	cdvd = ResStr(IDS_STRING30264);
+	creload = ResStr(IDS_STRING30265);
+	cfdrop = ResStr(IDS_STRING30266);
+	cidx = ResStr(IDS_STRING30267);
+	cpng = ResStr(IDS_STRING30268);
+	copen = ResStr(IDS_STRING30269);
+	cstart = ResStr(IDS_STRING30270);
+	cend = ResStr(IDS_STRING30271);
+
+
 	INPUT_NONE = ResStr(IDS_INPUT_NONE);
 	INPUT_LEFT = ResStr(IDS_INPUT_LEFT);
 	INPUT_RIGHT = ResStr(IDS_INPUT_RIGHT);

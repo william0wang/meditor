@@ -859,6 +859,44 @@ BEGIN
     IDS_STRING30240         "Show Filename on Title"
     IDS_STRING30241         "Show Menu bar"
     IDS_STRING30242         "Right key Menu"
+    IDS_STRING30243         "Priority:"
+    IDS_STRING30244         "Monitor Aspect:"
+    IDS_STRING30245         "A/V Synchronous:"
+    IDS_STRING30246         "Loop:"
+    IDS_STRING30247         "Auto Playback:"
+    IDS_STRING30248         "Cache:"
+    IDS_STRING30249         "Log:"
+    IDS_STRING30250         "Message Console"
+    IDS_STRING30251         "Warning"
+    IDS_STRING30252         "Do not prompt again"
+    IDS_STRING30253         "Open with Fullscreen"
+    IDS_STRING30254         "Controlbar real-time response"
+    IDS_STRING30255         "One MPlayer Only"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30256         "Multithreading GUI"
+    IDS_STRING30257         "High GUI priority"
+    IDS_STRING30258         "URL use GBK pagecode"
+    IDS_STRING30259         "Exit when playback finished"
+    IDS_STRING30260         "Low console output (Recommend)"
+    IDS_STRING30261         "Double Buffer (Recommend)"
+    IDS_STRING30262         "use file-specific config"
+    IDS_STRING30263         "High Accuracy Timer"
+    IDS_STRING30264         "No DVD Menu Support"
+    IDS_STRING30265         "Reload when open file"
+    IDS_STRING30266         "Drop Frame (Recommend)"
+    IDS_STRING30267         "Re-create the index"
+    IDS_STRING30268         "Screenshot Folder:"
+    IDS_STRING30269         "Default Open Folder:"
+    IDS_STRING30270         "Skip Start"
+    IDS_STRING30271         "Skip End"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30272         "Browse"
 END
 
 #endif    // 中文(简体，中国) resources

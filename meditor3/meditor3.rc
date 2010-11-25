@@ -63,16 +63,6 @@ BEGIN
     CONTROL         "",IDC_PROGRESS_APPLEY,"msctls_progress32",PBS_SMOOTH | NOT WS_VISIBLE,94,258,111,8
 END
 
-IDD_DIALOG_PLAYER DIALOGEX 0, 0, 372, 236
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    PUSHBUTTON      "Button1",IDC_BUTTON1,259,155,112,81
-    PUSHBUTTON      "Button1",IDC_BUTTON2,260,0,112,81
-    PUSHBUTTON      "Button1",IDC_BUTTON3,0,155,112,81
-    PUSHBUTTON      "Button1",IDC_BUTTON4,0,0,112,81
-END
-
 IDD_PREVIEW_DIALOG_TC DIALOGEX 0, 0, 282, 148
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "縮圖"
@@ -263,14 +253,35 @@ IDD_DIALOG_PAGE_PLAYER DIALOGEX 0, 0, 325, 241
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    CONTROL         "ListCtrl",IDC_LISTCTRL_GUI,"ListCtrl",WS_TABSTOP,173,6,140,14
-    CONTROL         "ListCtrl",IDC_LISTCTRL_GUI3,"ListCtrl",WS_TABSTOP,173,44,140,14
-    CONTROL         "ListCtrl",IDC_LISTCTRL_GUI4,"ListCtrl",WS_TABSTOP,173,63,140,14
-    CONTROL         "ListCtrl",IDC_LISTCTRL_GUI5,"ListCtrl",WS_TABSTOP,173,82,140,14
-    CONTROL         "ListCtrl",IDC_LISTCTRL_GUI6,"ListCtrl",WS_TABSTOP,173,101,140,14
-    CONTROL         "ListCtrl",IDC_LISTCTRL_GUI2,"ListCtrl",WS_TABSTOP,173,25,140,14
-    CONTROL         "全屏方式打开文件",IDC_CHECK_FULLSCREEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,49,80,10
-    CONTROL         "进度条拖动实时响应",IDC_CHECK_RTSEEK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,17,83,10
+    CONTROL         "ListCtrl",IDC_LISTCTRL_AUTOPLAY,"ListCtrl",WS_TABSTOP,5,151,149,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL_MONITOR,"ListCtrl",WS_TABSTOP,160,113,149,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL_CACHE,"ListCtrl",WS_TABSTOP,5,170,149,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL_AUTOSYNC,"ListCtrl",WS_TABSTOP,5,132,149,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL_LOOP,"ListCtrl",WS_TABSTOP,160,132,149,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL_PRIORITY,"ListCtrl",WS_TABSTOP,5,113,149,14
+    CONTROL         "打开文件后全屏幕",IDC_CHECK_FULLSCREEN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,7,97,10
+    CONTROL         "进度条拖动实时响应",IDC_CHECK_RTSEEK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,51,97,10
+    CONTROL         "只打开一个播放器",IDC_CHECK_ONLYONE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,109,7,91,10
+    CONTROL         "使用窗口独立线程",IDC_CHECK_GUITHREAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,29,97,10
+    CONTROL         "提高窗口(GUI)优先级",IDC_CHECK_GUI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,109,29,91,10
+    CONTROL         "URL使用GBK编码",IDC_CHECK_URL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,109,95,91,10
+    CONTROL         "播放结束后退出",IDC_CHECK_QUIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,208,7,109,10
+    CONTROL         "减少控制台信息(推荐)",IDC_CHECK_QUIET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,208,29,114,10
+    CONTROL         "双缓冲(推荐)",IDC_CHECK_DOUBLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,208,51,109,10
+    CONTROL         "支持特定文件单独配置",IDC_CHECK_CONF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,208,73,109,10
+    CONTROL         "使用高精度计时器",IDC_CHECK_HTIMER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,109,51,91,10
+    CONTROL         "不使用DVD菜单支持",IDC_CHECK_DVDNAV,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,109,73,91,10
+    CONTROL         "打开新文件时刷新设置(不推荐)",IDC_CHECK_RELOAD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,208,95,109,10
+    CONTROL         "ListCtrl",IDC_LISTCTRL_LOG,"ListCtrl",WS_TABSTOP,160,151,149,14
+    LTEXT           "截图保存文件夹",IDC_STATIC_PNG,7,213,67,8
+    EDITTEXT        IDC_EDIT_PNG,77,211,135,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_BUTTON_PNG,217,211,36,13
+    LTEXT           "默认打开文件夹",IDC_STATIC_DEF,7,194,69,8
+    EDITTEXT        IDC_EDIT_DEF,77,192,135,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_BUTTON_DEF,217,191,36,13
+    CONTROL         "允许丢帧(推荐)",IDC_CHECK_FRAMEDROP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,73,97,10
+    CONTROL         "重建文件索引",IDC_CHECK_REINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,95,97,10
+    CONTROL         "ListCtrl",IDC_LISTCTRL_TIME,"ListCtrl",WS_TABSTOP,156,170,167,14
 END
 
 IDD_DIALOG_PAGE_GUI DIALOGEX 0, 0, 319, 241
@@ -300,6 +311,16 @@ BEGIN
     EDITTEXT        IDC_EDIT_EXTRA,8,9,305,214,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
 END
 
+IDD_DIALOG_INFO DIALOGEX 0, 0, 193, 76
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "提示信息"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,140,55,46,14
+    CONTROL         "不再显示此提示信息",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,101,10
+    CTEXT           "",IDC_STATIC_INFO,27,13,139,36
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -323,10 +344,6 @@ BEGIN
         RIGHTMARGIN, 416
         TOPMARGIN, 7
         BOTTOMMARGIN, 269
-    END
-
-    IDD_DIALOG_PLAYER, DIALOG
-    BEGIN
     END
 
     IDD_PREVIEW_DIALOG_TC, DIALOG
@@ -404,7 +421,6 @@ BEGIN
 
     IDD_DIALOG_PAGE_PLAYER, DIALOG
     BEGIN
-        RIGHTMARGIN, 319
     END
 
     IDD_DIALOG_PAGE_GUI, DIALOG
@@ -413,6 +429,14 @@ BEGIN
 
     IDD_DIALOG_PAGE_EXTRA, DIALOG
     BEGIN
+    END
+
+    IDD_DIALOG_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 186
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 69
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -448,8 +472,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,0,2
- PRODUCTVERSION 3,0,0,2
+ FILEVERSION 3,0,0,3
+ PRODUCTVERSION 3,0,0,3
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -465,12 +489,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "FileDescription", "meditor"
-            VALUE "FileVersion", "3.0.0.2"
+            VALUE "FileVersion", "3.0.0.3"
             VALUE "InternalName", "meditor"
             VALUE "LegalCopyright", "Copyright (C) 2007-2010 william0wang"
             VALUE "OriginalFilename", "meditor.exe"
             VALUE "ProductName", "meditor"
-            VALUE "ProductVersion", "3.0.0.2"
+            VALUE "ProductVersion", "3.0.0.3"
         END
     END
     BLOCK "VarFileInfo"
@@ -1263,7 +1287,7 @@ BEGIN
     IDS_STRING30231         "控制栏透明度:"
     IDS_STRING30232         "前端显示:"
     IDS_STRING30233         "隐藏边框:"
-    IDS_STRING30234         "最小化到托盘:"
+    IDS_STRING30234         "最小化到:"
     IDS_STRING30235         "额外参数"
     IDS_STRING30236         "显示播放器窗口"
     IDS_STRING30237         "使用边框皮肤"
@@ -1276,36 +1300,110 @@ BEGIN
     IDS_STRING30240         "标题栏显示文件名"
     IDS_STRING30241         "显示菜单栏"
     IDS_STRING30242         "右键弹出菜单"
-    IDS_STRING30243         "皮肤"
-    IDS_STRING30244         "皮肤"
-    IDS_STRING30245         "皮肤"
-    IDS_STRING30246         "皮肤"
-    IDS_STRING30247         "皮肤"
-    IDS_STRING30248         "皮肤"
-    IDS_STRING30249         "皮肤"
-    IDS_STRING30250         "皮肤"
-    IDS_STRING30251         "皮肤"
-    IDS_STRING30252         "皮肤"
-    IDS_STRING30253         "皮肤"
-    IDS_STRING30254         "皮肤"
-    IDS_STRING30255         "皮肤"
+    IDS_STRING30243         "播放器优先级:"
+    IDS_STRING30244         "显示器长宽比:"
+    IDS_STRING30245         "音视频同步:"
+    IDS_STRING30246         "循环播放:"
+    IDS_STRING30247         "自动连续播放:"
+    IDS_STRING30248         "缓存容量:"
+    IDS_STRING30249         "日志文件:"
+    IDS_STRING30250         "控制台窗口中显示"
+    IDS_STRING30251         "注意"
+    IDS_STRING30252         "不再提示"
+    IDS_STRING30253         "打开文件后全屏幕"
+    IDS_STRING30254         "进度条拖动实时响应"
+    IDS_STRING30255         "只打开一个播放器"
 END
 
 STRINGTABLE
 BEGIN
-    IDS_STRING30256         "皮肤"
-    IDS_STRING30257         "皮肤"
-    IDS_STRING30258         "皮肤"
-    IDS_STRING30259         "皮肤"
-    IDS_STRING30260         "皮肤"
-    IDS_STRING30261         "皮肤"
-    IDS_STRING30262         "皮肤"
-    IDS_STRING30263         "皮肤"
-    IDS_STRING30264         "皮肤"
-    IDS_STRING30265         "皮肤"
-    IDS_STRING30266         "皮肤"
-    IDS_STRING30267         "皮肤"
-    IDS_STRING30268         "皮肤"
+    IDS_STRING30256         "使用窗口独立线程"
+    IDS_STRING30257         "提高窗口(GUI)优先级"
+    IDS_STRING30258         "URL使用GBK编码"
+    IDS_STRING30259         "播放结束后退出"
+    IDS_STRING30260         "减少控制台信息(推荐)"
+    IDS_STRING30261         "双缓冲(推荐)"
+    IDS_STRING30262         "支持特定文件单独配置"
+    IDS_STRING30263         "使用高精度计时器"
+    IDS_STRING30264         "不使用DVD菜单支持"
+    IDS_STRING30265         "打开新文件时刷新设置(不推荐)"
+    IDS_STRING30266         "允许丢帧(推荐)"
+    IDS_STRING30267         "重建文件索引"
+    IDS_STRING30268         "截图保存文件夹:"
+    IDS_STRING30269         "默认打开文件夹:"
+    IDS_STRING30270         "跳过片头:"
+    IDS_STRING30271         "跳过片尾:"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30272         "浏览"
+    IDS_STRING30273         "TXT"
+    IDS_STRING30274         "TXT"
+    IDS_STRING30275         "TXT"
+    IDS_STRING30276         "TXT"
+    IDS_STRING30277         "TXT"
+    IDS_STRING30278         "TXT"
+    IDS_STRING30279         "TXT"
+    IDS_STRING30280         "TXT"
+    IDS_STRING30281         "TXT"
+    IDS_STRING30282         "TXT"
+    IDS_STRING30283         "TXT"
+    IDS_STRING30284         "TXT"
+    IDS_STRING30285         "TXT"
+    IDS_STRING30286         "TXT"
+    IDS_STRING30287         "TXT"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30288         "TXT"
+    IDS_STRING30289         "TXT"
+    IDS_STRING30290         "TXT"
+    IDS_STRING30291         "TXT"
+    IDS_STRING30292         "TXT"
+    IDS_STRING30293         "TXT"
+    IDS_STRING30294         "TXT"
+    IDS_STRING30295         "TXT"
+    IDS_STRING30296         "TXT"
+    IDS_STRING30297         "TXT"
+    IDS_STRING30298         "TXT"
+    IDS_STRING30299         "TXT"
+    IDS_STRING30300         "TXT"
+    IDS_STRING30301         "TXT"
+    IDS_STRING30302         "TXT"
+    IDS_STRING30303         "TXT"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30304         "TXT"
+    IDS_STRING30305         "TXT"
+    IDS_STRING30306         "TXT"
+    IDS_STRING30307         "TXT"
+    IDS_STRING30308         "TXT"
+    IDS_STRING30309         "TXT"
+    IDS_STRING30310         "TXT"
+    IDS_STRING30311         "TXT"
+    IDS_STRING30312         "TXT"
+    IDS_STRING30313         "TXT"
+    IDS_STRING30314         "TXT"
+    IDS_STRING30315         "TXT"
+    IDS_STRING30316         "TXT"
+    IDS_STRING30317         "TXT"
+    IDS_STRING30318         "TXT"
+    IDS_STRING30319         "TXT"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30320         "TXT"
+    IDS_STRING30321         "TXT"
+    IDS_STRING30322         "TXT"
+    IDS_STRING30323         "TXT"
+    IDS_STRING30324         "TXT"
+    IDS_STRING30325         "TXT"
+    IDS_STRING30326         "TXT"
 END
 
 #endif    // 中文(简体，中国) resources

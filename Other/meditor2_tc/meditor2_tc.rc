@@ -845,7 +845,7 @@ BEGIN
     IDS_STRING30231         "控制欄透明度:"
     IDS_STRING30232         "前端顯示:"
     IDS_STRING30233         "隱藏邊框:"
-    IDS_STRING30234         "最小化到託盤:"
+    IDS_STRING30234         "最小化到:"
     IDS_STRING30235         "額外參數"
     IDS_STRING30236         "顯示播放器窗口"
     IDS_STRING30237         "使用邊框皮膚"
@@ -858,6 +858,44 @@ BEGIN
     IDS_STRING30240         "標題欄顯示檔案名"
     IDS_STRING30241         "顯示菜單欄"
     IDS_STRING30242         "右鍵彈出菜單"
+    IDS_STRING30243         "播放器優先順序:"
+    IDS_STRING30244         "顯示器長寬比:"
+    IDS_STRING30245         "音視頻同步:"
+    IDS_STRING30246         "迴圈播放:"
+    IDS_STRING30247         "自動連續播放:"
+    IDS_STRING30248         "緩存容量:"
+    IDS_STRING30249         "日誌檔:"
+    IDS_STRING30250         "控制臺窗口中顯示"
+    IDS_STRING30251         "注意"
+    IDS_STRING30252         "不再提示"
+    IDS_STRING30253         "打開檔後全螢幕"
+    IDS_STRING30254         "進度條拖動即時回應"
+    IDS_STRING30255         "只打開一個播放器"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30256         "使用窗口獨立線程"
+    IDS_STRING30257         "提高窗口(GUI)優先順序"
+    IDS_STRING30258         "URL使用GBK編碼"
+    IDS_STRING30259         "播放結束後退出"
+    IDS_STRING30260         "減少控制臺資訊(推薦)"
+    IDS_STRING30261         "雙緩衝(推薦)"
+    IDS_STRING30262         "支持特定檔單獨配置"
+    IDS_STRING30263         "使用高精度計時器"
+    IDS_STRING30264         "不使用DVD菜單支持"
+    IDS_STRING30265         "打開新檔時刷新設置(不推薦)"
+    IDS_STRING30266         "允許丟幀(推薦)"
+    IDS_STRING30267         "重建檔索引"
+    IDS_STRING30268         "截圖保存檔夾:"
+    IDS_STRING30269         "默認打開檔夾:"
+    IDS_STRING30270         "跳過片頭:"
+    IDS_STRING30271         "跳過片尾:"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING30272         "瀏覽"
 END
 
 #endif    // 中文(简体，中国) resources

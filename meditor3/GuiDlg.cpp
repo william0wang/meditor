@@ -188,7 +188,6 @@ LRESULT CGuiDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*
 {
 	UIAddChildWindowContainer(m_hWnd);
 
-	int width = 120;
 	CString values;
 
 	SetDlgItemText(IDC_CHECK_SHOW, rStr.cwindow);
@@ -200,14 +199,6 @@ LRESULT CGuiDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*
 	SetDlgItemText(IDC_CHECK_RIGHTMENU, rStr.crmenu);
 
 	InitCheckBox();
-
-	aComboLang.SetInfoWidth(width);
-	aComboSkin.SetInfoWidth(width);
-	aComboAlpha.SetInfoWidth(width);
-	aComboTop.SetInfoWidth(width);
-	aComboHide.SetInfoWidth(width);
-	aComboTray.SetInfoWidth(width);
-	aComboColorkey.SetInfoWidth(width);
 
 	aComboLang.InitCtrl(GetDlgItem(IDC_LISTCTRL_LANG));
 	aComboSkin.InitCtrl(GetDlgItem(IDC_LISTCTRL_SKIN));

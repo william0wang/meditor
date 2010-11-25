@@ -22,6 +22,65 @@ public:
 	CString ontop;
 	CString autohide;
 	CString mintray;
+	CString aplay;
+	CString async;
+	CString piority;
+	CString cache;
+	CString monitor;
+	CString loops;
+	CString log;
+
+	CString piority1;
+	CString piority2;
+	CString piority3;
+	CString piority4;
+	CString piority5;
+	CString piority6;
+
+	CString async0;
+	CString async1;
+	CString async2;
+	CString async3;
+	CString async4;
+	CString async5;
+
+	CString playna;
+	CString playex;
+	CString loopf;
+	CString loopl;
+	CString logn;
+	CString log0;
+	CString log1;
+	CString log2;
+	CString log3;
+	CString log4;
+	CString log5;
+	CString logc;
+
+	CString browser;
+	CString warning;
+	CString notshow;
+	CString winfo[10];
+
+	CString cfulls;
+	CString crseek;
+	CString conep;
+	CString cguit;
+	CString cguip;
+	CString curl;
+	CString cquit;
+	CString cquiet;
+	CString cdouble;
+	CString cconf;
+	CString chtime;
+	CString cdvd;
+	CString creload;
+	CString cfdrop;
+	CString cidx;
+	CString cpng;
+	CString copen;
+	CString cstart;
+	CString cend;
 
 	CString cwindow;
 	CString cskinb;

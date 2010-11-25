@@ -198,12 +198,12 @@
     <ClCompile Include="MConfig.cpp" />
     <ClCompile Include="meditor3.cpp" />
     <ClCompile Include="PlayerDlg.cpp" />
-    <ClCompile Include="PlayerPage.cpp" />
     <ClCompile Include="PreviewDlg.cpp" />
     <ClCompile Include="ProgressDlg.cpp" />
     <ClCompile Include="Reg.cpp" />
     <ClCompile Include="ResStr.cpp" />
     <ClCompile Include="shared.cpp" />
+    <ClCompile Include="ShowInfoDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -235,13 +235,13 @@
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MConfig.h" />
     <ClInclude Include="PlayerDlg.h" />
-    <ClInclude Include="PlayerPage.h" />
     <ClInclude Include="PreviewDlg.h" />
     <ClInclude Include="ProgressDlg.h" />
     <ClInclude Include="Reg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResStr.h" />
     <ClInclude Include="shared.h" />
+    <ClInclude Include="ShowInfoDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="UpdateDlg.h" />
   </ItemGroup>

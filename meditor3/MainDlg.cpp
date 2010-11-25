@@ -29,10 +29,11 @@ enum START_TYPE
 enum 
 {
 	TAB_PAGE_GUI = 0,
-	//TAB_PAGE_PLAYER,
+	TAB_PAGE_PLAYER,
 	TAB_PAGE_EXTRA,
 	TAB_PAGE_INPUT,
 	TAB_PAGE_ASSOC,
+	TAB_PAGE_LAST,
 };
 
 static ChangeWindowMessageFilterFunction ChangeWindowMessageFilterDLL = NULL;
@@ -101,7 +102,6 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_tablist.ShowHeader(FALSE);
 	m_tablist.SetSingleSelect(TRUE);
 
-
 	// set icons
 	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
@@ -137,7 +137,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_tablist.SetImageList(m_Images);
 	m_tablist.AddColumn(_T(""), 141, ITEM_IMAGE_NONE, FALSE);
 	m_tablist.AddItem(rStr.gui, 0);
-	//m_tablist.AddItem(rStr.player, 1);
+	m_tablist.AddItem(rStr.player, 1);
 	m_tablist.AddItem(rStr.extra, 2);
 	m_tablist.AddItem(rStr.hotkey, 3);
 	m_tablist.AddItem(rStr.assoc, 4);
@@ -176,21 +176,19 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 	if(m_OpenType == START_HOTKEY) {
 		::SetWindowPos(m_hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-		m_tablist.SelectItem(0, TAB_PAGE_INPUT);
+		m_tablist.SelectItem(TAB_PAGE_INPUT);
 	} else if(m_OpenType == START_HOTKEY) {
-		m_tablist.SelectItem(0, TAB_PAGE_ASSOC);
+		m_tablist.SelectItem(TAB_PAGE_ASSOC);
 	} else if(m_OpenType == START_ONTOP) {
 		::SetWindowPos(m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-	} else
-		m_tablist.SelectItem(0, 0);
-
-	//CPlayerPage *page = new CPlayerPage;
-	//page->Create(this->m_hWnd);
-	//page->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
-	//page->ShowWindow(SW_SHOW);
-
+	} else {
+		int page = mconfig.GetInteger(_T("meditor_last_page"), 0, true);
+		if(page < 0 || page >= TAB_PAGE_LAST)
+			page = 0;
+		m_tablist.SelectItem(page);
+	}
+	
 	OSVERSIONINFO version;
-
 	version.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	if(GetVersionEx(&version)) {
 		if(version.dwMajorVersion >= 6) {
@@ -287,9 +285,10 @@ LRESULT CMainDlg::OnApply(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandl
 LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 {
 	CListNotify *pListNotify = reinterpret_cast<CListNotify *>( lpNMHDR );
-
-	if(!m_InputDlg || !m_AssocDlg)
-		return 0;
+	
+	CString last;
+	last.Format(_T("%d"), pListNotify->m_nItem);
+	mconfig.SetValue(_T("meditor_last_page"), last, true, ex_meditor);
 
 	switch(pListNotify->m_nItem)
 	{
@@ -300,13 +299,13 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_InputDlg->ShowWindow(SW_HIDE);
 		m_AssocDlg->ShowWindow(SW_HIDE);
 		break;
-		//case TAB_PAGE_PLAYER:
-		//	m_GuiDlg->ShowWindow(SW_HIDE);
-		//	m_PlayerDlg->ShowWindow(SW_SHOW);
-		//	m_ExtraDlg->ShowWindow(SW_HIDE);
-		//	m_InputDlg->ShowWindow(SW_HIDE);
-		//	m_AssocDlg->ShowWindow(SW_HIDE);
-		//	break;
+	case TAB_PAGE_PLAYER:
+		m_GuiDlg->ShowWindow(SW_HIDE);
+		m_PlayerDlg->ShowWindow(SW_SHOW);
+		m_ExtraDlg->ShowWindow(SW_HIDE);
+		m_InputDlg->ShowWindow(SW_HIDE);
+		m_AssocDlg->ShowWindow(SW_HIDE);
+		break;
 	case TAB_PAGE_EXTRA:
 		m_GuiDlg->ShowWindow(SW_HIDE);
 		m_PlayerDlg->ShowWindow(SW_HIDE);
@@ -329,10 +328,10 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_AssocDlg->ShowWindow(SW_SHOW);
 		break;
 	default:
+		mconfig.RemoveValue(_T("meditor_last_page"), true);
 		ATLTRACE(_T("User Selected: %d\n"), pListNotify->m_nItem);
 		break;
 	}
-
 
 	return 0;
 }

@@ -42,9 +42,6 @@
     <ClCompile Include="ProgressDlg.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerPage.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
     <ClCompile Include="PreviewDlg.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
@@ -93,6 +90,9 @@
     <ClCompile Include="PlayerDlg.cpp">
       <Filter>Source Files\Page</Filter>
     </ClCompile>
+    <ClCompile Include="ShowInfoDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainDlg.h">
@@ -108,9 +108,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProgressDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerPage.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
     <ClInclude Include="PreviewDlg.h">
@@ -190,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="PlayerDlg.h">
       <Filter>Header Files\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowInfoDlg.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
