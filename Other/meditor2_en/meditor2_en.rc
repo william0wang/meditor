@@ -866,7 +866,7 @@ BEGIN
     IDS_STRING30247         "Auto Playback:"
     IDS_STRING30248         "Cache:"
     IDS_STRING30249         "Log:"
-    IDS_STRING30250         "Message Console"
+    IDS_STRING30250         "Console"
     IDS_STRING30251         "Warning"
     IDS_STRING30252         "Do not prompt again"
     IDS_STRING30253         "Open with Fullscreen"

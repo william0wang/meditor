@@ -52,6 +52,11 @@ enum
 	log_v4,
 	log_v5,
 	log_console,
+	log_console_v1,
+	log_console_v2,
+	log_console_v3,
+	log_console_v4,
+	log_console_v5,
 };
 
 enum 
@@ -358,26 +363,41 @@ void CPlayerDlg::SaveConfig()
 	//log
 	switch (aComboLog.GetSelectedIndex())
 	{
-	case log_console:
-		mconfig.SetValue(_T("log") ,_T("2") , true , ex_option);
-		break;
 	case log_v1:
 		mconfig.SetValue(_T("v") ,_T("1") );
-		goto LogNormal;
+		goto LogFile;
 	case log_v2:
 		mconfig.SetValue(_T("v") ,_T("2") );
-		goto LogNormal;
+		goto LogFile;
 	case log_v3:
 		mconfig.SetValue(_T("v") ,_T("3") );
-		goto LogNormal;
+		goto LogFile;
 	case log_v4:
 		mconfig.SetValue(_T("v") ,_T("4") );
-		goto LogNormal;
+		goto LogFile;
 	case log_v5:
 		mconfig.SetValue(_T("v") ,_T("5") );
 	case log_normal:
-LogNormal:
+LogFile:
 		mconfig.SetValue(_T("log"), _T("1"), true, ex_option);
+		break;
+	case log_console_v1:
+		mconfig.SetValue(_T("v") ,_T("1") );
+		goto LogConsole;
+	case log_console_v2:
+		mconfig.SetValue(_T("v") ,_T("2") );
+		goto LogConsole;
+	case log_console_v3:
+		mconfig.SetValue(_T("v") ,_T("3") );
+		goto LogConsole;
+	case log_console_v4:
+		mconfig.SetValue(_T("v") ,_T("4") );
+		goto LogConsole;
+	case log_console_v5:
+		mconfig.SetValue(_T("v") ,_T("5") );
+	case log_console:
+LogConsole:
+		mconfig.SetValue(_T("log") ,_T("2") , true , ex_option);
 		break;
 	default:
 		mconfig.RemoveValue(_T("v"));
@@ -714,14 +734,23 @@ LRESULT CPlayerDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPar
 	aComboLog.AddString(rStr.log4);
 	aComboLog.AddString(rStr.log5);
 	aComboLog.AddString(rStr.logc);
+	aComboLog.AddString(rStr.logc +_T("(v=1)"));
+	aComboLog.AddString(rStr.logc +_T("(v=2)"));
+	aComboLog.AddString(rStr.logc +_T("(v=3)"));
+	aComboLog.AddString(rStr.logc +_T("(v=4)"));
+	aComboLog.AddString(rStr.logc +_T("(v=5)"));
 
 	value_i = mconfig.GetInteger(_T("log"), 0, true);
 	if(value_i) {
-		if(value_i == 2)
-			aComboLog.SelecteIndex(log_console);
-		else {
+		if(value_i == 2) {
 			value_i = mconfig.GetInteger(_T("v"), 0);
-			value_i++;
+			value_i += log_console;
+			if(value_i < log_console || value_i > log_console_v5)
+				value_i = log_console;
+			aComboLog.SelecteIndex(value_i);
+		} else {
+			value_i = mconfig.GetInteger(_T("v"), 0);
+			value_i += log_normal;
 			if(value_i < log_normal || value_i > log_v5)
 				value_i = log_normal;
 			aComboLog.SelecteIndex(value_i);

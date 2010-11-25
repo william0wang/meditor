@@ -865,7 +865,7 @@ BEGIN
     IDS_STRING30247         "自動連續播放:"
     IDS_STRING30248         "緩存容量:"
     IDS_STRING30249         "日誌檔:"
-    IDS_STRING30250         "控制臺窗口中顯示"
+    IDS_STRING30250         "顯示控制臺"
     IDS_STRING30251         "注意"
     IDS_STRING30252         "不再提示"
     IDS_STRING30253         "打開檔後全螢幕"
