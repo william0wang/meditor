@@ -42,13 +42,9 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>cd ../../meditor3/res
-del /F input.7z
-..\..\tools\7z.exe a -mx=9 input.7z input*.ini
-cd ../../meditor2/res
-del /F codecs.7z
-..\..\tools\7z.exe a -mx=9 codecs.7z codecs*.conf
-</Command>
+      <Command>..\..\tools\7z.exe a -mx=9 ../../meditor3/res/input.7z input*.ini
+..\..\tools\7z.exe a -mx=9 ../../meditor3/res/codecs.7z  codecs*.conf
+..\..\tools\7z.exe a -mx=9 ../../meditor2/res/codecs.7z  codecs*.conf</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
