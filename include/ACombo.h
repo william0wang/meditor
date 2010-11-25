@@ -13,7 +13,7 @@ private:
 public:
 	AdvCombo()
 	{
-		infoWidth = 80;
+		infoWidth = 120;
 		flag = ITEM_FLAGS_CENTRE;
 	}
 
