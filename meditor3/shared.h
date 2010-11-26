@@ -47,3 +47,5 @@ void MyTerminateProcess(LPCTSTR proname);
 void TestURL(CString url, int fullbyte);
 
 bool SelectFolder(HWND hWnd, CString &strFolder, bool bCreate = true, std::wstring title = L"");
+
+BOOL IsRunAsAdmin();

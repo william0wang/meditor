@@ -187,6 +187,7 @@
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="AssocDlg.cpp" />
+    <ClCompile Include="AssocDlgAdmin.cpp" />
     <ClCompile Include="CDXGraph.cpp" />
     <ClCompile Include="DshowPlayerDlg.cpp" />
     <ClCompile Include="ExtraDlg.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="..\include\ListCtrl\TitleTip.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="AssocDlg.h" />
+    <ClInclude Include="AssocDlgAdmin.h" />
     <ClInclude Include="CDXGraph.h" />
     <ClInclude Include="DshowPlayerDlg.h" />
     <ClInclude Include="ExtraDlg.h" />

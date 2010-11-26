@@ -53,7 +53,7 @@ MENU IDR_MAINFRAME
 CLASS "MEDITOR_V3_CLASS"
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    LTEXT           "静态",IDC_STATIC_PAGE,94,8,319,240
+    LTEXT           "",IDC_STATIC_PAGE,94,8,319,240
     CONTROL         "ListCtrl",IDC_LIST_TAB,"ListCtrl",WS_TABSTOP,7,7,83,239
     GROUPBOX        "",IDC_STATIC,93,2,323,248
     DEFPUSHBUTTON   "Apply",IDC_APPLY,366,255,50,14
@@ -321,6 +321,25 @@ BEGIN
     CTEXT           "",IDC_STATIC_INFO,27,13,139,36
 END
 
+IDD_DIALOG_ASSOCADMIN DIALOGEX 0, 0, 347, 232
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "massoc"
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,301,211,39,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL,"ListCtrl",WS_TABSTOP,7,21,333,186
+    COMBOBOX        IDC_COMBO_ICON,259,7,81,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,59,8,74,10
+    LTEXT           "关联右键菜单:",IDC_STATIC_RIGHT,7,8,46,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,139,8,75,10
+    PUSHBUTTON      "添加",IDC_ADD,7,211,30,14
+    PUSHBUTTON      "全选",IDC_ALL,102,211,35,14
+    PUSHBUTTON      "不选",IDC_NONE,139,211,33,14
+    PUSHBUTTON      "推荐",IDC_RECOMMAND,174,211,51,14
+    PUSHBUTTON      "删除",IDC_DEL,44,211,30,14
+    LTEXT           "图标集:",IDC_STATIC_ICONS,227,9,28,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -437,6 +456,14 @@ BEGIN
         RIGHTMARGIN, 186
         TOPMARGIN, 7
         BOTTOMMARGIN, 69
+    END
+
+    IDD_DIALOG_ASSOCADMIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 340
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 225
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -905,32 +932,32 @@ BEGIN
     IDS_RESUME_TIME         "时间 /秒"
     IDS_RESUME_FILE         "文件名"
     IDS_PLAYER_SAMEDIR      "请与 mplayer.exe 放在相同目录中使用本程序!"
-    IDS_ASSOS_LIST          "播放列表"
-    IDS_ASSOS_V             "视频文件"
-    IDS_ASSOS_A             "音频文件"
-    IDS_ASSOS_FLASH         "Flash动画"
-    IDS_ASSOS_DS            "DirectShow媒体文件"
-    IDS_ASSOS_MV            "移动视频文件"
-    IDS_ASSOS_MA            "移动音频文件"
-    IDS_ASSOS_LA            "无损音频文件"
-    IDS_ASSOS_LISTFILE      "播放列表文件"
-    IDS_ASSOS_MOV           "影片文件"
+    IDS_ASSOC_LIST          "播放列表"
+    IDS_ASSOC_V             "视频文件"
+    IDS_ASSOC_A             "音频文件"
+    IDS_ASSOC_FLASH         "Flash动画"
+    IDS_ASSOC_DS            "DirectShow"
+    IDS_ASSOC_MV            "移动视频"
+    IDS_ASSOC_MA            "移动音频"
+    IDS_ASSOC_LA            "无损音频"
+    IDS_ASSOC_LISTFILE      "播放列表"
+    IDS_ASSOC_MOV           "影片"
 END
 
 STRINGTABLE
 BEGIN
-    IDS_ASSOS_AVI           "视频剪辑"
-    IDS_ASSOS_CT            "动画文件"
-    IDS_ASSOS_INPUT         "请输入扩展名和说明并选择类型"
-    IDS_ASSOS_AS            "文件关联"
-    IDS_ASSOS_DEL           "不能删除默认格式!"
+    IDS_ASSOC_AVI           "视频剪辑"
+    IDS_ASSOC_CT            "动画"
+    IDS_ASSOC_INPUT         "请输入扩展名和说明并选择类型"
+    IDS_ASSOC_AS            "文件关联"
+    IDS_ASSOC_DEL           "不能删除默认格式!"
     IDS_PLAYER_USE          "使用"
-    IDS_ASSOS_OP            "打开"
-    IDS_ASSOS_PL            "播放"
-    IDS_ASSOS_ASSOS         "关联"
-    IDS_ASSOS_EX            "扩展名"
-    IDS_ASSOS_INF           "文件说明"
-    IDS_ASSOS_TYP           "类型"
+    IDS_ASSOC_OP            "打开"
+    IDS_ASSOC_PL            "播放"
+    IDS_ASSOC_ASSOS         "关联"
+    IDS_ASSOC_EX            "扩展名"
+    IDS_ASSOC_INF           "文件说明"
+    IDS_ASSOC_TYP           "类型"
     IDS_OTHER_REALONLINE    "Real 在线支持"
     IDS_OTHER_REALOK        "Real 在线支持注册成功 !"
     IDS_OTHER_REALFAIL      "Real 在线支持注册失败，请重试 !"
@@ -1264,7 +1291,7 @@ BEGIN
     IDS_VIDEO_VOD3D         "Direct3D(XP/Vista/Win7)"
     IDS_AUDIO_STM           "变速但声调不变"
     IDS_AUDIO_STM_INFO      "改变播放速度时不改变声调只改变音频的节奏"
-    IDS_ASSOS_AVS           "AviSynth 脚本"
+    IDS_ASSOC_AVS           "AviSynth 脚本"
     IDS_MESSAGE_AVS         "安装成功！"
     IDS_VIDEO_SCA           "缩放滤镜"
     IDS_VIDEO_SCAI          "缩放视频到指定宽度与高度，高度为-3时为按比例缩放"
@@ -1404,6 +1431,24 @@ BEGIN
     IDS_STRING30324         "TXT"
     IDS_STRING30325         "TXT"
     IDS_STRING30326         "TXT"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ASSOC_AVS2          "AviSynth 脚本"
+    IDS_ASSOC_ICO           "图标"
+    IDS_ASSOC_V2            "其它视频文件"
+    IDS_ASSOC_SEC           "第2播放器"
+    IDS_ASSOC_OPEN          "使用 MPlayer 打开"
+    IDS_ASSOC_PLAY          "使用 MPlayer 播放"
+    IDS_ASSOC_RENU          "关联右键菜单:"
+    IDS_ASSOC_ICONS         "图标集:"
+    IDS_ASSOC_BADD          "添加"
+    IDS_ASSOC_BDEL          "删除"
+    IDS_ASSOC_BALL          "全选"
+    IDS_ASSOC_BNONE         "不选"
+    IDS_ASSOC_BRE           "推荐"
+    IDS_ASSOC_BOK           "确定"
 END
 
 #endif    // 中文(简体，中国) resources

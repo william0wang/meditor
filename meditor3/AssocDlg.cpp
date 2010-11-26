@@ -8,6 +8,10 @@
 #include "Reg.h"
 #include <Shobjidl.h>
 #include "AssocDlg.h"
+#include "AssocDlgAdmin.h"
+
+extern CString strSatellite;
+extern int AppLanguage;
 
 CAssocDlg::CAssocDlg(UINT IDD_DLG)
 {
@@ -25,10 +29,11 @@ CAssocDlg::CAssocDlg(UINT IDD_DLG)
 
 	TCHAR szFilePath[MAX_PATH + 1];
 	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	m_assoc_exe.Format(_T("%s"),szFilePath);
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	m_program_dir.Format(_T("%s"),szFilePath);
 
-	m_assoc_exe = m_program_dir + _T("\\tools\\massoc.exe");
+	//m_assoc_exe = m_program_dir + _T("\\tools\\massoc.exe");
 
 	if(!FileExist(m_assoc_exe))
 		m_assoc_exe = m_program_dir + _T("\\codecs\\massoc.exe");
@@ -72,7 +77,19 @@ LRESULT CAssocDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/
 
 LRESULT CAssocDlg::OnBnClickedAssoc(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
-	ShellExecute(0, _T("open"), m_assoc_exe , NULL, NULL, SW_SHOW);
+	if(IsRunAsAdmin()) {
+		CAssocDlgAdmin dlg(strSatellite, AppLanguage);
+		dlg.DoModal();
+	} else {
+		SHELLEXECUTEINFO sei = { sizeof(sei) };
+		sei.lpVerb = _T("runas");
+		sei.lpFile = m_assoc_exe;
+		sei.lpParameters = _T("--assoc-admin");
+		sei.hwnd = m_hWnd;
+		sei.nShow = SW_NORMAL;
+
+		ShellExecuteEx(&sei);
+	}
 
 	return 0;
 }
@@ -92,9 +109,8 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 			SubKey =  _T("SOFTWARE\\RegisteredApplications");
 			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
 				needupdate = true;
-			} else {
-				if(_tcsicmp(reg.content, Content))
-					needupdate = true;
+			} else if(_tcsicmp(reg.content, Content)) {
+				needupdate = true;
 			}
 
 			Name =  _T("");
@@ -102,9 +118,8 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 			SubKey =  _T("SOFTWARE\\MPlayer");
 			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
 				needupdate = true;
-			} else {
-				if(_tcsicmp(reg.content, Content))
-					needupdate = true;
+			} else if(_tcsicmp(reg.content, Content)) {
+				needupdate = true;
 			}
 
 			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
@@ -112,9 +127,8 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 			Content = _T("MPlayer WW - The Movie Player.");
 			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
 				needupdate = true;
-			} else {
-				if(_tcsicmp(reg.content, Content))
-					needupdate = true;
+			} else if(_tcsicmp(reg.content, Content)) {
+				needupdate = true;
 			}
 
 			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
@@ -122,9 +136,8 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 			Content = _T("MPlayer WW");
 			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
 				needupdate = true;
-			} else {
-				if(_tcsicmp(reg.content, Content))
-					needupdate = true;
+			} else if(_tcsicmp(reg.content, Content)) {
+				needupdate = true;
 			}
 
 			SubKey =  _T("SOFTWARE\\MPlayer\\Capabilites");
@@ -132,14 +145,25 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 			Content = m_player_exe + _T(",0");
 			if(!reg.ShowContent_STR(HKEY_LOCAL_MACHINE, SubKey, Name)) {
 				needupdate = true;
-			} else {
-				if(_tcsicmp(reg.content, Content))
-					needupdate = true;
+			} else if(_tcsicmp(reg.content, Content)) {
+				needupdate = true;
 			}
 		}
 
 		if(needupdate || m_update) {
-			ShellExecute(0, _T("open"), m_assoc_exe, _T("--shell-associations-updater"), NULL, SW_SHOW);
+			if(IsRunAsAdmin()) {
+				CAssocDlgAdmin dlg(strSatellite, AppLanguage);
+				dlg.ApplyDefault();
+			} else {
+				SHELLEXECUTEINFO sei = { sizeof(sei) };
+				sei.lpVerb = _T("runas");
+				sei.lpFile = m_assoc_exe;
+				sei.lpParameters = _T("--shell-associations-updater");
+				sei.hwnd = m_hWnd;
+				sei.nShow = SW_NORMAL;
+
+				ShellExecuteEx(&sei);
+			}
 		} else {
 			IApplicationAssociationRegistrationUI* pAARUI = NULL;
 			HRESULT hr = ::CoCreateInstance( CLSID_ApplicationAssociationRegistrationUI
