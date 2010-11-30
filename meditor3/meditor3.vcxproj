@@ -195,6 +195,7 @@
     <ClCompile Include="GuiDlg.cpp" />
     <ClCompile Include="InputDlg.cpp" />
     <ClCompile Include="InputList.cpp" />
+    <ClCompile Include="LinkDlg.cpp" />
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="MConfig.cpp" />
     <ClCompile Include="meditor3.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="GuiDlg.h" />
     <ClInclude Include="InputDlg.h" />
     <ClInclude Include="InputList.h" />
+    <ClInclude Include="LinkDlg.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MConfig.h" />
     <ClInclude Include="OtherDlg.h" />

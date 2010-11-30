@@ -122,6 +122,19 @@ void CResStr::LoadString()
 	cstart = ResStr(IDS_STRING30270);
 	cend = ResStr(IDS_STRING30271);
 
+	screensave = ResStr(IDS_STRING30273);
+	mediainfo = ResStr(IDS_STRING30274);
+	real_mp = ResStr(IDS_STRING30275);
+	real_ds = ResStr(IDS_STRING30276);
+	real_mpc = ResStr(IDS_STRING30277);
+	real_reg = ResStr(IDS_STRING30278);
+	real_dreg = ResStr(IDS_STRING30279);
+
+	desktop = ResStr(IDS_STRING30280);
+	startmenu = ResStr(IDS_STRING30281);
+	clink = ResStr(IDS_STRING30282);
+
+	meditor = ResStr(IDS_OTHER_LINK_EDITOR);
 
 	INPUT_NONE = ResStr(IDS_INPUT_NONE);
 	INPUT_LEFT = ResStr(IDS_INPUT_LEFT);

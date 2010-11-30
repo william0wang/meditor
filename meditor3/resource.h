@@ -21,6 +21,7 @@
 #define IDI_ICON_DS                     150
 #define IDD_DIALOG_DSHOW                151
 #define IDZ_INPUT                       170
+#define IDD_DIALOG_LINK                 171
 #define IDD_DIALOG_INFO                 176
 #define IDB_BITMAP_96                   188
 #define IDC_DIVIDER                     201
@@ -116,15 +117,26 @@
 #define IDC_BUTTON_DEL                  1075
 #define IDC_SHOCKWAVEFLASH              1090
 #define IDC_SLIDER_CONTROL              1091
+#define IDC_BUTTON_FLASH                1091
+#define IDC_BUTTON_LINK                 1092
 #define IDC_CHECK_SCREENSAVER           1095
+#define IDC_BUTTON_MEDIA                1098
 #define IDC_BUTTON_ONLINE               1099
 #define IDC_BUTTON_DONLINE              1100
 #define IDC_RADIO_MPLAYER               1102
 #define IDC_RADIO_MEDITOR               1103
 #define IDC_SLIDER_CTRL                 1107
 #define IDC_CHECK_RMENU                 1109
+#define IDC_CHECK1                      1109
 #define IDC_CHECK_RMENU2                1110
+#define IDC_CHECK2                      1110
 #define IDC_CHECK_MPC                   1111
+#define IDC_CHECK3                      1111
+#define IDC_CHECK4                      1112
+#define IDC_CHECK5                      1113
+#define IDC_CHECK6                      1114
+#define IDC_CHECK7                      1115
+#define IDC_CHECK8                      1126
 #define IDC_STATIC_INFO                 1132
 #define IDC_CHECK_INFO                  1133
 #define IDC_CHECK_RIGHTMENU             1134
@@ -139,7 +151,9 @@
 #define IDC_LISTCTRL_TOP                1162
 #define IDC_STATIC_PNG                  1162
 #define IDC_LISTCTRL_HIDE               1163
+#define IDC_STATIC_DESK                 1163
 #define IDC_LISTCTRL_COLORKEY           1164
+#define IDC_STATIC_MENU                 1164
 #define IDC_LISTCTRL_TRAY               1165
 #define IDS_STRING30210                 30210
 #define IDS_STRING30211                 30211
@@ -662,7 +676,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        218
 #define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1163
+#define _APS_NEXT_CONTROL_VALUE         1165
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

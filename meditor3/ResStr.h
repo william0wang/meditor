@@ -112,6 +112,19 @@ public:
 	CString add;
 	CString del;
 
+	CString clink;
+	CString desktop;
+	CString startmenu;
+	CString meditor;
+
+	CString screensave;
+	CString mediainfo;
+	CString real_mp;
+	CString real_ds;
+	CString real_mpc;
+	CString real_reg;
+	CString real_dreg;
+
 	CString DECODE_INF;
 
 	CString INPUT_NONE;

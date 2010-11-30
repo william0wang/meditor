@@ -9,6 +9,7 @@ class CInputDlg;
 class CAssocDlg;
 class CPlayerDlg;
 class CExtraDlg;
+class COtherDlg;
 class CGuiDlg;
 
 
@@ -32,6 +33,7 @@ public:
 	CAssocDlg	*m_AssocDlg;
 	CPlayerDlg	*m_PlayerDlg;
 	CExtraDlg	*m_ExtraDlg;
+	COtherDlg	*m_OtherDlg;
 	CGuiDlg		*m_GuiDlg;
 
 	CString		m_program_dir;

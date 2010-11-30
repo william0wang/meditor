@@ -500,10 +500,10 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_OTHER_REALON        "Real Online Support has NOT Registered!"
+    IDS_OTHER_REALON        "Real Online Support has Not Registered!"
     IDS_OTHER_REALFAILS     "Fail in Registering Real Online Support，Requisite File Missing !"
     IDS_OTHER_UNREALFAIL    "Fail in Unregistering Real Online Support，Requisite File Missing !"
-    IDS_OTHER_UNREALOK      "Succeed in Registering Real Online Support !"
+    IDS_OTHER_UNREALOK      "Succeed in Unregistering Real Online Support !"
     IDS_OTHER_UNREALFAILS   "Fail in Unregistering Real Online Support，Retry !"
     IDS_OTHER_OPENA         "Open Audio File"
     IDS_OTHER_OPENV         "Open Video File"
@@ -897,6 +897,16 @@ END
 STRINGTABLE
 BEGIN
     IDS_STRING30272         "Browse"
+    IDS_STRING30273         "Do not disable screen saver when playing"
+    IDS_STRING30274         "Use Advanced Media Information"
+    IDS_STRING30275         "Real Online assoc to MPlayer"
+    IDS_STRING30276         "Real Online assoc to DShowPlayer"
+    IDS_STRING30277         "MPC-HC"
+    IDS_STRING30278         "Register Real Online"
+    IDS_STRING30279         "Unregister Real online"
+    IDS_STRING30280         "Desktop"
+    IDS_STRING30281         "Start Menu"
+    IDS_STRING30282         "Create Shortcut"
 END
 
 #endif    // 中文(简体，中国) resources

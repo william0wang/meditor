@@ -558,3 +558,19 @@ Cleanup:
 	return fIsRunAsAdmin;
 }
 
+
+BOOL GetSpecialFolder(int nFolder, TCHAR *path)
+{
+	LPITEMIDLIST  pidl;
+	LPMALLOC      pShellMalloc;
+	BOOL result = FALSE;
+	if(SUCCEEDED(SHGetMalloc(&pShellMalloc))) {
+		if(SUCCEEDED(SHGetSpecialFolderLocation(NULL, nFolder, &pidl))) {
+			if(SHGetPathFromIDList(pidl, path))
+				result = TRUE;
+			pShellMalloc->Free(pidl);
+		}
+		pShellMalloc->Release();
+	}
+	return result;
+}

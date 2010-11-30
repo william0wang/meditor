@@ -108,6 +108,9 @@
     <ClCompile Include="RealOnline.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
+    <ClCompile Include="LinkDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainDlg.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="RealOnline.h">
       <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkDlg.h">
+      <Filter>Header Files\Dialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
