@@ -62,7 +62,12 @@ LRESULT CAssocDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 	::SetWindowText(GetDlgItem(IDC_ASSOC), rStr.set_assoc);
 	::SetWindowText(GetDlgItem(IDC_ASSOC_DEF), rStr.set_assoc + _T(" (Win7/Vista)"));
 	::SetWindowText(GetDlgItem(IDC_CHECK_UPDATE), rStr.update_assoc);	
-	
+
+	if(m_is_vista) {
+		Button_SetElevationRequiredState(GetDlgItem(IDC_ASSOC), TRUE);
+		Button_SetElevationRequiredState(GetDlgItem(IDC_ASSOC_DEF), TRUE);
+	}
+
 	DoDataExchange();
 	
 	return TRUE;
