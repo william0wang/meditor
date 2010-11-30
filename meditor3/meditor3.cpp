@@ -72,7 +72,7 @@ void GetLangDLL(CString program_dir)
 		strSatellite = langfile_tc;
 }
 
-int GetOpenType(CString ProgramName, CString sCmdLine)
+int GetOpenType(CString ProgramName, CString &sCmdLine)
 {
 	if( ProgramName == _T("dshowplayer.exe")) {
 		return START_DSHOWPLAYER;
@@ -100,11 +100,11 @@ int GetOpenType(CString ProgramName, CString sCmdLine)
 		} else if(sCmdLine.Find(_T("--real-online")) >= 0) {
 			return START_REALONLINE;
 		} else if(sCmdLine.Find(_T("--flash-player")) >= 0) {
+			sCmdLine.Replace(_T("--flash-player"), _T(""));
 			return START_FLASHPLAYER;
-			sCmdLine.Replace(_T("--flash-player"),_T(""));
 		} else if(sCmdLine.Find(_T("--dshow-player")) >= 0) {
+			sCmdLine.Replace(_T("--dshow-player"), _T(""));
 			return START_DSHOWPLAYER;
-			sCmdLine.Replace(_T("--dshow-player"),_T(""));
 		} else if(sCmdLine.Find(_T("prer://")) >= 0) {
 			return START_DSHOWPLAYER;
 		} else if(sCmdLine.Find(_T("prek://")) >= 0 || sCmdLine.Find(_T("prea://")) >= 0 || sCmdLine.Find(_T("prem://")) >= 0) {
