@@ -198,9 +198,11 @@
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="MConfig.cpp" />
     <ClCompile Include="meditor3.cpp" />
+    <ClCompile Include="OtherDlg.cpp" />
     <ClCompile Include="PlayerDlg.cpp" />
     <ClCompile Include="PreviewDlg.cpp" />
     <ClCompile Include="ProgressDlg.cpp" />
+    <ClCompile Include="RealOnline.cpp" />
     <ClCompile Include="Reg.cpp" />
     <ClCompile Include="ResStr.cpp" />
     <ClCompile Include="shared.cpp" />
@@ -236,9 +238,11 @@
     <ClInclude Include="InputList.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MConfig.h" />
+    <ClInclude Include="OtherDlg.h" />
     <ClInclude Include="PlayerDlg.h" />
     <ClInclude Include="PreviewDlg.h" />
     <ClInclude Include="ProgressDlg.h" />
+    <ClInclude Include="RealOnline.h" />
     <ClInclude Include="Reg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResStr.h" />

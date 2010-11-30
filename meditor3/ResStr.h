@@ -12,6 +12,7 @@ public:
 	CString	gui;
 	CString	extra;
 	CString assoc;
+	CString other;
 	CString hotkey;
 	CString set_assoc;
 	CString update_assoc;

@@ -12,6 +12,7 @@ void CResStr::LoadString()
 	title = ResStr(IDS_PLAYER_NAME);
 	player = ResStr(IDS_STRING30210);
 	gui = ResStr(IDS_STRING30215);
+	other = ResStr(IDS_STRING30220);
 	assoc = ResStr(IDS_STRING30217);
 	hotkey = ResStr(IDS_STRING30216);
 

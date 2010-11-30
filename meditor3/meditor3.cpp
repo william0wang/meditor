@@ -14,6 +14,7 @@
 #include "FlashPlayerDlg.h"
 #include "DShowPlayerDlg.h"
 #include "AssocDlgAdmin.h"
+#include "RealOnline.h"
 
 enum START_TYPE
 {
@@ -29,6 +30,7 @@ enum START_TYPE
 	START_DOWNLOAD_UPDATE,
 	START_CLEAN_UP,
 	START_PLAY_URL,
+	START_REALONLINE,
 };
 
 CAppModule _Module;
@@ -95,6 +97,8 @@ int GetOpenType(CString ProgramName, CString sCmdLine)
 			return START_DOWNLOAD_UPDATE;
 		} else if(sCmdLine.Find(_T("--clean-up")) >= 0) {
 			return START_CLEAN_UP;
+		} else if(sCmdLine.Find(_T("--real-online")) >= 0) {
+			return START_REALONLINE;
 		} else if(sCmdLine.Find(_T("--flash-player")) >= 0) {
 			return START_FLASHPLAYER;
 			sCmdLine.Replace(_T("--flash-player"),_T(""));
@@ -302,6 +306,20 @@ BOOL StartCheckUpdate(CString program_dir, CString sCmdLine, int nCmdShow)
 
 BOOL StartAssocAdmin(CString sCmdLine, int nCmdShow)
 {
+	if(!IsRunAsAdmin()) {
+		SHELLEXECUTEINFO sei = { sizeof(sei) };
+		TCHAR szFilePath[MAX_PATH + 1];
+		GetModuleFileName(NULL, szFilePath, MAX_PATH);
+		sei.lpVerb = _T("runas");
+		sei.lpFile = szFilePath;
+		sei.lpParameters = sCmdLine;
+		sei.hwnd = NULL;
+		sei.nShow = SW_NORMAL;
+
+		ShellExecuteEx(&sei);
+		return FALSE;
+	}
+
 	CAssocDlgAdmin dlgAssoc(strSatellite, AppLanguage);
 
 	if(sCmdLine.Find(_T("--shell-associations-updater")) >= 0) {
@@ -312,6 +330,33 @@ BOOL StartAssocAdmin(CString sCmdLine, int nCmdShow)
 	dlgAssoc.DoModal();
 
 	return TRUE;
+}
+
+BOOL StartRealOnlineAdmin(CString sCmdLine, int nCmdShow)
+{
+	TCHAR szFilePath[MAX_PATH + 1];
+	GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	if(!IsRunAsAdmin()) {
+		SHELLEXECUTEINFO sei = { sizeof(sei) };
+		sei.lpVerb = _T("runas");
+		sei.lpFile = szFilePath;
+		sei.lpParameters = sCmdLine;
+		sei.hwnd = NULL;
+		sei.nShow = SW_NORMAL;
+
+		ShellExecuteEx(&sei);
+		return FALSE;
+	}
+	CString program_dir;
+	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
+	program_dir.Format(_T("%s"), szFilePath);
+
+	CRealOnline Real(strSatellite);
+	Real.m_cmdline = sCmdLine;
+	Real.m_dir = program_dir + _T("codecs\\");
+	Real.InstallReal();
+
+	return FALSE;
 }
 
 int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
@@ -387,7 +432,7 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		}
 	case START_ASSOC_ADAIM:
 		{
-			HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("massoc2-associations"));
+			HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor3-associations"));
 			if(GetLastError() == ERROR_ALREADY_EXISTS)
 				return FALSE;
 			if(!StartAssocAdmin(sCmdLine, nCmdShow)) {
@@ -397,6 +442,18 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
 			CloseHandle(gUniqueEvent);
 			break;
+		}
+	case START_REALONLINE:
+		{
+			HANDLE gUniqueEvent = CreateEvent(NULL, TRUE, TRUE, _T("meditor3-realonline"));
+			if(GetLastError() == ERROR_ALREADY_EXISTS)
+				return FALSE;
+			if(!StartRealOnlineAdmin(sCmdLine, nCmdShow)) {
+				CloseHandle(gUniqueEvent);
+				return 0;
+			}
+
+			CloseHandle(gUniqueEvent);
 		}
 	default:
 		{

@@ -42,6 +42,7 @@
 #define IDD_DIALOG_PAGE_EXTRA           221
 #define IDD_MAINDLG1                    222
 #define IDD_DIALOG_ASSOCADMIN           222
+#define IDD_DIALOG_PAGE_OTHER           223
 #define IDC_EDIT_FILE                   1000
 #define IDC_LISTCTRL                    1000
 #define IDC_BUTTON_B                    1001
@@ -115,9 +116,15 @@
 #define IDC_BUTTON_DEL                  1075
 #define IDC_SHOCKWAVEFLASH              1090
 #define IDC_SLIDER_CONTROL              1091
+#define IDC_CHECK_SCREENSAVER           1095
+#define IDC_BUTTON_ONLINE               1099
+#define IDC_BUTTON_DONLINE              1100
+#define IDC_RADIO_MPLAYER               1102
+#define IDC_RADIO_MEDITOR               1103
 #define IDC_SLIDER_CTRL                 1107
 #define IDC_CHECK_RMENU                 1109
 #define IDC_CHECK_RMENU2                1110
+#define IDC_CHECK_MPC                   1111
 #define IDC_STATIC_INFO                 1132
 #define IDC_CHECK_INFO                  1133
 #define IDC_CHECK_RIGHTMENU             1134

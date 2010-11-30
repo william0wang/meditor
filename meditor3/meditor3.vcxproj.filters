@@ -102,6 +102,12 @@
     <ClCompile Include="shared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OtherDlg.cpp">
+      <Filter>Source Files\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="RealOnline.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainDlg.h">
@@ -202,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="shared.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherDlg.h">
+      <Filter>Header Files\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="RealOnline.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

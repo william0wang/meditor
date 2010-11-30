@@ -99,6 +99,12 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 	if(m_is_vista) {
 		DoDataExchange(TRUE);
 
+		if(IsRunAsAdmin()) {
+			CAssocDlgAdmin dlg(strSatellite, AppLanguage);
+			dlg.ApplyDefault();
+			return 0;
+		}
+
 		bool needupdate = false;
 		if(!m_update) {
 			CReg reg;
@@ -149,21 +155,15 @@ LRESULT CAssocDlg::OnBnClickedAssocDef(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 				needupdate = true;
 			}
 		}
-
 		if(needupdate || m_update) {
-			if(IsRunAsAdmin()) {
-				CAssocDlgAdmin dlg(strSatellite, AppLanguage);
-				dlg.ApplyDefault();
-			} else {
-				SHELLEXECUTEINFO sei = { sizeof(sei) };
-				sei.lpVerb = _T("runas");
-				sei.lpFile = m_assoc_exe;
-				sei.lpParameters = _T("--shell-associations-updater");
-				sei.hwnd = m_hWnd;
-				sei.nShow = SW_NORMAL;
+			SHELLEXECUTEINFO sei = { sizeof(sei) };
+			sei.lpVerb = _T("runas");
+			sei.lpFile = m_assoc_exe;
+			sei.lpParameters = _T("--shell-associations-updater");
+			sei.hwnd = m_hWnd;
+			sei.nShow = SW_NORMAL;
 
-				ShellExecuteEx(&sei);
-			}
+			ShellExecuteEx(&sei);
 		} else {
 			IApplicationAssociationRegistrationUI* pAARUI = NULL;
 			HRESULT hr = ::CoCreateInstance( CLSID_ApplicationAssociationRegistrationUI
