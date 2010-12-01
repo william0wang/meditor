@@ -378,7 +378,6 @@
     <ClCompile Include="MEditor2Dlg.cpp" />
     <ClCompile Include="MAudioPage.cpp" />
     <ClCompile Include="MDecodePage.cpp" />
-    <ClCompile Include="MOtherPage.cpp" />
     <ClCompile Include="MPlayerPage.cpp" />
     <ClCompile Include="MProfilePage.cpp" />
     <ClCompile Include="MResumePage.cpp" />
@@ -388,7 +387,6 @@
     <ClCompile Include="ColorButton.cpp" />
     <ClCompile Include="ColourPopup.cpp" />
     <ClCompile Include="FontComboBox.cpp" />
-    <ClCompile Include="MLinkDlg.cpp" />
     <ClCompile Include="MPlayList.cpp" />
     <ClCompile Include="MProfileDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -425,7 +423,6 @@
     <ClInclude Include="MEditor2Dlg.h" />
     <ClInclude Include="MAudioPage.h" />
     <ClInclude Include="MDecodePage.h" />
-    <ClInclude Include="MOtherPage.h" />
     <ClInclude Include="MPlayerPage.h" />
     <ClInclude Include="MProfilePage.h" />
     <ClInclude Include="MResumePage.h" />
@@ -435,7 +432,6 @@
     <ClInclude Include="ColorButton.h" />
     <ClInclude Include="ColourPopup.h" />
     <ClInclude Include="FontComboBox.h" />
-    <ClInclude Include="MLinkDlg.h" />
     <ClInclude Include="MPlayList.h" />
     <ClInclude Include="MProfileDlg.h" />
     <ClInclude Include="resource.h" />

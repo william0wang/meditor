@@ -162,7 +162,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_subtitle.m_cfg = &m_config;
 	m_decode.m_cfg = &m_config;
 	m_resume.m_cfg = &m_config;
-	m_other.m_cfg = &m_config;
 	m_profile.m_cfg = &m_config;
 	infoDlg.SetConfig(&m_config);
 
@@ -187,7 +186,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	int SubtitlePage = IDD_SUBTITLE_DIALOG;
 	int DecodePage = IDD_DECODE_DIALOG;
 	int ResumePage = IDD_RESUME_DIALOG;
-	int OtherPage = IDD_OTHER_DIALOG;
 	int ProfilePage = IDD_PROFILE_DIALOG;
 	if(theApp.AppLanguage == 2){
 		PlayerPage = IDD_PLAYER_DIALOG_EN;
@@ -196,7 +194,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		SubtitlePage = IDD_SUBTITLE_DIALOG_EN;
 		DecodePage = IDD_DECODE_DIALOG_EN;
 		ResumePage = IDD_RESUME_DIALOG_EN;
-		OtherPage = IDD_OTHER_DIALOG_EN;
 		ProfilePage = IDD_PROFILE_DIALOG_EN;
 	} else if (theApp.AppLanguage == 3 || theApp.AppLanguage == 4) {
 		PlayerPage = IDD_PLAYER_DIALOG_TC;
@@ -205,7 +202,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		SubtitlePage = IDD_SUBTITLE_DIALOG_TC;
 		DecodePage = IDD_DECODE_DIALOG_TC;
 		ResumePage = IDD_RESUME_DIALOG_TC;
-		OtherPage = IDD_OTHER_DIALOG_TC;
 		ProfilePage = IDD_PROFILE_DIALOG_TC;
 	}
 	if(theApp.hResourceHandleOld)
@@ -216,7 +212,6 @@ BOOL CMEditor2Dlg::OnInitDialog()
 	m_TabSheet.AddPage(  sub_str , &m_subtitle, SubtitlePage);
 	m_TabSheet.AddPage( d_str , &m_decode, DecodePage);
 	m_TabSheet.AddPage( r_str , &m_resume, ResumePage);
-	m_TabSheet.AddPage( o_str , &m_other, OtherPage);
 	m_TabSheet.AddPage( f_str , &m_profile, ProfilePage);
 	m_TabSheet.Show();
 	if(theApp.hResourceHandleMod)
@@ -292,7 +287,6 @@ bool CMEditor2Dlg::SaveAll()
 	m_subtitle.SaveConfig();
 	m_video.SaveConfig();
 	m_audio.SaveConfig();
-	m_other.SaveConfig();
 	m_resume.SaveConfig();
 	m_profile.SaveConfig();
 	bool value_b;
@@ -390,12 +384,10 @@ void CMEditor2Dlg::OnNormal()
 	m_decode.SetNormal();
 	m_video.SetNormal();
 	m_audio.SetNormal();
-	m_other.SetNormal();
 	m_player.UpdateData(FALSE);
 	m_decode.UpdateData(FALSE);
 	m_video.UpdateData(FALSE);
 	m_audio.UpdateData(FALSE);
-	m_other.UpdateData(FALSE);
 }
 
 void CMEditor2Dlg::OnHigh()
@@ -404,12 +396,10 @@ void CMEditor2Dlg::OnHigh()
 	m_decode.SetHigh();
 	m_video.SetHigh();
 	m_audio.SetHigh();
-	m_other.SetHigh();
 	m_player.UpdateData(FALSE);
 	m_decode.UpdateData(FALSE);
 	m_video.UpdateData(FALSE);
 	m_audio.UpdateData(FALSE);
-	m_other.UpdateData(FALSE);
 }
 
 void CMEditor2Dlg::OnLower()
@@ -418,12 +408,10 @@ void CMEditor2Dlg::OnLower()
 	m_decode.SetLower();
 	m_video.SetLower();
 	m_audio.SetLower();
-	m_other.SetLower();
 	m_player.UpdateData(FALSE);
 	m_decode.UpdateData(FALSE);
 	m_video.UpdateData(FALSE);
 	m_audio.UpdateData(FALSE);
-	m_other.UpdateData(FALSE);
 }
 
 void CMEditor2Dlg::OnMplayerIni()

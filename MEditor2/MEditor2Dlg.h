@@ -8,7 +8,6 @@
 #include "MAudioPage.h"
 #include "MSubPage.h"
 #include "MDecodePage.h"
-#include "MOtherPage.h"
 #include "MResumePage.h"
 #include "MProfilePage.h"
 #include "MShowInfoDlg.h"
@@ -22,7 +21,6 @@ enum Views
 	Subtitle,
 	Decode,
 	Resume,
-	Other,
 	Profile,
 };
 
@@ -54,7 +52,6 @@ protected:
 	CMAudioPage m_audio;
 	CMSubPage m_subtitle;
 	CMDecodePage m_decode;
-	CMOtherPage m_other;
 	CMProfilePage m_profile;
 	CMResumePage m_resume;
 	CMShowInfoDlg infoDlg;
