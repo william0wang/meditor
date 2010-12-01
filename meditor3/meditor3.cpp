@@ -146,7 +146,7 @@ void CleanUp(CString program_dir)
 	}
 }
 
-BOOL StartPreview(CString sCmdLine, int nCmdShow)
+BOOL StartPreview(CString sCmdLine, int nCmdShow, int &nRet, CMessageLoop *theLoop)
 {
 	int offset = sCmdLine.Find(_T("--filename"));
 	if(offset < 0)
@@ -190,10 +190,11 @@ BOOL StartPreview(CString sCmdLine, int nCmdShow)
 
 	dlgPreview.ShowWindow(nCmdShow);
 
+	nRet = theLoop->Run();
 	return TRUE;
 }
 
-BOOL StartDownloadUpdate(CString sCmdLine, int nCmdShow)
+BOOL StartDownloadUpdate(CString sCmdLine, int nCmdShow, int &nRet, CMessageLoop *theLoop)
 {
 	UINT DialogIDD = IDD_DIALOG_UPDATE;
 
@@ -261,10 +262,11 @@ BOOL StartDownloadUpdate(CString sCmdLine, int nCmdShow)
 
 	dlgUpdate.ShowWindow(nCmdShow);
 
+	nRet = theLoop->Run();
 	return TRUE;
 }
 
-BOOL StartCheckUpdate(CString program_dir, CString sCmdLine, int nCmdShow)
+BOOL StartCheckUpdate(CString program_dir, CString sCmdLine, int nCmdShow, int &nRet, CMessageLoop *theLoop)
 {
 	UINT DialogIDD = IDD_DIALOG_UPDATE;
 
@@ -301,6 +303,7 @@ BOOL StartCheckUpdate(CString program_dir, CString sCmdLine, int nCmdShow)
 
 	dlgUpdate.ShowWindow(nCmdShow);
 
+	nRet = theLoop->Run();
 	return TRUE;
 }
 
@@ -387,22 +390,18 @@ int Run(LPTSTR lpstrCmdLine = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	{
 	case START_CLEAN_UP:
 		CleanUp(program_dir);
-		_Module.RemoveMessageLoop();
-		return 0;
+		break;
 	case START_PREVIEW:
-		if(!StartPreview(sCmdLine, nCmdShow))
+		if(!StartPreview(sCmdLine, nCmdShow, nRet, &theLoop))
 			return 0;
-		nRet = theLoop.Run();
 		break;
 	case START_CHECK_UPDATE:
-		if(!StartCheckUpdate(program_dir, sCmdLine, nCmdShow))
+		if(!StartCheckUpdate(program_dir, sCmdLine, nCmdShow, nRet, &theLoop))
 			return 0;
-		nRet = theLoop.Run();
 		break;
 	case START_DOWNLOAD_UPDATE:
-		if(!StartDownloadUpdate(sCmdLine, nCmdShow))
+		if(!StartDownloadUpdate(sCmdLine, nCmdShow, nRet, &theLoop))
 			return 0;
-		nRet = theLoop.Run();
 		break;
 	case START_FLASHPLAYER:
 		{
