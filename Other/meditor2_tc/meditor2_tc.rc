@@ -896,6 +896,16 @@ END
 STRINGTABLE
 BEGIN
     IDS_STRING30272         "瀏覽"
+    IDS_STRING30273         "播放時不禁用系統螢幕保護"
+    IDS_STRING30274         "使用高級媒體資訊(效果更好)"
+    IDS_STRING30275         "RealOnline 關聯到 MPlayer播放器"
+    IDS_STRING30276         "RealOnline 線上關聯到 DShow播放器"
+    IDS_STRING30277         "MPC-HC"
+    IDS_STRING30278         "註冊 Real 線上"
+    IDS_STRING30279         "反註冊 Real 線上"
+    IDS_STRING30280         "桌面"
+    IDS_STRING30281         "開始菜單"
+    IDS_STRING30282         "創建快捷方式"
 END
 
 #endif    // 中文(简体，中国) resources

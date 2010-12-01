@@ -10,6 +10,7 @@
 #include "AssocDlg.h"
 #include "PlayerDlg.h"
 #include "ExtraDlg.h"
+#include "OtherDlg.h"
 #include "GuiDlg.h"
 #include "shared.h"
 #include "AboutDlg.h"
@@ -33,6 +34,7 @@ enum
 	TAB_PAGE_EXTRA,
 	TAB_PAGE_INPUT,
 	TAB_PAGE_ASSOC,
+	TAB_PAGE_OTHER,
 	TAB_PAGE_LAST,
 };
 
@@ -47,6 +49,7 @@ CMainDlg::CMainDlg()
 	m_AssocDlg = NULL;
 	m_PlayerDlg = NULL;
 	m_ExtraDlg = NULL;
+	m_OtherDlg = NULL;
 	m_GuiDlg = NULL;
 	m_pos = 0;
 
@@ -141,6 +144,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_tablist.AddItem(rStr.extra, 2);
 	m_tablist.AddItem(rStr.hotkey, 3);
 	m_tablist.AddItem(rStr.assoc, 4);
+	m_tablist.AddItem(rStr.other, 5);
 
 	mconfig.LoadConfig(m_program_dir + _T("kk.ini"), true);
 	mconfig.LoadConfig(m_program_dir + _T("mplayer.ini"));
@@ -165,6 +169,10 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_ExtraDlg = new CExtraDlg(IDD_DIALOG_PAGE_EXTRA);
 	m_ExtraDlg->Create(m_hWnd);
 	m_ExtraDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
+
+	m_OtherDlg = new COtherDlg(IDD_DIALOG_PAGE_OTHER);
+	m_OtherDlg->Create(m_hWnd);
+	m_OtherDlg->MoveWindow(pos.x, pos.y, rc.right, rc.bottom);
 
 	m_InputDlg = new CInputDlg(IDD_DIALOG_PAGE_INPUT);
 	m_InputDlg->Create(m_hWnd);
@@ -217,6 +225,9 @@ LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 	if(m_GuiDlg)
 		m_GuiDlg->SendMessage(WM_CLOSE);
 
+	if(m_OtherDlg)
+		m_OtherDlg->SendMessage(WM_CLOSE);
+
 	if(m_ExtraDlg)
 		m_ExtraDlg->SendMessage(WM_CLOSE);
 
@@ -258,10 +269,12 @@ void CMainDlg::SaveConfig()
 {
 	if(m_InputDlg)
 		m_InputDlg->SaveInputConfig();
-	if(m_GuiDlg)
-		m_GuiDlg->SaveConfig();
 	if(m_PlayerDlg)
 		m_PlayerDlg->SaveConfig();
+	if(m_GuiDlg)
+		m_GuiDlg->SaveConfig();
+	if(m_OtherDlg)
+		m_OtherDlg->SaveConfig();
 	if(m_ExtraDlg)
 		m_ExtraDlg->SaveConfig();
 
@@ -298,6 +311,7 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_ExtraDlg->ShowWindow(SW_HIDE);
 		m_InputDlg->ShowWindow(SW_HIDE);
 		m_AssocDlg->ShowWindow(SW_HIDE);
+		m_OtherDlg->ShowWindow(SW_HIDE);
 		break;
 	case TAB_PAGE_PLAYER:
 		m_GuiDlg->ShowWindow(SW_HIDE);
@@ -305,6 +319,7 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_ExtraDlg->ShowWindow(SW_HIDE);
 		m_InputDlg->ShowWindow(SW_HIDE);
 		m_AssocDlg->ShowWindow(SW_HIDE);
+		m_OtherDlg->ShowWindow(SW_HIDE);
 		break;
 	case TAB_PAGE_EXTRA:
 		m_GuiDlg->ShowWindow(SW_HIDE);
@@ -312,6 +327,7 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_ExtraDlg->ShowWindow(SW_SHOW);
 		m_InputDlg->ShowWindow(SW_HIDE);
 		m_AssocDlg->ShowWindow(SW_HIDE);
+		m_OtherDlg->ShowWindow(SW_HIDE);
 		break;
 	case TAB_PAGE_INPUT:
 		m_GuiDlg->ShowWindow(SW_HIDE);
@@ -319,6 +335,7 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_ExtraDlg->ShowWindow(SW_HIDE);
 		m_InputDlg->ShowWindow(SW_SHOW);
 		m_AssocDlg->ShowWindow(SW_HIDE);
+		m_OtherDlg->ShowWindow(SW_HIDE);
 		break;
 	case TAB_PAGE_ASSOC:
 		m_PlayerDlg->ShowWindow(SW_HIDE);
@@ -326,6 +343,15 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_ExtraDlg->ShowWindow(SW_HIDE);
 		m_InputDlg->ShowWindow(SW_HIDE);
 		m_AssocDlg->ShowWindow(SW_SHOW);
+		m_OtherDlg->ShowWindow(SW_HIDE);
+		break;
+	case TAB_PAGE_OTHER:
+		m_PlayerDlg->ShowWindow(SW_HIDE);
+		m_GuiDlg->ShowWindow(SW_HIDE);
+		m_ExtraDlg->ShowWindow(SW_HIDE);
+		m_InputDlg->ShowWindow(SW_HIDE);
+		m_AssocDlg->ShowWindow(SW_HIDE);
+		m_OtherDlg->ShowWindow(SW_SHOW);
 		break;
 	default:
 		mconfig.RemoveValue(_T("meditor_last_page"), true);

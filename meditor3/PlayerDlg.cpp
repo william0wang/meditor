@@ -361,6 +361,7 @@ void CPlayerDlg::SaveConfig()
 	}
 
 	//log
+	mconfig.RemoveValue(_T("v"));
 	switch (aComboLog.GetSelectedIndex())
 	{
 	case log_v1:
@@ -400,7 +401,6 @@ LogConsole:
 		mconfig.SetValue(_T("log") ,_T("2") , true , ex_option);
 		break;
 	default:
-		mconfig.RemoveValue(_T("v"));
 		mconfig.SetValue(_T("log"), _T("0"), true, ex_option);
 		break;
 	}

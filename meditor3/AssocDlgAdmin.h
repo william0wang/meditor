@@ -1,4 +1,4 @@
-// MainDlg.h : interface of the CMainDlg class
+// AssocDlgAdmin.h : interface of the CAssocDlgAdmin class
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -40,14 +40,14 @@ public:
 	}
 };
 
-class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
-		public CMessageFilter, public CIdleHandler, public CWinDataExchange<CMainDlg>
+class CAssocDlgAdmin : public CDialogImpl<CAssocDlgAdmin>, public CUpdateUI<CAssocDlgAdmin>,
+		public CMessageFilter, public CIdleHandler, public CWinDataExchange<CAssocDlgAdmin>
 {
 public:
-	enum { IDD = IDD_MAINDLG };
+	enum { IDD = IDD_DIALOG_ASSOCADMIN };
 
 	vector<AssocItem> m_AssocList;
-
+	
 	int	m_appLang;
 	BOOL m_rightOpen;
 	BOOL m_rightPlay;
@@ -108,9 +108,9 @@ public:
 
 	CListCtrl m_wndListCtrl;
 
-	CMainDlg(HINSTANCE dll, int appLang = 0);
+	CAssocDlgAdmin(CString LangDll, int appLang = 0);
 
-	BEGIN_DDX_MAP(CMainDlg)
+	BEGIN_DDX_MAP(CAssocDlgAdmin)
 		DDX_CHECK(IDC_CHECK_RMENU, m_rightOpen)
 		DDX_CHECK(IDC_CHECK_RMENU2, m_rightPlay)
 	END_DDX_MAP();
@@ -131,10 +131,10 @@ public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnIdle();
 
-	BEGIN_UPDATE_UI_MAP(CMainDlg)
+	BEGIN_UPDATE_UI_MAP(CAssocDlgAdmin)
 	END_UPDATE_UI_MAP()
 
-	BEGIN_MSG_MAP(CMainDlg)
+	BEGIN_MSG_MAP(CAssocDlgAdmin)
 		COMMAND_HANDLER(IDC_ADD, BN_CLICKED, OnBnClickedAdd)
 		COMMAND_HANDLER(IDC_ALL, BN_CLICKED, OnBnClickedAll)
 		COMMAND_HANDLER(IDC_RECOMMAND, BN_CLICKED, OnBnClickedRecommand)

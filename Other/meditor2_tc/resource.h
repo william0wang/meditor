@@ -337,6 +337,16 @@
 #define IDS_STRING30270                 30270
 #define IDS_STRING30271                 30271
 #define IDS_STRING30272                 30272
+#define IDS_STRING30273                 30273
+#define IDS_STRING30274                 30274
+#define IDS_STRING30275                 30275
+#define IDS_STRING30276                 30276
+#define IDS_STRING30277                 30277
+#define IDS_STRING30278                 30278
+#define IDS_STRING30279                 30279
+#define IDS_STRING30280                 30280
+#define IDS_STRING30281                 30281
+#define IDS_STRING30282                 30282
 #define ID_CANCLE                       32772
 #define ID_CAN                          32773
 #define ID_APP_HELPFILE                 32774

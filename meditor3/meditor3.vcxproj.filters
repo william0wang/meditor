@@ -28,30 +28,18 @@
     <Filter Include="Source Files\Page">
       <UniqueIdentifier>{7658d795-17db-4f83-8e52-3a6fcbc9ba33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Dialog">
+      <UniqueIdentifier>{a14377c0-0403-4dfb-9e70-23f76af60bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialog">
+      <UniqueIdentifier>{407c64cf-52dc-42eb-b332-e5ae372ea455}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="meditor3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shared.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ProgressDlg.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="PreviewDlg.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="UpdateDlg.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
     <ClCompile Include="MainDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResStr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AssocDlg.cpp">
@@ -63,23 +51,8 @@
     <ClCompile Include="InputList.cpp">
       <Filter>Source Files\Page</Filter>
     </ClCompile>
-    <ClCompile Include="Reg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AboutDlg.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="FlashPlayerDlg.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="DshowPlayerDlg.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
     <ClCompile Include="CDXGraph.cpp">
       <Filter>Source Files\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="MConfig.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExtraDlg.cpp">
       <Filter>Source Files\Page</Filter>
@@ -90,33 +63,57 @@
     <ClCompile Include="PlayerDlg.cpp">
       <Filter>Source Files\Page</Filter>
     </ClCompile>
+    <ClCompile Include="AboutDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="DshowPlayerDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="FlashPlayerDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="MConfig.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
     <ClCompile Include="ShowInfoDlg.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ResStr.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Reg.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="AssocDlgAdmin.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="shared.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherDlg.cpp">
+      <Filter>Source Files\Page</Filter>
+    </ClCompile>
+    <ClCompile Include="RealOnline.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkDlg.cpp">
+      <Filter>Source Files\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProgressDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="PreviewDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="UpdateDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="ResStr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AtlStdioFile.h">
@@ -155,26 +152,11 @@
     <ClInclude Include="AssocDlg.h">
       <Filter>Header Files\Page</Filter>
     </ClInclude>
-    <ClInclude Include="Reg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AboutDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="FlashPlayerDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
     <ClInclude Include="flash10h.h">
       <Filter>Header Files\Depend</Filter>
     </ClInclude>
-    <ClInclude Include="DshowPlayerDlg.h">
-      <Filter>Header Files\Other</Filter>
-    </ClInclude>
     <ClInclude Include="CDXGraph.h">
       <Filter>Header Files\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="MConfig.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ACombo.h">
       <Filter>Header Files\Depend</Filter>
@@ -188,8 +170,56 @@
     <ClInclude Include="PlayerDlg.h">
       <Filter>Header Files\Page</Filter>
     </ClInclude>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DshowPlayerDlg.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="FlashPlayerDlg.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="PreviewDlg.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressDlg.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateDlg.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="MConfig.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ResStr.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
     <ClInclude Include="ShowInfoDlg.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Reg.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="AssocDlgAdmin.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="shared.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherDlg.h">
+      <Filter>Header Files\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="RealOnline.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkDlg.h">
+      <Filter>Header Files\Dialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

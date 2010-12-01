@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "Real.h"
+#include "RealOnline.h"
 #include "shared.h"
 #include "resource.h"
 #include "Reg.h"
@@ -13,7 +13,7 @@
 
 UINT CheckThread(LPVOID pParam)
 {
-	CRealDlg* This = (CRealDlg *) pParam;
+	CRealOnline* This = (CRealOnline *) pParam;
 	int checktime = 0;
 	while (checktime < 5) {
 		Sleep(300);
@@ -29,16 +29,39 @@ UINT CheckThread(LPVOID pParam)
 	return 0;
 }
 
-// CRealDlg 对话框
+// CRealOnline 对话框
 
 
-CRealDlg::CRealDlg()
+CRealOnline::CRealOnline(CString LangDll)
 {
 	CheckRealThread = NULL;
 	m_reg_ok = FALSE;
+
+	HINSTANCE dll = NULL, old_res = NULL;
+	if (LangDll.GetLength() > 2)
+		dll = LoadLibrary(LangDll);
+
+	if(dll) {
+		old_res = _Module.GetResourceInstance();
+		_Module.SetResourceInstance(dll);
+	}
+
+	str_title = ResStr(IDS_OTHER_REALONLINE);
+	str_ok = ResStr(IDS_OTHER_REALOK);
+	str_fail = ResStr(IDS_OTHER_REALFAIL);
+	str_uok = ResStr(IDS_OTHER_UNREALOK);
+	str_ufail = ResStr(IDS_OTHER_UNREALFAILS);
+	str_again = ResStr(IDS_OTHER_REALAGAIN);
+	str_on = ResStr(IDS_OTHER_REALON);
+
+	if(old_res) {
+		_Module.SetResourceInstance(old_res);
+		FreeLibrary(dll);
+	}
+
 }
 
-BOOL CRealDlg::InstallReal()
+BOOL CRealOnline::InstallReal()
 {
 	bool bSilent = false;
 
@@ -51,25 +74,26 @@ BOOL CRealDlg::InstallReal()
 				Sleep(300);
 			if(!bSilent) {
 				if(m_reg_ok)
-					MessageBox(NULL, ResStr(IDS_OTHER_REALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+					MessageBox(NULL, str_ok,str_title, MB_TOPMOST);
 				else
-					MessageBox(NULL, ResStr(IDS_OTHER_REALFAIL),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+					MessageBox(NULL, str_fail,str_title, MB_TOPMOST);
 			}
 		}
 	} else if(m_cmdline.Find(_T("--real-online-dreg")) >= 0) {
-		DRegRealOnline();
-		if(!bSilent) {
-			if(!CheckRealOnline()) {
-				MessageBox(NULL, ResStr(IDS_OTHER_UNREALOK),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
-			} else {
-				MessageBox(NULL, ResStr(IDS_OTHER_UNREALFAILS),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+		if(DRegRealOnline()) {
+			if(!bSilent) {
+				if(!CheckRealOnline()) {
+					MessageBox(NULL, str_uok,str_title, MB_TOPMOST);
+				} else {
+					MessageBox(NULL, str_ufail,str_title, MB_TOPMOST);
+				}
 			}
 		}
 	}
 	return TRUE;
 }
 
-BOOL CRealDlg::CheckRealOnline()
+BOOL CRealOnline::CheckRealOnline()
 {
 	CReg reg;
 	CString regstr = _T("CLSID\\{CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA}\\InprocServer32");
@@ -86,14 +110,14 @@ BOOL CRealDlg::CheckRealOnline()
 	return true;
 }
 
-BOOL CRealDlg::RegRealOnline()
+BOOL CRealOnline::RegRealOnline()
 {
 	TCHAR szPath[MAX_PATH + 1];
 	TCHAR szCurPath[MAX_PATH + 1];
 	CString m_sysdir, m_prodir, m_datadir;
 
 	if(CheckRealOnline() &&
-		MessageBox(NULL, ResStr(IDS_OTHER_REALAGAIN),ResStr(IDS_OTHER_REALONLINE),MB_OKCANCEL|MB_TOPMOST) != IDOK)
+		MessageBox(NULL, str_again, str_title,MB_OKCANCEL|MB_TOPMOST) != IDOK)
 		return FALSE;
 	
 	::GetCurrentDirectory(MAX_PATH, szCurPath);
@@ -116,7 +140,7 @@ BOOL CRealDlg::RegRealOnline()
 	CopyFile(m_dir +_T("Real\\rmoc3260.dll") , m_sysdir + _T("rmoc3260.dll") , FALSE);
 
 	//Firefox plugins
-	if(IsFileExist(m_prodir + _T("Mozilla Firefox"))) {
+	if(FileExist(m_prodir + _T("Mozilla Firefox"))) {
 		CopyFile(m_dir +_T("Real\\Browser\\Components\\nppl3260.xpt") , m_prodir + _T("Mozilla Firefox\\components\\nppl3260.xpt"), FALSE);
 		CopyFile(m_dir +_T("Real\\Browser\\Components\\nsJSRealPlayerPlugin.xpt") , m_prodir + _T("Mozilla Firefox\\components\\nsJSRealPlayerPlugin.xpt"), FALSE);
 		CopyFile(m_dir +_T("Real\\Browser\\Plugins\\nppl3260.dll") , m_prodir + _T("Mozilla Firefox\\plugins\\nppl3260.dll"), FALSE);
@@ -124,8 +148,8 @@ BOOL CRealDlg::RegRealOnline()
 	}
 
 	//Chrome plugins
-	if(IsFileExist(m_datadir + _T("Google\\Chrome"))) {
-		if(!IsFileExist(m_datadir + _T("Google\\Chrome\\plugins")))
+	if(FileExist(m_datadir + _T("Google\\Chrome"))) {
+		if(!FileExist(m_datadir + _T("Google\\Chrome\\plugins")))
 			CreateDirectory(m_datadir + _T("Google\\Chrome\\plugins"), NULL);
 		CopyFile(m_dir +_T("Real\\Browser\\Components\\nppl3260.xpt") , m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.xpt"), FALSE);
 		CopyFile(m_dir +_T("Real\\Browser\\Components\\nsJSRealPlayerPlugin.xpt") , m_datadir + _T("Google\\Chrome\\plugins\\nsJSRealPlayerPlugin.xpt"), FALSE);
@@ -147,14 +171,14 @@ BOOL CRealDlg::RegRealOnline()
 	return TRUE;
 }
 
-BOOL CRealDlg::DRegRealOnline()
+BOOL CRealOnline::DRegRealOnline()
 {
 	TCHAR szPath[MAX_PATH + 1];
 	TCHAR szCurPath[MAX_PATH + 1];
 	CString m_sysdir, m_prodir, m_datadir;
 
 	if(!CheckRealOnline()) {
-		MessageBox(NULL, ResStr(IDS_OTHER_REALON),ResStr(IDS_OTHER_REALONLINE), MB_TOPMOST);
+		MessageBox(NULL, str_on, str_title, MB_TOPMOST);
 		return FALSE;
 	}
 	
@@ -171,7 +195,7 @@ BOOL CRealDlg::DRegRealOnline()
 	m_datadir.Format(_T("%s\\"), szPath);
 
 
-	if(IsFileExist(m_sysdir + _T("rmoc3260.dll")))
+	if(FileExist(m_sysdir + _T("rmoc3260.dll")))
 		ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_sysdir + _T("rmoc3260.dll\"") , NULL, SW_HIDE);
 	else
 		ShellExecute(0, _T("open"), _T("regsvr32.exe") , _T(" /u /s \"")+ m_dir + _T("Real\\rmoc3260.dll\"") , NULL, SW_HIDE);
@@ -184,7 +208,7 @@ BOOL CRealDlg::DRegRealOnline()
 	DeleteFile(m_dir +_T("unrealreg.inf"));
 
 	//Firefox plugins
-	if(IsFileExist(m_prodir + _T("Mozilla Firefox"))) {
+	if(FileExist(m_prodir + _T("Mozilla Firefox"))) {
 		DeleteFile(m_prodir + _T("Mozilla Firefox\\components\\nppl3260.xpt"));
 		DeleteFile(m_prodir + _T("Mozilla Firefox\\components\\nsJSRealPlayerPlugin.xpt"));
 		DeleteFile(m_prodir + _T("Mozilla Firefox\\plugins\\nppl3260.dll"));
@@ -192,7 +216,7 @@ BOOL CRealDlg::DRegRealOnline()
 	}
 
 	//Chrome plugins
-	if(IsFileExist(m_datadir + _T("Google\\Chrome\\plugins"))) {
+	if(FileExist(m_datadir + _T("Google\\Chrome\\plugins"))) {
 		DeleteFile(m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.xpt"));
 		DeleteFile(m_datadir + _T("Google\\Chrome\\plugins\\nsJSRealPlayerPlugin.xpt"));
 		DeleteFile(m_datadir + _T("Google\\Chrome\\plugins\\nppl3260.dll"));

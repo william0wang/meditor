@@ -53,7 +53,7 @@ MENU IDR_MAINFRAME
 CLASS "MEDITOR_V3_CLASS"
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    LTEXT           "静态",IDC_STATIC_PAGE,94,8,319,240
+    LTEXT           "",IDC_STATIC_PAGE,94,8,319,240
     CONTROL         "ListCtrl",IDC_LIST_TAB,"ListCtrl",WS_TABSTOP,7,7,83,239
     GROUPBOX        "",IDC_STATIC,93,2,323,248
     DEFPUSHBUTTON   "Apply",IDC_APPLY,366,255,50,14
@@ -224,9 +224,9 @@ IDD_DIALOG_PAGE_ASSOC DIALOGEX 0, 0, 319, 238
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "设置文件关联",IDC_ASSOC,37,90,105,43
-    DEFPUSHBUTTON   "设置文件关联 (Win7/Vista)",IDC_ASSOC_DEF,176,90,105,43
-    CONTROL         "更新关联格式列表",IDC_CHECK_UPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,139,83,10
+    DEFPUSHBUTTON   "设置文件关联",IDC_ASSOC,31,90,111,43
+    DEFPUSHBUTTON   "设置文件关联 (Win7/Vista)",IDC_ASSOC_DEF,176,90,111,43
+    CONTROL         "更新关联格式列表",IDC_CHECK_UPDATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,191,139,83,10
 END
 
 IDD_DIALOG_FLASH DIALOGEX 0, 0, 320, 250
@@ -319,6 +319,61 @@ BEGIN
     DEFPUSHBUTTON   "确定",IDOK,140,55,46,14
     CONTROL         "不再显示此提示信息",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,101,10
     CTEXT           "",IDC_STATIC_INFO,27,13,139,36
+END
+
+IDD_DIALOG_ASSOCADMIN DIALOGEX 0, 0, 347, 232
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "massoc"
+FONT 9, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,301,211,39,14
+    CONTROL         "ListCtrl",IDC_LISTCTRL,"ListCtrl",WS_TABSTOP,7,21,333,186
+    COMBOBOX        IDC_COMBO_ICON,259,7,81,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "使用 MPlayer 打开",IDC_CHECK_RMENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,59,8,74,10
+    LTEXT           "关联右键菜单:",IDC_STATIC_RIGHT,7,8,46,8
+    CONTROL         "使用 MPlayer 播放",IDC_CHECK_RMENU2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,139,8,75,10
+    PUSHBUTTON      "添加",IDC_ADD,7,211,30,14
+    PUSHBUTTON      "全选",IDC_ALL,102,211,35,14
+    PUSHBUTTON      "不选",IDC_NONE,139,211,33,14
+    PUSHBUTTON      "推荐",IDC_RECOMMAND,174,211,51,14
+    PUSHBUTTON      "删除",IDC_DEL,44,211,30,14
+    LTEXT           "图标集:",IDC_STATIC_ICONS,227,9,28,8
+END
+
+IDD_DIALOG_PAGE_OTHER DIALOGEX 0, 0, 325, 241
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "注册 Real 在线",IDC_BUTTON_ONLINE,149,74,78,16
+    GROUPBOX        "",IDC_STATIC,143,30,176,65
+    PUSHBUTTON      "反注册 Real 在线",IDC_BUTTON_DONLINE,235,74,78,16
+    CONTROL         "Real在线关联到 MPlayer 主程序",IDC_RADIO_MPLAYER,"Button",BS_AUTORADIOBUTTON | WS_GROUP,151,39,110,10
+    CONTROL         "Real在线关联到DShow播放器",IDC_RADIO_MEDITOR,"Button",BS_AUTORADIOBUTTON | WS_GROUP,151,54,119,10
+    CONTROL         "播放时不禁用系统屏幕保护",IDC_CHECK_SCREENSAVER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,8,126,10
+    CONTROL         "使用高级媒体信息(效果更好)",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,28,124,10
+    CONTROL         "MPC-HC",IDC_CHECK_MPC,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,273,55,42,10
+    PUSHBUTTON      "FlashPlayer",IDC_BUTTON_FLASH,149,8,60,15
+    PUSHBUTTON      "DShowPlayer",IDC_BUTTON_MEDIA,235,8,60,15
+    PUSHBUTTON      "创建快捷方式",IDC_BUTTON_LINK,26,64,66,26
+END
+
+IDD_DIALOG_LINK DIALOGEX 0, 0, 209, 129
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "创建快捷方式"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,36,106,57,16
+    PUSHBUTTON      "取消",IDCANCEL,117,106,57,16
+    GROUPBOX        "桌面",IDC_STATIC_DESK,7,7,195,31
+    CONTROL         "MPlayer",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,25,21,41,10
+    CONTROL         "MEditor",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,98,21,99,10
+    GROUPBOX        "开始菜单",IDC_STATIC_MENU,7,43,195,61
+    CONTROL         "MPlayer",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,25,57,41,10
+    CONTROL         "MEdiotr",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,98,57,99,10
+    CONTROL         "Tools",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,98,72,99,10
+    CONTROL         "FlashPlayer",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,25,87,53,10
+    CONTROL         "DShowPlayer",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,98,87,99,10
+    CONTROL         "MPC-HC",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,25,72,42,10
 END
 
 
@@ -437,6 +492,26 @@ BEGIN
         RIGHTMARGIN, 186
         TOPMARGIN, 7
         BOTTOMMARGIN, 69
+    END
+
+    IDD_DIALOG_ASSOCADMIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 340
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 225
+    END
+
+    IDD_DIALOG_PAGE_OTHER, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_LINK, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 202
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 122
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -905,32 +980,32 @@ BEGIN
     IDS_RESUME_TIME         "时间 /秒"
     IDS_RESUME_FILE         "文件名"
     IDS_PLAYER_SAMEDIR      "请与 mplayer.exe 放在相同目录中使用本程序!"
-    IDS_ASSOS_LIST          "播放列表"
-    IDS_ASSOS_V             "视频文件"
-    IDS_ASSOS_A             "音频文件"
-    IDS_ASSOS_FLASH         "Flash动画"
-    IDS_ASSOS_DS            "DirectShow媒体文件"
-    IDS_ASSOS_MV            "移动视频文件"
-    IDS_ASSOS_MA            "移动音频文件"
-    IDS_ASSOS_LA            "无损音频文件"
-    IDS_ASSOS_LISTFILE      "播放列表文件"
-    IDS_ASSOS_MOV           "影片文件"
+    IDS_ASSOC_LIST          "播放列表"
+    IDS_ASSOC_V             "视频文件"
+    IDS_ASSOC_A             "音频文件"
+    IDS_ASSOC_FLASH         "Flash动画"
+    IDS_ASSOC_DS            "DirectShow"
+    IDS_ASSOC_MV            "移动视频"
+    IDS_ASSOC_MA            "移动音频"
+    IDS_ASSOC_LA            "无损音频"
+    IDS_ASSOC_LISTFILE      "播放列表"
+    IDS_ASSOC_MOV           "影片"
 END
 
 STRINGTABLE
 BEGIN
-    IDS_ASSOS_AVI           "视频剪辑"
-    IDS_ASSOS_CT            "动画文件"
-    IDS_ASSOS_INPUT         "请输入扩展名和说明并选择类型"
-    IDS_ASSOS_AS            "文件关联"
-    IDS_ASSOS_DEL           "不能删除默认格式!"
+    IDS_ASSOC_AVI           "视频剪辑"
+    IDS_ASSOC_CT            "动画"
+    IDS_ASSOC_INPUT         "请输入扩展名和说明并选择类型"
+    IDS_ASSOC_AS            "文件关联"
+    IDS_ASSOC_DEL           "不能删除默认格式!"
     IDS_PLAYER_USE          "使用"
-    IDS_ASSOS_OP            "打开"
-    IDS_ASSOS_PL            "播放"
-    IDS_ASSOS_ASSOS         "关联"
-    IDS_ASSOS_EX            "扩展名"
-    IDS_ASSOS_INF           "文件说明"
-    IDS_ASSOS_TYP           "类型"
+    IDS_ASSOC_OP            "打开"
+    IDS_ASSOC_PL            "播放"
+    IDS_ASSOC_ASSOS         "关联"
+    IDS_ASSOC_EX            "扩展名"
+    IDS_ASSOC_INF           "文件说明"
+    IDS_ASSOC_TYP           "类型"
     IDS_OTHER_REALONLINE    "Real 在线支持"
     IDS_OTHER_REALOK        "Real 在线支持注册成功 !"
     IDS_OTHER_REALFAIL      "Real 在线支持注册失败，请重试 !"
@@ -1264,7 +1339,7 @@ BEGIN
     IDS_VIDEO_VOD3D         "Direct3D(XP/Vista/Win7)"
     IDS_AUDIO_STM           "变速但声调不变"
     IDS_AUDIO_STM_INFO      "改变播放速度时不改变声调只改变音频的节奏"
-    IDS_ASSOS_AVS           "AviSynth 脚本"
+    IDS_ASSOC_AVS           "AviSynth 脚本"
     IDS_MESSAGE_AVS         "安装成功！"
     IDS_VIDEO_SCA           "缩放滤镜"
     IDS_VIDEO_SCAI          "缩放视频到指定宽度与高度，高度为-3时为按比例缩放"
@@ -1338,16 +1413,16 @@ END
 STRINGTABLE
 BEGIN
     IDS_STRING30272         "浏览"
-    IDS_STRING30273         "TXT"
-    IDS_STRING30274         "TXT"
-    IDS_STRING30275         "TXT"
-    IDS_STRING30276         "TXT"
-    IDS_STRING30277         "TXT"
-    IDS_STRING30278         "TXT"
-    IDS_STRING30279         "TXT"
-    IDS_STRING30280         "TXT"
-    IDS_STRING30281         "TXT"
-    IDS_STRING30282         "TXT"
+    IDS_STRING30273         "播放时不禁用系统屏幕保护"
+    IDS_STRING30274         "使用高级媒体信息(效果更好)"
+    IDS_STRING30275         "Real 在线关联到 MPlayer播放器"
+    IDS_STRING30276         "Real 在线关联到 DShow播放器"
+    IDS_STRING30277         "MPC-HC"
+    IDS_STRING30278         "注册 Real 在线"
+    IDS_STRING30279         "反注册 Real 在线"
+    IDS_STRING30280         "桌面"
+    IDS_STRING30281         "开始菜单"
+    IDS_STRING30282         "创建快捷方式"
     IDS_STRING30283         "TXT"
     IDS_STRING30284         "TXT"
     IDS_STRING30285         "TXT"
@@ -1404,6 +1479,24 @@ BEGIN
     IDS_STRING30324         "TXT"
     IDS_STRING30325         "TXT"
     IDS_STRING30326         "TXT"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ASSOC_AVS2          "AviSynth 脚本"
+    IDS_ASSOC_ICO           "图标"
+    IDS_ASSOC_V2            "其它视频文件"
+    IDS_ASSOC_SEC           "第2播放器"
+    IDS_ASSOC_OPEN          "使用 MPlayer 打开"
+    IDS_ASSOC_PLAY          "使用 MPlayer 播放"
+    IDS_ASSOC_RENU          "关联右键菜单:"
+    IDS_ASSOC_ICONS         "图标集:"
+    IDS_ASSOC_BADD          "添加"
+    IDS_ASSOC_BDEL          "删除"
+    IDS_ASSOC_BALL          "全选"
+    IDS_ASSOC_BNONE         "不选"
+    IDS_ASSOC_BRE           "推荐"
+    IDS_ASSOC_BOK           "确定"
 END
 
 #endif    // 中文(简体，中国) resources

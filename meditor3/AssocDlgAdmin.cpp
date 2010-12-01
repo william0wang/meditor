@@ -1,4 +1,4 @@
-// MainDlg.cpp : implementation of the CMainDlg class
+// AssocDlgAdmin.cpp : implementation of the CAssocDlgAdmin class
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -11,11 +11,11 @@
 #include <shobjidl.h>
 
 #include "AtlStdioFile.h"
-#include "MainDlg.h"
 #include "shared.h"
 #include "Reg.h"
+#include "AssocDlgAdmin.h"
 
-CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
+CAssocDlgAdmin::CAssocDlgAdmin(CString LangDll, int appLang)
 {
 	m_wndListCtrl.RegisterClass();
 
@@ -28,7 +28,10 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 	m_rightPlay = FALSE;
 	m_mpc = FALSE;
 
-	HINSTANCE old_res = NULL;
+	HINSTANCE dll = NULL, old_res = NULL;
+	if (LangDll.GetLength() > 2)
+		dll = LoadLibrary(LangDll);
+
 	if(dll) {
 		old_res = _Module.GetResourceInstance();
 		_Module.SetResourceInstance(dll);
@@ -73,8 +76,10 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 	m_str_ui_open = ResStr(IDS_ASSOC_OPEN);
 	m_str_ui_play = ResStr(IDS_ASSOC_PLAY);
 
-	if(old_res)
+	if(old_res) {
 		_Module.SetResourceInstance(old_res);
+		FreeLibrary(dll);
+	}
 
 	OSVERSIONINFO version;
 
@@ -90,23 +95,14 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 	m_program_dir.Format(_T("%s"),szFilePath);
 
 	if(appLang == 2)
-		inifile = m_program_dir + _T("massoc_en.ini");
+		inifile = m_program_dir + _T("tools\\massoc_en.ini");
 	else if(appLang == 3 || appLang == 4)
-		inifile = m_program_dir + _T("massoc_tc.ini");
+		inifile = m_program_dir + _T("tools\\massoc_tc.ini");
 	else
-		inifile = m_program_dir + _T("massoc.ini");
-
-	CString right = m_program_dir.Right(7);
-	if(right == _T("\\tools\\"))
-		m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 6);
-	else {
-		right = m_program_dir.Right(8);
-		if(right == _T("\\codecs\\"))
-			m_program_dir = m_program_dir.Left(m_program_dir.GetLength() - 7);
-	}
-
+		inifile = m_program_dir + _T("tools\\massoc.ini");
+	
 	m_mpc_exe = m_program_dir + _T("tools\\mplayerc.exe");
-	if(IsFileExist(m_mpc_exe))
+	if(FileExist(m_mpc_exe))
 		m_mpc = TRUE;
 
 	m_icons_dll = _T("micons.dll");
@@ -118,18 +114,18 @@ CMainDlg::CMainDlg(HINSTANCE dll, int appLang)
 
 }
 
-BOOL CMainDlg::PreTranslateMessage(MSG* pMsg)
+BOOL CAssocDlgAdmin::PreTranslateMessage(MSG* pMsg)
 {
 	return CWindow::IsDialogMessage(pMsg);
 }
 
-BOOL CMainDlg::OnIdle()
+BOOL CAssocDlgAdmin::OnIdle()
 {
 	return FALSE;
 }
 
 
-LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+LRESULT CAssocDlgAdmin::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
 	// center the dialog on the screen
 	CenterWindow();
@@ -177,7 +173,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	m_icon.SetCurSel(0);
 
 	CString m_skin_dir = m_program_dir + _T("skin");
-	if(IsFileExist(m_skin_dir)) {
+	if(FileExist(m_skin_dir)) {
 		TCHAR szCurPath[MAX_PATH + 1];
 		::GetCurrentDirectory(MAX_PATH,szCurPath);
 		::SetCurrentDirectory(m_skin_dir);
@@ -204,7 +200,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	return TRUE;
 }
 
-LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+LRESULT CAssocDlgAdmin::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
 	// unregister message filtering and idle updates
 	CMessageLoop* pLoop = _Module.GetMessageLoop();
@@ -215,7 +211,7 @@ LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 	return 0;
 }
 
-LRESULT CMainDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+LRESULT CAssocDlgAdmin::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	DoDataExchange(TRUE);
 
@@ -227,19 +223,18 @@ LRESULT CMainDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /
 	return 0;
 }
 
-LRESULT CMainDlg::OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+LRESULT CAssocDlgAdmin::OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	CloseDialog(wID);
 	return 0;
 }
 
-void CMainDlg::CloseDialog(int nVal)
+void CAssocDlgAdmin::CloseDialog(int nVal)
 {
-	DestroyWindow();
-	::PostQuitMessage(nVal);
+	EndDialog(nVal);
 }
 
-LRESULT CMainDlg::OnBnClickedAdd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+LRESULT CAssocDlgAdmin::OnBnClickedAdd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	CString ico;
 	CListArray < CString > tComboList;
@@ -267,11 +262,10 @@ LRESULT CMainDlg::OnBnClickedAdd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 	return 0;
 }
 
-LRESULT CMainDlg::OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+LRESULT CAssocDlgAdmin::OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	int item, subitem, i=0;
-	if(m_wndListCtrl.GetFocusItem(item, subitem))
-	{
+	if(m_wndListCtrl.GetFocusItem(item, subitem)) {
 		m_wndListCtrl.DeleteItem(item);
 		if((UINT)item < m_AssocList.size()) {
 			vector<AssocItem>::iterator it;
@@ -288,7 +282,7 @@ LRESULT CMainDlg::OnBnClickedDel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 	return 0;
 }
 
-LRESULT CMainDlg::OnBnClickedAll(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+LRESULT CAssocDlgAdmin::OnBnClickedAll(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	m_wndListCtrl.LockWindowUpdate(TRUE);
 	for(int i = 0; i < m_wndListCtrl.GetItemCount(); i++)
@@ -300,7 +294,7 @@ LRESULT CMainDlg::OnBnClickedAll(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 	return 0;
 }
 
-LRESULT CMainDlg::OnBnClickedNone(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+LRESULT CAssocDlgAdmin::OnBnClickedNone(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	m_wndListCtrl.LockWindowUpdate(TRUE);
 	for(int i = 0; i < m_wndListCtrl.GetItemCount(); i++)
@@ -312,7 +306,7 @@ LRESULT CMainDlg::OnBnClickedNone(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL
 	return 0;
 }
 
-LRESULT CMainDlg::OnBnClickedRecommand(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+LRESULT CAssocDlgAdmin::OnBnClickedRecommand(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	m_wndListCtrl.LockWindowUpdate(TRUE);
 	for(UINT i = 0; i < m_AssocList.size(); i++)
@@ -327,7 +321,7 @@ LRESULT CMainDlg::OnBnClickedRecommand(WORD wNotifyCode, WORD wID, HWND hWndCtl,
 	return 0;
 }
 
-void CMainDlg::SaveAssocIni()
+void CAssocDlgAdmin::SaveAssocIni()
 {
 	CAtlStdioFile file;
 	CString len;
@@ -368,7 +362,7 @@ void CMainDlg::SaveAssocIni()
 
 }
 
-void CMainDlg::LoadAssocINI()
+void CAssocDlgAdmin::LoadAssocINI()
 {
 	CAtlStdioFile file;
 	AssocItem item;
@@ -563,7 +557,7 @@ void CMainDlg::LoadAssocINI()
 	}
 }
 
-void CMainDlg::InitBasicList()
+void CAssocDlgAdmin::InitBasicList()
 {
 	m_wndListCtrl.SetFocusSubItem( TRUE );
 	m_wndListCtrl.ShowHeaderSort(FALSE);
@@ -649,7 +643,7 @@ void CMainDlg::InitBasicList()
 
 
 
-bool CMainDlg::IsAssoced(CString ext)
+bool CAssocDlgAdmin::IsAssoced(CString ext)
 {
 	CReg reg;
 	TCHAR dll[256], *sp;
@@ -687,7 +681,7 @@ bool CMainDlg::IsAssoced(CString ext)
 	return false;
 }
 
-bool CMainDlg::AssocExtDefault(CString ext, CString info, CString icons, int type, bool bAssoc)
+bool CAssocDlgAdmin::AssocExtDefault(CString ext, CString info, CString icons, int type, bool bAssoc)
 {
 	CReg reg;
 	CString SubKey, Name, Content;
@@ -719,11 +713,11 @@ bool CMainDlg::AssocExtDefault(CString ext, CString info, CString icons, int typ
 		Name =  _T("");
 		SubKey =  _T("SOFTWARE\\Classes\\MPlayer.AssocFile.") + ext + _T("\\DefaultIcon");
 
-		if(IsFileExist(_T("icons\\")  +ext +_T(".ico")))
+		if(FileExist(_T("icons\\")  +ext +_T(".ico")))
 			Content = m_program_dir +_T("icons\\") +ext +_T(".ico");
 		else if(is_flash)
 			Content = m_editor_exe + _T(",1");
-		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
+		else if(FileExist(m_icons_dll) && icons.GetLength() > 0)
 			Content = m_icons_dll +_T(",") + icons;
 		else
 			Content =  m_player_exe + _T(",0");
@@ -783,7 +777,7 @@ bool CMainDlg::AssocExtDefault(CString ext, CString info, CString icons, int typ
 	return true;
 }
 
-bool CMainDlg::AssocExtension(CString ext, CString info, CString icons, int type, bool Assoc)
+bool CAssocDlgAdmin::AssocExtension(CString ext, CString info, CString icons, int type, bool Assoc)
 {
 	CReg reg;
 	CString SubKey, Name, Content, Player;
@@ -834,11 +828,11 @@ bool CMainDlg::AssocExtension(CString ext, CString info, CString icons, int type
 		reg.SetValue_S_STR(HKEY_CLASSES_ROOT,SubKey, Name ,info);
 
 		SubKey =  _T("mplayer.") + ext + _T("\\DefaultIcon");
-		if(IsFileExist(_T("icons\\")  +ext +_T(".ico")))
+		if(FileExist(_T("icons\\")  +ext +_T(".ico")))
 			Content = m_program_dir +_T("icons\\") +ext +_T(".ico");
 		else if(is_flash)
 			Content =  m_editor_exe + _T(",1");
-		else if(IsFileExist(m_icons_dll) && icons.GetLength() > 0)
+		else if(FileExist(m_icons_dll) && icons.GetLength() > 0)
 			Content = m_icons_dll +_T(",") + icons;
 		else if(is_inner && m_mpc)
 			Content =  m_mpc_exe + _T(",0");
@@ -951,7 +945,7 @@ bool CMainDlg::AssocExtension(CString ext, CString info, CString icons, int type
 	return true;
 }
 
-void CMainDlg::AssocDefaults()
+void CAssocDlgAdmin::AssocDefaults()
 {
 	CReg reg;
 	CString SubKey, Name, Content;
@@ -988,9 +982,9 @@ void CMainDlg::AssocDefaults()
 	}
 }
 
-void CMainDlg::ApplyChange()
+void CAssocDlgAdmin::ApplyChange()
 {
-	if(!IsFileExist(m_player_exe))
+	if(!FileExist(m_player_exe))
 	{
 		MessageBox(m_str_player_samedir);
 		return;
@@ -999,7 +993,7 @@ void CMainDlg::ApplyChange()
 	if(index > 0) {
 		m_icon.GetLBText(index, m_icons_str);
 		m_icons_dll = m_program_dir + _T("skin\\") + m_icons_str;
-		if(!IsFileExist(m_icons_dll))
+		if(!FileExist(m_icons_dll))
 			m_icons_dll = m_icons_org;
 	} else
 		m_icons_dll = m_icons_org;
@@ -1038,10 +1032,10 @@ void CMainDlg::ApplyChange()
 }
 
 
-void CMainDlg::ApplyDefault()
+void CAssocDlgAdmin::ApplyDefault()
 {
 	m_icons_dll = m_program_dir + _T("skin\\") + m_icons_str;
-	if(!IsFileExist(m_icons_dll))
+	if(!FileExist(m_icons_dll))
 		m_icons_dll = m_icons_org;
 	AssocDefaults();
 
