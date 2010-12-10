@@ -12,6 +12,7 @@
 #endif
 
 static ChangeWindowMessageFilterFunction ChangeWindowMessageFilterDLL = NULL;
+static CString str_other;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -228,6 +229,7 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 
 	GetDlgItem(IDC_APPLY)->SetFocus();
+	str_other = m_config.GetValue_Other();
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -301,6 +303,7 @@ bool CMEditor2Dlg::SaveAll()
 		else
 			m_config.RemoveValue(_T("meditor_last_page"),true);
 	}
+	m_config.SetValue_Other(str_other);
 	m_config.SaveConfig(m_program_dir + _T("mplayer.ini"));
 	ShowInfo(type_reload);
 	m_config.SaveConfig(m_program_dir + _T("kk.ini"),true);
