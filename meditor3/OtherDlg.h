@@ -43,6 +43,7 @@ public:
 		COMMAND_HANDLER(IDC_RADIO_MEDITOR, BN_CLICKED, OnBnClickedRadioMeditor)
 		COMMAND_HANDLER(IDC_BUTTON_ONLINE, BN_CLICKED, OnBnClickedReg)
 		COMMAND_HANDLER(IDC_BUTTON_DONLINE, BN_CLICKED, OnBnClickedDReg)
+		COMMAND_HANDLER(IDC_BUTTON_ME2, BN_CLICKED, OnBnClickedME2)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 	END_MSG_MAP()
@@ -55,6 +56,7 @@ public:
 	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 
+	LRESULT OnBnClickedME2(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 	LRESULT OnBnClickedReg(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 	LRESULT OnBnClickedDReg(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 	LRESULT OnBnClickedRadioMplayer(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);

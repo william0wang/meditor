@@ -293,3 +293,9 @@ LRESULT COtherDlg::OnBnClickedButtonLink(WORD wNotifyCode, WORD wID, HWND hWndCt
 	}
 	return 0;
 }
+
+LRESULT COtherDlg::OnBnClickedME2(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	ShellExecute(0, _T("open"), m_program_dir + _T("meditor2.exe"), _T(""), NULL, SW_SHOW);
+	return 0;
+}

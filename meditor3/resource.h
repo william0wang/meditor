@@ -155,6 +155,8 @@
 #define IDC_LISTCTRL_COLORKEY           1164
 #define IDC_STATIC_MENU                 1164
 #define IDC_LISTCTRL_TRAY               1165
+#define IDC_BUTTON2                     1166
+#define IDC_BUTTON_ME2                  1166
 #define IDS_STRING30210                 30210
 #define IDS_STRING30211                 30211
 #define IDS_STRING30212                 30212
@@ -676,7 +678,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        218
 #define _APS_NEXT_COMMAND_VALUE         32826
-#define _APS_NEXT_CONTROL_VALUE         1165
+#define _APS_NEXT_CONTROL_VALUE         1167
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
