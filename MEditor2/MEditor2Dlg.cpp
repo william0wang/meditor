@@ -224,6 +224,8 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		if(value_i >= Player && value_i <= Profile)
 			m_TabSheet.SetCurSel(value_i);
 	}
+	
+	m_config.GetValue_Integer(_T("meditor3_last_page"),value_i,true);
 	m_config.GetValue_Boolean(_T("info_to_html"), value_b, true);
 	m_config.GetValue_Boolean(_T("disable_screensaver"), value_b, true);
 

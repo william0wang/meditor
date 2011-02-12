@@ -190,7 +190,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	} else if(m_OpenType == START_ONTOP) {
 		::SetWindowPos(m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 	} else {
-		int page = mconfig.GetInteger(_T("meditor_last_page"), 0, true);
+		int page = mconfig.GetInteger(_T("meditor3_last_page"), 0, true);
 		if(page < 0 || page >= TAB_PAGE_LAST)
 			page = 0;
 		m_tablist.SelectItem(page);
@@ -301,7 +301,7 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 	
 	CString last;
 	last.Format(_T("%d"), pListNotify->m_nItem);
-	mconfig.SetValue(_T("meditor_last_page"), last, true, ex_meditor);
+	mconfig.SetValue(_T("meditor3_last_page"), last, true, ex_meditor);
 
 	switch(pListNotify->m_nItem)
 	{
@@ -354,7 +354,7 @@ LRESULT CMainDlg::OnTabSelected( LPNMHDR lpNMHDR )
 		m_OtherDlg->ShowWindow(SW_SHOW);
 		break;
 	default:
-		mconfig.RemoveValue(_T("meditor_last_page"), true);
+		mconfig.RemoveValue(_T("meditor3_last_page"), true);
 		ATLTRACE(_T("User Selected: %d\n"), pListNotify->m_nItem);
 		break;
 	}
