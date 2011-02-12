@@ -224,6 +224,8 @@ BOOL CMEditor2Dlg::OnInitDialog()
 		if(value_i >= Player && value_i <= Profile)
 			m_TabSheet.SetCurSel(value_i);
 	}
+	m_config.GetValue_Boolean(_T("info_to_html"), value_b, true);
+	m_config.GetValue_Boolean(_T("disable_screensaver"), value_b, true);
 
 	if(m_OpenType == 3)
 		::SetWindowPos(this->m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
