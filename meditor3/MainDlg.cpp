@@ -187,13 +187,13 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 		m_tablist.SelectItem(TAB_PAGE_INPUT);
 	} else if(m_OpenType == START_HOTKEY) {
 		m_tablist.SelectItem(TAB_PAGE_ASSOC);
-	} else if(m_OpenType == START_ONTOP) {
-		::SetWindowPos(m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 	} else {
 		int page = mconfig.GetInteger(_T("meditor3_last_page"), 0, true);
 		if(page < 0 || page >= TAB_PAGE_LAST)
 			page = 0;
 		m_tablist.SelectItem(page);
+		if(m_OpenType == START_ONTOP)
+			::SetWindowPos(m_hWnd,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 	}
 	
 	OSVERSIONINFO version;
