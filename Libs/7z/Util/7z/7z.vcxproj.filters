@@ -42,8 +42,10 @@
     <ClInclude Include="..\..\Types.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="7zAlloc.h" />
     <ClInclude Include="7zMain.h" />
+    <ClInclude Include="..\..\7zAlloc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\7zBuf.c">
@@ -88,7 +90,9 @@
     <ClCompile Include="..\..\Ppmd7Dec.c">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="7zAlloc.c" />
     <ClCompile Include="7zMain.c" />
+    <ClCompile Include="..\..\7zAlloc.c">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

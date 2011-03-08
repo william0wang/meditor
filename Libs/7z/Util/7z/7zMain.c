@@ -1,16 +1,15 @@
 /* 7zMain.c - Test application for 7z Decoder
-2010-07-13 : Igor Pavlov : Public domain
-2010-09-9 : William Wang : Decode7zipFile */
+2010-10-28 : Igor Pavlov : Public domain */
 
 #include <stdio.h>
 #include <string.h>
 
 #include "../../7z.h"
+#include "../../7zAlloc.h"
 #include "../../7zCrc.h"
 #include "../../7zFile.h"
 #include "../../7zVersion.h"
 
-#include "7zAlloc.h"
 #include "7zMain.h"
 
 #ifndef USE_WINDOWS_FILE
@@ -131,7 +130,14 @@ static SRes Utf16_To_Char(CBuf *buf, const UInt16 *s, int fileMode)
     {
       char defaultChar = '_';
       BOOL defUsed;
-      int numChars = WideCharToMultiByte(fileMode ? (AreFileApisANSI() ? CP_ACP : CP_OEMCP) : CP_OEMCP,
+      int numChars = WideCharToMultiByte(fileMode ?
+          (
+          #ifdef UNDER_CE
+          CP_ACP
+          #else
+          AreFileApisANSI() ? CP_ACP : CP_OEMCP
+          #endif
+          ) : CP_OEMCP,
           0, s, len, (char *)buf->data, size, &defaultChar, &defUsed);
       if (numChars == 0 || numChars >= size)
         return SZ_ERROR_FAIL;
@@ -193,7 +199,7 @@ static SRes PrintString(const UInt16 *s)
   Buf_Init(&buf);
   res = Utf16_To_Char(&buf, s, 0);
   if (res == SZ_OK)
-    printf("%s", buf.data);
+    fputs((const char *)buf.data, stdout);
   Buf_Free(&buf, &g_Alloc);
   return res;
 }

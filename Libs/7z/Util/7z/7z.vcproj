@@ -178,6 +178,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\7zAlloc.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\7zAlloc.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\7zBuf.c"
 				>
 				<FileConfiguration
@@ -502,30 +510,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="7zAlloc.c"
-			>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					PreprocessorDefinitions=""
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					PreprocessorDefinitions=""
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="7zAlloc.h"
-			>
-		</File>
 		<File
 			RelativePath="7zMain.c"
 			>

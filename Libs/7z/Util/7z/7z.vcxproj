@@ -179,6 +179,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\7z.h" />
+    <ClInclude Include="..\..\7zAlloc.h" />
     <ClInclude Include="..\..\7zBuf.h" />
     <ClInclude Include="..\..\7zCrc.h" />
     <ClInclude Include="..\..\7zFile.h" />
@@ -190,10 +191,10 @@
     <ClInclude Include="..\..\Ppmd.h" />
     <ClInclude Include="..\..\Ppmd7.h" />
     <ClInclude Include="..\..\Types.h" />
-    <ClInclude Include="7zAlloc.h" />
     <ClInclude Include="7zMain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\7zAlloc.c" />
     <ClCompile Include="..\..\7zBuf.c" />
     <ClCompile Include="..\..\7zCrc.c" />
     <ClCompile Include="..\..\7zCrcOpt.c" />
@@ -212,7 +213,6 @@
     <ClCompile Include="..\..\LzmaDec.c" />
     <ClCompile Include="..\..\Ppmd7.c" />
     <ClCompile Include="..\..\Ppmd7Dec.c" />
-    <ClCompile Include="7zAlloc.c" />
     <ClCompile Include="7zMain.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
