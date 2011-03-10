@@ -207,6 +207,7 @@
     <ClCompile Include="..\..\7zIn.c" />
     <ClCompile Include="..\..\7zStream.c" />
     <ClCompile Include="..\..\Bcj2.c" />
+    <ClCompile Include="..\..\Bra.c" />
     <ClCompile Include="..\..\Bra86.c" />
     <ClCompile Include="..\..\CpuArch.c" />
     <ClCompile Include="..\..\Lzma2Dec.c" />
