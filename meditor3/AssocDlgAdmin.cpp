@@ -353,8 +353,10 @@ void CAssocDlgAdmin::SaveAssocIni()
 				type = ASSOC_TYPE_DSHOW;
 			else if(stype == m_type_inner)
 				type = ASSOC_TYPE_DSHOWINNER;
-
-			len.Format(_T("%s,%s,%d,%s,%d"), ext, info,	type, icon, m_AssocList[i].m_recommand);
+			int recommand = 0;
+			if(i < m_AssocList.size())
+				recommand = m_AssocList[i].m_recommand;
+			len.Format(_T("%s,%s,%d,%s,%d"), ext, info,	type, icon, recommand);
 			file.WriteLine(len);
 		}
 		file.Close();
