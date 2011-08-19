@@ -185,7 +185,8 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	if(m_OpenType == START_HOTKEY) {
 		::SetWindowPos(m_hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 		m_tablist.SelectItem(TAB_PAGE_INPUT);
-	} else if(m_OpenType == START_HOTKEY) {
+	} else if(m_OpenType == START_ASSOC) {
+		::SetWindowPos(m_hWnd, HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
 		m_tablist.SelectItem(TAB_PAGE_ASSOC);
 	} else {
 		int page = mconfig.GetInteger(_T("meditor3_last_page"), 0, true);
