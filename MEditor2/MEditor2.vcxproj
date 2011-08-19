@@ -378,6 +378,7 @@
     <ClCompile Include="MEditor2Dlg.cpp" />
     <ClCompile Include="MAudioPage.cpp" />
     <ClCompile Include="MDecodePage.cpp" />
+    <ClCompile Include="MOtherPage.cpp" />
     <ClCompile Include="MPlayerPage.cpp" />
     <ClCompile Include="MProfilePage.cpp" />
     <ClCompile Include="MResumePage.cpp" />
@@ -423,6 +424,7 @@
     <ClInclude Include="MEditor2Dlg.h" />
     <ClInclude Include="MAudioPage.h" />
     <ClInclude Include="MDecodePage.h" />
+    <ClInclude Include="MOtherPage.h" />
     <ClInclude Include="MPlayerPage.h" />
     <ClInclude Include="MProfilePage.h" />
     <ClInclude Include="MResumePage.h" />

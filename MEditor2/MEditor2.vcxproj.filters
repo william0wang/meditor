@@ -45,6 +45,9 @@
     <ClCompile Include="MDecodePage.cpp">
       <Filter>源文件\Page</Filter>
     </ClCompile>
+    <ClCompile Include="MOtherPage.cpp">
+      <Filter>源文件\Page</Filter>
+    </ClCompile>
     <ClCompile Include="MPlayerPage.cpp">
       <Filter>源文件\Page</Filter>
     </ClCompile>
@@ -145,6 +148,9 @@
       <Filter>头文件\Page</Filter>
     </ClInclude>
     <ClInclude Include="MDecodePage.h">
+      <Filter>头文件\Page</Filter>
+    </ClInclude>
+    <ClInclude Include="MOtherPage.h">
       <Filter>头文件\Page</Filter>
     </ClInclude>
     <ClInclude Include="MPlayerPage.h">

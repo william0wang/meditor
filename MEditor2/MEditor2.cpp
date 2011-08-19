@@ -75,7 +75,8 @@ BOOL CMEditor2App::InitInstance()
 	(_tcsrchr(szFilePath, _T('\\')))[1] = 0;
 	program_dir.Format(_T("%s"),szFilePath);
 
-	if(sCmdLine.Find(_T("Open Editor")) >= 0)
+	if(sCmdLine.Find(_T("Open Editor")) >= 0 ||
+		sCmdLine.Find(_T("--open-ontop")) >= 0)
 		OpenType = 3;
 
 	CString langfile_tc;
