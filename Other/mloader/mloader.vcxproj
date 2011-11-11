@@ -53,16 +53,19 @@
     <IntDir>$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)\Bin\$(Configuration)\</OutDir>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>h:\SDKs\WTL81_9127\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)\Bin\</OutDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>h:\SDKs\WTL81_9127\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_vc90|Win32'">
     <IntDir>$(SolutionDir)\Bin\Build\$(ConfigurationName)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)\Bin\</OutDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>h:\SDKs\WTL81_9127\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
