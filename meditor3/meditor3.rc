@@ -41,8 +41,8 @@ CAPTION "About"
 FONT 9, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,132,61,50,14
-    CTEXT           "meditor v3.0\n\nCopyright (C) 2007-2010 william0wang",IDC_STATIC,35,12,126,28
-    ICON            IDR_MAINFRAME,IDC_STATIC,7,11,18,18
+    CTEXT           "meditor v3.0\n\nCopyright (C) 2007-2012 william0wang",IDC_STATIC,35,12,126,28
+    ICON            IDR_MAINFRAME,IDC_STATIC,7,11,20,20
     GROUPBOX        "",IDC_STATIC,4,4,178,55
 END
 
@@ -567,7 +567,7 @@ BEGIN
             VALUE "FileDescription", "meditor"
             VALUE "FileVersion", "3.0.0.3"
             VALUE "InternalName", "meditor"
-            VALUE "LegalCopyright", "Copyright (C) 2007-2010 william0wang"
+            VALUE "LegalCopyright", "Copyright (C) 2007-2012 william0wang"
             VALUE "OriginalFilename", "meditor.exe"
             VALUE "ProductName", "meditor"
             VALUE "ProductVersion", "3.0.0.3"

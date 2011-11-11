@@ -82,7 +82,7 @@ FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
     LTEXT           "MPlayer 首选项 v2.1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2007-2009 william0wang",IDC_STATIC,42,27,134,8
+    LTEXT           "Copyright (C) 2007-2012 william0wang",IDC_STATIC,42,27,134,8
     DEFPUSHBUTTON   "确定",IDOK,126,41,50,14,WS_GROUP
 END
 
@@ -1155,7 +1155,7 @@ BEGIN
             VALUE "FileDescription", "MPlayer Preferences"
             VALUE "FileVersion", "2.1.0"
             VALUE "InternalName", "meditor2.exe"
-            VALUE "LegalCopyright", "(C) 2007-2010 william0wang"
+            VALUE "LegalCopyright", "(C) 2007-2012 william0wang"
             VALUE "OriginalFilename", "meditor2.exe"
             VALUE "ProductName", "MPlayer  Preferences"
             VALUE "ProductVersion", "2.1.0.0"
