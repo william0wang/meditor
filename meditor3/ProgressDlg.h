@@ -8,6 +8,8 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
+#include "aero.h"
+
 class CProgressDlg : public CDialogImpl<CProgressDlg>,
 	public CWinDataExchange<CProgressDlg>
 {
