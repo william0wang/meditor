@@ -27,8 +27,9 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	//}}AFX_DATA_INIT
 	m_vdecode.RemoveAll();
 	m_adecode.RemoveAll();
-	m_vdecode.Add(_T("divxh264win"));
 	m_vdecode.Add(_T("coreavcwindows"));
+	m_vdecode.Add(_T("lavcuvidwin"));
+	m_vdecode.Add(_T("lavcuvid"));
 	m_vdecode.Add(_T("coreavc"));
 	m_vdecode.Add(_T("divxh264"));
 	m_vdecode.Add(_T("diavc"));
@@ -160,8 +161,7 @@ CMDecodePage::CMDecodePage(CWnd* pParent /*=NULL*/)
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE1));
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE2));
 	m_str_codecs.Add(ResStr(IDS_DECODE_CODEFILE3));
-	m_str_codecs.Add(_T("CoreAVC DirectShow Native"));
-	m_str_codecs.Add(_T("DivX H.264 Decoder"));
+	m_str_codecs.Add(_T("LAV CUVID Decoder (Testing)"));
 }
 
 
@@ -465,10 +465,7 @@ void CMDecodePage::InitFromConfig()
 			m_codecs.SetCurSel(coreavc);
 			break;
 		case 3:
-			m_codecs.SetCurSel(coreavcds);
-			break;
-		case 4:
-			m_codecs.SetCurSel(divxh264);
+			m_codecs.SetCurSel(lavcuvid);
 			break;
 		default:
 			m_codecs.SetCurSel(inner);
@@ -702,21 +699,13 @@ void CMDecodePage::SaveConfig()
 				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.coreavc.conf"));
 		m_last_extract =  coreavc;
 		break;
-	case coreavcds:
+	case lavcuvid:
 		RegCoreCodec();
 		m_cfg->SetValue(_T("cofing_codecs") , _T("3") , true , ex_meditor);
-		if(m_last_extract !=  coreavcds)
+		if(m_last_extract !=  lavcuvid)
 			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
-				m_program_dir+_T("codecs.ini"), true, true, _T("codecs.coreavcdshow.conf"));
-		m_last_extract =  coreavcds;
-		break;
-	case divxh264:
-		RegCoreCodec();
-		m_cfg->SetValue(_T("cofing_codecs") , _T("4") , true , ex_meditor);
-		if(m_last_extract !=  divxh264)
-			ExtractResource(MAKEINTRESOURCE(IDZ_CODECS_INI),TEXT("CODECS_INI"),
-			m_program_dir+_T("codecs.ini"), true, true, _T("codecs.divxh264.conf"));
-		m_last_extract =  divxh264;
+			m_program_dir+_T("codecs.ini"), true, true, _T("codecs.lavcuvid.conf"));
+		m_last_extract =  lavcuvid;
 		break;
 	default:
 		m_cfg->RemoveValue(_T("cofing_codecs"), true);
