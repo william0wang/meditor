@@ -1987,6 +1987,11 @@ BEGIN
     IDS_VIDEO_VOGLAUTO      "OpenGL(自动检测)"
 END
 
+STRINGTABLE
+BEGIN
+    IDS_VIDEO_VOD3DNOAL     "Direct3D(禁用自动颜色修正)"
+END
+
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 

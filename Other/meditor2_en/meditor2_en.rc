@@ -800,6 +800,7 @@ END
 
 STRINGTABLE
 BEGIN
+    IDS_VIDEO_VOD3DNOAL     "Direct3D(No auto color range fix)"
     IDS_ASSOC_AVS           "AviSynth Script"
     IDS_ASSOC_ICO           "Icon"
     IDS_ASSOC_V2            "Other Video"

@@ -70,6 +70,7 @@ CMVideoPage::CMVideoPage(CWnd* pParent /*=NULL*/)
 	m_deblocking.Add(ResStr(IDS_VIDEO_DB6));
 
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOD3D));
+	m_vo_str.Add(ResStr(IDS_VIDEO_VOD3DNOAL));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VO1));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOGL));
 	m_vo_str.Add(ResStr(IDS_VIDEO_VOGLAUTO));
@@ -577,6 +578,8 @@ void CMVideoPage::InitFromConfig()
 	{
 		if(value_s == _T("direct3d") || value_s.Find(_T("direct3d:")) == 0) {
 			m_vo.SetCurSel(direct3d);
+			if(value_s.Find(_T(":noautolevel")) > 0)
+				m_vo.SetCurSel(direct3d_nolevel);
 			if(value_s.Find(_T(":levelconv")) > 0)
 				m_d3dfix = TRUE;
 		} else if(value_s == _T("gl2") || value_s.Find(_T("gl2:")) == 0) {
@@ -939,6 +942,12 @@ void CMVideoPage::SaveConfig()
 			m_cfg->SetValue(_T("vo") , _T("direct3d:levelconv"));
 		else
 			m_cfg->SetValue(_T("vo") , _T("direct3d"));
+		break;
+	case direct3d_nolevel:
+		if(m_d3dfix)
+			m_cfg->SetValue(_T("vo") , _T("direct3d:noautolevel:levelconv"));
+		else
+			m_cfg->SetValue(_T("vo") , _T("direct3d:noautolevel"));
 		break;
 	case gl:
 		glstr += _T(":yuv=2");

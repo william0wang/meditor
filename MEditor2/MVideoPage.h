@@ -60,6 +60,7 @@ enum Deblocking
 enum vo
 {
 	direct3d,
+	direct3d_nolevel,
 	directx,
 	gl,
 	glauto,

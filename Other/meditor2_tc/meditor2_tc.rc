@@ -799,6 +799,7 @@ END
 
 STRINGTABLE
 BEGIN
+    IDS_VIDEO_VOD3DNOAL     "Direct3D(禁用自動顏色修正)"
     IDS_ASSOC_AVS           "AviSynth 脚本"
     IDS_ASSOC_ICO           "圖示"
     IDS_ASSOC_V2            "其他視頻檔"
