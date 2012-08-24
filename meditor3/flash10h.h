@@ -263,6 +263,7 @@ IShockwaveFlash : IDispatch
         /*[in]*/ BSTR pVal ) = 0;
 };
 
+#if _MSC_VER < 1700
 struct __declspec(uuid("c5598e60-b307-11d1-b27d-006008c3fbfb"))
 ICanHandleException : IUnknown
 {
@@ -274,6 +275,7 @@ ICanHandleException : IUnknown
         /*[in]*/ EXCEPINFO * pExcepInfo,
         /*[in]*/ VARIANT * pvar ) = 0;
 };
+#endif
 
 struct __declspec(uuid("d27cdb6d-ae6d-11cf-96b8-444553540000"))
 _IShockwaveFlashEvents : IDispatch

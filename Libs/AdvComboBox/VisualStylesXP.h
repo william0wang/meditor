@@ -50,7 +50,11 @@
 #pragma once
 
 #include <uxtheme.h>
+#if ((NTDDI_VERSION >= NTDDI_VISTA || defined(__VSSYM32_H__)) && !defined(SCHEMA_VERIFY_VSSYM32))
+#include "vssym32.h"
+#else
 #include <tmschema.h>
+#endif
 
 class CVisualStylesXP
 {
