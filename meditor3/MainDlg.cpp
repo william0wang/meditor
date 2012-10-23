@@ -394,7 +394,7 @@ LRESULT CMainDlg::OnLogTxt(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHand
 
 LRESULT CMainDlg::OnGotohome(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
-	ShellExecute(0, _T("open"),_T("http://mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
+	ShellExecute(0, _T("open"),_T("http://www.mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
 	return 0;
 }
 
@@ -404,7 +404,7 @@ LRESULT CMainDlg::OnShowHelp(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHa
 	if(FileExist(m_help))
 		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
 	else
-		ShellExecute(0, _T("open"),_T("http://mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
+		ShellExecute(0, _T("open"),_T("http://www.mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
 	return 0;
 }
 
@@ -414,7 +414,7 @@ LRESULT CMainDlg::OnShowlog(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHan
 	if(FileExist(m_help))
 		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
 	else
-		ShellExecute(0, _T("open"),_T("http://mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
+		ShellExecute(0, _T("open"),_T("http://www.mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
 	return 0;
 }
 
@@ -424,7 +424,7 @@ LRESULT CMainDlg::OnShowfaq(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHan
 	if(FileExist(m_help))
 		ShellExecute(0, _T("open"), m_help, _T(""), NULL, SW_SHOW);
 	else
-		ShellExecute(0, _T("open"),_T("http://mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
+		ShellExecute(0, _T("open"),_T("http://www.mplayer-ww.com/") , _T(""), NULL, SW_SHOW);
 	return 0;
 }
 
