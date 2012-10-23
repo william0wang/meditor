@@ -155,8 +155,12 @@ UINT CheckUpdate(LPVOID pParam)
 	string xmlstr;
 	string rsvn = "0", rdate = "0", bsvn = "0", bdate = "0";
 
-	if(!get_url_string(L"http://mplayer-ww.sourceforge.net/html/version.xml", xmlstr))
-		goto NOUPDATE;
+	if(!get_url_string(L"http://www.mplayer-ww.com/html/version.xml", xmlstr)) {
+		if(!get_url_string(L"http://mplayer.10ln.com/html/version.xml", xmlstr)) {
+			if(!get_url_string(L"http://mplayer-ww.sourceforge.net/html/version.xml", xmlstr))
+				goto NOUPDATE;
+		}
+	}
 
 	tixml.Parse(xmlstr.c_str());
 
